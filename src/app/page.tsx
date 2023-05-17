@@ -1,3 +1,4 @@
+import Layout from '@components/Layout'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -5,5 +6,10 @@ export const metadata: Metadata = {
 }
 
 export default () => {
-	return <div>Hi</div>
+	const isDark = true
+	return (
+		<Layout>
+			<div>hi</div>
+		</Layout>
+	)
 }

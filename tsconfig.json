@@ -28,6 +28,12 @@
       "@app/*": [
         "./src/app/*"
       ],
+      "@theme/*": [
+        "./src/theme/*"
+      ],
+      "@components/*": [
+        "./src/components/*"
+      ],
       "@/*": [
         "./src/*"
       ]
