@@ -90,8 +90,10 @@ export default {
   moduleNameMapper: {
     '^@app/(.*)$': '<rootDir>/src/app/$1',
     '^@theme/(.*)$': '<rootDir>/src/theme/$1',
-    '^@components/(.*)$': '<rootDir>/src/components/$1'
-    //'^(\\.{1,2}/.*)\\.js$': '$1',
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@helpers/(.*)$': '<rootDir>/src/helpers/$1',
+    'styled-components': '<rootDir>/__mocks__/styledComponentsMock.tsx'
+    // '^(\\.{1,2}/.*)\\.js$': '$1',
    },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
