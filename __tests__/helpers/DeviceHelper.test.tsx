@@ -1,6 +1,6 @@
 import { device, deviceSize } from '@helpers/DeviceHelper'
 
-describe('DeviceHeloer', () => {
+describe('DeviceHelper', () => {
 	it('should show device size mobile', async () => {
 		const test = device.mobile
 		expect(test).toEqual(`(min-width: ${deviceSize.mobile})`)
