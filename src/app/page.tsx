@@ -1,15 +1,16 @@
 import Layout from '@components/Layout'
+import Content from '@components/pages/vault/Content'
+
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-	title: 'My Page Title'
+	title: 'Derby Finance - Welcome to the race'
 }
 
 export default () => {
-	const isDark = true
 	return (
 		<Layout>
-			<div>hi</div>
+			<Content />
 		</Layout>
 	)
 }
