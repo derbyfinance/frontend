@@ -1,4 +1,3 @@
-import Amount from '@components/Amount'
 import { styled } from 'styled-components'
 
 interface Props {
@@ -25,11 +24,9 @@ const Block = styled.div`
 	display: flex;
 	gap: 0.5em;
 `
-
 const Icon = styled.div`
 	margin-top: 0.5em;
 `
-
 const Info = styled.div``
 
 const Value = styled.div`
@@ -37,7 +34,6 @@ const Value = styled.div`
 	font-size: 1.5em;
 	line-height: 1.5em;
 `
-
 const Label = styled.span`
 	font-family: ${({ theme }) => theme.fonts.robotoMedium};
 	color: ${({ theme }) => theme.style.colorLabel};

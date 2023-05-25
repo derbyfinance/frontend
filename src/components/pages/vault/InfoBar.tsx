@@ -1,6 +1,6 @@
 import { Title } from '@components/fonts/Title'
 import { styled } from 'styled-components'
-import NetworkInfo from './NetworkInfo'
+import NetworkInfo from '@components/NetworkInfo'
 import LockIcon from '@components/icons/LockIcon'
 import VaultIcon from '@components/icons/VaultIcon'
 import MembersIcon from '@components/icons/MembersIcon'
