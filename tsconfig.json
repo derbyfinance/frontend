@@ -34,6 +34,15 @@
       "@components/*": [
         "./src/components/*"
       ],
+      "@helpers/*": [
+        "./src/helpers/*"
+      ],
+      "@functions/*": [
+        "./src/functions/*"
+      ],
+      "@models/*": [
+        "./src/models/*"
+      ],
       "@/*": [
         "./src/*"
       ]

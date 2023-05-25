@@ -92,6 +92,8 @@ export default {
     '^@theme/(.*)$': '<rootDir>/src/theme/$1',
     '^@components/(.*)$': '<rootDir>/src/components/$1',
     '^@helpers/(.*)$': '<rootDir>/src/helpers/$1',
+    '^@functions/(.*)$': '<rootDir>/src/functions/$1',
+    '^@models/(.*)$': '<rootDir>/src/models/$1',
     'styled-components': '<rootDir>/__mocks__/styledComponentsMock.tsx'
     // '^(\\.{1,2}/.*)\\.js$': '$1',
    },

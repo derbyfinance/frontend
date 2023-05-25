@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --coverage --colors --silent --verbose --watchAll=false",
-    "test:debug": "NODE_OPTIONS=--experimental-vm-modules jest --watchAll --coverage --color --detectOpenHandles --silent=false --verbose=true --debug",
+    "test:debug": "yarn jest --clearCache && NODE_OPTIONS=--experimental-vm-modules jest --watchAll --coverage --color --detectOpenHandles --silent=false --verbose=true --debug",
     "coverage": "open -a \"Google Chrome\" ./coverage/index.html"
   },
   "dependencies": {

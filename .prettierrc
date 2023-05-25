@@ -9,8 +9,10 @@
       "^react$",
       "^@core/(.*)$",
       "<THIRD_PARTY_MODULES>",
-      "^@server/(.*)$",
-      "^@ui/(.*)$",
+      "^@functions/(.*)$",
+      "^@models/(.*)$",
+      "^@helpers/(.*)$",
+      "^@components/(.*)$",
       "^[./]"
     ],
     "importOrderSeparation": true,
