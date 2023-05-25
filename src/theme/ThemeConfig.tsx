@@ -60,11 +60,38 @@ export const GlobalStyles = createGlobalStyle`
         list-style: none;
     }
 
+    html {
+        height: 100%;
+    }
+
     body {
         font-size: ${({ theme }) => theme.style.fontSize}px;
         color: ${({ theme }) => theme.style.colorText};
         background-color: ${({ theme }) => theme.style.colorBg};
         font-family: ${({ theme }) => theme.fonts.robotoRegular};
+        line-height: 1.75em;
+        height: 100%;
+    }
+
+    h1, h2, h3 {
+        font-family: ${({ theme }) => theme.fonts.slabMedium};        
+        color: ${({ theme }) => theme.style.colorSecondary};
+        font-size: 1.625em;
+    }
+
+    h2, h3 {
+        color: inherit;
+    }
+
+    h3 {
+        font-size: 1.5em;
+    }
+
+    p {
+        font-family: ${({ theme }) => theme.fonts.robotoMedium};
+        color: ${({ theme }) => theme.style.colorLabel};
+        margin: 0.5em 0;
+
     }
 `
 
@@ -80,8 +107,20 @@ const fonts: DefaultFonts = {
 
 const lightThemeStyle: DefaultStyle = {
 	fontSize: 16,
+	radius: 6,
 	colorBg: '#fff',
-	colorText: '#160344'
+	colorText: '#160344',
+	colorCta: '#F13ABC',
+	colorBorder: '#E2E2E2',
+	colorSecondary: '#5F08EE',
+	colorLabel: '#A9A6AE',
+	buttonColor: '#FFF',
+	buttonColorBg:
+		'linear-gradient(90deg, rgb(254, 94, 118) 0%, rgb(241, 58, 188) 100.33%)',
+	buttonColorCtaBg: '#39079b',
+	backgroundGradient:
+		'linear-gradient(149.11deg, #f13abc 0.41%, #5f08ee 99.26%)',
+	backgroundCtaGradient: 'linear-gradient(93.03deg, #1D08EE 0%, #F13ABC 100%)'
 }
 
 const darkThemeStyle: DefaultStyle = { ...lightThemeStyle }

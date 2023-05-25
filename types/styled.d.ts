@@ -13,39 +13,18 @@ declare module 'styled-components' {
 
     export interface DefaultStyle {
         fontSize: number
+        radius: number
         colorBg: string
         colorText: string
-        // textMain: string
-        // textSecondary: string
-        // textTertiary: string
-        // textFaded: string
-        // textError: string
-        // textWalletInfo: string
-        // backgroundMain: string
-        // backgroundMainForToggle: string
-        // backgroundForTable: string
-        // backgroundChart: string
-        // headerMain: string
-        // iconColor: string
-        // buttonMain: string,
-        // tabDepositWithdrawActive: string
-        // buttonActive: string
-        // gradientMain: string
-        // gradientWallet: string
-        // gradientTwo: string
-        // borderMain: string
-        // borderSecondary: string
-        // borderTertiary: string
-        // borderFaded: string
-        // listHover: string
-        // textBalancePositive: string
-        // online: string
-        // textBalanceNegative: string
-        // modalOverlay: string
-        // vaultTitle: string
-        // errorBackground: string
-        // changeLabelGreen: string
-        // colorTableLabel: string
+        colorCta: string
+        colorSecondary: string
+        colorBorder: string
+        colorLabel: string
+        buttonColor: string
+        buttonColorBg: string
+        buttonColorCtaBg: string
+        backgroundGradient: string
+        backgroundCtaGradient: string
     }
 
     export interface DefaultTheme {
