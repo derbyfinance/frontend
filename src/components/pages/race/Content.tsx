@@ -3,6 +3,7 @@
 import { styled } from 'styled-components'
 import RaceDescription from './RaceDescription'
 import RaceCounter from './RaceCounter'
+import RaceLeaderboard from './RaceLeaderboard'
 
 export default () => {
 	return (
@@ -12,13 +13,20 @@ export default () => {
 
 			<RaceDescription />
 			<RaceCounter />
-			<h1>Leaderboard</h1>
-			<p>
-				Who are the best of the best. The 5 best are shown here as inspiration
-				to follow.
-			</p>
+			<InfoContainer>
+				<h1>Leaderboard</h1>
+				<p>
+					Who are the best of the best. The 5 best are shown here as inspiration
+					to follow.
+				</p>
+			</InfoContainer>
+			<RaceLeaderboard />
 		</Container>
 	)
 }
 
 const Container = styled.div``
+
+const InfoContainer = styled.div`
+	margin-top: 2em;
+`

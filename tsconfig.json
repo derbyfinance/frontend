@@ -43,6 +43,12 @@
       "@models/*": [
         "./src/models/*"
       ],
+      "@network/*": [
+        "./src/network/*"
+      ],
+      "@services/*": [
+        "./src/services/*"
+      ],
       "@/*": [
         "./src/*"
       ]

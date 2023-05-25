@@ -1,0 +1,41 @@
+{
+	"count": 6,
+	"results": [
+		{
+			"name": "TaekwondoHermione",
+			"followers": 38,
+			"invested": 9900000,
+			"performance": 6.32
+		},
+		{
+			"name": "MoveMudblood",
+			"followers": 144,
+			"invested": 7310000,
+			"performance": 5.93
+		},
+		{
+			"name": "SailingLongbottom",
+			"followers": 12,
+			"invested": 11540000,
+			"performance": 4.38
+		},
+		{
+			"name": "BoccePortkey",
+			"followers": 2,
+			"invested": 1440000,
+			"performance": 3.92
+		},
+		{
+			"name": "BadmintonGoblet",
+			"followers": 1,
+			"invested": 981000,
+			"performance": 6.81
+		},
+		{
+			"name": "BadmintonGoblet",
+			"followers": 1,
+			"invested": 981000,
+			"performance": 6.81
+		}
+	]
+}
