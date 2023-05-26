@@ -1,8 +1,9 @@
 'use client'
 
 import { styled } from 'styled-components'
-import RaceDescription from './RaceDescription'
+
 import RaceCounter from './RaceCounter'
+import RaceDescription from './RaceDescription'
 import RaceLeaderboard from './RaceLeaderboard'
 
 export default () => {

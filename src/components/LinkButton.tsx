@@ -32,10 +32,11 @@ const Button = styled(Link)<{ $isCta: boolean; $isGhost: boolean }>`
 	border-radius: ${({ theme }) => theme.style.radius}px;
 	display: inline-block;
 
-	${({ theme, $isGhost }) =>
+	${({ $isGhost }) =>
 		$isGhost &&
 		`
+		color: inherit;
 		background: transparent;
-		border: 1px solid ${theme.style.buttonColor};
+		border: 1px solid;
 	`}
 `

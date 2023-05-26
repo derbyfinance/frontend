@@ -1,6 +1,7 @@
+import { styled } from 'styled-components'
+
 import EyeClosedIcon from '@components/icons/EyeClosedIcon'
 import EyeOpenIcon from '@components/icons/EyeOpenIcon'
-import { styled } from 'styled-components'
 
 interface Props {
 	isOpen?: boolean
@@ -9,29 +10,29 @@ interface Props {
 }
 export default ({ isOpen, handleClick, children }: Props) => {
 	return (
-		<CardHeader onClick={handleClick}>
+		<CardHeader>
 			{children}
-			<Collapse>
+			<CollapseButton onClick={handleClick}>
 				{isOpen ? <EyeClosedIcon /> : <EyeOpenIcon />}
 				<Label>{isOpen ? 'Hide' : 'Show'} explanation</Label>
-			</Collapse>
+			</CollapseButton>
 		</CardHeader>
 	)
 }
 
 const CardHeader = styled.div`
 	padding: 2em;
-	cursor: pointer;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	gap: 0.5em;
 `
-const Collapse = styled.div`
+const CollapseButton = styled.button`
 	font-family: ${({ theme }) => theme.fonts.slabRegular};
 	color: ${({ theme }) => theme.style.colorLabel};
 	font-size: 0.875em;
 	vertical-align: middle;
+	cursor: pointer;
 
 	> svg {
 		vertical-align: middle;
