@@ -7,4 +7,7 @@ export default {
     trailingSlash: false,
     reactStrictMode: true,
     swcMinify: true,
+    compiler: {
+        styledComponents: true
+    }
 }
