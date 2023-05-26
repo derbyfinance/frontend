@@ -16,10 +16,12 @@ declare module 'styled-components' {
         radius: number
         colorBg: string
         colorText: string
+        colorLink: string
         colorCta: string
         colorSecondary: string
         colorBorder: string
         colorLabel: string
+        colorHover: string
         buttonColor: string
         buttonColorBg: string
         buttonColorCtaBg: string

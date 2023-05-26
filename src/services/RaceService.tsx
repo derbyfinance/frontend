@@ -1,6 +1,9 @@
-import LeaderboardListDtoModel from '@models/dto/LeaderboardListDtoModel'
 import ApiClient from '@network/ApiClient'
 
-export const GetLeaderboard = (): Promise<LeaderboardListDtoModel> => {
-	return ApiClient.get('/race/leaderboard')
+import LeaderboardListDtoModel from '@models/dto/LeaderboardListDtoModel'
+
+export const GetLeaderboard = (
+	amount?: number
+): Promise<LeaderboardListDtoModel> => {
+	return ApiClient.get(`/race/leaderboard${amount ? `?size=${amount}` : ''}`)
 }

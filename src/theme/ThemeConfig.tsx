@@ -58,6 +58,12 @@ export const GlobalStyles = createGlobalStyle`
         text-decoration: none;
         outline: none;
         list-style: none;
+        border: none;
+        background: none;
+        font-size: inherit;
+        font-family: inherit;
+        line-height: inherit;
+        color: inherit;
     }
 
     html {
@@ -111,10 +117,12 @@ const lightThemeStyle: DefaultStyle = {
 	radius: 6,
 	colorBg: '#fff',
 	colorText: '#160344',
+	colorLink: '#2775C9',
 	colorCta: '#F13ABC',
 	colorBorder: '#E2E2E2',
 	colorSecondary: '#5F08EE',
 	colorLabel: '#A9A6AE',
+	colorHover: '#f5f5f5',
 	buttonColor: '#FFF',
 	buttonColorBg:
 		'linear-gradient(90deg, rgb(254, 94, 118) 0%, rgb(241, 58, 188) 100.33%)',
