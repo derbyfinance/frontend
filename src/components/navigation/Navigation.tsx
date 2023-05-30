@@ -1,8 +1,10 @@
-import Logo from '@components/icons/Logo'
 import Link from 'next/link'
 import { styled } from 'styled-components'
+
+import LinkButton from '@components/buttons/LinkButton'
+import Logo from '@components/icons/Logo'
+
 import NavLink from './NavLink'
-import LinkButton from '@components/LinkButton'
 
 export default () => {
 	return (

@@ -1,21 +1,27 @@
+import { styled } from 'styled-components'
+
+import { StartCountdown } from '@functions/CounterFunction'
+import { ToCurrency } from '@functions/CurrencyFunction'
+
+import NetworkInfo from '@components/NetworkInfo'
+import LinkButton from '@components/buttons/LinkButton'
 import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
-import LogoIcon from '@components/icons/LogoIcon'
-import { styled } from 'styled-components'
-import NetworkInfo from '@components/NetworkInfo'
 import LockIcon from '@components/icons/LockIcon'
-import { ToCurrency } from '@functions/CurrencyFunction'
+import LogoIcon from '@components/icons/LogoIcon'
 import MembersIcon from '@components/icons/MembersIcon'
-import LinkButton from '@components/LinkButton'
+
 import CircleGraph from '../CircleGraph'
-import { StartCountdown } from '@functions/CounterFunction'
 import RaceTimer from './RaceTimer'
 
-export default () => {
+interface Props {
+	$isClean?: boolean
+}
+export default ({ $isClean = false }: Props) => {
 	const timer = StartCountdown({})
 
 	return (
-		<Card isCta>
+		<RaceCard isCta $isClean={$isClean}>
 			<CounterContent>
 				<CounterBlock>
 					<Counter>
@@ -40,15 +46,25 @@ export default () => {
 						amount={2177}
 						description={'Players'}
 					/>
-					<LinkButton $isGhost href="">
-						Join the Race Today
-					</LinkButton>
+					{!$isClean ? (
+						<LinkButton $isGhost href="/race/join">
+							Join the Race Today
+						</LinkButton>
+					) : null}
 				</InfoBlock>
 			</CounterContent>
-		</Card>
+		</RaceCard>
 	)
 }
 
+const RaceCard = styled(Card)<{ $isClean?: boolean }>`
+	${({ $isClean, theme }) =>
+		$isClean &&
+		`
+		background-image: none;
+		background-color: ${theme.style.colorLink};
+	`}
+`
 const IconWrapper = styled.div`
 	width: 3rem;
 	height: 3rem;
@@ -87,7 +103,7 @@ const InfoBlock = styled.div`
 	justify-content: flex-end;
 	align-content: center;
 	gap: 1em;
-
+	min-width: 33%;
 	* span:last-child {
 		color: ${({ theme }) => theme.style.buttonColor};
 	}

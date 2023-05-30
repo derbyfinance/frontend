@@ -3,7 +3,7 @@ import { ToCurrency } from '@functions/CurrencyFunction'
 import { LeaderboardDtoModel } from '@models/dto/LeaderboardDtoModel'
 
 import Avatar from '@components/Avatar'
-import LinkButton from '@components/LinkButton'
+import ActionButton from '@components/buttons/ActionButton'
 import TableData from '@components/table/TableData'
 import TableRow from '@components/table/TableRow'
 
@@ -11,6 +11,10 @@ interface Props {
 	leader: LeaderboardDtoModel
 }
 export default ({ leader }: Props) => {
+	const handleFollow = (id: string): void => {
+		console.log('error', 'follow', id)
+	}
+
 	return (
 		<TableRow>
 			<TableData>
@@ -25,9 +29,9 @@ export default ({ leader }: Props) => {
 			</TableData>
 			<TableData align="right">{leader.performance}%</TableData>
 			<TableData align="right">
-				<LinkButton $isGhost href="/">
+				<ActionButton $isGhost onClick={() => handleFollow(leader.id)}>
 					+Follow
-				</LinkButton>
+				</ActionButton>
 			</TableData>
 		</TableRow>
 	)

@@ -17,7 +17,7 @@ const CardContent = styled.div<{ $isOpen?: boolean }>`
 	padding: 2em;
 	overflow: hidden;
 	transition: max-height 0.4s ease-in-out, padding 0.1s ease-in-out;
-	max-height: 15em;
+	max-height: 100em;
 
 	${({ $isOpen }) =>
 		!$isOpen &&

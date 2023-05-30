@@ -4,11 +4,14 @@ import { Colorpicker } from '@functions/ColorpickerFunction'
 
 interface Props {
 	name: string
+	icon?: JSX.Element
 }
-export default ({ name }: Props) => {
+export default ({ name, icon }: Props) => {
 	return (
 		<Avatar>
-			<Color $color={Colorpicker(name)} />
+			<Color $color={name == '' ? 'transparent' : Colorpicker(name)}>
+				{icon}
+			</Color>
 		</Avatar>
 	)
 }

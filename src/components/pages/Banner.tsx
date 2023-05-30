@@ -1,7 +1,8 @@
-import LinkButton from '@components/LinkButton'
+import { styled } from 'styled-components'
+
+import LinkButton from '@components/buttons/LinkButton'
 import { Title } from '@components/fonts/Title'
 import LogoIcon from '@components/icons/LogoIcon'
-import { styled } from 'styled-components'
 
 export default () => {
 	return (

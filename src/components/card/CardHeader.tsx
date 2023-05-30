@@ -5,17 +5,19 @@ import EyeOpenIcon from '@components/icons/EyeOpenIcon'
 
 interface Props {
 	isOpen?: boolean
-	handleClick: VoidFunction
+	handleClick?: VoidFunction
 	children: JSX.Element | JSX.Element[] | React.ReactNode
 }
-export default ({ isOpen, handleClick, children }: Props) => {
+export default ({ isOpen, handleClick, children, ...props }: Props) => {
 	return (
-		<CardHeader>
-			{children}
-			<CollapseButton onClick={handleClick}>
-				{isOpen ? <EyeClosedIcon /> : <EyeOpenIcon />}
-				<Label>{isOpen ? 'Hide' : 'Show'} explanation</Label>
-			</CollapseButton>
+		<CardHeader {...props}>
+			<div>{children}</div>
+			{handleClick ? (
+				<CollapseButton onClick={handleClick}>
+					{isOpen ? <EyeClosedIcon /> : <EyeOpenIcon />}
+					<Label>{isOpen ? 'Hide' : 'Show'} explanation</Label>
+				</CollapseButton>
+			) : null}
 		</CardHeader>
 	)
 }

@@ -22,11 +22,13 @@ declare module 'styled-components' {
         colorBorder: string
         colorLabel: string
         colorHover: string
+        colorPlaceholder: string
         buttonColor: string
         buttonColorBg: string
         buttonColorCtaBg: string
         backgroundGradient: string
         backgroundCtaGradient: string
+        formBg: string
     }
 
     export interface DefaultTheme {

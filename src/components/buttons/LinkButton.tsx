@@ -4,23 +4,29 @@ import styled from 'styled-components'
 interface Props extends LinkProps {
 	$isCta?: boolean
 	$isGhost?: boolean
+	$isBlock?: boolean
 	children: string | JSX.Element | JSX.Element[]
 }
 
 export default ({
 	$isCta = false,
 	$isGhost = false,
+	$isBlock = false,
 	children,
 	...props
 }: Props) => {
 	return (
-		<Button $isCta={$isCta} $isGhost={$isGhost} {...props}>
+		<Button $isCta={$isCta} $isGhost={$isGhost} $isBlock={$isBlock} {...props}>
 			{children}
 		</Button>
 	)
 }
 
-const Button = styled(Link)<{ $isCta: boolean; $isGhost: boolean }>`
+const Button = styled(Link)<{
+	$isCta: boolean
+	$isGhost: boolean
+	$isBlock: boolean
+}>`
 	font-family: ${({ theme }) => theme.fonts.slabRegular};
 	font-size: 1.25em;
 	padding: 0.5em 1em;
@@ -31,6 +37,7 @@ const Button = styled(Link)<{ $isCta: boolean; $isGhost: boolean }>`
 		$isCta ? 'transparent' : theme.style.buttonColorCtaBg};
 	border-radius: ${({ theme }) => theme.style.radius}px;
 	display: inline-block;
+	cursor: pointer;
 
 	${({ $isGhost }) =>
 		$isGhost &&
@@ -38,5 +45,12 @@ const Button = styled(Link)<{ $isCta: boolean; $isGhost: boolean }>`
 		color: inherit;
 		background: transparent;
 		border: 1px solid;
+	`}
+
+	${({ $isBlock }) =>
+		$isBlock &&
+		`
+		display: block;
+		width: 100%;
 	`}
 `

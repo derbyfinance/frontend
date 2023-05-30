@@ -68,7 +68,19 @@ export const GlobalStyles = createGlobalStyle`
 
     html {
         height: 100%;
-          scrollbar-gutter: stable;
+        scrollbar-gutter: stable;
+
+        ::-webkit-scrollbar {
+            background-color: ${({ theme }) => theme.style.colorBg};
+            border: 1px solid ${({ theme }) => theme.style.colorBorder};
+            border-radius: ${({ theme }) => theme.style.radius}px;
+            width: ${({ theme }) => theme.style.radius + 2}px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: ${({ theme }) => theme.style.colorSecondary};
+            border-radius: ${({ theme }) => theme.style.radius}px;
+        }
     }
 
     body {
@@ -123,13 +135,15 @@ const lightThemeStyle: DefaultStyle = {
 	colorSecondary: '#5F08EE',
 	colorLabel: '#A9A6AE',
 	colorHover: '#f5f5f5',
+	colorPlaceholder: '#959190',
 	buttonColor: '#FFF',
 	buttonColorBg:
 		'linear-gradient(90deg, rgb(254, 94, 118) 0%, rgb(241, 58, 188) 100.33%)',
 	buttonColorCtaBg: '#39079b',
 	backgroundGradient:
 		'linear-gradient(149.11deg, #f13abc 0.41%, #5f08ee 99.26%)',
-	backgroundCtaGradient: 'linear-gradient(93.03deg, #1D08EE 0%, #F13ABC 100%)'
+	backgroundCtaGradient: 'linear-gradient(93.03deg, #1D08EE 0%, #F13ABC 100%)',
+	formBg: '#2775C905'
 }
 
 const darkThemeStyle: DefaultStyle = { ...lightThemeStyle }

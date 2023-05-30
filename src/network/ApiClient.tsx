@@ -2,6 +2,8 @@ import axios, { AxiosError, AxiosResponse } from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
 import LeaderboardResult from '@services/get-leaderboard.mock.json'
+import NetworkListResult from '@services/get-network.mock.json'
+import VaultListResult from '@services/get-vault.mock.json'
 
 var mock = new MockAdapter(axios, { delayResponse: 10 })
 
@@ -18,6 +20,33 @@ mock
 		}
 		return [200, response]
 	})
+
+	.onGet(/\/race\/network[\w?=]*/)
+	.reply((item) => {
+		const match = item.url?.match(/\d+$/)
+		const amount: number = match ? +match[0] : 0
+
+		let response = NetworkListResult
+
+		if (amount > 0) {
+			response = { ...response, results: response.results.slice(0, amount) }
+		}
+		return [200, response]
+	})
+
+	.onGet(/\/race\/vault[\w?=]*/)
+	.reply((item) => {
+		const match = item.url?.match(/\d+$/)
+		const amount: number = match ? +match[0] : 0
+
+		let response = VaultListResult
+
+		if (amount > 0) {
+			response = { ...response, results: response.results.slice(0, amount) }
+		}
+		return [200, response]
+	})
+
 	.onAny()
 	.passThrough()
 

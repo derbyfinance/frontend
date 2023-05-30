@@ -2,39 +2,38 @@ import { useEffect, useState } from 'react'
 
 import { styled } from 'styled-components'
 
-import { LeaderboardDtoModel } from '@models/dto/LeaderboardDtoModel'
+import { VaultDtoModel } from '@models/dto/VaultDtoModel'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 
-import { GetLeaderboardList } from '@services/RaceService'
+import { GetVaultList } from '@services/RaceService'
 
 import ExpandButton from '@components/table/ExpandButton'
 import Table from '@components/table/Table'
 
-import RaceLeaderboardRow from './RaceLeaderboardRow'
+import RaceVaultboardRow from './RaceVaultboardRow'
 
 export default () => {
 	const amount: number = 5
-	const [leaderboard, setLeaderboard] = useState<LeaderboardDtoModel[]>()
+	const [vaultboard, setVaultboard] = useState<VaultDtoModel[]>()
 	const [count, setCount] = useState<number>(0)
 	const [size, setSize] = useState<number | undefined>(amount)
 
 	const headers: TableHeaderModel[] = [
 		{ name: 'Name', colspan: 2 },
-		{ name: 'Medals', align: 'right' },
-		{ name: 'Staked', align: 'right' },
+		{ name: 'Allocated', align: 'right' },
 		{ name: 'Performance', align: 'right' },
 		{ name: '' }
 	]
 
 	useEffect(() => {
-		getLeaderboardData()
+		getVaultListData()
 	}, [size])
 
-	const getLeaderboardData = async () => {
+	const getVaultListData = async () => {
 		try {
-			const { count, results } = await GetLeaderboardList(size)
+			const { count, results } = await GetVaultList(size)
 			setCount(count)
-			setLeaderboard(results)
+			setVaultboard(results)
 		} catch (error) {
 			console.log(error)
 		}
@@ -53,8 +52,8 @@ export default () => {
 						<ExpandButton isOpen={!size} handle={handleShow} />
 					) : null
 				}>
-				{leaderboard?.map((leader, index) => (
-					<RaceLeaderboardRow key={index} leader={leader} />
+				{vaultboard?.map((vault, index) => (
+					<RaceVaultboardRow key={index} vault={vault} />
 				))}
 			</Table>
 		</Container>
