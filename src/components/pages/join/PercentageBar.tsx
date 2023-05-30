@@ -4,8 +4,8 @@ export default () => {
 	const list = [20, 40, 60, 80, 100]
 	return (
 		<Bar>
-			{list.map((percentage) => (
-				<Badge $percentage={percentage}>
+			{list.map((percentage, index) => (
+				<Badge $percentage={percentage} key={index}>
 					{percentage == 100 ? 'Max' : `${percentage}%`}
 				</Badge>
 			))}
