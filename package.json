@@ -19,11 +19,13 @@
     "axios": "^1.4.0",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
+    "formik": "^2.4.0",
     "next": "13.4.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "styled-components": "^6.0.0-rc.1",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "yup": "^1.2.0"
   },
   "devDependencies": {
     "@testing-library/react": "^14.0.0",

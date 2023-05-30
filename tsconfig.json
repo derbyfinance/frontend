@@ -49,6 +49,9 @@
       "@services/*": [
         "./src/services/*"
       ],
+      "@datatypes/*": [
+        "./src/datatypes/*"
+      ],
       "@/*": [
         "./src/*"
       ]

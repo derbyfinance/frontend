@@ -22,6 +22,7 @@ declare module 'styled-components' {
         colorBorder: string
         colorLabel: string
         colorHover: string
+        colorDisabled: string
         colorPlaceholder: string
         buttonColor: string
         buttonColorBg: string

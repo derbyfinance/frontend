@@ -94,6 +94,7 @@ export default {
     '^@helpers/(.*)$': '<rootDir>/src/helpers/$1',
     '^@functions/(.*)$': '<rootDir>/src/functions/$1',
     '^@models/(.*)$': '<rootDir>/src/models/$1',
+    '^@datatypes/(.*)$': '<rootDir>/src/datatypes/$1',
     'styled-components': '<rootDir>/__mocks__/styledComponentsMock.tsx'
     // '^(\\.{1,2}/.*)\\.js$': '$1',
    },

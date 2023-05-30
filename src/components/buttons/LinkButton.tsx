@@ -53,4 +53,12 @@ const Button = styled(Link)<{
 		display: block;
 		width: 100%;
 	`}
+
+	&:disabled,
+	&[disabled] {
+		opacity: 0.5;
+		color: ${({ theme }) => theme.style.colorDisabled};
+		pointer-events: none;
+		cursor: hand;
+	}
 `

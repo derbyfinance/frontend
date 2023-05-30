@@ -2,7 +2,6 @@ import { styled } from 'styled-components'
 
 import { ToCurrency } from '@functions/CurrencyFunction'
 
-import { LeaderboardDtoModel } from '@models/dto/LeaderboardDtoModel'
 import { VaultDtoModel } from '@models/dto/VaultDtoModel'
 
 import Avatar from '@components/Avatar'

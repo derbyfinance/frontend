@@ -135,6 +135,7 @@ const lightThemeStyle: DefaultStyle = {
 	colorSecondary: '#5F08EE',
 	colorLabel: '#A9A6AE',
 	colorHover: '#f5f5f5',
+	colorDisabled: '#A9A6AE',
 	colorPlaceholder: '#959190',
 	buttonColor: '#FFF',
 	buttonColorBg:
