@@ -1,12 +1,14 @@
+import { InputHTMLAttributes } from 'react'
+
 import { FormikProps } from 'formik'
 import { styled } from 'styled-components'
 
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	inputName: string
 	value: string
 	formikProps: FormikProps<any>
 }
-export default ({ inputName, value, formikProps }: Props) => {
+export default ({ inputName, value, formikProps, ...props }: Props) => {
 	return (
 		<RadioInput
 			type="radio"
@@ -14,6 +16,7 @@ export default ({ inputName, value, formikProps }: Props) => {
 			onChange={formikProps.handleChange}
 			onBlur={formikProps.handleBlur}
 			value={value}
+			{...props}
 		/>
 	)
 }

@@ -8,6 +8,7 @@ import Avatar from '@components/Avatar'
 import RadioInputField from '@components/form/RadioInputField'
 import TableData from '@components/table/TableData'
 import TableRow from '@components/table/TableRow'
+import TableRowLabel from '@components/table/TableRowLabel'
 
 interface Props {
 	inputName: string
@@ -16,9 +17,10 @@ interface Props {
 }
 export default ({ inputName, vault, formikProps }: Props) => {
 	return (
-		<TableRow>
+		<TableRowLabel htmlFor={`radio-${inputName}-${vault.name}`}>
 			<TableData>
 				<RadioInputField
+					id={`radio-${inputName}-${vault.name}`}
 					inputName={inputName}
 					value={vault.name}
 					formikProps={formikProps}
@@ -32,6 +34,6 @@ export default ({ inputName, vault, formikProps }: Props) => {
 				{ToCurrency(vault.allocated, 2, true)}
 			</TableData>
 			<TableData align="right">{vault.performance}%</TableData>
-		</TableRow>
+		</TableRowLabel>
 	)
 }
