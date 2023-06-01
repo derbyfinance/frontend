@@ -8,7 +8,7 @@ export default ({ width = '38', height = '33' }: Props) => {
 			width={width}
 			height={height}
 			viewBox="0 0 38.4 33.5"
-			fill="currentColor"
+			fill="#8247E5"
 			xmlns="http://www.w3.org/2000/svg">
 			<path
 				d="M29,10.2c-0.7-0.4-1.6-0.4-2.4,0L21,13.5l-3.8,2.1l-5.5,3.3c-0.7,0.4-1.6,0.4-2.4,0L5,16.3
