@@ -4,7 +4,7 @@ import Content from '@components/pages/join/Content'
 export default () => {
 	return (
 		<Layout>
-			<Content />
+			<Content network="" vault="" />
 		</Layout>
 	)
 }

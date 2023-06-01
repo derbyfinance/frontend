@@ -1,14 +1,11 @@
-import { useState } from 'react'
+import { InputHTMLAttributes, useState } from 'react'
 
 import { ErrorMessage, FormikProps } from 'formik'
 import { styled } from 'styled-components'
 
 import { InputType } from '@datatypes/InputType'
 
-import ActionButton from '@components/buttons/ActionButton'
-import ArrowDropdownIcon from '@components/icons/ArrowDropdownIcon'
-
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	inputName: string
 	label: string | JSX.Element
 	formikProps: FormikProps<any>
@@ -25,7 +22,8 @@ export default ({
 	placeholder = '',
 	required = false,
 	type = 'text',
-	icon
+	icon,
+	...props
 }: Props) => {
 	const [open, setOpen] = useState<boolean>(false)
 
@@ -46,6 +44,7 @@ export default ({
 					onChange={formikProps.handleChange}
 					onBlur={formikProps.handleBlur}
 					value={formikProps.values[inputName]}
+					{...props}
 				/>
 				<FloatIcon>{icon}</FloatIcon>
 			</Wrapper>

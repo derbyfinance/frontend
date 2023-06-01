@@ -23,6 +23,7 @@ export default ({ inputName, network, formikProps }: Props) => {
 					inputName={inputName}
 					value={network.symbol}
 					formikProps={formikProps}
+					checked={formikProps.values[inputName] === network.symbol}
 				/>
 			</TableData>
 			<TableData>

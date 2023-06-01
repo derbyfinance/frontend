@@ -23,6 +23,7 @@ export default ({ inputName, vault, formikProps }: Props) => {
 					inputName={inputName}
 					value={vault.symbol}
 					formikProps={formikProps}
+					checked={formikProps.values[inputName] === vault.symbol}
 				/>
 			</TableData>
 			<TableData>

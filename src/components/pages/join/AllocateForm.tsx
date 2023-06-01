@@ -43,6 +43,7 @@ export default ({ initial, onSubmit }: Props) => {
 						}
 						formikProps={formikProps}
 						placeholder="Select a network"
+						tabIndex={1}
 						options={
 							<NetworkOptions inputName="network" formikProps={formikProps} />
 						}
@@ -51,6 +52,7 @@ export default ({ initial, onSubmit }: Props) => {
 
 					<SelectInputField
 						inputName="vault"
+						tabIndex={2}
 						label={
 							<>
 								<VaultIcon />
@@ -68,6 +70,7 @@ export default ({ initial, onSubmit }: Props) => {
 					<InputField
 						inputName="amount"
 						label="Amount"
+						tabIndex={3}
 						formikProps={formikProps}
 						placeholder="0.0"
 						required

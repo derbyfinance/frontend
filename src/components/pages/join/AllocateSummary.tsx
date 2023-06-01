@@ -40,7 +40,7 @@ export default ({ allocateList, update, remove }: Props) => {
 						return prev + allocate?.amount
 					}, 0)
 					.toLocaleString()}
-`}
+					`}
 					<Small>DRB</Small>
 				</div>
 			</ActionButton>

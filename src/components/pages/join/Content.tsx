@@ -16,13 +16,17 @@ import RaceDescription from '../race/RaceDescription'
 import AllocateForm from './AllocateForm'
 import AllocateSummary from './AllocateSummary'
 
-export default () => {
+interface Props {
+	network: string
+	vault: string
+}
+export default ({ network, vault }: Props) => {
 	const formRef = useRef<HTMLDivElement>(null)
 	const summaryRef = useRef<HTMLDivElement>(null)
 
 	const [form, setForm] = useState<AllocationRequestModel>({
-		network: '',
-		vault: '',
+		network: network,
+		vault: vault,
 		amount: 0
 	})
 

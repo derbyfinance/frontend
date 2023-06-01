@@ -6,7 +6,7 @@ import { VaultDtoModel } from '@models/dto/VaultDtoModel'
 
 import Avatar from '@components/Avatar'
 import IconSelector from '@components/IconSelector'
-import ActionButton from '@components/buttons/ActionButton'
+import LinkButton from '@components/buttons/LinkButton'
 import TableData from '@components/table/TableData'
 import TableRow from '@components/table/TableRow'
 
@@ -14,10 +14,6 @@ interface Props {
 	vault: VaultDtoModel
 }
 export default ({ vault }: Props) => {
-	const handleFollow = (id: string): void => {
-		console.log('error', 'follow', id)
-	}
-
 	return (
 		<TableRow>
 			<TableData>
@@ -31,9 +27,11 @@ export default ({ vault }: Props) => {
 			</TableData>
 			<TableData align="right">{vault.performance}%</TableData>
 			<TableData align="right">
-				<ActionButton $isGhost onClick={() => handleFollow(vault.id)}>
+				<LinkButton
+					$isGhost
+					href={`/race/join/${vault.symbol}/${vault.network}`}>
 					+Invest
-				</ActionButton>
+				</LinkButton>
 			</TableData>
 		</TableRow>
 	)

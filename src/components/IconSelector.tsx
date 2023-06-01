@@ -3,6 +3,7 @@ import DerbyIcon from './icons/chainIcons/DerbyIcon'
 import EthIcon from './icons/chainIcons/EthIcon'
 import UsdCIcon from './icons/chainIcons/UsdCIcon'
 import UsdTIcon from './icons/chainIcons/UsdTIcon'
+import WbtcIcon from './icons/chainIcons/WbtcIcon'
 
 interface Props {
 	name: string
@@ -18,6 +19,8 @@ export default ({ name }: Props) => {
 				return <UsdTIcon />
 			case 'DAI':
 				return <DaiIcon />
+			case 'WBTC':
+				return <WbtcIcon />
 			default:
 				return <DerbyIcon width="100%" height="100%" />
 		}
