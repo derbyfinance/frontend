@@ -1,5 +1,5 @@
 import AllocationValidation from '@/validations/AllocationValidation'
-import { Form, Formik, FormikProps } from 'formik'
+import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import { styled } from 'styled-components'
 
 import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
@@ -16,19 +16,17 @@ import PercentageBar from './PercentageBar'
 import VaultOptions from './VaultOptions'
 
 interface Props {
-	onSubmit: (form: AllocationRequestModel) => void
+	initial: AllocationRequestModel
+	onSubmit: (
+		form: AllocationRequestModel,
+		formikHelpers: FormikHelpers<AllocationRequestModel>
+	) => void
 }
 
-export default ({ onSubmit }: Props) => {
-	const form: AllocationRequestModel = {
-		network: '',
-		vault: '',
-		amount: 0
-	}
-
+export default ({ initial, onSubmit }: Props) => {
 	return (
 		<Formik
-			initialValues={form}
+			initialValues={initial}
 			validationSchema={AllocationValidation}
 			isInitialValid={false}
 			enableReinitialize

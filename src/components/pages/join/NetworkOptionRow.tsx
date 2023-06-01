@@ -7,7 +7,7 @@ import { NetworkDtoModel } from '@models/dto/NetworkDtoModel'
 import Avatar from '@components/Avatar'
 import RadioInputField from '@components/form/RadioInputField'
 import TableData from '@components/table/TableData'
-import TableRowLabel from '@components/table/TableRowLabel'
+import TableRow from '@components/table/TableRow'
 
 interface Props {
 	inputName: string
@@ -16,22 +16,30 @@ interface Props {
 }
 export default ({ inputName, network, formikProps }: Props) => {
 	return (
-		<TableRowLabel htmlFor={`radio-${inputName}-${network.name}`}>
+		<TableRow>
 			<TableData>
 				<RadioInputField
 					id={`radio-${inputName}-${network.name}`}
 					inputName={inputName}
-					value={network.name}
+					value={network.symbol}
 					formikProps={formikProps}
 				/>
 			</TableData>
 			<TableData>
-				<Avatar name={network.name} />
+				<label htmlFor={`radio-${inputName}-${network.name}`}>
+					<Avatar name={network.name} />
+				</label>
 			</TableData>
-			<TableData $focus>{network.name}</TableData>
+			<TableData $focus>
+				<label htmlFor={`radio-${inputName}-${network.name}`}>
+					{network.name}
+				</label>
+			</TableData>
 			<TableData align="right">
-				{ToCurrency(network.allocated, 2, true)}
+				<label htmlFor={`radio-${inputName}-${network.name}`}>
+					{ToCurrency(network.allocated, 2, true)}
+				</label>
 			</TableData>
-		</TableRowLabel>
+		</TableRow>
 	)
 }

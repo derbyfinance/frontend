@@ -1,7 +1,7 @@
 export interface VaultDtoModel {
 	id: string
 	name: string
-	icon: string
+	symbol: string
 	allocated: number
 	performance: number
 	network: string

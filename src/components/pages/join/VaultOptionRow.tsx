@@ -8,7 +8,6 @@ import Avatar from '@components/Avatar'
 import RadioInputField from '@components/form/RadioInputField'
 import TableData from '@components/table/TableData'
 import TableRow from '@components/table/TableRow'
-import TableRowLabel from '@components/table/TableRowLabel'
 
 interface Props {
 	inputName: string
@@ -17,23 +16,33 @@ interface Props {
 }
 export default ({ inputName, vault, formikProps }: Props) => {
 	return (
-		<TableRowLabel htmlFor={`radio-${inputName}-${vault.name}`}>
+		<TableRow>
 			<TableData>
 				<RadioInputField
 					id={`radio-${inputName}-${vault.name}`}
 					inputName={inputName}
-					value={vault.name}
+					value={vault.symbol}
 					formikProps={formikProps}
 				/>
 			</TableData>
 			<TableData>
-				<Avatar name={vault.name} />
+				<label htmlFor={`radio-${inputName}-${vault.name}`}>
+					<Avatar name={vault.name} />
+				</label>
 			</TableData>
-			<TableData $focus>{vault.name}</TableData>
+			<TableData $focus>
+				<label htmlFor={`radio-${inputName}-${vault.name}`}>{vault.name}</label>
+			</TableData>
 			<TableData align="right">
-				{ToCurrency(vault.allocated, 2, true)}
+				<label htmlFor={`radio-${inputName}-${vault.name}`}>
+					{ToCurrency(vault.allocated, 2, true)}
+				</label>
 			</TableData>
-			<TableData align="right">{vault.performance}%</TableData>
-		</TableRowLabel>
+			<TableData align="right">
+				<label htmlFor={`radio-${inputName}-${vault.name}`}>
+					{vault.performance}%
+				</label>
+			</TableData>
+		</TableRow>
 	)
 }

@@ -21,7 +21,7 @@ export default ({ vault }: Props) => {
 	return (
 		<TableRow>
 			<TableData>
-				<Avatar name="" icon={<IconSelector name={vault.icon} />} />
+				<Avatar name="" icon={<IconSelector name={vault.symbol} />} />
 			</TableData>
 			<TableData align="left" $focus>
 				{vault.name} <Network>{vault.network}</Network>

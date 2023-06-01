@@ -134,6 +134,7 @@ const lightThemeStyle: DefaultStyle = {
 	colorBorder: '#E2E2E2',
 	colorSecondary: '#5F08EE',
 	colorLabel: '#A9A6AE',
+	colorInfo: '#D9E7F5',
 	colorHover: '#f5f5f5',
 	colorDisabled: '#A9A6AE',
 	colorPlaceholder: '#959190',

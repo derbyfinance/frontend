@@ -4,7 +4,7 @@
 		{
 			"id": 84,
 			"name": "USD Coin",
-			"icon": "USDC",
+			"symbol": "USDC",
 			"allocated": 9900000,
 			"performance": 6.1,
 			"network": "ETH",
@@ -13,7 +13,7 @@
 		{
 			"id": 24,
 			"name": "USD Tether",
-			"icon": "USDT",
+			"symbol": "USDT",
 			"allocated": 7310000,
 			"performance": 6.32,
 			"network": "ETH",
@@ -22,7 +22,7 @@
 		{
 			"id": 5,
 			"name": "DAI",
-			"icon": "DAI",
+			"symbol": "DAI",
 			"allocated": 11540000,
 			"performance": 12.5,
 			"network": "ETH",
@@ -31,7 +31,7 @@
 		{
 			"id": 47,
 			"name": "Ethereum",
-			"icon": "ETH",
+			"symbol": "ETH",
 			"allocated": 9900000,
 			"performance": 6.1,
 			"network": "ETH",
@@ -40,7 +40,7 @@
 		{
 			"id": 25,
 			"name": "Wrapped Bitcoin",
-			"icon": "",
+			"symbol": "WBTC",
 			"allocated": 7310000,
 			"performance": 6.32,
 			"network": "ETH",
