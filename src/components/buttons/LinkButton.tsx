@@ -5,6 +5,7 @@ interface Props extends LinkProps {
 	$isCta?: boolean
 	$isGhost?: boolean
 	$isBlock?: boolean
+	$align?: 'left' | 'right'
 	children: string | JSX.Element | JSX.Element[]
 }
 
@@ -12,11 +13,17 @@ export default ({
 	$isCta = false,
 	$isGhost = false,
 	$isBlock = false,
+	$align,
 	children,
 	...props
 }: Props) => {
 	return (
-		<Button $isCta={$isCta} $isGhost={$isGhost} $isBlock={$isBlock} {...props}>
+		<Button
+			$isCta={$isCta}
+			$isGhost={$isGhost}
+			$isBlock={$isBlock}
+			$align={$align}
+			{...props}>
 			{children}
 		</Button>
 	)
@@ -26,6 +33,7 @@ const Button = styled(Link)<{
 	$isCta: boolean
 	$isGhost: boolean
 	$isBlock: boolean
+	$align?: 'left' | 'right'
 }>`
 	font-family: ${({ theme }) => theme.fonts.slabRegular};
 	font-size: 1.25em;
@@ -39,12 +47,18 @@ const Button = styled(Link)<{
 	display: inline-block;
 	cursor: pointer;
 
-	${({ $isGhost }) =>
+	${({ $isGhost, theme }) =>
 		$isGhost &&
 		`
 		color: inherit;
 		background: transparent;
 		border: 1px solid;
+
+		&:disabled,
+		&:[disabled] {
+			color: ${theme.style.colorDisabled};
+			background: transparent;
+		}
 	`}
 
 	${({ $isBlock }) =>
@@ -54,10 +68,25 @@ const Button = styled(Link)<{
 		width: 100%;
 	`}
 
+	${({ $align }) =>
+		$align &&
+		`
+		float: ${$align};
+	`}
+
+	${({ $isGhost, theme }) =>
+		!$isGhost &&
+		`
+		&:disabled,
+		&[disabled] {
+			background: ${theme.style.colorDisabled};
+			
+		}
+	`}
+			
 	&:disabled,
 	&[disabled] {
 		opacity: 0.5;
-		color: ${({ theme }) => theme.style.colorDisabled};
 		pointer-events: none;
 		cursor: hand;
 	}
