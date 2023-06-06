@@ -13,8 +13,8 @@ export default () => {
 				<Logo />
 			</Link>
 			<MenuBar>
-				<NavLink href="/">Vault</NavLink>
-				<NavLink href="/race">Race</NavLink>
+				<NavLink href="/">Race</NavLink>
+				{/* <NavLink href="/race">Race</NavLink> */}
 				<NavLink href="/governance">Governance</NavLink>
 				<LinkButton $isCta href="/">
 					Connect your Wallet
