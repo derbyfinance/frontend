@@ -1,13 +1,15 @@
 'use client'
 
+import { device, deviceSize } from '@helpers/DeviceHelper'
 import { GlobalStyles, darkTheme, lightTheme } from '@theme/ThemeConfig'
 import { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import Navigation from './navigation/Navigation'
+import WalletConfig from './WalletConfig'
 import PageSize from './debugger/PageSize'
-import { device, deviceSize } from '@helpers/DeviceHelper'
-import Banner from './pages/Banner'
 import FooterBar from './footer/FooterBar'
+import ConnectWalletModal from './modal/ConnectWalletModal'
+import Navigation from './navigation/Navigation'
+import Banner from './pages/Banner'
 
 interface Props {
 	isFullPage?: boolean
@@ -16,23 +18,26 @@ interface Props {
 }
 
 export default ({ isFullPage = false, aside, children }: Props) => {
-	const [isDark, setIsDark] = useState<boolean>(true)
+	const [isDark, setIsDark] = useState<boolean>(false)
 
 	return (
 		<ThemeProvider theme={isDark ? darkTheme : lightTheme}>
 			<GlobalStyles />
-			<MainContainer>
-				<Header>
-					<Navigation />
-				</Header>
-				<Content>
-					<Main>{children}</Main>
-					{!isFullPage ? <Aside>{aside ?? <Banner />}</Aside> : null}
-				</Content>
-				<Footer>
-					<FooterBar />
-				</Footer>
-			</MainContainer>
+			<WalletConfig>
+				<MainContainer>
+					<ConnectWalletModal />
+					<Header>
+						<Navigation />
+					</Header>
+					<Content>
+						<Main>{children}</Main>
+						{!isFullPage ? <Aside>{aside ?? <Banner />}</Aside> : null}
+					</Content>
+					<Footer>
+						<FooterBar />
+					</Footer>
+				</MainContainer>
+			</WalletConfig>
 			<PageSize />
 		</ThemeProvider>
 	)
@@ -44,6 +49,7 @@ const MainContainer = styled.div`
 	min-height: 100%;
 	margin: 0 auto;
 	padding: 0 1em;
+
 	@media ${device.desktop} {
 		max-width: ${deviceSize.desktop};
 	}

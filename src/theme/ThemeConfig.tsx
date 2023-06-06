@@ -75,6 +75,7 @@ export const GlobalStyles = createGlobalStyle`
             border: 1px solid ${({ theme }) => theme.style.colorBorder};
             border-radius: ${({ theme }) => theme.style.radius}px;
             width: ${({ theme }) => theme.style.radius + 2}px;
+            height: ${({ theme }) => theme.style.radius + 2}px;
         }
 
         ::-webkit-scrollbar-thumb {
@@ -92,18 +93,23 @@ export const GlobalStyles = createGlobalStyle`
         height: 100%;
     }
 
-    h1, h2, h3 {
+    h1, h2, h3, h4 {
         font-family: ${({ theme }) => theme.fonts.slabMedium};        
         color: ${({ theme }) => theme.style.colorSecondary};
         font-size: 1.625em;
     }
 
-    h2, h3 {
+    h2, h3, h4 {
         color: inherit;
     }
 
     h3 {
         font-size: 1.5em;
+    }
+
+    h4 {
+        font-family: ${({ theme }) => theme.fonts.robotoMedium};  
+        font-size: 1.25em;
     }
 
     p {
@@ -148,7 +154,7 @@ const lightThemeStyle: DefaultStyle = {
 	formBg: '#2775C905'
 }
 
-const darkThemeStyle: DefaultStyle = { ...lightThemeStyle }
+const darkThemeStyle: DefaultStyle = { ...lightThemeStyle, ...{ colorBg: '#333'} }
 
 export const lightTheme: DefaultTheme = {
 	style: lightThemeStyle,

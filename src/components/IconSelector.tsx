@@ -4,6 +4,9 @@ import EthIcon from './icons/chainIcons/EthIcon'
 import UsdCIcon from './icons/chainIcons/UsdCIcon'
 import UsdTIcon from './icons/chainIcons/UsdTIcon'
 import WbtcIcon from './icons/chainIcons/WbtcIcon'
+import CoinbaseIcon from './icons/walletIcons/CoinbaseIcon'
+import MetaMaskIcon from './icons/walletIcons/MetaMaskIcon'
+import WalletConnecIcon from './icons/walletIcons/WalletConnecIcon'
 
 interface Props {
 	name: string
@@ -21,6 +24,12 @@ export default ({ name }: Props) => {
 				return <DaiIcon />
 			case 'WBTC':
 				return <WbtcIcon />
+			case 'MetaMask':
+				return <MetaMaskIcon />
+			case 'Coinbase Wallet':
+				return <CoinbaseIcon />
+			case 'Wallet Connect':
+				return <WalletConnecIcon />
 			default:
 				return <DerbyIcon width="100%" height="100%" />
 		}

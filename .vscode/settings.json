@@ -4,5 +4,6 @@
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
   "editor.formatOnSave": true,
-  "editor.minimap.enabled": false
+  "editor.minimap.enabled": false,
+  "prettier.prettierPath": "./node_modules/prettier"
 }
