@@ -1,12 +1,20 @@
 import Link from 'next/link'
 import { styled } from 'styled-components'
 
-import LinkButton from '@components/buttons/LinkButton'
 import Logo from '@components/icons/Logo'
 
+import ActionButton from '@components/buttons/ActionButton'
+import { useAppDispatch } from '@hooks/ReduxStore'
+import { setConnectModalOpenState } from '@store/SettingsSlice'
 import NavLink from './NavLink'
 
-export default () => {
+const Navigation = () => {
+	const dispatch = useAppDispatch()
+
+	const handleWalletConnect = (): void => {
+		dispatch(setConnectModalOpenState(true))
+	}
+
 	return (
 		<Navbar>
 			<Link href="/">
@@ -16,9 +24,9 @@ export default () => {
 				<NavLink href="/">Race</NavLink>
 				{/* <NavLink href="/race">Race</NavLink> */}
 				<NavLink href="/governance">Governance</NavLink>
-				<LinkButton $isCta href="/">
+				<ActionButton $isCta onClick={handleWalletConnect}>
 					Connect your Wallet
-				</LinkButton>
+				</ActionButton>
 			</MenuBar>
 		</Navbar>
 	)
@@ -39,3 +47,5 @@ const MenuBar = styled.div`
 	flex-wrap: nowrap;
 	align-items: center;
 `
+
+export default Navigation

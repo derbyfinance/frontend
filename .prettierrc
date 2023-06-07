@@ -8,6 +8,8 @@
 	"importOrder": [
 		"^react$",
 		"<THIRD_PARTY_MODULES>",
+		"^@store/(.*)$",
+		"^@hooks/(.*)$",
 		"^@functions/(.*)$",
 		"^@models/(.*)$",
 		"^@datatypes/(.*)$",

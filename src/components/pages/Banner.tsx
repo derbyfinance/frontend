@@ -1,22 +1,31 @@
 import { styled } from 'styled-components'
 
-import LinkButton from '@components/buttons/LinkButton'
+import ActionButton from '@components/buttons/ActionButton'
 import { Title } from '@components/fonts/Title'
 import LogoIcon from '@components/icons/LogoIcon'
+import { useAppDispatch } from '@hooks/ReduxStore'
+import { setConnectModalOpenState } from '@store/SettingsSlice'
 
-export default () => {
+const Banner = () => {
+	const dispatch = useAppDispatch()
+
+	const handleWalletConnect = (): void => {
+		dispatch(setConnectModalOpenState(true))
+	}
 	return (
-		<Banner>
+		<BannerBox>
 			<LogoIcon />
 			<Title>
 				Go ahead, connect your wallet and try our super secure vault.
 			</Title>
-			<LinkButton href="/">Connect your Wallet</LinkButton>
-		</Banner>
+			<ActionButton onClick={handleWalletConnect}>
+				Connect your Wallet
+			</ActionButton>
+		</BannerBox>
 	)
 }
 
-const Banner = styled.div`
+const BannerBox = styled.div`
 	position: sticky;
 	top: 1em;
 	background-image: ${({ theme }) => theme.style.backgroundGradient};
@@ -29,3 +38,5 @@ const Banner = styled.div`
 	flex-direction: column;
 	align-items: center;
 `
+
+export default Banner

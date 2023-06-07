@@ -1,9 +1,12 @@
 'use client'
 
 import { device, deviceSize } from '@helpers/DeviceHelper'
-import { GlobalStyles, darkTheme, lightTheme } from '@theme/ThemeConfig'
-import { useState } from 'react'
-import styled, { ThemeProvider } from 'styled-components'
+import { persistor, store } from '@store/Store'
+import { GlobalStyles } from '@theme/ThemeConfig'
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import styled from 'styled-components'
+import ThemeWrapper from './ThemeWrapper'
 import WalletConfig from './WalletConfig'
 import PageSize from './debugger/PageSize'
 import FooterBar from './footer/FooterBar'
@@ -17,29 +20,31 @@ interface Props {
 	children: JSX.Element | JSX.Element[] | React.ReactNode
 }
 
-export default ({ isFullPage = false, aside, children }: Props) => {
-	const [isDark, setIsDark] = useState<boolean>(false)
-
+const Layout = ({ isFullPage = false, aside, children }: Props) => {
 	return (
-		<ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-			<GlobalStyles />
-			<WalletConfig>
-				<MainContainer>
-					<ConnectWalletModal />
-					<Header>
-						<Navigation />
-					</Header>
-					<Content>
-						<Main>{children}</Main>
-						{!isFullPage ? <Aside>{aside ?? <Banner />}</Aside> : null}
-					</Content>
-					<Footer>
-						<FooterBar />
-					</Footer>
-				</MainContainer>
-			</WalletConfig>
-			<PageSize />
-		</ThemeProvider>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<ThemeWrapper>
+					<GlobalStyles />
+					<WalletConfig>
+						<MainContainer>
+							<ConnectWalletModal />
+							<Header>
+								<Navigation />
+							</Header>
+							<Content>
+								<Main>{children}</Main>
+								{!isFullPage ? <Aside>{aside ?? <Banner />}</Aside> : null}
+							</Content>
+							<Footer>
+								<FooterBar />
+							</Footer>
+						</MainContainer>
+					</WalletConfig>
+					<PageSize />
+				</ThemeWrapper>
+			</PersistGate>
+		</Provider>
 	)
 }
 
@@ -74,3 +79,5 @@ const Aside = styled.aside`
 const Footer = styled.footer`
 	flex: 0 0 auto;
 `
+
+export default Layout

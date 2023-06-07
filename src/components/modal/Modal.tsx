@@ -2,23 +2,18 @@ import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
 import CardHeader from '@components/card/CardHeader'
 import CloseIcon from '@components/icons/CloseIcon'
-import { useState } from 'react'
 import { styled } from 'styled-components'
 
 interface Props {
 	children: JSX.Element | string
+	isOpen: boolean
+	closeModal: VoidFunction
 }
 
-export default ({ children }: Props) => {
-	const [close, setClose] = useState<boolean>(true)
-
-	const closeModal = () => {
-		setClose(true)
-	}
-
+const Modal = ({ children, isOpen, closeModal }: Props) => {
 	return (
-		<Container $isClosed={close} onClick={closeModal}>
-			<Modal>
+		<Container $isOpen={isOpen} onClick={closeModal}>
+			<ModalBox>
 				<ModalCard>
 					<ModalCardHeader>
 						<CloseButton onClick={closeModal}>
@@ -27,12 +22,12 @@ export default ({ children }: Props) => {
 					</ModalCardHeader>
 					<ModalCardContent>{children}</ModalCardContent>
 				</ModalCard>
-			</Modal>
+			</ModalBox>
 		</Container>
 	)
 }
 
-const Container = styled.div<{ $isClosed: boolean }>`
+const Container = styled.div<{ $isOpen: boolean }>`
 	position: fixed;
 	inset: 0px;
 	background-color: rgba(0, 0, 0, 0.5);
@@ -40,18 +35,19 @@ const Container = styled.div<{ $isClosed: boolean }>`
 	backdrop-filter: blur(2px);
 	overflow-y: auto;
 	opacity: 1;
+	transition: opacity 0.5s ease-in-out, z-index 0.5s step-start;
 
-	transition: opacity 0.5s ease-in-out, z-index 0.5s step-end;
-
-	${({ $isClosed }) =>
-		$isClosed &&
+	${({ $isOpen }) =>
+		!$isOpen &&
 		`
 		opacity: 0;
 		z-index: -10;
 		pointer-events: none;
+		overflow-y: hidden;
+		transition: opacity 0.5s ease-in-out, z-index 0.5s step-end, overflow-y 0.5s step-end;
 	`}
 `
-const Modal = styled.div`
+const ModalBox = styled.div`
 	max-width: 25em;
 
 	margin: auto;
@@ -74,3 +70,5 @@ const CloseButton = styled.button`
 	cursor: pointer;
 	color: ${({ theme }) => theme.style.colorLabel};
 `
+
+export default Modal

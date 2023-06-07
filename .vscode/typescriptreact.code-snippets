@@ -14,7 +14,7 @@
 			"   children: JSX.Element",
 			"}",
 			"",
-			"export default ({ children }: Props) => {",
+			"const Component = ({ children }: Props) => {",
 			"return (",
 			"      <Container>",
 			"         {children}",
@@ -22,7 +22,9 @@
 			"   )",
 			"}",
 			"",
-			"const Container = styled.div``"
+			"const Container = styled.div``",
+			"",
+			"export default Component"
 		],
 		"description": "Create a React/NextJs module with Styled components"
 	}

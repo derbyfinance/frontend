@@ -3,8 +3,14 @@ import TextLink from '@components/buttons/TextLink'
 import ChevronIcon from '@components/icons/ChevronIcon'
 
 import LogoIcon from '@components/icons/LogoIcon'
-//import { useAuthRequestChallengeEvm } from '@moralisweb3/next'
+import { useAppDispatch } from '@hooks/ReduxStore'
+import {
+	isConnectModalOpenState,
+	setConnectModalOpenState
+} from '@store/SettingsSlice'
+import { AppState } from '@store/Store'
 import { useRouter } from 'next/navigation'
+import { useSelector } from 'react-redux'
 import { styled } from 'styled-components'
 import { Connector, useAccount, useConnect, useSignMessage } from 'wagmi'
 import Modal from './Modal'
@@ -12,41 +18,29 @@ import Modal from './Modal'
 interface Props {}
 
 const ConnectWalletModal = ({}: Props) => {
+	const isOpenModal = useSelector<AppState, boolean>(isConnectModalOpenState)
+	const dispatch = useAppDispatch()
+
 	const { connectors, connectAsync, isSuccess } = useConnect()
 	const { isConnected } = useAccount()
-	//const { requestChallengeAsync } = useAuthRequestChallengeEvm()
 	const { signMessageAsync } = useSignMessage()
 	const { push } = useRouter()
+
+	const closeModal = (): void => {
+		dispatch(setConnectModalOpenState(false))
+	}
 
 	const connectWallet = async (connector: Connector) => {
 		console.log(isConnected, isSuccess)
 		try {
 			const { account, chain } = await connectAsync({ connector })
-			/*
-			const challenge = await requestChallengeAsync({
-				address: account,
-				chainId: chain.id
-			})
-
-			if (challenge === undefined) throw new Error('Challenge error')
-
-			const signature = await signMessageAsync({ message: challenge.message })
-
-			const auth = await signIn('moralis-auth', {
-				message: challenge.message,
-				signature,
-				redirect: false
-			})
-
-			if (auth === undefined) throw new Error('Authentication error')
-
-			push(auth.url ?? '')*/
 		} catch (e) {
 			console.log(e)
 		}
 	}
+
 	return (
-		<Modal>
+		<Modal closeModal={closeModal} isOpen={isOpenModal}>
 			<>
 				<Header>
 					<LogoBox>

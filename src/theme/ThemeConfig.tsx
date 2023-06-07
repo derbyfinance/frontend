@@ -91,6 +91,14 @@ export const GlobalStyles = createGlobalStyle`
         font-family: ${({ theme }) => theme.fonts.robotoRegular};
         line-height: 1.75em;
         height: 100%;
+        overflow: auto;
+        margin-right: 0;
+        
+        &.modal-open {
+            overflow: hidden;
+            margin-right:${({ theme }) => theme.style.radius + 2}px;
+            transition: margin-right 0.5s step-start, overflow 0.5s step-start;
+        }
     }
 
     h1, h2, h3, h4 {
@@ -154,7 +162,10 @@ const lightThemeStyle: DefaultStyle = {
 	formBg: '#2775C905'
 }
 
-const darkThemeStyle: DefaultStyle = { ...lightThemeStyle, ...{ colorBg: '#333'} }
+const darkThemeStyle: DefaultStyle = {
+	...lightThemeStyle,
+	...{ colorBg: '#333' }
+}
 
 export const lightTheme: DefaultTheme = {
 	style: lightThemeStyle,

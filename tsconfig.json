@@ -52,6 +52,12 @@
       "@datatypes/*": [
         "./src/datatypes/*"
       ],
+      "@store/*": [
+        "./src/store/*"
+      ],
+      "@hooks/*": [
+        "./src/hooks/*"
+      ],
       "@/*": [
         "./src/*"
       ]
