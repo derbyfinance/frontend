@@ -1,9 +1,10 @@
 import Layout from '@components/Layout'
+import Content from '@components/pages/governance/Content'
 
 export default () => {
 	return (
 		<Layout>
-			<h1>Governance</h1>
+			<Content />
 		</Layout>
 	)
 }

@@ -2,6 +2,7 @@ import IconSelector from '@components/IconSelector'
 import TextLink from '@components/buttons/TextLink'
 import ChevronIcon from '@components/icons/ChevronIcon'
 
+import Notification from '@components/Notification'
 import LogoIcon from '@components/icons/LogoIcon'
 import { useAppDispatch } from '@hooks/ReduxStore'
 import {
@@ -11,6 +12,7 @@ import {
 import { AppState } from '@store/Store'
 import { useRouter } from 'next/navigation'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { Connector, useAccount, useConnect, useSignMessage } from 'wagmi'
 import Modal from './Modal'
@@ -32,6 +34,16 @@ const ConnectWalletModal = ({}: Props) => {
 
 	const connectWallet = async (connector: Connector) => {
 		console.log(isConnected, isSuccess)
+		if (isConnected) {
+			toast.info(
+				<Notification
+					title="Wallet connection"
+					notification="Already connected to a wallet"
+				/>
+			)
+			return
+		}
+
 		try {
 			const { account, chain } = await connectAsync({ connector })
 		} catch (e) {

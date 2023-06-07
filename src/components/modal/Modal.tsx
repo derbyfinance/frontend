@@ -2,6 +2,7 @@ import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
 import CardHeader from '@components/card/CardHeader'
 import CloseIcon from '@components/icons/CloseIcon'
+import { MouseEvent } from 'react'
 import { styled } from 'styled-components'
 
 interface Props {
@@ -11,9 +12,13 @@ interface Props {
 }
 
 const Modal = ({ children, isOpen, closeModal }: Props) => {
+	const stopPropagation = (e: MouseEvent<HTMLDivElement>): void => {
+		e.stopPropagation()
+	}
+
 	return (
 		<Container $isOpen={isOpen} onClick={closeModal}>
-			<ModalBox>
+			<ModalBox onClick={stopPropagation}>
 				<ModalCard>
 					<ModalCardHeader>
 						<CloseButton onClick={closeModal}>

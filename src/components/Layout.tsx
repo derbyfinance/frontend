@@ -6,6 +6,7 @@ import { GlobalStyles } from '@theme/ThemeConfig'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import styled from 'styled-components'
+import NotificationConfig from './NotificationConfig'
 import ThemeWrapper from './ThemeWrapper'
 import WalletConfig from './WalletConfig'
 import PageSize from './debugger/PageSize'
@@ -28,6 +29,7 @@ const Layout = ({ isFullPage = false, aside, children }: Props) => {
 					<GlobalStyles />
 					<WalletConfig>
 						<MainContainer>
+							<NotificationConfig />
 							<ConnectWalletModal />
 							<Header>
 								<Navigation />
