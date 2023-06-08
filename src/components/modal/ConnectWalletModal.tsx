@@ -46,7 +46,22 @@ const ConnectWalletModal = ({}: Props) => {
 
 		try {
 			const { account, chain } = await connectAsync({ connector })
+
+			if (account) {
+				toast.success(
+					<Notification
+						title="Wallet connection"
+						notification="Your wallet is connected!"
+					/>
+				)
+			}
 		} catch (e) {
+			toast.error(
+				<Notification
+					title="Wallet connection"
+					notification="Something went wrong during wallet connection. Please try again or contact us."
+				/>
+			)
 			console.log(e)
 		}
 	}
@@ -60,12 +75,13 @@ const ConnectWalletModal = ({}: Props) => {
 					</LogoBox>
 					<h4>Connect Wallet</h4>
 					<p>to start using Derby Finance</p>
+					{isConnected ? 'Connected' : 'Not connected'}
 				</Header>
 				<Content>
 					{connectors.map((connector, index) => (
 						<ConnectButton
 							key={index}
-							//disabled={!connector.ready}
+							disabled={isConnected}
 							onClick={() => connectWallet(connector)}>
 							{IconSelector({ name: connector.name })}
 							<Name>{connector.name}</Name>
@@ -121,6 +137,17 @@ const ConnectButton = styled.button`
 
 	&:hover {
 		background-color: ${({ theme }) => theme.style.colorHover};
+	}
+
+	&:disabled,
+	&[disabled] {
+		opacity: 0.5;
+		pointer-events: none;
+		cursor: hand;
+
+		&:hover {
+			background-color: inherit;
+		}
 	}
 `
 const Name = styled.div`

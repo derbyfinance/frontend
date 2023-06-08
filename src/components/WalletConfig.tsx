@@ -19,7 +19,7 @@ const { chains, publicClient } = configureChains(
 
 const config = createConfig({
 	publicClient: publicClient,
-	autoConnect: false,
+	autoConnect: true,
 	connectors: [
 		new MetaMaskConnector({ chains }),
 		new CoinbaseWalletConnector({
