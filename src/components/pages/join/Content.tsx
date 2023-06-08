@@ -10,7 +10,10 @@ import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
 import CardHeader from '@components/card/CardHeader'
 
-import { FormikHelpers } from 'formik'
+import { useAppDispatch } from '@hooks/ReduxStore'
+import { getAllocationState, removeAllocationState } from '@store/RaceSlice'
+import { AppState } from '@store/Store'
+import { useSelector } from 'react-redux'
 import RaceCounter from '../race/RaceCounter'
 import RaceDescription from '../race/RaceDescription'
 import AllocateForm from './AllocateForm'
@@ -22,7 +25,11 @@ interface Props {
 }
 export default ({ network, vault }: Props) => {
 	const formRef = useRef<HTMLDivElement>(null)
-	const summaryRef = useRef<HTMLDivElement>(null)
+
+	const dispatch = useAppDispatch()
+	const allocationList = useSelector<AppState, AllocationRequestModel[]>(
+		getAllocationState
+	)
 
 	const [form, setForm] = useState<AllocationRequestModel>({
 		network: network,
@@ -30,49 +37,10 @@ export default ({ network, vault }: Props) => {
 		amount: 0
 	})
 
-	const [allocateList, setAllocateList] = useState<AllocationRequestModel[]>([])
-
-	const onSubmit = (
-		form: AllocationRequestModel,
-		formikHelpers: FormikHelpers<AllocationRequestModel>
-	) => {
-		const index = allocateList.findIndex(
-			({ network, vault }) => network === form.network && vault === form.vault
-		)
-
-		if (index >= 0) {
-			const update = allocateList[index]
-			update.amount += form.amount
-			setAllocateList([
-				...allocateList.slice(0, index),
-				update,
-				...allocateList.slice(index + 1)
-			])
-		} else {
-			setAllocateList([...allocateList, form])
-		}
-
-		formikHelpers.resetForm({
-			values: {
-				network: '',
-				vault: '',
-				amount: 0
-			}
-		})
-
-		setTimeout(() => {
-			summaryRef.current?.scrollIntoView({
-				block: 'center',
-				inline: 'nearest',
-				behavior: 'smooth'
-			})
-		}, 0)
-	}
-
 	const updateAllocation = (index: number) => {
 		removeAllocation(index)
 
-		setForm(allocateList[index])
+		setForm(allocationList[index])
 
 		setTimeout(() => {
 			formRef.current?.scrollIntoView({
@@ -84,9 +52,7 @@ export default ({ network, vault }: Props) => {
 	}
 
 	const removeAllocation = (index: number) => {
-		const items = [...allocateList]
-		items.splice(index, 1)
-		setAllocateList(items)
+		dispatch(removeAllocationState(index))
 	}
 
 	return (
@@ -100,7 +66,7 @@ export default ({ network, vault }: Props) => {
 
 				<AllocateCardContent>
 					<div ref={formRef}>
-						<AllocateForm initial={form} onSubmit={onSubmit} />
+						<AllocateForm initial={form} />
 					</div>
 				</AllocateCardContent>
 
@@ -110,13 +76,10 @@ export default ({ network, vault }: Props) => {
 				</AllocateCardHeader>
 
 				<CardContent>
-					<div ref={summaryRef}>
-						<AllocateSummary
-							allocateList={allocateList}
-							update={updateAllocation}
-							remove={removeAllocation}
-						/>
-					</div>
+					<AllocateSummary
+						update={updateAllocation}
+						remove={removeAllocation}
+					/>
 				</CardContent>
 			</AllocateCard>
 

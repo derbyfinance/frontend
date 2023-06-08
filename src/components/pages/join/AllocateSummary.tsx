@@ -1,22 +1,29 @@
 import ActionButton from '@components/buttons/ActionButton'
+import { ToCoinCurrency } from '@functions/CurrencyFunction'
 import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
+import { getAllocationState } from '@store/RaceSlice'
+import { AppState } from '@store/Store'
+import { useSelector } from 'react-redux'
 import { styled } from 'styled-components'
 import AllocateSummaryRow from './AllocateSummaryRow'
 
 interface Props {
-	allocateList: AllocationRequestModel[]
 	update: (index: number) => void
 	remove: (index: number) => void
 }
 
-export default ({ allocateList, update, remove }: Props) => {
+export default ({ update, remove }: Props) => {
+	const allocationList = useSelector<AppState, AllocationRequestModel[]>(
+		getAllocationState
+	)
+
 	return (
 		<Container>
 			<RowTable>
 				<tbody>
-					{allocateList.map((allocate, index) => (
+					{allocationList.map((allocation, index) => (
 						<AllocateSummaryRow
-							allocate={allocate}
+							allocate={allocation}
 							key={index}
 							index={index}
 							remove={remove}
@@ -26,21 +33,22 @@ export default ({ allocateList, update, remove }: Props) => {
 				</tbody>
 			</RowTable>
 
-			{allocateList.length <= 0 ? (
+			{allocationList.length <= 0 ? (
 				<Empty>
 					<p>Nothing selected</p>
 				</Empty>
 			) : null}
 
-			<ActionButton $isCta $align="right" disabled={allocateList.length <= 0}>
+			<ActionButton $isCta $align="right" disabled={allocationList.length <= 0}>
 				<div>
-					{`Buy now 
-				${allocateList
-					?.reduce((prev, allocate) => {
-						return prev + allocate?.amount
-					}, 0)
-					.toLocaleString()}
-					`}
+					{`Buy now `}
+					{ToCoinCurrency(
+						allocationList?.reduce((prev, allocate) => {
+							return prev + allocate?.amount
+						}, 0),
+						0
+					)}
+					{` `}
 					<Small>DRB</Small>
 				</div>
 			</ActionButton>
