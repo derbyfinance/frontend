@@ -1,21 +1,26 @@
 import { subgraphClient } from '@network/SubgraphClient'
 
+export interface Player {
+	player: {
+		id: string
+		baskets: Basket[]
+	}
+}
 export interface Basket {
 	id: string
-	vault: {
-		id: string
-		name: string
-		vaultNumber: string
-	}
+	vault: Vault
 	redeemedRewards: string
 	unredeemedRewards: string
 	rebalancingPeriod?: string
 }
 
-export interface Player {
-	player: {
+export interface Vault {
+	id: string
+	name: string
+	vaultNumber: string
+	protocols: {
 		id: string
-		baskets: Basket[]
+		name: string
 	}
 }
 
@@ -29,7 +34,15 @@ export async function getPlayer(address: string) {
           id,
           baskets {
             id,
-            vaultNumber,
+            vault {
+              id,
+              name,
+              vaultNumber,
+              protocols {
+                id,
+                name
+              }
+            },
             rebalancingPeriod,
             redeemedRewards,
             unredeemedRewards,
