@@ -44,8 +44,4 @@ const FooterLink = styled(NavLink)`
 	font-family: ${({ theme }) => theme.fonts.robotoRegular};
 	font-size: 1.125em;
 	display: inline-block;
-
-	> svg {
-		display: block;
-	}
 `

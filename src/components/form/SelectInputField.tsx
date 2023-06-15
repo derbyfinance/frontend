@@ -76,10 +76,9 @@ const Label = styled.label`
 	vertical-align: middle;
 	margin: 0.75em 0;
 	display: block;
+
 	> svg {
-		display: inline-block;
 		margin-right: 0.5em;
-		vertical-align: middle;
 	}
 `
 const Wrapper = styled.div<{ $isOpen: boolean }>`

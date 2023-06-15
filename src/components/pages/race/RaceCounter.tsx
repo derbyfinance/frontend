@@ -92,6 +92,7 @@ const CounterBlock = styled.div`
 const Counter = styled.div`
 	flex: 0 0 7rem;
 	position: relative;
+
 	> svg {
 		display: block;
 	}

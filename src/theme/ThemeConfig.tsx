@@ -124,7 +124,11 @@ export const GlobalStyles = createGlobalStyle`
         font-family: ${({ theme }) => theme.fonts.robotoMedium};
         color: ${({ theme }) => theme.style.colorLabel};
         margin: 0.5em 0;
+    }
 
+    svg {
+        display: inline-block;
+        vertical-align: middle;
     }
 `
 
