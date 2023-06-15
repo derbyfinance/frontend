@@ -33,7 +33,7 @@ export default ({
 	return (
 		<Container>
 			<Label htmlFor={inputName}>{label}</Label>
-			<Wrapper onClick={openSelect} $isOpen={open}>
+			<Wrapper onClick={openSelect}>
 				<SelectInput
 					type="text"
 					readOnly
@@ -46,7 +46,7 @@ export default ({
 					value={formikProps.values[inputName]}
 					{...props}
 				/>
-				<FloatArrowDropdownIcon />
+				<FloatArrowDropdownIcon $isOpen={open} />
 			</Wrapper>
 			<OptionOverlay $isOpen={open} onClick={openSelect} />
 			<OptionList $isOpen={open}>
@@ -81,18 +81,10 @@ const Label = styled.label`
 		margin-right: 0.5em;
 	}
 `
-const Wrapper = styled.div<{ $isOpen: boolean }>`
+const Wrapper = styled.div`
 	position: relative;
-
-	${({ $isOpen }) =>
-		$isOpen &&
-		`
-		> svg {
-			rotate: 180deg;
-		}
-	`}
 `
-const FloatArrowDropdownIcon = styled(ArrowDropdownIcon)`
+const FloatArrowDropdownIcon = styled(ArrowDropdownIcon)<{ $isOpen: boolean }>`
 	display: block;
 	position: absolute;
 	top: 0;
@@ -103,6 +95,12 @@ const FloatArrowDropdownIcon = styled(ArrowDropdownIcon)`
 	color: ${({ theme }) => theme.style.colorPlaceholder};
 	rotate: 0deg;
 	transition: rotate 0.2s ease-in-out;
+
+	${({ $isOpen }) =>
+		$isOpen &&
+		`
+		rotate: 180deg;
+	`}
 `
 const SelectInput = styled.input`
 	font-family: ${({ theme }) => theme.fonts.slabMedium};
