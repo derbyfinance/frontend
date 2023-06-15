@@ -13,52 +13,52 @@ import Table from '@components/table/Table'
 import RaceLeaderboardRow from './RaceLeaderboardRow'
 
 export default () => {
-  const amount: number = 5
-  const [leaderboard, setLeaderboard] = useState<LeaderboardDtoModel[]>()
-  const [count, setCount] = useState<number>(0)
-  const [size, setSize] = useState<number | undefined>(amount)
+	const amount: number = 5
+	const [leaderboard, setLeaderboard] = useState<LeaderboardDtoModel[]>()
+	const [count, setCount] = useState<number>(0)
+	const [size, setSize] = useState<number | undefined>(amount)
 
-  const headers: TableHeaderModel[] = [
-    { name: 'Name', colspan: 2 },
-    { name: 'Medals', align: 'right' },
-    { name: 'Staked', align: 'right' },
-    { name: 'Performance', align: 'right' },
-    { name: '' }
-  ]
+	const headers: TableHeaderModel[] = [
+		{ name: 'Name', colspan: 2 },
+		{ name: 'Medals', align: 'right' },
+		{ name: 'Staked', align: 'right' },
+		{ name: 'Performance', align: 'right' },
+		{ name: '' }
+	]
 
-  useEffect(() => {
-    getLeaderboardData()
-  }, [size])
+	useEffect(() => {
+		getLeaderboardData()
+	}, [size])
 
-  const getLeaderboardData = async () => {
-    try {
-      const { count, results } = await GetLeaderboardList(size)
-      setCount(count)
-      setLeaderboard(results)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+	const getLeaderboardData = async () => {
+		try {
+			const { count, results } = await GetLeaderboardList(size)
+			setCount(count)
+			setLeaderboard(results)
+		} catch (error) {
+			console.log(error)
+		}
+	}
 
-  const handleShow = (): void => {
-    setSize(size ? undefined : amount)
-  }
+	const handleShow = (): void => {
+		setSize(size ? undefined : amount)
+	}
 
-  return (
-    <Container>
-      <Table
-        headers={headers}
-        footer={
-          count > amount ? (
-            <ExpandButton isOpen={!size} handle={handleShow} />
-          ) : null
-        }>
-        {leaderboard?.map((leader, index) => (
-          <RaceLeaderboardRow key={index} leader={leader} />
-        ))}
-      </Table>
-    </Container>
-  )
+	return (
+		<Container>
+			<Table
+				headers={headers}
+				footer={
+					count > amount ? (
+						<ExpandButton isOpen={!size} handle={handleShow} />
+					) : null
+				}>
+				{leaderboard?.map((leader, index) => (
+					<RaceLeaderboardRow key={index} leader={leader} />
+				))}
+			</Table>
+		</Container>
+	)
 }
 
 const Container = styled.div``
