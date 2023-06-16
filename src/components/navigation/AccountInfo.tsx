@@ -1,11 +1,13 @@
 import Notification from '@components/Notification'
 import ActionButton from '@components/buttons/ActionButton'
+import CardRow from '@components/card/CardRow'
+import CardButtonRow from '@components/card/CardRowButton'
+import CardRowLink from '@components/card/CardRowLink'
 import CopyIcon from '@components/icons/CopyIcon'
 import ExternalIcon from '@components/icons/ExternalIcon'
 import { CopyToClipboard } from '@functions/StringFunction'
 import { useAppDispatch } from '@hooks/ReduxStore'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
-import Link from 'next/link'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
@@ -42,7 +44,7 @@ const AccountInfo = ({ $isOpen }: Props) => {
 
 	return (
 		<AccountInfoBox $isOpen={$isOpen}>
-			<AccountRow $align="center" $hasHover={false}>
+			<CardRow $align="center" $hasHover={false}>
 				Connected with:
 				<br />
 				{connector?.name}
@@ -52,22 +54,22 @@ const AccountInfo = ({ $isOpen }: Props) => {
 						Disconnect
 					</ConnectorButton>
 				</ConnectorActions>
-			</AccountRow>
-			<AccountRow>
+			</CardRow>
+			<CardRow>
 				<ChainStatus $isActive={!chain?.unsupported} />
 				{chain?.name}
-			</AccountRow>
-			<AccountButtonRow onClick={handleCopyAddress}>
+			</CardRow>
+			<CardButtonRow onClick={handleCopyAddress}>
 				<CopyIcon />
 				Copy address
-			</AccountButtonRow>
-			<AccountLinkRow
+			</CardButtonRow>
+			<CardRowLink
 				href={`${chain?.blockExplorers?.default.url}/address/${address}` ?? ''}
 				target="_blank"
 				$hasBorder={false}>
 				<ExternalIcon />
 				View on {chain?.blockExplorers?.default.name}
-			</AccountLinkRow>
+			</CardRowLink>
 		</AccountInfoBox>
 	)
 }
@@ -91,93 +93,7 @@ const AccountInfoBox = styled.div<{ $isOpen: boolean }>`
 		display: block;
 	`};
 `
-const AccountRow = styled.div<{
-	$hasHover?: boolean
-	$hasBorder?: boolean
-	$align?: 'left' | 'center'
-}>`
-	text-align: center;
-	padding: 1em 0.5em;
-	text-align: ${({ $align }) => $align ?? 'left'};
 
-	${({ $hasBorder, theme }) =>
-		($hasBorder || $hasBorder === undefined) &&
-		`
-		border-bottom: 1px solid ${theme.style.colorBorder};
-	`}
-
-	${({ $hasHover, theme }) =>
-		($hasHover || $hasHover === undefined) &&
-		`
-		&:hover {
-			background-color: ${theme.style.colorHover};
-		}
-	`}
-
-	> svg {
-		margin-right: 0.5em;
-	}
-`
-const AccountButtonRow = styled.button<{
-	$hasHover?: boolean
-	$hasBorder?: boolean
-	$align?: 'left' | 'center'
-}>`
-	display: block;
-	width: 100%;
-	cursor: pointer;
-	text-align: center;
-	padding: 1em 0.5em;
-	text-align: ${({ $align }) => $align ?? 'left'};
-
-	${({ $hasBorder, theme }) =>
-		($hasBorder || $hasBorder === undefined) &&
-		`
-		border-bottom: 1px solid ${theme.style.colorBorder};
-	`}
-
-	${({ $hasHover, theme }) =>
-		($hasHover || $hasHover === undefined) &&
-		`
-		&:hover {
-			background-color: ${theme.style.colorHover};
-		}
-	`}
-
-	> svg {
-		margin-right: 0.5em;
-	}
-`
-const AccountLinkRow = styled(Link)<{
-	$hasHover?: boolean
-	$hasBorder?: boolean
-	$align?: 'left' | 'center'
-}>`
-	display: block;
-	width: 100%;
-	cursor: pointer;
-	text-align: center;
-	padding: 1em 0.5em;
-	text-align: ${({ $align }) => $align ?? 'left'};
-
-	${({ $hasBorder, theme }) =>
-		($hasBorder || $hasBorder === undefined) &&
-		`
-		border-bottom: 1px solid ${theme.style.colorBorder};
-	`}
-
-	${({ $hasHover, theme }) =>
-		($hasHover || $hasHover === undefined) &&
-		`
-		&:hover {
-			background-color: ${theme.style.colorHover};
-		}
-	`}
-	
-	> svg {
-		margin-right: 0.5em;
-	}
-`
 const ConnectorActions = styled.div`
 	display: flex;
 	gap: 0.5em;
