@@ -2,6 +2,7 @@ import { styled } from 'styled-components'
 
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 
+import { AlignType } from '@datatypes/AlignType'
 import TableData from './TableData'
 
 interface Props {
@@ -79,7 +80,7 @@ const Thead = styled.thead<{ $isSticky: boolean }>`
 	`}
 `
 
-const Th = styled.th<{ align?: 'left' | 'center' | 'right' }>`
+const Th = styled.th<{ align?: AlignType }>`
 	font-family: ${({ theme }) => theme.fonts.robotoMedium};
 	color: ${({ theme }) => theme.style.colorLabel};
 	font-weight: normal;

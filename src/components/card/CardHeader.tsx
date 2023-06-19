@@ -36,7 +36,7 @@ const CollapseButton = styled.button`
 	vertical-align: middle;
 	cursor: pointer;
 
-	> svg {
+	svg {
 		margin-right: 0.5em;
 	}
 `

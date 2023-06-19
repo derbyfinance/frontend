@@ -16,7 +16,6 @@ const Card = styled.div<{ $isCta?: boolean }>`
 	background-color: ${({ theme }) => theme.style.colorBg};
 	border: 1px solid ${({ theme }) => theme.style.colorBorder};
 	border-radius: ${({ theme }) => theme.style.radius}px;
-	margin-top: 2em;
 	overflow: hidden;
 
 	${({ theme, $isCta }) =>

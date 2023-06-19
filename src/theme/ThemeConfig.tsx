@@ -116,6 +116,9 @@ const lightThemeStyle: DefaultStyle = {
 	colorHover: '#f5f5f5',
 	colorDisabled: '#A9A6AE',
 	colorPlaceholder: '#959190',
+	colorPositive: '#26A17B',
+	colorNegative: '#e74c3c',
+	colorNeutral: '#3498db',
 	buttonColor: '#FFF',
 	buttonColorBg:
 		'linear-gradient(90deg, rgb(254, 94, 118) 0%, rgb(241, 58, 188) 100.33%)',

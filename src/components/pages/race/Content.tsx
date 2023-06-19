@@ -10,9 +10,10 @@ import RaceVaultboard from './RaceVaultboard'
 export default () => {
 	return (
 		<Container>
-			<h1>The Race</h1>
-			<p>Analyse, pick and follow your winners. Invest and allocate</p>
-
+			<InfoContainer>
+				<h1>The Race</h1>
+				<p>Analyse, pick and follow your winners. Invest and allocate</p>
+			</InfoContainer>
 			<RaceDescription />
 			<RaceCounter />
 			<InfoContainer>
@@ -35,8 +36,10 @@ export default () => {
 	)
 }
 
-const Container = styled.div``
-
-const InfoContainer = styled.div`
-	margin-top: 2em;
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
 `
+
+const InfoContainer = styled.div``

@@ -1,9 +1,10 @@
+import { AlignType } from '@datatypes/AlignType'
 import { styled } from 'styled-components'
 
 const CardRow = styled.div<{
 	$hasHover?: boolean
 	$hasBorder?: boolean
-	$align?: 'left' | 'center'
+	$align?: AlignType
 	$isFlex?: boolean
 }>`
 	text-align: center;

@@ -88,7 +88,11 @@ export default ({ network, vault }: Props) => {
 	)
 }
 
-const Container = styled.div``
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	gap: 2em;
+`
 
 const AllocateCard = styled(Card)`
 	background-color: ${({ theme }) => theme.style.formBg};

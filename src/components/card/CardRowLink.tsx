@@ -1,10 +1,11 @@
+import { AlignType } from '@datatypes/AlignType'
 import Link from 'next/link'
 import { styled } from 'styled-components'
 
 const CardRowLink = styled(Link)<{
 	$hasHover?: boolean
 	$hasBorder?: boolean
-	$align?: 'left' | 'center'
+	$align?: AlignType
 	$isFlex?: boolean
 }>`
 	display: block;
