@@ -25,8 +25,6 @@ const ExpandButton = styled.button`
 	cursor: pointer;
 
 	> svg {
-		vertical-align: middle;
-		display: inline-block;
 		margin-left: 0.5em;
 	}
 `

@@ -106,6 +106,7 @@ const ConfigButton = styled.button`
 	display: block;
 	color: ${({ theme }) => theme.style.colorLink};
 	cursor: pointer;
+
 	> svg {
 		display: block;
 	}

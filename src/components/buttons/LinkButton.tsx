@@ -6,7 +6,7 @@ interface Props extends LinkProps {
 	$isGhost?: boolean
 	$isBlock?: boolean
 	$align?: 'left' | 'right'
-	children: string | JSX.Element | JSX.Element[]
+	children: string | JSX.Element | JSX.Element[] | React.ReactNode
 }
 
 export default ({
@@ -15,6 +15,7 @@ export default ({
 	$isBlock = false,
 	$align,
 	children,
+	as,
 	...props
 }: Props) => {
 	return (
