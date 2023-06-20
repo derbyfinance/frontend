@@ -1,6 +1,11 @@
 import { useDebounce } from 'usehooks-ts'
 import { parseEther } from 'viem'
-import { useAccount, useContractWrite, usePrepareContractWrite } from 'wagmi'
+import {
+	useAccount,
+	useContractWrite,
+	usePrepareContractWrite,
+	useWaitForTransaction
+} from 'wagmi'
 
 const abi = [
 	{
@@ -19,21 +24,38 @@ const useBuyDerbyToken = (amount: number) => {
 	const { address } = useAccount()
 	const debouncedAmount = useDebounce(parseEther(`${amount}`), 500)
 
-	const { config } = usePrepareContractWrite({
+	const {
+		config,
+		error: errorPrepare,
+		isLoading: isLoadingPrepare,
+		isSuccess: isSuccessPrepare
+	} = usePrepareContractWrite({
 		address: process.env.NEXT_PUBLIC_DERBY_TOKEN as `0x${string}`,
 		abi: abi,
 		functionName: 'mint',
 		args: [address, debouncedAmount],
 		enabled: Boolean(debouncedAmount)
 	})
-	const {
-		data,
-		isLoading,
-		isSuccess,
-		write: buyTokens
-	} = useContractWrite(config)
+	const { data, write: writeBuyTokens } = useContractWrite(config)
 
-	return { data, isLoading, isSuccess, buyTokens }
+	const {
+		error: errorTx,
+		isLoading: isLoadingTx,
+		isSuccess: isSuccessTx
+	} = useWaitForTransaction({
+		hash: data?.hash
+	})
+
+	return {
+		data,
+		errorPrepare,
+		isLoadingPrepare,
+		isSuccessPrepare,
+		errorTx,
+		isLoadingTx,
+		isSuccessTx,
+		writeBuyTokens
+	}
 }
 
 export default useBuyDerbyToken

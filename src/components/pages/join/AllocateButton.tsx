@@ -1,6 +1,6 @@
 import ActionButton from '@components/buttons/ActionButton'
 import { ToCoinCurrency } from '@functions/CurrencyFunction'
-import useBuyDerbyToken from '@hooks/UseBuyDerbyToken'
+import useMintBasket from '@hooks/UseMintNewBasket'
 import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
 import { getAllocationState } from '@store/RaceSlice'
 import { AppState } from '@store/Store'
@@ -13,12 +13,12 @@ const AllocateButton = () => {
 	)
 
 	// example usage
-	const { buyTokens } = useBuyDerbyToken(0)
+	const { writeMintNewBasket } = useMintBasket(10)
 
 	return (
 		<ActionButton $isCta $align="right" disabled={allocationList.length <= 0}>
-			{/* example usage for buyTokens() */}
-			<div onClick={() => buyTokens?.()}>
+			{/* example usage for writeMintNewBasket() */}
+			<div onClick={() => writeMintNewBasket?.()}>
 				{`Buy now  `}
 				{ToCoinCurrency(
 					allocationList?.reduce((prev, allocate) => {
