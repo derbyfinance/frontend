@@ -1,5 +1,5 @@
 import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
-import { getAllocationState } from '@store/RaceSlice'
+import { getAllocationListState } from '@store/RaceSlice'
 import { AppState } from '@store/Store'
 import { useSelector } from 'react-redux'
 import { styled } from 'styled-components'
@@ -17,7 +17,7 @@ export default ({ update, remove }: Props) => {
 	const { isConnected } = useAccount()
 
 	const allocationList = useSelector<AppState, AllocationRequestModel[]>(
-		getAllocationState
+		getAllocationListState
 	)
 
 	return (

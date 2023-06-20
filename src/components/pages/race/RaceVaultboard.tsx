@@ -5,17 +5,26 @@ import { styled } from 'styled-components'
 import { VaultDtoModel } from '@models/dto/VaultDtoModel'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 
-import { GetVaultList } from '@services/RaceService'
-
 import ExpandButton from '@components/table/ExpandButton'
 import Table from '@components/table/Table'
 
+import { useAppDispatch } from '@hooks/ReduxStore'
+import {
+	getVaultListCountState,
+	getVaultListData,
+	getVaultListState
+} from '@store/RaceSlice'
+import { AppState } from '@store/Store'
+import { useSelector } from 'react-redux'
 import RaceVaultboardRow from './RaceVaultboardRow'
 
 export default () => {
 	const amount: number = 5
-	const [vaultboard, setVaultboard] = useState<VaultDtoModel[]>()
-	const [count, setCount] = useState<number>(0)
+	const dispatch = useAppDispatch()
+
+	const vaultList = useSelector<AppState, VaultDtoModel[]>(getVaultListState)
+	const vaultListCount = useSelector<AppState, number>(getVaultListCountState)
+
 	const [size, setSize] = useState<number | undefined>(amount)
 
 	const headers: TableHeaderModel[] = [
@@ -26,18 +35,8 @@ export default () => {
 	]
 
 	useEffect(() => {
-		getVaultListData()
+		dispatch(getVaultListData(size))
 	}, [size])
-
-	const getVaultListData = async () => {
-		try {
-			const { count, results } = await GetVaultList(size)
-			setCount(count)
-			setVaultboard(results)
-		} catch (error) {
-			console.log(error)
-		}
-	}
 
 	const handleShow = (): void => {
 		setSize(size ? undefined : amount)
@@ -48,11 +47,11 @@ export default () => {
 			<Table
 				headers={headers}
 				footer={
-					count > amount ? (
+					vaultListCount > amount ? (
 						<ExpandButton isOpen={!size} handle={handleShow} />
 					) : null
 				}>
-				{vaultboard?.map((vault, index) => (
+				{vaultList?.map((vault, index) => (
 					<RaceVaultboardRow key={index} vault={vault} />
 				))}
 			</Table>

@@ -11,7 +11,10 @@ import CardContent from '@components/card/CardContent'
 import CardHeader from '@components/card/CardHeader'
 
 import { useAppDispatch } from '@hooks/ReduxStore'
-import { getAllocationState, removeAllocationState } from '@store/RaceSlice'
+import {
+	getAllocationListState,
+	removeAllocationListState
+} from '@store/RaceSlice'
 import { AppState } from '@store/Store'
 import { useSelector } from 'react-redux'
 import RaceCounter from '../race/RaceCounter'
@@ -28,7 +31,7 @@ export default ({ network, vault }: Props) => {
 
 	const dispatch = useAppDispatch()
 	const allocationList = useSelector<AppState, AllocationRequestModel[]>(
-		getAllocationState
+		getAllocationListState
 	)
 
 	const [form, setForm] = useState<AllocationRequestModel>({
@@ -52,7 +55,7 @@ export default ({ network, vault }: Props) => {
 	}
 
 	const removeAllocation = (index: number) => {
-		dispatch(removeAllocationState(index))
+		dispatch(removeAllocationListState(index))
 	}
 
 	return (

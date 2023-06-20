@@ -1,18 +1,48 @@
+import { LeaderboardDtoModel } from '@models/dto/LeaderboardDtoModel'
+import { NetworkDtoModel } from '@models/dto/NetworkDtoModel'
+import { VaultDtoModel } from '@models/dto/VaultDtoModel'
 import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
-import { createSlice, current } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
+import {
+	GetLeaderboardList,
+	GetNetworkList,
+	GetVaultList
+} from '@services/RaceService'
 import { AppState } from '@store/Store'
 
 export interface RaceState {
+	leaderboardList?: LeaderboardDtoModel[]
+	leaderboardListCount?: number
+	leaderboardListPending: boolean
+	leaderboardListError: boolean
+
+	vaultList?: VaultDtoModel[]
+	vaultListCount?: number
+	vaultListPending: boolean
+	vaultListError: boolean
+
+	networkList?: NetworkDtoModel[]
+	networkListCount?: number
+	networkListPending: boolean
+	networkListError: boolean
+
 	allocationList?: AllocationRequestModel[]
 }
 
-const initialState: RaceState = {}
+const initialState: RaceState = {
+	leaderboardListPending: false,
+	leaderboardListError: false,
+	vaultListPending: false,
+	vaultListError: false,
+	networkListPending: false,
+	networkListError: false
+}
 
 export const raceSlice = createSlice({
 	name: 'race',
 	initialState,
 	reducers: {
-		setAllocationState(state, { payload }) {
+		setAllocationListState(state, { payload }) {
 			const { allocationList } = current(state)
 
 			const index = allocationList?.findIndex(
@@ -33,19 +63,102 @@ export const raceSlice = createSlice({
 				...allocationList.slice(index + 1)
 			]
 		},
-		removeAllocationState(state, { payload }) {
+		removeAllocationListState(state, { payload }) {
 			const { allocationList } = current(state)
 
 			const items = [...(allocationList ?? [])]
 			items.splice(payload, 1)
 			state.allocationList = items
 		}
+	},
+	extraReducers: (builder) => {
+		builder
+			// LeaderboardList
+			.addCase(getLeaderboardListData.pending, (state) => {
+				state.leaderboardListPending = true
+			})
+			.addCase(getLeaderboardListData.fulfilled, (state, { payload }) => {
+				state.leaderboardListPending = false
+				state.leaderboardListError = false
+				state.leaderboardList = payload.results
+				state.leaderboardListCount = payload.count
+			})
+			.addCase(getLeaderboardListData.rejected, (state) => {
+				state.leaderboardListPending = false
+				state.leaderboardListError = true
+			})
+
+			// VaultList
+			.addCase(getVaultListData.pending, (state) => {
+				state.vaultListPending = true
+			})
+			.addCase(getVaultListData.fulfilled, (state, { payload }) => {
+				state.vaultListPending = false
+				state.vaultListError = false
+				state.vaultList = payload.results
+				state.vaultListCount = payload.count
+			})
+			.addCase(getVaultListData.rejected, (state) => {
+				state.vaultListPending = false
+				state.vaultListError = true
+			})
+
+			// NetworkList
+			.addCase(getNetworkListData.pending, (state) => {
+				state.networkListPending = true
+			})
+			.addCase(getNetworkListData.fulfilled, (state, { payload }) => {
+				state.networkListPending = false
+				state.networkListError = false
+				state.networkList = payload.results
+				state.networkListCount = payload.count
+			})
+			.addCase(getNetworkListData.rejected, (state) => {
+				state.networkListPending = false
+				state.networkListError = true
+			})
 	}
 })
 
-export const getAllocationState = (state: AppState): AllocationRequestModel[] =>
-	state.race.allocationList ?? []
+export const getLeaderboardListData = createAsyncThunk(
+	'race/leaderboardList',
+	async (size?: number) => await GetLeaderboardList(size)
+)
 
-export const { setAllocationState, removeAllocationState } = raceSlice.actions
+export const getVaultListData = createAsyncThunk(
+	'race/vaultList',
+	async (size?: number) => await GetVaultList(size)
+)
+
+export const getNetworkListData = createAsyncThunk(
+	'race/networkList',
+	async (size?: number) => await GetNetworkList(size)
+)
+
+export const getLeaderboardListState = (
+	state: AppState
+): LeaderboardDtoModel[] => state.race.leaderboardList ?? []
+
+export const getLeaderboardListCountState = (state: AppState): number =>
+	state.race.leaderboardListCount ?? 0
+
+export const getVaultListState = (state: AppState): VaultDtoModel[] =>
+	state.race.vaultList ?? []
+
+export const getVaultListCountState = (state: AppState): number =>
+	state.race.vaultListCount ?? 0
+
+export const getNetworkListState = (state: AppState): NetworkDtoModel[] =>
+	state.race.networkList ?? []
+
+export const getNetworkListCountState = (state: AppState): number =>
+	state.race.networkListCount ?? 0
+
+export const getAllocationListState = (
+	state: AppState
+): AllocationRequestModel[] => state.race.allocationList ?? []
+
+export const { setAllocationListState, removeAllocationListState } =
+	raceSlice.actions
 
 export default raceSlice.reducer

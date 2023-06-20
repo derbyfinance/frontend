@@ -3,13 +3,13 @@ import { Small } from '@components/fonts/Title'
 import { ToCoinCurrency } from '@functions/CurrencyFunction'
 import useMintBasket from '@hooks/UseMintNewBasket'
 import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
-import { getAllocationState } from '@store/RaceSlice'
+import { getAllocationListState } from '@store/RaceSlice'
 import { AppState } from '@store/Store'
 import { useSelector } from 'react-redux'
 
 const AllocateButton = () => {
 	const allocationList = useSelector<AppState, AllocationRequestModel[]>(
-		getAllocationState
+		getAllocationListState
 	)
 
 	// example usage

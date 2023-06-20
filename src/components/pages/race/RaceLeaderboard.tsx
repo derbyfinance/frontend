@@ -5,17 +5,30 @@ import { styled } from 'styled-components'
 import { LeaderboardDtoModel } from '@models/dto/LeaderboardDtoModel'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 
-import { GetLeaderboardList } from '@services/RaceService'
-
 import ExpandButton from '@components/table/ExpandButton'
 import Table from '@components/table/Table'
 
+import { useAppDispatch } from '@hooks/ReduxStore'
+import {
+	getLeaderboardListCountState,
+	getLeaderboardListData,
+	getLeaderboardListState
+} from '@store/RaceSlice'
+import { AppState } from '@store/Store'
+import { useSelector } from 'react-redux'
 import RaceLeaderboardRow from './RaceLeaderboardRow'
 
 export default () => {
 	const amount: number = 5
-	const [leaderboard, setLeaderboard] = useState<LeaderboardDtoModel[]>()
-	const [count, setCount] = useState<number>(0)
+	const dispatch = useAppDispatch()
+
+	const leaderboardList = useSelector<AppState, LeaderboardDtoModel[]>(
+		getLeaderboardListState
+	)
+	const leaderboardListCount = useSelector<AppState, number>(
+		getLeaderboardListCountState
+	)
+
 	const [size, setSize] = useState<number | undefined>(amount)
 
 	const headers: TableHeaderModel[] = [
@@ -27,18 +40,8 @@ export default () => {
 	]
 
 	useEffect(() => {
-		getLeaderboardData()
+		dispatch(getLeaderboardListData(size))
 	}, [size])
-
-	const getLeaderboardData = async () => {
-		try {
-			const { count, results } = await GetLeaderboardList(size)
-			setCount(count)
-			setLeaderboard(results)
-		} catch (error) {
-			console.log(error)
-		}
-	}
 
 	const handleShow = (): void => {
 		setSize(size ? undefined : amount)
@@ -49,11 +52,11 @@ export default () => {
 			<Table
 				headers={headers}
 				footer={
-					count > amount ? (
+					leaderboardListCount > amount ? (
 						<ExpandButton isOpen={!size} handle={handleShow} />
 					) : null
 				}>
-				{leaderboard?.map((leader, index) => (
+				{leaderboardList?.map((leader, index) => (
 					<RaceLeaderboardRow key={index} leader={leader} />
 				))}
 			</Table>
