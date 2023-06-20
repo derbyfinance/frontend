@@ -8,7 +8,7 @@ const useDerbyTokenBalance = () => {
 		watch: true
 	})
 
-	return data?.formatted ? Number(data.formatted) : 0
+	return data?.formatted ?? '0'
 }
 
 export default useDerbyTokenBalance
