@@ -1,10 +1,12 @@
+import { UseContractWriteModel } from '@models/contract/UseContractWriteModel'
+import { Abi, Hex } from 'viem'
 import {
 	useContractWrite,
 	usePrepareContractWrite,
 	useWaitForTransaction
 } from 'wagmi'
 
-const abi = [
+const abi: Abi = [
 	{
 		inputs: [
 			{
@@ -26,19 +28,19 @@ const abi = [
 	}
 ]
 
-const useMintBasket = (vaultNumber: number) => {
+const useMintBasket = (vaultNumber: number): UseContractWriteModel => {
 	const {
 		config,
 		error: errorPrepare,
 		isLoading: isLoadingPrepare,
 		isSuccess: isSuccessPrepare
 	} = usePrepareContractWrite({
-		address: process.env.NEXT_PUBLIC_GAME_CONTRACT as `0x${string}`,
+		address: process.env.NEXT_PUBLIC_GAME_CONTRACT as Hex,
 		abi: abi,
 		functionName: 'mintNewBasket',
 		args: [vaultNumber]
 	})
-	const { data, write: writeMintNewBasket } = useContractWrite(config)
+	const { data, write } = useContractWrite(config)
 
 	const {
 		error: errorTx,
@@ -56,7 +58,7 @@ const useMintBasket = (vaultNumber: number) => {
 		errorTx,
 		isLoadingTx,
 		isSuccessTx,
-		writeMintNewBasket
+		write
 	}
 }
 

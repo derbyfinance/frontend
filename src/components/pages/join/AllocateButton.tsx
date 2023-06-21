@@ -13,7 +13,7 @@ const AllocateButton = () => {
 	)
 
 	// example usage
-	const { writeMintNewBasket } = useMintBasket(10)
+	const { write: writeMintNewBasket } = useMintBasket(10)
 
 	return (
 		<ActionButton $isCta $align="right" disabled={allocationList.length <= 0}>

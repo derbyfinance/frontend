@@ -1,5 +1,6 @@
+import { UseContractWriteModel } from '@models/contract/UseContractWriteModel'
 import { useDebounce } from 'usehooks-ts'
-import { parseEther } from 'viem'
+import { Abi, Hex, parseEther } from 'viem'
 import {
 	useAccount,
 	useContractWrite,
@@ -7,7 +8,7 @@ import {
 	useWaitForTransaction
 } from 'wagmi'
 
-const abi = [
+const abi: Abi = [
 	{
 		inputs: [
 			{ internalType: 'address', name: 'account', type: 'address' },
@@ -20,7 +21,7 @@ const abi = [
 	}
 ]
 
-const useBuyDerbyToken = (amount: number) => {
+const useBuyDerbyToken = (amount: number): UseContractWriteModel => {
 	const { address } = useAccount()
 	const debouncedAmount = useDebounce(parseEther(`${amount}`), 500)
 
@@ -30,13 +31,13 @@ const useBuyDerbyToken = (amount: number) => {
 		isLoading: isLoadingPrepare,
 		isSuccess: isSuccessPrepare
 	} = usePrepareContractWrite({
-		address: process.env.NEXT_PUBLIC_DERBY_TOKEN as `0x${string}`,
+		address: process.env.NEXT_PUBLIC_DERBY_TOKEN as Hex,
 		abi: abi,
 		functionName: 'mint',
 		args: [address, debouncedAmount],
-		enabled: Boolean(debouncedAmount)
+		enabled: Boolean(address) && Boolean(debouncedAmount)
 	})
-	const { data, write: writeBuyTokens } = useContractWrite(config)
+	const { data, write } = useContractWrite(config)
 
 	const {
 		error: errorTx,
@@ -54,7 +55,7 @@ const useBuyDerbyToken = (amount: number) => {
 		errorTx,
 		isLoadingTx,
 		isSuccessTx,
-		writeBuyTokens
+		write
 	}
 }
 
