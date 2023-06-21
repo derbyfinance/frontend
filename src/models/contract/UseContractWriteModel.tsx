@@ -1,6 +1,6 @@
 import { Hex } from 'viem'
 
-export type UseContractWriteModel = {
+export interface UseContractWriteModel {
 	data?: { hash: Hex }
 	errorPrepare: Error | null
 	isLoadingPrepare: boolean
