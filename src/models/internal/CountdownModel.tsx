@@ -1,4 +1,4 @@
-export interface CountdownModel {
+export default interface CountdownModel {
 	days: number
 	hours: number
 	minutes: number
