@@ -19,6 +19,7 @@ import persistStore from 'redux-persist/es/persistStore'
 import createWebStorage from 'redux-persist/es/storage/createWebStorage'
 import { RaceState, raceSlice } from './RaceSlice'
 import { SettingsState, settingsSlice } from './SettingsSlice'
+import { VaultState, vaultSlice } from './VaultSlice'
 
 const persistStorage = (): WebStorage => {
 	const isServer = typeof window === 'undefined'
@@ -55,6 +56,13 @@ const settingsPersistConfig: PersistConfig<SettingsState> = {
 	debug: process.env.NODE_ENV !== 'production'
 }
 
+const vaultPersistConfig: PersistConfig<VaultState> = {
+	key: 'vault',
+	storage: persistStorage(),
+	blacklist: [],
+	debug: process.env.NODE_ENV !== 'production'
+}
+
 const racePersistConfig: PersistConfig<RaceState> = {
 	key: 'race',
 	storage: persistStorage(),
@@ -67,6 +75,7 @@ export const reducers = combineReducers({
 		settingsPersistConfig,
 		settingsSlice.reducer
 	),
+	[vaultSlice.name]: persistReducer(vaultPersistConfig, vaultSlice.reducer),
 	[raceSlice.name]: persistReducer(racePersistConfig, raceSlice.reducer)
 })
 
