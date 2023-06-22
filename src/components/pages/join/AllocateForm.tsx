@@ -13,7 +13,8 @@ import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
 
 import { useAppDispatch } from '@hooks/ReduxStore'
 import { setAllocationListState } from '@store/RaceSlice'
-import { useRef } from 'react'
+import { setCreateNftModalOpenState } from '@store/SettingsSlice'
+import { useEffect, useRef } from 'react'
 import NetworkOptions from './NetworkOptions'
 import PercentageBar from './PercentageBar'
 import VaultOptions from './VaultOptions'
@@ -22,7 +23,7 @@ interface Props {
 	initial: AllocationRequestModel
 }
 
-export default ({ initial }: Props) => {
+const AllocateForm = ({ initial }: Props) => {
 	const summaryRef = useRef<HTMLDivElement>(null)
 
 	const dispatch = useAppDispatch()
@@ -36,6 +37,7 @@ export default ({ initial }: Props) => {
 
 		formikHelpers.resetForm({
 			values: {
+				nft: '',
 				network: '',
 				vault: '',
 				amount: 0
@@ -51,6 +53,10 @@ export default ({ initial }: Props) => {
 		}, 0)
 	}
 
+	const handleCreateNft = (): void => {
+		dispatch(setCreateNftModalOpenState(true))
+	}
+
 	return (
 		<div ref={summaryRef}>
 			<Formik
@@ -61,6 +67,24 @@ export default ({ initial }: Props) => {
 				onSubmit={onSubmit}>
 				{(formikProps: FormikProps<AllocationRequestModel>) => (
 					<Form noValidate>
+						<FormRow>
+							<SelectInputField
+								inputName="nft"
+								label="Select NFT"
+								formikProps={formikProps}
+								placeholder="Select a NFT"
+								tabIndex={1}
+								options={
+									<NetworkOptions inputName="nft" formikProps={formikProps} />
+								}
+								required
+							/>
+							<Label>or</Label>
+							<ActionButton $isGhost onClick={handleCreateNft}>
+								Create new NFT
+							</ActionButton>
+						</FormRow>
+
 						<SelectInputField
 							inputName="network"
 							label={
@@ -133,3 +157,19 @@ const DerbyIconWrapper = styled.div`
 const SubmitContainer = styled.div`
 	margin-top: 2em;
 `
+const FormRow = styled.div`
+	display: flex;
+	gap: 0.5em;
+	justify-content: space-between;
+	align-items: end;
+
+	:first-child {
+		flex: 1 1 auto;
+	}
+`
+const Label = styled.span`
+	color: ${({ theme }) => theme.style.colorLabel};
+	line-height: 2.5em;
+`
+
+export default AllocateForm
