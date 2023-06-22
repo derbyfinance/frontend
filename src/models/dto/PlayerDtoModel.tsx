@@ -1,4 +1,4 @@
-export interface PlayerDto {
+export interface PlayerDtoModel {
 	player: {
 		id: string
 		baskets: Basket[]

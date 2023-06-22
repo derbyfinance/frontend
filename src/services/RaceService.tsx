@@ -1,10 +1,11 @@
 import ApiClient from '@network/ApiClient'
-import { subgraphClient } from '@network/SubgraphClient'
+import SubgraphClient from '@network/SubgraphClient'
 
 import LeaderboardListDtoModel from '@models/dto/LeaderboardListDtoModel'
 import NetworkListDtoModel from '@models/dto/NetworkListDtoModel'
-import { PlayerDto, VaultDto } from '@models/dto/PlayerDtoModel'
+import { PlayerDtoModel, VaultDto } from '@models/dto/PlayerDtoModel'
 import VaultListDtoModel from '@models/dto/VaultListDtoModel'
+import { Hex } from 'viem'
 
 export const GetLeaderboardList = (
 	amount?: number
@@ -22,7 +23,7 @@ export const GetVaultList = (amount?: number): Promise<VaultListDtoModel> => {
 	return ApiClient.get(`/race/vault${amount ? `?size=${amount}` : ''}`)
 }
 
-export const getPlayer = async (address: string) => {
+export const GetPlayer = async (address: Hex): Promise<PlayerDtoModel> => {
 	const data = {
 		query: `
       query ($address: String!) {
@@ -51,9 +52,9 @@ export const getPlayer = async (address: string) => {
           }
         }
       }`,
-		variables: { address }
+		variables: { address: address.toString() }
 	}
-	return subgraphClient.post<PlayerDto>(``, data)
+	return SubgraphClient.post(``, data)
 }
 
 export const getVaults = async () => {
