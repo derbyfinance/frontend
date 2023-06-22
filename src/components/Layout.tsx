@@ -13,6 +13,7 @@ import WalletConfig from './WalletConfig'
 import PageSize from './debugger/PageSize'
 import FooterBar from './footer/FooterBar'
 import ConnectWalletModal from './modal/ConnectWalletModal'
+import CreateNftModal from './modal/CreateNftModal'
 import Navigation from './navigation/Navigation'
 import Banner from './pages/Banner'
 import RaceBanner from './pages/race/RaceBanner'
@@ -35,6 +36,7 @@ const Layout = ({ isFullPage = false, aside, children }: Props) => {
 						<MainContainer>
 							<NotificationConfig />
 							<ConnectWalletModal />
+							<CreateNftModal />
 							<Header>
 								<Navigation />
 							</Header>
