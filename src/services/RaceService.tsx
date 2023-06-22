@@ -1,11 +1,9 @@
 import ApiClient from '@network/ApiClient'
-import SubgraphClient from '@network/SubgraphClient'
 
 import LeaderboardListDtoModel from '@models/dto/LeaderboardListDtoModel'
 import NetworkListDtoModel from '@models/dto/NetworkListDtoModel'
 import { PlayerDtoModel, VaultDto } from '@models/dto/PlayerDtoModel'
 import VaultListDtoModel from '@models/dto/VaultListDtoModel'
-import { Hex } from 'viem'
 
 export const GetLeaderboardList = (
 	amount?: number

@@ -14,7 +14,9 @@ import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
 import { useAppDispatch } from '@hooks/ReduxStore'
 import { setAllocationListState } from '@store/RaceSlice'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
+import { getPlayerData } from '@store/UserSlice'
 import { useEffect, useRef } from 'react'
+import { useAccount } from 'wagmi'
 import NetworkOptions from './NetworkOptions'
 import PercentageBar from './PercentageBar'
 import VaultOptions from './VaultOptions'
@@ -27,6 +29,12 @@ const AllocateForm = ({ initial }: Props) => {
 	const summaryRef = useRef<HTMLDivElement>(null)
 
 	const dispatch = useAppDispatch()
+
+	const { address } = useAccount()
+
+	useEffect(() => {
+		if (address !== undefined) dispatch(getPlayerData(address))
+	}, [address])
 
 	const onSubmit = (
 		form: AllocationRequestModel,
