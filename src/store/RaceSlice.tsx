@@ -1,6 +1,6 @@
 import { LeaderboardDtoModel } from '@models/dto/LeaderboardDtoModel'
 import { NetworkDtoModel } from '@models/dto/NetworkDtoModel'
-import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
+import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
 import { GetLeaderboardList, GetNetworkList } from '@services/RaceService'
 import { AppState } from '@store/Store'

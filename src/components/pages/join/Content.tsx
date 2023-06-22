@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 
 import { styled } from 'styled-components'
 
-import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
+import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 
 import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
