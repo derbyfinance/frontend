@@ -11,14 +11,19 @@ import { WagmiConfig, configureChains, createConfig } from 'wagmi'
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { publicProvider } from 'wagmi/providers/public'
 
-const { chains, publicClient } = configureChains(
+const { chains, publicClient, webSocketPublicClient } = configureChains(
 	[mainnet, polygon, polygonMumbai, arbitrum, arbitrumGoerli, optimism, goerli],
-	[alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API ?? '' })]
+	[
+		alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API ?? '' }),
+		publicProvider()
+	]
 )
 
 const config = createConfig({
 	publicClient: publicClient,
+	webSocketPublicClient: webSocketPublicClient,
 	autoConnect: true,
 	connectors: [
 		new MetaMaskConnector({ chains }),

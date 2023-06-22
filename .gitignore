@@ -39,3 +39,7 @@ next-env.d.ts
 # lockfiles
 yarn.lock
 package-lock.json
+
+# certificates
+localhost.crt
+localhost.key

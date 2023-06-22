@@ -1,11 +1,12 @@
-import ActionButton from '@components/buttons/ActionButton'
-import { ToCoinCurrency } from '@functions/CurrencyFunction'
 import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
 import { getAllocationState } from '@store/RaceSlice'
 import { AppState } from '@store/Store'
 import { useSelector } from 'react-redux'
 import { styled } from 'styled-components'
+import { useAccount } from 'wagmi'
+import AllocateButton from './AllocateButton'
 import AllocateSummaryRow from './AllocateSummaryRow'
+import ConnectWalletButton from './ConnectWalletButton'
 
 interface Props {
 	update: (index: number) => void
@@ -13,6 +14,8 @@ interface Props {
 }
 
 export default ({ update, remove }: Props) => {
+	const { isConnected } = useAccount()
+
 	const allocationList = useSelector<AppState, AllocationRequestModel[]>(
 		getAllocationState
 	)
@@ -35,23 +38,11 @@ export default ({ update, remove }: Props) => {
 
 			{allocationList.length <= 0 ? (
 				<Empty>
-					<p>Nothing selected</p>
+					<h4>Nothing selected</h4>
 				</Empty>
 			) : null}
 
-			<ActionButton $isCta $align="right" disabled={allocationList.length <= 0}>
-				<div>
-					{`Buy now `}
-					{ToCoinCurrency(
-						allocationList?.reduce((prev, allocate) => {
-							return prev + allocate?.amount
-						}, 0),
-						0
-					)}
-					{` `}
-					<Small>DRB</Small>
-				</div>
-			</ActionButton>
+			{isConnected ? <AllocateButton /> : <ConnectWalletButton />}
 		</Container>
 	)
 }

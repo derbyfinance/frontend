@@ -7,7 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	$isGhost?: boolean
 	$isBlock?: boolean
 	$align?: 'left' | 'right'
-	children: string | JSX.Element | JSX.Element[]
+	children: string | JSX.Element | JSX.Element[] | React.ReactNode
 }
 
 export default ({

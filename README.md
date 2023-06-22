@@ -5,11 +5,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
-npm run dev
-# or
+yarn install
+
 yarn dev
-# or
-pnpm dev
+
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -17,6 +16,25 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Start SSL version of your developer environment
+
+First, generate the localhost certificates:
+
+```bash
+sh certificates/01.create-localhost-certificate.sh
+```
+
+Afterwards doubleclick the **localhost.crt** file and install it in your keychain.
+change trust setting within the certificate to **always trust**
+
+run the webserver
+
+```bash
+yarn ssl
+```
+
+Open [https://localhost:8080](https://localhost:8080) with your browser to see the result.
 
 ## Learn More
 
