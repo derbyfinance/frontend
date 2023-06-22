@@ -1,5 +1,6 @@
 import StatsDtoModel from '@models/dto/StatsDtoModel'
 import { VaultDtoModel } from '@models/dto/VaultDtoModel'
+import VaultStatsRequestModel from '@models/requests/VaultStatsRequestModel'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { GetVault, GetVaultList, GetVaultStats } from '@services/VaultService'
 import { AppState } from '@store/Store'
@@ -93,7 +94,8 @@ export const getVaultData = createAsyncThunk(
 
 export const getVaultStatsData = createAsyncThunk(
 	'vault/id/stats',
-	async (id: number) => await GetVaultStats(id)
+	async ({ id, filter }: VaultStatsRequestModel) =>
+		await GetVaultStats(id, filter)
 )
 
 export const getVaultListState = (state: AppState): VaultDtoModel[] =>

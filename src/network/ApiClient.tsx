@@ -59,12 +59,17 @@ mock
 		return [200, response]
 	})
 
-	.onGet(/\/vault\/[\d]+\/stats$/)
+	.onGet(/\/vault\/[\d]+\/stats[?filter=(Y|M|D|ALL)]*/)
 	.reply((item) => {
-		//const match = item.url?.match(/\d+$/)
-		//const id: number = match ? +match[0] : 0
+		const match = item.url?.match(/(?<=filter\=)(Y|M|D|ALL)/)
+		const filter: string = match ? match[0] : ''
 
 		let response = VaultStatsResult
+
+		if (filter !== '' && filter !== 'ALL') {
+			const amount = filter === 'D' ? 2 : filter === 'M' ? 3 : 5
+			response = { ...response, results: response.results.slice(0, amount) }
+		}
 
 		return [200, response]
 	})

@@ -1,0 +1,1 @@
+export type ChartFilterType = 'Y'| 'M' | 'D' |'ALL'
