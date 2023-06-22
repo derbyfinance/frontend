@@ -5,7 +5,7 @@ interface Props extends LinkProps {
 	children: JSX.Element | string
 }
 
-export default ({ children, ...props }: Props) => {
+export default ({ children, as, ...props }: Props) => {
 	return <TextLink {...props}>{children}</TextLink>
 }
 
