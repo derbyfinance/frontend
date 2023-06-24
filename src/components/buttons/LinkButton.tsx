@@ -1,3 +1,4 @@
+import { AlignType } from '@datatypes/AlignType'
 import Link, { LinkProps } from 'next/link'
 import styled from 'styled-components'
 
@@ -5,7 +6,7 @@ interface Props extends LinkProps {
 	$isCta?: boolean
 	$isGhost?: boolean
 	$isBlock?: boolean
-	$align?: 'left' | 'right'
+	$align?: AlignType
 	children: string | JSX.Element | JSX.Element[] | React.ReactNode
 }
 
@@ -34,7 +35,7 @@ const Button = styled(Link)<{
 	$isCta: boolean
 	$isGhost: boolean
 	$isBlock: boolean
-	$align?: 'left' | 'right'
+	$align?: AlignType
 }>`
 	font-family: ${({ theme }) => theme.fonts.slabRegular};
 	font-size: 1.25em;

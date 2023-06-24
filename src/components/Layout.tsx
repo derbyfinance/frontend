@@ -6,6 +6,7 @@ import { GlobalStyles } from '@theme/ThemeConfig'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import styled from 'styled-components'
+import { useAccount } from 'wagmi'
 import NotificationConfig from './NotificationConfig'
 import ThemeWrapper from './ThemeWrapper'
 import WalletConfig from './WalletConfig'
@@ -14,6 +15,7 @@ import FooterBar from './footer/FooterBar'
 import ConnectWalletModal from './modal/ConnectWalletModal'
 import Navigation from './navigation/Navigation'
 import Banner from './pages/Banner'
+import RaceBanner from './pages/race/RaceBanner'
 
 interface Props {
 	isFullPage?: boolean
@@ -22,6 +24,8 @@ interface Props {
 }
 
 const Layout = ({ isFullPage = false, aside, children }: Props) => {
+	const { isConnected } = useAccount()
+
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
@@ -36,7 +40,11 @@ const Layout = ({ isFullPage = false, aside, children }: Props) => {
 							</Header>
 							<Content>
 								<Main>{children}</Main>
-								{!isFullPage ? <Aside>{aside ?? <Banner />}</Aside> : null}
+								{!isFullPage ? (
+									<Aside>
+										{aside ?? isConnected ? <RaceBanner /> : <Banner />}
+									</Aside>
+								) : null}
 							</Content>
 							<Footer>
 								<FooterBar />

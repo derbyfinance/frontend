@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { FormikProps } from 'formik'
 import { styled } from 'styled-components'
@@ -6,10 +6,12 @@ import { styled } from 'styled-components'
 import { NetworkDtoModel } from '@models/dto/NetworkDtoModel'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 
-import { GetNetworkList } from '@services/RaceService'
-
 import Table from '@components/table/Table'
 
+import { useAppDispatch } from '@hooks/ReduxStore'
+import { getNetworkListData, getNetworkListState } from '@store/RaceSlice'
+import { AppState } from '@store/Store'
+import { useSelector } from 'react-redux'
 import NetworkOptionRow from './NetworkOptionRow'
 
 interface Props {
@@ -17,7 +19,10 @@ interface Props {
 	formikProps: FormikProps<any>
 }
 export default ({ inputName, formikProps }: Props) => {
-	const [networkList, setNetworkList] = useState<NetworkDtoModel[]>()
+	const dispatch = useAppDispatch()
+	const networkList = useSelector<AppState, NetworkDtoModel[]>(
+		getNetworkListState
+	)
 
 	const headers: TableHeaderModel[] = [
 		{ name: 'Name', align: 'left', colspan: 3 },
@@ -25,18 +30,8 @@ export default ({ inputName, formikProps }: Props) => {
 	]
 
 	useEffect(() => {
-		getNetworkListData()
+		if (networkList && networkList.length === 0) dispatch(getNetworkListData())
 	}, [])
-
-	const getNetworkListData = async () => {
-		try {
-			const { results } = await GetNetworkList()
-
-			setNetworkList(results)
-		} catch (error) {
-			console.log(error)
-		}
-	}
 
 	return (
 		<Container>

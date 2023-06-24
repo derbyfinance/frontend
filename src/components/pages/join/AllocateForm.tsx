@@ -12,7 +12,7 @@ import VaultIcon from '@components/icons/VaultIcon'
 import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
 
 import { useAppDispatch } from '@hooks/ReduxStore'
-import { setAllocationState } from '@store/RaceSlice'
+import { setAllocationListState } from '@store/RaceSlice'
 import { useRef } from 'react'
 import NetworkOptions from './NetworkOptions'
 import PercentageBar from './PercentageBar'
@@ -32,7 +32,7 @@ export default ({ initial }: Props) => {
 		formikHelpers: FormikHelpers<AllocationRequestModel>
 	) => {
 		form.amount = Number(form.amount)
-		dispatch(setAllocationState(form))
+		dispatch(setAllocationListState(form))
 
 		formikHelpers.resetForm({
 			values: {

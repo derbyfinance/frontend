@@ -1,5 +1,7 @@
+import { AlignType } from '@datatypes/AlignType'
+
 export default interface TableHeaderModel {
 	name: string
-	align?: 'left' | 'center' | 'right'
+	align?: AlignType
 	colspan?: number
 }

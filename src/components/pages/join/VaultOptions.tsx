@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 import { FormikProps } from 'formik'
 import { styled } from 'styled-components'
@@ -6,10 +6,12 @@ import { styled } from 'styled-components'
 import { VaultDtoModel } from '@models/dto/VaultDtoModel'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 
-import { GetVaultList } from '@services/RaceService'
-
 import Table from '@components/table/Table'
 
+import { useAppDispatch } from '@hooks/ReduxStore'
+import { getVaultListData, getVaultListState } from '@store/RaceSlice'
+import { AppState } from '@store/Store'
+import { useSelector } from 'react-redux'
 import VaultOptionRow from './VaultOptionRow'
 
 interface Props {
@@ -17,7 +19,8 @@ interface Props {
 	formikProps: FormikProps<any>
 }
 export default ({ inputName, formikProps }: Props) => {
-	const [vaultList, setVaultList] = useState<VaultDtoModel[]>()
+	const dispatch = useAppDispatch()
+	const vaultList = useSelector<AppState, VaultDtoModel[]>(getVaultListState)
 
 	const headers: TableHeaderModel[] = [
 		{ name: 'Name', align: 'left', colspan: 3 },
@@ -26,18 +29,8 @@ export default ({ inputName, formikProps }: Props) => {
 	]
 
 	useEffect(() => {
-		getVaultListData()
+		if (vaultList && vaultList.length === 0) dispatch(getVaultListData())
 	}, [])
-
-	const getVaultListData = async () => {
-		try {
-			const { results } = await GetVaultList()
-
-			setVaultList(results)
-		} catch (error) {
-			console.log(error)
-		}
-	}
 
 	return (
 		<Container>

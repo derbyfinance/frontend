@@ -1,15 +1,15 @@
 import ActionButton from '@components/buttons/ActionButton'
+import { Small } from '@components/fonts/Title'
 import { ToCoinCurrency } from '@functions/CurrencyFunction'
 import useMintBasket from '@hooks/UseMintNewBasket'
 import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
-import { getAllocationState } from '@store/RaceSlice'
+import { getAllocationListState } from '@store/RaceSlice'
 import { AppState } from '@store/Store'
 import { useSelector } from 'react-redux'
-import styled from 'styled-components'
 
 const AllocateButton = () => {
 	const allocationList = useSelector<AppState, AllocationRequestModel[]>(
-		getAllocationState
+		getAllocationListState
 	)
 
 	// example usage
@@ -32,9 +32,5 @@ const AllocateButton = () => {
 		</ActionButton>
 	)
 }
-
-const Small = styled.span`
-	font-size: 0.75em;
-`
 
 export default AllocateButton

@@ -25,6 +25,9 @@ declare module 'styled-components' {
         colorInfo: string
         colorDisabled: string
         colorPlaceholder: string
+        colorPositive: string
+        colorNegative: string
+        colorNeutral: string
         buttonColor: string
         buttonColorBg: string
         buttonColorCtaBg: string
