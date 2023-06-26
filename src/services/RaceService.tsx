@@ -3,7 +3,7 @@ import { subgraphClient } from '@network/SubgraphClient'
 
 import LeaderboardListDtoModel from '@models/dto/LeaderboardListDtoModel'
 import NetworkListDtoModel from '@models/dto/NetworkListDtoModel'
-import { PlayerDto } from '@models/dto/PlayerDtoModel'
+import { PlayerDto, VaultDto } from '@models/dto/PlayerDtoModel'
 import VaultListDtoModel from '@models/dto/VaultListDtoModel'
 
 export const GetLeaderboardList = (
@@ -50,4 +50,23 @@ export const getPlayer = async (address: string) => {
 		variables: { address }
 	}
 	return subgraphClient.post<PlayerDto>(``, data)
+}
+
+export const getVaults = async () => {
+	const data = {
+		query: `
+      query {
+        vaults (first: 10) {
+          id,
+          name,
+          vaultNumber,
+          protocols {
+            name,
+            protocolNumber
+          }
+        }
+      }`
+	}
+
+	return subgraphClient.post<VaultDto[]>(``, data)
 }
