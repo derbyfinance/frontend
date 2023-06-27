@@ -38,7 +38,11 @@ export const getPlayer = async (address: string) => {
               vaultNumber,
               protocols {
                 id,
-                name
+                name,
+                network,
+                coin,
+                protocol,
+                protocolNumber,
               }
             },
             rebalancingPeriod,
@@ -61,7 +65,11 @@ export const getVaults = async () => {
           name,
           vaultNumber,
           protocols {
+            id,
             name,
+            network,
+            coin,
+            protocol,
             protocolNumber
           }
         }
