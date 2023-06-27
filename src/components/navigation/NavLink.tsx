@@ -1,12 +1,12 @@
 import Link, { LinkProps } from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import styled from 'styled-components'
 
 interface Props extends LinkProps {
 	children: string | JSX.Element | JSX.Element[]
 }
 
-export default ({ children, ...props }: Props) => {
+export default ({ children, as, ...props }: Props) => {
 	const pathname = usePathname()
 
 	const isActive = (): boolean => {

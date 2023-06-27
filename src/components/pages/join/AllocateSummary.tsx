@@ -1,4 +1,4 @@
-import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
+import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
 import { AppState } from '@store/Store'
 import { useSelector } from 'react-redux'

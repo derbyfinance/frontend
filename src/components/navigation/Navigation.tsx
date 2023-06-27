@@ -26,6 +26,7 @@ const Navigation = () => {
 			<MenuBar>
 				<NavLink href="/">Race</NavLink>
 				{/* <NavLink href="/race">Race</NavLink> */}
+				<NavLink href="/account">Account</NavLink>
 				<NavLink href="/governance">Governance</NavLink>
 				{isConnected ? (
 					<AccountButton />

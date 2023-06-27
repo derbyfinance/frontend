@@ -2,7 +2,7 @@ import AllocationValidation from '@/validations/AllocationValidation'
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import { styled } from 'styled-components'
 
-import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
+import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 
 import ActionButton from '@components/buttons/ActionButton'
 import InputField from '@components/form/InputField'

@@ -9,8 +9,8 @@ import TableHeaderModel from '@models/internal/TableHeaderModel'
 import Table from '@components/table/Table'
 
 import { useAppDispatch } from '@hooks/ReduxStore'
-import { getVaultListData, getVaultListState } from '@store/RaceSlice'
 import { AppState } from '@store/Store'
+import { getVaultListData, getVaultListState } from '@store/VaultSlice'
 import { useSelector } from 'react-redux'
 import VaultOptionRow from './VaultOptionRow'
 

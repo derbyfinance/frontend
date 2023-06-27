@@ -1,4 +1,4 @@
-import { CountdownModel } from '@models/internal/CountdownModel'
+import CountdownModel from '@models/internal/CountdownModel'
 import { useEffect, useState } from 'react'
 
 interface Props {

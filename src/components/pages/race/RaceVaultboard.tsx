@@ -9,12 +9,12 @@ import ExpandButton from '@components/table/ExpandButton'
 import Table from '@components/table/Table'
 
 import { useAppDispatch } from '@hooks/ReduxStore'
+import { AppState } from '@store/Store'
 import {
 	getVaultListCountState,
 	getVaultListData,
 	getVaultListState
-} from '@store/RaceSlice'
-import { AppState } from '@store/Store'
+} from '@store/VaultSlice'
 import { useSelector } from 'react-redux'
 import RaceVaultboardRow from './RaceVaultboardRow'
 

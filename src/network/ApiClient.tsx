@@ -1,9 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
-import LeaderboardResult from '@services/get-leaderboard.mock.json'
-import NetworkListResult from '@services/get-network.mock.json'
-import VaultListResult from '@services/get-vault.mock.json'
+import LeaderboardListResult from '@services/get-leaderboard-list.mock.json'
+import NetworkListResult from '@services/get-network-list.mock.json'
+import VaultListResult from '@services/get-vault-list.mock.json'
+import VaultStatsResult from '@services/get-vault-stats.mock.json'
 
 var mock = new MockAdapter(axios, { delayResponse: 10 })
 
@@ -13,7 +14,7 @@ mock
 		const match = item.url?.match(/\d+$/)
 		const amount: number = match ? +match[0] : 0
 
-		let response = LeaderboardResult
+		let response = LeaderboardListResult
 
 		if (amount > 0) {
 			response = { ...response, results: response.results.slice(0, amount) }
@@ -34,7 +35,7 @@ mock
 		return [200, response]
 	})
 
-	.onGet(/\/race\/vault[\w?=]*/)
+	.onGet(/\/vault\?size=[\d]+/)
 	.reply((item) => {
 		const match = item.url?.match(/\d+$/)
 		const amount: number = match ? +match[0] : 0
@@ -44,6 +45,32 @@ mock
 		if (amount > 0) {
 			response = { ...response, results: response.results.slice(0, amount) }
 		}
+
+		return [200, response]
+	})
+
+	.onGet(/\/vault\/[\d]$/)
+	.reply((item) => {
+		const match = item.url?.match(/\d+$/)
+		const id: number = match ? +match[0] : 0
+
+		let response = VaultListResult.results.find(({ id }) => id === id)
+
+		return [200, response]
+	})
+
+	.onGet(/\/vault\/[\d]+\/stats[?filter=(Y|M|D|ALL)]*/)
+	.reply((item) => {
+		const match = item.url?.match(/(?<=filter\=)(Y|M|D|ALL)/)
+		const filter: string = match ? match[0] : ''
+
+		let response = VaultStatsResult
+
+		if (filter !== '' && filter !== 'ALL') {
+			const amount = filter === 'D' ? 2 : filter === 'M' ? 3 : 5
+			response = { ...response, results: response.results.slice(0, amount) }
+		}
+
 		return [200, response]
 	})
 

@@ -2,7 +2,7 @@ import IconSelector from '@components/IconSelector'
 import DeleteIcon from '@components/icons/DeleteIcon'
 import EditIcon from '@components/icons/EditIcon'
 import TableData from '@components/table/TableData'
-import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
+import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { styled } from 'styled-components'
 
 interface Props {

@@ -2,7 +2,7 @@ import { styled } from 'styled-components'
 
 import { LeadingZero } from '@functions/NumberFunction'
 
-import { CountdownModel } from '@models/internal/CountdownModel'
+import CountdownModel from '@models/internal/CountdownModel'
 
 interface Props {
 	countdown?: CountdownModel

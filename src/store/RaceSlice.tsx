@@ -1,13 +1,8 @@
 import { LeaderboardDtoModel } from '@models/dto/LeaderboardDtoModel'
 import { NetworkDtoModel } from '@models/dto/NetworkDtoModel'
-import { VaultDtoModel } from '@models/dto/VaultDtoModel'
-import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
+import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
-import {
-	GetLeaderboardList,
-	GetNetworkList,
-	GetVaultList
-} from '@services/RaceService'
+import { GetLeaderboardList, GetNetworkList } from '@services/RaceService'
 import { AppState } from '@store/Store'
 
 export interface RaceState {
@@ -15,11 +10,6 @@ export interface RaceState {
 	leaderboardListCount?: number
 	leaderboardListPending: boolean
 	leaderboardListError: boolean
-
-	vaultList?: VaultDtoModel[]
-	vaultListCount?: number
-	vaultListPending: boolean
-	vaultListError: boolean
 
 	networkList?: NetworkDtoModel[]
 	networkListCount?: number
@@ -32,8 +22,6 @@ export interface RaceState {
 const initialState: RaceState = {
 	leaderboardListPending: false,
 	leaderboardListError: false,
-	vaultListPending: false,
-	vaultListError: false,
 	networkListPending: false,
 	networkListError: false
 }
@@ -88,21 +76,6 @@ export const raceSlice = createSlice({
 				state.leaderboardListError = true
 			})
 
-			// VaultList
-			.addCase(getVaultListData.pending, (state) => {
-				state.vaultListPending = true
-			})
-			.addCase(getVaultListData.fulfilled, (state, { payload }) => {
-				state.vaultListPending = false
-				state.vaultListError = false
-				state.vaultList = payload.results
-				state.vaultListCount = payload.count
-			})
-			.addCase(getVaultListData.rejected, (state) => {
-				state.vaultListPending = false
-				state.vaultListError = true
-			})
-
 			// NetworkList
 			.addCase(getNetworkListData.pending, (state) => {
 				state.networkListPending = true
@@ -125,11 +98,6 @@ export const getLeaderboardListData = createAsyncThunk(
 	async (size?: number) => await GetLeaderboardList(size)
 )
 
-export const getVaultListData = createAsyncThunk(
-	'race/vaultList',
-	async (size?: number) => await GetVaultList(size)
-)
-
 export const getNetworkListData = createAsyncThunk(
 	'race/networkList',
 	async (size?: number) => await GetNetworkList(size)
@@ -141,12 +109,6 @@ export const getLeaderboardListState = (
 
 export const getLeaderboardListCountState = (state: AppState): number =>
 	state.race.leaderboardListCount ?? 0
-
-export const getVaultListState = (state: AppState): VaultDtoModel[] =>
-	state.race.vaultList ?? []
-
-export const getVaultListCountState = (state: AppState): number =>
-	state.race.vaultListCount ?? 0
 
 export const getNetworkListState = (state: AppState): NetworkDtoModel[] =>
 	state.race.networkList ?? []

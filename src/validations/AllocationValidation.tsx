@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-import { AllocationRequestModel } from '@models/requests/AllocationRequestModel'
+import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 
 export default Yup.object<AllocationRequestModel>({
 	network: Yup.string().required(),
