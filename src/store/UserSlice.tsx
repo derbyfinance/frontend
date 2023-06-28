@@ -49,16 +49,6 @@ export const getPlayerData = createAsyncThunk(
 	async (address: Hex) => await GetPlayer(address)
 )
 
-/*
-export const isDarkModeState = (state: AppState): boolean =>
-	state.settings.isDarkMode
-
-export const isLargeModeState = (state: AppState): boolean =>
-	state.settings.isLargeMode
-
-export const isConnectModalOpenState = (state: AppState): boolean =>
-	state.settings.isConnectModalOpen
-*/
 export const {} = userSlice.actions
 
 export default userSlice.reducer
