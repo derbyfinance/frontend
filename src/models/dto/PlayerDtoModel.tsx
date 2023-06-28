@@ -19,5 +19,9 @@ export interface VaultDto {
 	protocols: {
 		id: string
 		name: string
+		network: string
+		coin: string
+		protocol: string
+		protocolNumber: string
 	}
 }
