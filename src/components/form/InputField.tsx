@@ -4,6 +4,7 @@ import { ErrorMessage, FormikProps } from 'formik'
 import { styled } from 'styled-components'
 
 import { InputType } from '@datatypes/InputType'
+import { ErrorCaption } from './FormElements'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	inputName: string
@@ -49,13 +50,13 @@ export default ({
 				<FloatIcon>{icon}</FloatIcon>
 			</Wrapper>
 
-			<div className="absolute text-red-500 text-sm">
+			<ErrorCaption>
 				{formikProps.touched &&
 				formikProps.errors &&
 				formikProps.values[inputName] === '' ? null : (
 					<ErrorMessage name={inputName} />
 				)}
-			</div>
+			</ErrorCaption>
 		</Container>
 	)
 }

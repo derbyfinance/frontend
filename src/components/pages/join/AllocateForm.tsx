@@ -7,19 +7,20 @@ import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import ActionButton from '@components/buttons/ActionButton'
 import InputField from '@components/form/InputField'
 import SelectInputField from '@components/form/SelectInputField'
-import NetworkIcon from '@components/icons/NetworkIcon'
 import VaultIcon from '@components/icons/VaultIcon'
 import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
 
+import { FormRow, SubmitContainer } from '@components/form/FormElements'
 import { useAppDispatch } from '@hooks/ReduxStore'
+import useDidMountEffect from '@hooks/UseDidMountEffect'
 import { setAllocationListState } from '@store/RaceSlice'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
 import { getPlayerData } from '@store/UserSlice'
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 import { useAccount } from 'wagmi'
-import NetworkOptions from './NetworkOptions'
+import NetworkSelect from './NetworkSelect'
 import PercentageBar from './PercentageBar'
-import VaultOptions from './VaultOptions'
+import VaultSelect from './VaultSelect'
 
 interface Props {
 	initial: AllocationRequestModel
@@ -32,7 +33,7 @@ const AllocateForm = ({ initial }: Props) => {
 
 	const { address } = useAccount()
 
-	useEffect(() => {
+	useDidMountEffect(() => {
 		if (address !== undefined) dispatch(getPlayerData(address))
 	}, [address])
 
@@ -47,6 +48,7 @@ const AllocateForm = ({ initial }: Props) => {
 			values: {
 				nft: '',
 				network: '',
+				protocol: '',
 				vault: '',
 				amount: 0
 			}
@@ -81,10 +83,12 @@ const AllocateForm = ({ initial }: Props) => {
 								label="Select NFT"
 								formikProps={formikProps}
 								placeholder="Select a NFT"
+								smallOptionList
 								tabIndex={1}
-								options={
-									<NetworkOptions inputName="nft" formikProps={formikProps} />
-								}
+								optionList={[].map(({ name, value }) => ({
+									name: name,
+									value: value
+								}))}
 								required
 							/>
 							<Label>or</Label>
@@ -93,44 +97,33 @@ const AllocateForm = ({ initial }: Props) => {
 							</ActionButton>
 						</FormRow>
 
-						<SelectInputField
-							inputName="network"
-							label={
-								<>
-									<NetworkIcon />
-									<span>Network</span>
-								</>
-							}
-							formikProps={formikProps}
-							placeholder="Select a network"
-							tabIndex={1}
-							options={
-								<NetworkOptions inputName="network" formikProps={formikProps} />
-							}
-							required
-						/>
+						<NetworkSelect formikProps={formikProps} />
 
 						<SelectInputField
-							inputName="vault"
-							tabIndex={2}
+							inputName="protocol"
 							label={
 								<>
 									<VaultIcon />
-									<span>Vault</span>
+									<span>Protocol</span>
 								</>
 							}
 							formikProps={formikProps}
-							placeholder="Select a vault"
-							options={
-								<VaultOptions inputName="vault" formikProps={formikProps} />
-							}
+							placeholder="Select a protocol"
+							smallOptionList
+							tabIndex={3}
+							optionList={[].map(({ name, value }) => ({
+								name: name,
+								value: value
+							}))}
 							required
 						/>
+
+						<VaultSelect formikProps={formikProps} />
 
 						<InputField
 							inputName="amount"
 							label="Amount"
-							tabIndex={3}
+							tabIndex={5}
 							formikProps={formikProps}
 							placeholder="0.0"
 							required
@@ -161,19 +154,6 @@ const AllocateForm = ({ initial }: Props) => {
 const DerbyIconWrapper = styled.div`
 	display: flex;
 	gap: 0.25em;
-`
-const SubmitContainer = styled.div`
-	margin-top: 2em;
-`
-const FormRow = styled.div`
-	display: flex;
-	gap: 0.5em;
-	justify-content: space-between;
-	align-items: end;
-
-	:first-child {
-		flex: 1 1 auto;
-	}
 `
 const Label = styled.span`
 	color: ${({ theme }) => theme.style.colorLabel};

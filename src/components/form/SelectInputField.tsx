@@ -1,33 +1,44 @@
-import { InputHTMLAttributes, useState } from 'react'
+import { SelectHTMLAttributes, useState } from 'react'
 
 import { ErrorMessage, FormikProps } from 'formik'
 import { styled } from 'styled-components'
 
 import ActionButton from '@components/buttons/ActionButton'
 import ArrowDropdownIcon from '@components/icons/ArrowDropdownIcon'
+import { SelectOptionModel } from '@models/internal/SelectOptionModel'
+import { ErrorCaption } from './FormElements'
+import SelectOptionList from './SelectOptionList'
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
 	inputName: string
 	label: string | JSX.Element
-	options: JSX.Element
+	options?: JSX.Element
 	formikProps: FormikProps<any>
 	placeholder?: string
+	optionList: SelectOptionModel[]
 	required?: boolean
+	smallOptionList?: boolean
 }
 
-export default ({
+const SelectInputField = ({
 	inputName,
 	label,
 	formikProps,
+	optionList,
 	options,
 	placeholder = '',
 	required = false,
+	smallOptionList = false,
 	...props
 }: Props) => {
 	const [open, setOpen] = useState<boolean>(false)
 
-	const openSelect = () => {
+	const openSelect = (): void => {
 		setOpen(!open)
+	}
+
+	const closeOptionList = (): void => {
+		if (smallOptionList) setOpen(false)
 	}
 
 	return (
@@ -35,35 +46,53 @@ export default ({
 			<Label htmlFor={inputName}>{label}</Label>
 			<Wrapper onClick={openSelect}>
 				<SelectInput
-					type="text"
-					readOnly
+					disabled
 					id={inputName}
 					name={inputName}
-					placeholder={placeholder}
 					required={required}
 					onChange={formikProps.handleChange}
 					onBlur={formikProps.handleBlur}
 					value={formikProps.values[inputName]}
-					{...props}
-				/>
+					//{...props}
+				>
+					<PlaceholderOption value="" disabled>
+						{placeholder}
+					</PlaceholderOption>
+					{optionList.map(({ name, value }, index) => (
+						<option key={index} value={value}>
+							{name}
+						</option>
+					))}
+				</SelectInput>
 				<FloatArrowDropdownIcon $isOpen={open} />
 			</Wrapper>
 			<OptionOverlay $isOpen={open} onClick={openSelect} />
-			<OptionList $isOpen={open}>
-				{options}
-				<Bottom>
-					<ActionButton $isCta onClick={openSelect}>
-						Select
-					</ActionButton>
-				</Bottom>
+			<OptionList
+				$isOpen={open}
+				$smallOptionList={smallOptionList}
+				onClick={closeOptionList}>
+				{options ?? (
+					<SelectOptionList
+						optionList={optionList}
+						inputName={inputName}
+						formikProps={formikProps}
+					/>
+				)}
+				{!smallOptionList ? (
+					<Bottom>
+						<ActionButton $isCta onClick={openSelect}>
+							Select
+						</ActionButton>
+					</Bottom>
+				) : null}
 			</OptionList>
-			<div className="absolute text-red-500 text-sm">
+			<ErrorCaption>
 				{formikProps.touched &&
 				formikProps.errors &&
 				formikProps.values[inputName] === '' ? null : (
 					<ErrorMessage name={inputName} />
 				)}
-			</div>
+			</ErrorCaption>
 		</Container>
 	)
 }
@@ -83,6 +112,22 @@ const Label = styled.label`
 `
 const Wrapper = styled.div`
 	position: relative;
+
+	&:after {
+		content: '';
+		display: block;
+		position: absolute;
+		right: 1px;
+		top: 1px;
+		height: 95%;
+		width: 3em;
+		border-radius: ${({ theme }) => theme.style.radius}px;
+		background: linear-gradient(
+			to right,
+			transparent 0%,
+			${({ theme }) => theme.style.colorBg} 40%
+		);
+	}
 `
 const FloatArrowDropdownIcon = styled(ArrowDropdownIcon)<{ $isOpen: boolean }>`
 	display: block;
@@ -102,7 +147,12 @@ const FloatArrowDropdownIcon = styled(ArrowDropdownIcon)<{ $isOpen: boolean }>`
 		rotate: 180deg;
 	`}
 `
-const SelectInput = styled.input`
+const SelectInput = styled.select`
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	text-indent: 1px;
+	text-overflow: unset;
+
 	font-family: ${({ theme }) => theme.fonts.slabMedium};
 	border: 1px solid ${({ theme }) => theme.style.colorBorder};
 	border-radius: ${({ theme }) => theme.style.radius}px;
@@ -112,22 +162,26 @@ const SelectInput = styled.input`
 	width: 100%;
 	cursor: pointer;
 
-	&::placeholder {
-		color: ${({ theme }) => theme.style.colorPlaceholder};
+	&[disabled] {
 		opacity: 1;
 	}
+
+	&:has(option:disabled:checked) {
+		color: ${({ theme }) => theme.style.colorPlaceholder};
+	}
 `
-const OptionList = styled.div<{ $isOpen: boolean }>`
+const OptionList = styled.div<{ $isOpen: boolean; $smallOptionList?: boolean }>`
 	background-color: ${({ theme }) => theme.style.colorBg};
 	border-radius: ${({ theme }) => theme.style.radius}px;
 	border: 1px solid ${({ theme }) => theme.style.colorBorder};
 	margin-top: 0.5em;
-	padding: 2em;
+	padding: ${({ $smallOptionList }) => ($smallOptionList ? '0em' : '2em')};
 	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.15);
 	position: absolute;
 	display: none;
 	z-index: 2;
 	overflow: hidden;
+	min-width: 10em;
 
 	${({ $isOpen }) =>
 		$isOpen &&
@@ -135,6 +189,7 @@ const OptionList = styled.div<{ $isOpen: boolean }>`
 		display: block;
 	`};
 `
+const PlaceholderOption = styled.option``
 const OptionOverlay = styled.div<{ $isOpen: boolean }>`
 	position: absolute;
 	//background: rgba(0, 0, 0, 0.25);
@@ -155,3 +210,4 @@ const Bottom = styled.div`
 	margin-top: 1em;
 	text-align: right;
 `
+export default SelectInputField

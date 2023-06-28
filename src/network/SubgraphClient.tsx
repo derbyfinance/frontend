@@ -12,7 +12,7 @@ const subgraphClient = axios.create({
 
 subgraphClient.interceptors.response.use(
 	({ data }: AxiosResponse) => {
-		return data
+		return data.data
 	},
 	(error: AxiosError) => {
 		console.log('Interceptor', 'response', 'error', error)

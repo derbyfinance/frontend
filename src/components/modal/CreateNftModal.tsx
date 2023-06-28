@@ -1,3 +1,4 @@
+import CreateNftForm from '@components/CreateNftForm'
 import LogoIcon from '@components/icons/LogoIcon'
 import { useAppDispatch } from '@hooks/ReduxStore'
 import {
@@ -9,9 +10,7 @@ import { useSelector } from 'react-redux'
 import { styled } from 'styled-components'
 import Modal from './Modal'
 
-interface Props {}
-
-const CreateNftModal = ({}: Props) => {
+const CreateNftModal = () => {
 	const isOpenModal = useSelector<AppState, boolean>(isCreateNftModalOpenState)
 	const dispatch = useAppDispatch()
 
@@ -29,7 +28,9 @@ const CreateNftModal = ({}: Props) => {
 					<h4>Create new NFT</h4>
 					<p>to start using Derby Finance</p>
 				</Header>
-				<Content></Content>
+				<Content>
+					<CreateNftForm />
+				</Content>
 				<Footer></Footer>
 			</>
 		</Modal>
@@ -44,9 +45,7 @@ const Header = styled.div`
 		color: inherit;
 	}
 `
-const Content = styled.div`
-	text-align: center;
-`
+const Content = styled.div``
 const Footer = styled.div`
 	text-align: center;
 	font-size: 0.75em;

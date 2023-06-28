@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
+import CategoryListResult from '@services/get-category-list.mock.json'
 import LeaderboardListResult from '@services/get-leaderboard-list.mock.json'
 import NetworkListResult from '@services/get-network-list.mock.json'
 import VaultListResult from '@services/get-vault-list.mock.json'
@@ -35,7 +36,15 @@ mock
 		return [200, response]
 	})
 
-	.onGet(/\/vault\?size=[\d]+/)
+	.onGet(/\/race\/category*/)
+	.reply(() => {
+		console.log('category list')
+		let response = CategoryListResult
+
+		return [200, response]
+	})
+
+	.onGet(/\/vault(\?size=[\d]{1,})*/)
 	.reply((item) => {
 		const match = item.url?.match(/\d+$/)
 		const amount: number = match ? +match[0] : 0

@@ -1,8 +1,13 @@
+import CategoryDtoModel from '@models/dto/CategoryDtoModel'
 import { LeaderboardDtoModel } from '@models/dto/LeaderboardDtoModel'
 import { NetworkDtoModel } from '@models/dto/NetworkDtoModel'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit'
-import { GetLeaderboardList, GetNetworkList } from '@services/RaceService'
+import {
+	GetCategoryList,
+	GetLeaderboardList,
+	GetNetworkList
+} from '@services/RaceService'
 import { AppState } from '@store/Store'
 
 export interface RaceState {
@@ -16,6 +21,11 @@ export interface RaceState {
 	networkListPending: boolean
 	networkListError: boolean
 
+	categoryList?: CategoryDtoModel[]
+	categoryListCount?: number
+	categoryListPending: boolean
+	categoryListError: boolean
+
 	allocationList?: AllocationRequestModel[]
 }
 
@@ -23,7 +33,9 @@ const initialState: RaceState = {
 	leaderboardListPending: false,
 	leaderboardListError: false,
 	networkListPending: false,
-	networkListError: false
+	networkListError: false,
+	categoryListPending: false,
+	categoryListError: false
 }
 
 export const raceSlice = createSlice({
@@ -90,6 +102,21 @@ export const raceSlice = createSlice({
 				state.networkListPending = false
 				state.networkListError = true
 			})
+
+			// CategoryList
+			.addCase(getCategoryListData.pending, (state) => {
+				state.categoryListPending = true
+			})
+			.addCase(getCategoryListData.fulfilled, (state, { payload }) => {
+				state.categoryListPending = false
+				state.categoryListError = false
+				state.categoryList = payload.results
+				state.categoryListCount = payload.count
+			})
+			.addCase(getCategoryListData.rejected, (state) => {
+				state.categoryListPending = false
+				state.categoryListError = true
+			})
 	}
 })
 
@@ -101,6 +128,11 @@ export const getLeaderboardListData = createAsyncThunk(
 export const getNetworkListData = createAsyncThunk(
 	'race/networkList',
 	async (size?: number) => await GetNetworkList(size)
+)
+
+export const getCategoryListData = createAsyncThunk(
+	'race/categoryList',
+	async () => await GetCategoryList()
 )
 
 export const getLeaderboardListState = (
@@ -115,6 +147,9 @@ export const getNetworkListState = (state: AppState): NetworkDtoModel[] =>
 
 export const getNetworkListCountState = (state: AppState): number =>
 	state.race.networkListCount ?? 0
+
+export const getCategoryListState = (state: AppState): CategoryDtoModel[] =>
+	state.race.categoryList ?? []
 
 export const getAllocationListState = (
 	state: AppState

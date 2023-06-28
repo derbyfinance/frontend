@@ -41,6 +41,8 @@ const Container = styled.div<{ $isOpen: boolean }>`
 	overflow-y: auto;
 	opacity: 1;
 	transition: opacity 0.5s ease-in-out, z-index 0.5s step-start;
+	padding-top: 4em;
+	scrollbar-gutter: stable;
 
 	${({ $isOpen }) =>
 		!$isOpen &&
