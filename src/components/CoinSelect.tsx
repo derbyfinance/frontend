@@ -1,11 +1,10 @@
-import { useAppDispatch } from '@hooks/ReduxStore'
-import { VaultDtoModel } from '@models/dto/VaultDtoModel'
-import { getCategoryListData } from '@store/RaceSlice'
-import { AppState } from '@store/Store'
-import { getVaultListState } from '@store/VaultSlice'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
+import CategoryDtoModel from '@models/dto/CategoryDtoModel'
+import { VaultDtoModel } from '@models/dto/PlayerDtoModel'
+import { getCategoryListState } from '@store/RaceSlice'
+import { getVaultListData, getVaultListState } from '@store/VaultSlice'
 import { FormikProps } from 'formik'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import SelectInputField from './form/SelectInputField'
 
 interface Props {
@@ -14,11 +13,17 @@ interface Props {
 
 const CoinSelect = ({ formikProps }: Props) => {
 	const dispatch = useAppDispatch()
-	const vaultList = useSelector<AppState, VaultDtoModel[]>(getVaultListState)
+	const vaultList = useAppSelector<VaultDtoModel[]>(getVaultListState)
+	const categoryList = useAppSelector<CategoryDtoModel[]>(getCategoryListState)
 
 	useEffect(() => {
-		dispatch(getCategoryListData())
+		if (vaultList && vaultList.length === 0) dispatch(getVaultListData())
 	}, [])
+
+	//TODO: Ugly
+	const categoryFilter = (category: string): string => {
+		return categoryList.find(({ name }) => name === category)?.id ?? ''
+	}
 
 	return (
 		<SelectInputField
@@ -27,10 +32,15 @@ const CoinSelect = ({ formikProps }: Props) => {
 			smallOptionList
 			placeholder="Select a coin"
 			formikProps={formikProps}
-			optionList={vaultList.map(({ name, id }) => ({
-				name: name,
-				value: id
-			}))}
+			optionList={vaultList
+				.filter(
+					({ category }) =>
+						categoryFilter(category) === formikProps.values['category']
+				)
+				.map(({ name, id }) => ({
+					name: name,
+					value: id
+				}))}
 		/>
 	)
 }

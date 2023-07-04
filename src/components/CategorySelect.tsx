@@ -1,10 +1,8 @@
-import { useAppDispatch } from '@hooks/ReduxStore'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import CategoryDtoModel from '@models/dto/CategoryDtoModel'
 import { getCategoryListData, getCategoryListState } from '@store/RaceSlice'
-import { AppState } from '@store/Store'
 import { FormikProps } from 'formik'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import SelectInputField from './form/SelectInputField'
 
 interface Props {
@@ -13,9 +11,7 @@ interface Props {
 
 const CategorySelect = ({ formikProps }: Props) => {
 	const dispatch = useAppDispatch()
-	const categoryList = useSelector<AppState, CategoryDtoModel[]>(
-		getCategoryListState
-	)
+	const categoryList = useAppSelector<CategoryDtoModel[]>(getCategoryListState)
 
 	useEffect(() => {
 		dispatch(getCategoryListData())

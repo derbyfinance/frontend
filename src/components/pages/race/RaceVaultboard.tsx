@@ -2,28 +2,26 @@ import { useEffect, useState } from 'react'
 
 import { styled } from 'styled-components'
 
-import { VaultDtoModel } from '@models/dto/VaultDtoModel'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 
 import ExpandButton from '@components/table/ExpandButton'
 import Table from '@components/table/Table'
 
-import { useAppDispatch } from '@hooks/ReduxStore'
-import { AppState } from '@store/Store'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
+import { VaultDtoModel } from '@models/dto/PlayerDtoModel'
 import {
 	getVaultListCountState,
 	getVaultListData,
 	getVaultListState
 } from '@store/VaultSlice'
-import { useSelector } from 'react-redux'
 import RaceVaultboardRow from './RaceVaultboardRow'
 
 export default () => {
 	const amount: number = 5
 	const dispatch = useAppDispatch()
 
-	const vaultList = useSelector<AppState, VaultDtoModel[]>(getVaultListState)
-	const vaultListCount = useSelector<AppState, number>(getVaultListCountState)
+	const vaultList = useAppSelector<VaultDtoModel[]>(getVaultListState)
+	const vaultListCount = useAppSelector<number>(getVaultListCountState)
 
 	const [size, setSize] = useState<number | undefined>(amount)
 
@@ -35,7 +33,7 @@ export default () => {
 	]
 
 	useEffect(() => {
-		dispatch(getVaultListData(size))
+		if (vaultList && vaultList.length === 0) dispatch(getVaultListData(size))
 	}, [size])
 
 	const handleShow = (): void => {

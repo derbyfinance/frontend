@@ -1,11 +1,8 @@
+import Table from '@components/table/Table'
+import { VaultDtoModel } from '@models/dto/PlayerDtoModel'
+import TableHeaderModel from '@models/internal/TableHeaderModel'
 import { FormikProps } from 'formik'
 import { styled } from 'styled-components'
-
-import { VaultDtoModel } from '@models/dto/VaultDtoModel'
-import TableHeaderModel from '@models/internal/TableHeaderModel'
-
-import Table from '@components/table/Table'
-
 import VaultOptionRow from './VaultOptionRow'
 
 interface Props {

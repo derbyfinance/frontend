@@ -122,12 +122,12 @@ export const raceSlice = createSlice({
 
 export const getLeaderboardListData = createAsyncThunk(
 	'race/leaderboardList',
-	async (size?: number) => await GetLeaderboardList(size)
+	async (size: number | undefined) => await GetLeaderboardList(size)
 )
 
 export const getNetworkListData = createAsyncThunk(
 	'race/networkList',
-	async (size?: number) => await GetNetworkList(size)
+	async (size: number | undefined) => await GetNetworkList(size)
 )
 
 export const getCategoryListData = createAsyncThunk(

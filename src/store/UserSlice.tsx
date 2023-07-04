@@ -1,6 +1,8 @@
+import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { GetPlayer } from '@services/UserService'
 import { Hex } from 'viem'
+import { AppState } from './Store'
 
 export interface UserState {
 	staked?: number
@@ -10,6 +12,7 @@ export interface UserState {
 	amountSilver: number
 	amountBronze: number
 
+	player?: PlayerDtoModel
 	playerPending: boolean
 	playerError: boolean
 }
@@ -35,7 +38,7 @@ export const userSlice = createSlice({
 			.addCase(getPlayerData.fulfilled, (state, { payload }) => {
 				state.playerPending = false
 				state.playerError = false
-				console.log('player data', payload)
+				state.player = payload
 			})
 			.addCase(getPlayerData.rejected, (state) => {
 				state.playerPending = false
@@ -48,6 +51,9 @@ export const getPlayerData = createAsyncThunk(
 	'user/player',
 	async (address: Hex) => await GetPlayer(address)
 )
+
+export const getPlayerState = (state: AppState): PlayerDtoModel =>
+	state.user?.player ?? {}
 
 export const {} = userSlice.actions
 

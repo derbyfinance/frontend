@@ -1,7 +1,6 @@
+import { useAppSelector } from '@hooks/ReduxStore'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
-import { AppState } from '@store/Store'
-import { useSelector } from 'react-redux'
 import { styled } from 'styled-components'
 import { useAccount } from 'wagmi'
 import AllocateButton from './AllocateButton'
@@ -16,7 +15,7 @@ interface Props {
 export default ({ update, remove }: Props) => {
 	const { isConnected } = useAccount()
 
-	const allocationList = useSelector<AppState, AllocationRequestModel[]>(
+	const allocationList = useAppSelector<AllocationRequestModel[]>(
 		getAllocationListState
 	)
 

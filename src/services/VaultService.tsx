@@ -1,15 +1,15 @@
 import ApiClient from '@network/ApiClient'
 
 import { ChartFilterType } from '@datatypes/ChartFilterType'
-import { VaultDto } from '@models/dto/PlayerDtoModel'
 import StatsListDtoModel from '@models/dto/StatsListDtoModel'
-import { VaultDtoModel } from '@models/dto/VaultDtoModel'
+
+import { VaultDtoModel } from '@models/dto/PlayerDtoModel'
 import VaultListDtoModel from '@models/dto/VaultListDtoModel'
 import SubgraphClient from '@network/SubgraphClient'
 
-export const GetVaultList = (amount?: number): Promise<VaultListDtoModel> => {
-	return ApiClient.get(`/vault${amount ? `?size=${amount}` : ''}`)
-}
+// export const GetVaultList = (amount?: number): Promise<VaultListDtoModel> => {
+// 	return ApiClient.get(`/vault${amount ? `?size=${amount}` : ''}`)
+// }
 
 export const GetVault = (id: number): Promise<VaultDtoModel> => {
 	return ApiClient.get(`/vault/${id}`)
@@ -22,20 +22,31 @@ export const GetVaultStats = (
 	return ApiClient.get(`/vault/${id}/stats${filter ? `?filter=${filter}` : ''}`)
 }
 
-export const getVaults = async (): Promise<VaultDto[]> => {
+export const GetVaultList = async (
+	amount?: number
+): Promise<VaultListDtoModel> => {
 	const data = {
 		query: `
       query {
-        vaults (first: 10) {
+        vaults(first: $amount) {
           id,
           name,
+          network,
+          protocol,
+          coin,
+          category,
           vaultNumber,
           protocols {
-            name,
-            protocolNumber
+              id,
+              name,
+              network,
+              coin,
+              protocol,
+              protocolNumber
           }
         }
-      }`
+      }`,
+		variables: { amount: amount ?? 5 }
 	}
 
 	return SubgraphClient.post(``, data)

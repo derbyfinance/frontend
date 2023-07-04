@@ -36,7 +36,7 @@ export default ({
 		<Container>
 			<Label htmlFor={inputName}>{label}</Label>
 			<Wrapper onClick={openSelect} $isOpen={open}>
-				<SelectInput
+				<TextInput
 					type={type}
 					id={inputName}
 					name={inputName}
@@ -97,7 +97,7 @@ const FloatIcon = styled.div`
 	z-index: 1;
 	margin: 0.625em;
 `
-const SelectInput = styled.input`
+const TextInput = styled.input`
 	font-family: ${({ theme }) => theme.fonts.slabMedium};
 	border: 1px solid ${({ theme }) => theme.style.colorBorder};
 	border-radius: ${({ theme }) => theme.style.radius}px;
@@ -111,42 +111,4 @@ const SelectInput = styled.input`
 		color: ${({ theme }) => theme.style.colorPlaceholder};
 		opacity: 1;
 	}
-`
-const OptionList = styled.div<{ $isOpen: boolean }>`
-	background-color: ${({ theme }) => theme.style.colorBg};
-	border-radius: ${({ theme }) => theme.style.radius}px;
-	border: 1px solid ${({ theme }) => theme.style.colorBorder};
-	margin-top: 0.5em;
-	padding: 2em;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.15);
-	position: absolute;
-	display: none;
-	z-index: 2;
-	overflow: hidden;
-
-	${({ $isOpen }) =>
-		$isOpen &&
-		`
-		display: block;
-	`};
-`
-const OptionOverlay = styled.div<{ $isOpen: boolean }>`
-	position: absolute;
-	//background: rgba(0, 0, 0, 0.25);
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	display: none;
-	z-index: 1;
-
-	${({ $isOpen }) =>
-		$isOpen &&
-		`
-		display: block;
-	`};
-`
-const Bottom = styled.div`
-	margin-top: 1em;
-	text-align: right;
 `

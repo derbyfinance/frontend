@@ -19,6 +19,7 @@ import { getPlayerData } from '@store/UserSlice'
 import { useRef } from 'react'
 import { useAccount } from 'wagmi'
 import NetworkSelect from './NetworkSelect'
+import NftSelect from './NftSelect'
 import PercentageBar from './PercentageBar'
 import VaultSelect from './VaultSelect'
 
@@ -31,7 +32,7 @@ const AllocateForm = ({ initial }: Props) => {
 
 	const dispatch = useAppDispatch()
 
-	const { address } = useAccount()
+	const { address, isConnected } = useAccount()
 
 	useDidMountEffect(() => {
 		if (address !== undefined) dispatch(getPlayerData(address))
@@ -78,21 +79,13 @@ const AllocateForm = ({ initial }: Props) => {
 				{(formikProps: FormikProps<AllocationRequestModel>) => (
 					<Form noValidate>
 						<FormRow>
-							<SelectInputField
-								inputName="nft"
-								label="Select NFT"
-								formikProps={formikProps}
-								placeholder="Select a NFT"
-								smallOptionList
-								tabIndex={1}
-								optionList={[].map(({ name, value }) => ({
-									name: name,
-									value: value
-								}))}
-								required
-							/>
+							<NftSelect formikProps={formikProps} />
+
 							<Label>or</Label>
-							<ActionButton $isGhost onClick={handleCreateNft}>
+							<ActionButton
+								$isGhost
+								onClick={handleCreateNft}
+								disabled={!isConnected}>
 								Create new NFT
 							</ActionButton>
 						</FormRow>

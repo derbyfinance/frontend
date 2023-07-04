@@ -1,7 +1,6 @@
+import { useAppSelector } from '@hooks/ReduxStore'
 import { isDarkModeState } from '@store/SettingsSlice'
-import { AppState } from '@store/Store'
 import { darkTheme, lightTheme } from '@theme/ThemeConfig'
-import { useSelector } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 
 interface Props {
@@ -9,7 +8,8 @@ interface Props {
 }
 
 const ThemeWrapper = ({ children }: Props) => {
-	const isDarkMode = useSelector<AppState, boolean>(isDarkModeState)
+	const isDarkMode = useAppSelector<boolean>(isDarkModeState)
+
 	return (
 		<ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
 			{children}

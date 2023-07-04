@@ -1,5 +1,5 @@
+import { VaultDtoModel } from '@models/dto/PlayerDtoModel'
 import StatsDtoModel from '@models/dto/StatsDtoModel'
-import { VaultDtoModel } from '@models/dto/VaultDtoModel'
 import VaultStatsRequestModel from '@models/requests/VaultStatsRequestModel'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { GetVault, GetVaultList, GetVaultStats } from '@services/VaultService'
@@ -43,8 +43,8 @@ export const vaultSlice = createSlice({
 			.addCase(getVaultListData.fulfilled, (state, { payload }) => {
 				state.vaultListPending = false
 				state.vaultListError = false
-				state.vaultList = payload.results
-				state.vaultListCount = payload.count
+				state.vaultList = payload.vaults //payload.results
+				state.vaultListCount = payload.vaults.length //payload.count
 			})
 			.addCase(getVaultListData.rejected, (state) => {
 				state.vaultListPending = false
@@ -84,7 +84,7 @@ export const vaultSlice = createSlice({
 
 export const getVaultListData = createAsyncThunk(
 	'vault/list',
-	async (size?: number) => await GetVaultList(size)
+	async (size: number | undefined) => await GetVaultList(size)
 )
 
 export const getVaultData = createAsyncThunk(

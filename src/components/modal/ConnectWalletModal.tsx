@@ -4,14 +4,12 @@ import ChevronIcon from '@components/icons/ChevronIcon'
 
 import Notification from '@components/Notification'
 import LogoIcon from '@components/icons/LogoIcon'
-import { useAppDispatch } from '@hooks/ReduxStore'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import {
 	isConnectModalOpenState,
 	setConnectModalOpenState
 } from '@store/SettingsSlice'
-import { AppState } from '@store/Store'
 import { useRouter } from 'next/navigation'
-import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { Connector, useAccount, useConnect, useSignMessage } from 'wagmi'
@@ -20,7 +18,7 @@ import Modal from './Modal'
 interface Props {}
 
 const ConnectWalletModal = ({}: Props) => {
-	const isOpenModal = useSelector<AppState, boolean>(isConnectModalOpenState)
+	const isOpenModal = useAppSelector<boolean>(isConnectModalOpenState)
 	const dispatch = useAppDispatch()
 
 	const { connectors, connectAsync, isSuccess } = useConnect()
@@ -54,6 +52,8 @@ const ConnectWalletModal = ({}: Props) => {
 						notification="Your wallet is connected!"
 					/>
 				)
+
+				closeModal()
 			}
 		} catch (e) {
 			toast.error(

@@ -1,27 +1,33 @@
 export interface PlayerDtoModel {
 	player: {
 		id: string
-		baskets: Basket[]
+		baskets: BasketDtoModel[]
 	}
 }
-export interface Basket {
+export interface BasketDtoModel {
 	id: string
-	vault: VaultDto
+	vault: VaultDtoModel
 	redeemedRewards: string
 	unredeemedRewards: string
 	rebalancingPeriod?: string
 }
 
-export interface VaultDto {
+export interface ProtocolDtoModel {
 	id: string
 	name: string
+	network: string
+	coin: string
+	protocol: string
+	protocolNumber: string
+}
+
+export interface VaultDtoModel {
+	id: string
+	name: string
+	network: string
+	protocol: string
+	coin: string
+	category: string
 	vaultNumber: string
-	protocols: {
-		id: string
-		name: string
-		network: string
-		coin: string
-		protocol: string
-		protocolNumber: string
-	}
+	protocols: ProtocolDtoModel[]
 }

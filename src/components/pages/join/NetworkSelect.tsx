@@ -1,12 +1,10 @@
 import SelectInputField from '@components/form/SelectInputField'
 import NetworkIcon from '@components/icons/NetworkIcon'
-import { useAppDispatch } from '@hooks/ReduxStore'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { NetworkDtoModel } from '@models/dto/NetworkDtoModel'
 import { getNetworkListData, getNetworkListState } from '@store/RaceSlice'
-import { AppState } from '@store/Store'
 import { FormikProps } from 'formik'
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
 import NetworkOptions from './NetworkOptions'
 
 interface Props {
@@ -15,9 +13,7 @@ interface Props {
 
 const NetworkSelect = ({ formikProps }: Props) => {
 	const dispatch = useAppDispatch()
-	const networkList = useSelector<AppState, NetworkDtoModel[]>(
-		getNetworkListState
-	)
+	const networkList = useAppSelector<NetworkDtoModel[]>(getNetworkListState)
 
 	useEffect(() => {
 		if (networkList && networkList.length === 0) dispatch(getNetworkListData())

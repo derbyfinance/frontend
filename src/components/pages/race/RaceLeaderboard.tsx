@@ -8,24 +8,22 @@ import TableHeaderModel from '@models/internal/TableHeaderModel'
 import ExpandButton from '@components/table/ExpandButton'
 import Table from '@components/table/Table'
 
-import { useAppDispatch } from '@hooks/ReduxStore'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import {
 	getLeaderboardListCountState,
 	getLeaderboardListData,
 	getLeaderboardListState
 } from '@store/RaceSlice'
-import { AppState } from '@store/Store'
-import { useSelector } from 'react-redux'
 import RaceLeaderboardRow from './RaceLeaderboardRow'
 
 export default () => {
 	const amount: number = 5
 	const dispatch = useAppDispatch()
 
-	const leaderboardList = useSelector<AppState, LeaderboardDtoModel[]>(
+	const leaderboardList = useAppSelector<LeaderboardDtoModel[]>(
 		getLeaderboardListState
 	)
-	const leaderboardListCount = useSelector<AppState, number>(
+	const leaderboardListCount = useAppSelector<number>(
 		getLeaderboardListCountState
 	)
 

@@ -1,14 +1,13 @@
 import ActionButton from '@components/buttons/ActionButton'
 import { Small } from '@components/fonts/Title'
 import { ToCoinCurrency } from '@functions/CurrencyFunction'
+import { useAppSelector } from '@hooks/ReduxStore'
 import useMintBasket from '@hooks/UseMintNewBasket'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
-import { AppState } from '@store/Store'
-import { useSelector } from 'react-redux'
 
 const AllocateButton = () => {
-	const allocationList = useSelector<AppState, AllocationRequestModel[]>(
+	const allocationList = useAppSelector<AllocationRequestModel[]>(
 		getAllocationListState
 	)
 
