@@ -1,7 +1,7 @@
 import { AlignType } from '@datatypes/AlignType'
 import { ButtonHTMLAttributes } from 'react'
 
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	$isCta?: boolean
@@ -31,7 +31,7 @@ export default ({
 	)
 }
 
-const Button = styled.button<{
+export const ButtonStyle = css<{
 	$isCta: boolean
 	$isGhost: boolean
 	$isBlock: boolean
@@ -92,4 +92,13 @@ const Button = styled.button<{
 		pointer-events: none;
 		cursor: hand;
 	}
+`
+
+const Button = styled.button<{
+	$isCta: boolean
+	$isGhost: boolean
+	$isBlock: boolean
+	$align?: AlignType
+}>`
+	${ButtonStyle}
 `
