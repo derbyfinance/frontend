@@ -30,6 +30,7 @@ export const getPlayer = async (address: string) => {
           id: $address,    
         ) {
           id,
+          name,
           baskets {
             id,
             vault {
