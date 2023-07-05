@@ -13,6 +13,11 @@ const abi: Abi = [
 				internalType: 'uint256',
 				name: '_vaultNumber',
 				type: 'uint256'
+			},
+			{
+				internalType: 'string',
+				name: '_name',
+				type: 'string'
 			}
 		],
 		name: 'mintNewBasket',
@@ -28,7 +33,10 @@ const abi: Abi = [
 	}
 ]
 
-const useMintBasket = (vaultNumber: number): UseContractWriteModel => {
+const useMintBasket = (
+	vaultNumber: number,
+	name: string
+): UseContractWriteModel => {
 	const {
 		config,
 		error: errorPrepare,
@@ -38,7 +46,7 @@ const useMintBasket = (vaultNumber: number): UseContractWriteModel => {
 		address: process.env.NEXT_PUBLIC_GAME_CONTRACT as Hex,
 		abi: abi,
 		functionName: 'mintNewBasket',
-		args: [vaultNumber]
+		args: [vaultNumber, name]
 	})
 	const { data, write } = useContractWrite(config)
 
