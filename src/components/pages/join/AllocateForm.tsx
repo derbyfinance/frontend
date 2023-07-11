@@ -6,26 +6,36 @@ import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 
 import ActionButton from '@components/buttons/ActionButton'
 import InputField from '@components/form/InputField'
-import SelectInputField from '@components/form/SelectInputField'
-import NetworkIcon from '@components/icons/NetworkIcon'
-import VaultIcon from '@components/icons/VaultIcon'
 import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
 
+import { FormRow, SubmitContainer } from '@components/form/FormElements'
 import { useAppDispatch } from '@hooks/ReduxStore'
+import useDidMountEffect from '@hooks/UseDidMountEffect'
 import { setAllocationListState } from '@store/RaceSlice'
+import { setCreateNftModalOpenState } from '@store/SettingsSlice'
+import { getPlayerData } from '@store/UserSlice'
 import { useRef } from 'react'
-import NetworkOptions from './NetworkOptions'
+import { useAccount } from 'wagmi'
+import NetworkSelect from './NetworkSelect'
+import NftSelect from './NftSelect'
 import PercentageBar from './PercentageBar'
-import VaultOptions from './VaultOptions'
+import ProtocolSelect from './ProtocolSelect'
+import VaultSelect from './VaultSelect'
 
 interface Props {
 	initial: AllocationRequestModel
 }
 
-export default ({ initial }: Props) => {
+const AllocateForm = ({ initial }: Props) => {
 	const summaryRef = useRef<HTMLDivElement>(null)
 
 	const dispatch = useAppDispatch()
+
+	const { address, isConnected } = useAccount()
+
+	useDidMountEffect(() => {
+		if (address !== undefined) dispatch(getPlayerData(address))
+	}, [address])
 
 	const onSubmit = (
 		form: AllocationRequestModel,
@@ -36,7 +46,9 @@ export default ({ initial }: Props) => {
 
 		formikHelpers.resetForm({
 			values: {
+				nft: '',
 				network: '',
+				protocol: '',
 				vault: '',
 				amount: 0
 			}
@@ -51,54 +63,43 @@ export default ({ initial }: Props) => {
 		}, 0)
 	}
 
+	const handleCreateNft = (): void => {
+		dispatch(setCreateNftModalOpenState(true))
+	}
+
 	return (
 		<div ref={summaryRef}>
 			<Formik
 				initialValues={initial}
 				validationSchema={AllocationValidation}
-				isInitialValid={false}
+				validateOnMount={false}
 				enableReinitialize
 				onSubmit={onSubmit}>
 				{(formikProps: FormikProps<AllocationRequestModel>) => (
 					<Form noValidate>
-						<SelectInputField
-							inputName="network"
-							label={
-								<>
-									<NetworkIcon />
-									<span>Network</span>
-								</>
-							}
-							formikProps={formikProps}
-							placeholder="Select a network"
-							tabIndex={1}
-							options={
-								<NetworkOptions inputName="network" formikProps={formikProps} />
-							}
-							required
-						/>
+						<FormRow>
+							<NftSelect formikProps={formikProps} />
 
-						<SelectInputField
-							inputName="vault"
-							tabIndex={2}
-							label={
-								<>
-									<VaultIcon />
-									<span>Vault</span>
-								</>
-							}
-							formikProps={formikProps}
-							placeholder="Select a vault"
-							options={
-								<VaultOptions inputName="vault" formikProps={formikProps} />
-							}
-							required
-						/>
+							<Label>or</Label>
+							<ActionButton
+								type="button"
+								$isGhost
+								onClick={handleCreateNft}
+								disabled={!isConnected}>
+								Create new NFT
+							</ActionButton>
+						</FormRow>
+
+						<NetworkSelect formikProps={formikProps} />
+
+						<ProtocolSelect formikProps={formikProps} />
+
+						<VaultSelect formikProps={formikProps} />
 
 						<InputField
 							inputName="amount"
 							label="Amount"
-							tabIndex={3}
+							tabIndex={5}
 							formikProps={formikProps}
 							placeholder="0.0"
 							required
@@ -130,6 +131,9 @@ const DerbyIconWrapper = styled.div`
 	display: flex;
 	gap: 0.25em;
 `
-const SubmitContainer = styled.div`
-	margin-top: 2em;
+const Label = styled.span`
+	color: ${({ theme }) => theme.style.colorLabel};
+	line-height: 2.5em;
 `
+
+export default AllocateForm

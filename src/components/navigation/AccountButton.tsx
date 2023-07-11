@@ -1,3 +1,4 @@
+import Avatar from '@components/Avatar'
 import ActionButton from '@components/buttons/ActionButton'
 import ArrowDropdownIcon from '@components/icons/ArrowDropdownIcon'
 import { MaskCoinAddress } from '@functions/StringFunction'
@@ -21,6 +22,9 @@ const AccountButton = () => {
 
 			<Container>
 				<WalletButton $isCta onClick={toggleOpen}>
+					<Icon>
+						<Avatar $isSmall={true} name={address?.toString() ?? ''} />
+					</Icon>
 					{MaskCoinAddress(address)}
 					<FloatArrowDropdownIcon $isOpen={isOpen} />
 				</WalletButton>
@@ -73,5 +77,11 @@ const AccountInfoOverlay = styled.div<{ $isOpen: boolean }>`
 		`
 		display: block;
 	`};
+`
+const Icon = styled.div`
+	display: inline-block;
+	margin-right: 0.5em;
+	vertical-align: middle;
+	font-size: 0.875em;
 `
 export default AccountButton

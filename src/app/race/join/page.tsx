@@ -1,10 +1,9 @@
-import Layout from '@components/Layout'
+import Layout from '@components/layout/Layout'
 import Content from '@components/pages/join/Content'
-import RaceBanner from '@components/pages/race/RaceBanner'
 
 export default () => {
 	return (
-		<Layout aside={<RaceBanner />}>
+		<Layout>
 			<Content network="" vault="" />
 		</Layout>
 	)

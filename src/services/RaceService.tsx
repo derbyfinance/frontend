@@ -1,10 +1,8 @@
 import ApiClient from '@network/ApiClient'
-import { subgraphClient } from '@network/SubgraphClient'
 
+import CategoryListDtoModel from '@models/dto/CategoryListDtoModel'
 import LeaderboardListDtoModel from '@models/dto/LeaderboardListDtoModel'
 import NetworkListDtoModel from '@models/dto/NetworkListDtoModel'
-import { PlayerDto, VaultDto } from '@models/dto/PlayerDtoModel'
-import VaultListDtoModel from '@models/dto/VaultListDtoModel'
 
 export const GetLeaderboardList = (
 	amount?: number
@@ -18,63 +16,6 @@ export const GetNetworkList = (
 	return ApiClient.get(`/race/network${amount ? `?size=${amount}` : ''}`)
 }
 
-export const GetVaultList = (amount?: number): Promise<VaultListDtoModel> => {
-	return ApiClient.get(`/race/vault${amount ? `?size=${amount}` : ''}`)
-}
-
-export const getPlayer = async (address: string) => {
-	const data = {
-		query: `
-      query ($address: String!) {
-        player (
-          id: $address,    
-        ) {
-          id,
-          baskets {
-            id,
-            vault {
-              id,
-              name,
-              vaultNumber,
-              protocols {
-                id,
-                name,
-                network,
-                coin,
-                protocol,
-                protocolNumber,
-              }
-            },
-            rebalancingPeriod,
-            redeemedRewards,
-            unredeemedRewards,
-          }
-        }
-      }`,
-		variables: { address }
-	}
-	return subgraphClient.post<PlayerDto>(``, data)
-}
-
-export const getVaults = async () => {
-	const data = {
-		query: `
-      query {
-        vaults (first: 10) {
-          id,
-          name,
-          vaultNumber,
-          protocols {
-            id,
-            name,
-            network,
-            coin,
-            protocol,
-            protocolNumber
-          }
-        }
-      }`
-	}
-
-	return subgraphClient.post<VaultDto[]>(``, data)
+export const GetCategoryList = (): Promise<CategoryListDtoModel> => {
+	return ApiClient.get(`/race/category`)
 }

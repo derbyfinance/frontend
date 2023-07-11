@@ -1,13 +1,9 @@
-import { FormikProps } from 'formik'
-
-import { ToCurrency } from '@functions/CurrencyFunction'
-
-import { VaultDtoModel } from '@models/dto/VaultDtoModel'
-
 import Avatar from '@components/Avatar'
 import RadioInputField from '@components/form/RadioInputField'
 import TableData from '@components/table/TableData'
 import TableRow from '@components/table/TableRow'
+import { VaultDtoModel } from '@models/dto/PlayerDtoModel'
+import { FormikProps } from 'formik'
 
 interface Props {
 	inputName: string
@@ -21,9 +17,9 @@ export default ({ inputName, vault, formikProps }: Props) => {
 				<RadioInputField
 					id={`radio-${inputName}-${vault.name}`}
 					inputName={inputName}
-					value={vault.symbol}
+					value={vault.vaultNumber}
 					formikProps={formikProps}
-					checked={formikProps.values[inputName] === vault.symbol}
+					checked={formikProps.values[inputName] === vault.vaultNumber}
 				/>
 			</TableData>
 			<TableData>
@@ -36,12 +32,12 @@ export default ({ inputName, vault, formikProps }: Props) => {
 			</TableData>
 			<TableData align="right">
 				<label htmlFor={`radio-${inputName}-${vault.name}`}>
-					{ToCurrency(vault.allocated, 2, true)}
+					{/* {ToCurrency(vault.allocated, 2, true)} */}
 				</label>
 			</TableData>
 			<TableData align="right">
 				<label htmlFor={`radio-${inputName}-${vault.name}`}>
-					{vault.performance}%
+					{/* {vault.performance}% */}
 				</label>
 			</TableData>
 		</TableRow>

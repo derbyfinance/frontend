@@ -1,29 +1,26 @@
 import ActionButton from '@components/buttons/ActionButton'
 import { Small } from '@components/fonts/Title'
 import { ToCoinCurrency } from '@functions/CurrencyFunction'
-import useMintBasket from '@hooks/UseMintNewBasket'
+import { useAppSelector } from '@hooks/ReduxStore'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
-import { AppState } from '@store/Store'
-import { useSelector } from 'react-redux'
 
 const AllocateButton = () => {
-	const allocationList = useSelector<AppState, AllocationRequestModel[]>(
+	const allocationList = useAppSelector<AllocationRequestModel[]>(
 		getAllocationListState
 	)
 
-	// example usage
-	const { write: writeMintNewBasket } = useMintBasket(10)
-
 	return (
-		<ActionButton $isCta $align="right" disabled={allocationList.length <= 0}>
-			{/* example usage for writeMintNewBasket() */}
-			<div onClick={() => writeMintNewBasket?.()}>
+		<ActionButton
+			$isCta
+			$align="right"
+			disabled={!allocationList || allocationList?.length <= 0}>
+			<div onClick={() => {}}>
 				{`Buy now  `}
 				{ToCoinCurrency(
 					allocationList?.reduce((prev, allocate) => {
 						return prev + allocate?.amount
-					}, 0),
+					}, 0) ?? 0,
 					0
 				)}
 				{` `}

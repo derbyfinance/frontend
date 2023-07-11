@@ -5,22 +5,23 @@ import { Colorpicker } from '@functions/ColorpickerFunction'
 interface Props {
 	name: string
 	icon?: JSX.Element
+	$isSmall?: boolean
 }
-export default ({ name, icon }: Props) => {
+const Avatar = ({ name, icon, $isSmall = false, ...props }: Props) => {
 	return (
-		<Avatar>
+		<AvatarBody $isSmall={$isSmall} {...props}>
 			<Color $color={name == '' ? 'transparent' : Colorpicker(name)}>
 				{icon}
 			</Color>
-		</Avatar>
+		</AvatarBody>
 	)
 }
 
-const Avatar = styled.div`
+const AvatarBody = styled.div<{ $isSmall: boolean }>`
 	border: 1px solid ${({ theme }) => theme.style.colorBorder};
 	border-radius: 2em;
-	width: 4em;
-	height: 4em;
+	width: ${({ $isSmall }) => ($isSmall ? '1.5em' : '4em')};
+	height: ${({ $isSmall }) => ($isSmall ? '1.5em' : '4em')};
 	position: relative;
 `
 const Color = styled.div<{ $color: string }>`
@@ -34,4 +35,10 @@ const Color = styled.div<{ $color: string }>`
 	top: 0px;
 	bottom: 0px;
 	margin: auto;
+
+	> svg {
+		vertical-align: baseline;
+	}
 `
+
+export default Avatar

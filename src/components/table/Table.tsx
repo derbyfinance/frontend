@@ -6,7 +6,7 @@ import { AlignType } from '@datatypes/AlignType'
 import TableData from './TableData'
 
 interface Props {
-	headers: TableHeaderModel[]
+	headers?: TableHeaderModel[]
 	$isSticky?: boolean
 	$isSmall?: boolean
 	footer?: JSX.Element | JSX.Element[] | React.ReactNode
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default ({
-	headers,
+	headers = [],
 	footer,
 	children,
 	$isSmall = false,
@@ -26,15 +26,17 @@ export default ({
 
 	return (
 		<Table $isSmall={$isSmall}>
-			<Thead $isSticky={$isSticky}>
-				<tr>
-					{headers.map(({ name, align, colspan }, index) => (
-						<Th align={align} colSpan={colspan ?? 1} key={index}>
-							{name}
-						</Th>
-					))}
-				</tr>
-			</Thead>
+			{headers.length > 0 ? (
+				<Thead $isSticky={$isSticky}>
+					<tr>
+						{headers.map(({ name, align, colspan }, index) => (
+							<Th align={align} colSpan={colspan ?? 1} key={index}>
+								{name}
+							</Th>
+						))}
+					</tr>
+				</Thead>
+			) : null}
 			<tbody>{children}</tbody>
 			{footer && (
 				<tfoot>
@@ -60,12 +62,8 @@ const Table = styled.table<{ $isSmall: boolean }>`
 	margin-top: ${({ $isSmall }) => ($isSmall ? '0' : '2em')};
 	position: relative;
 
-	> tbody > tr {
-		td,
-		th {
-			padding: 0.5em;
-		}
-	}
+	// FIX: Height: 100% for labels inside td
+	height: 1px;
 `
 const Thead = styled.thead<{ $isSticky: boolean }>`
 	background-color: ${({ theme }) => theme.style.colorBg};

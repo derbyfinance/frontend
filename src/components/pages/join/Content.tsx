@@ -10,13 +10,11 @@ import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
 import CardHeader from '@components/card/CardHeader'
 
-import { useAppDispatch } from '@hooks/ReduxStore'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import {
 	getAllocationListState,
 	removeAllocationListState
 } from '@store/RaceSlice'
-import { AppState } from '@store/Store'
-import { useSelector } from 'react-redux'
 import RaceCounter from '../race/RaceCounter'
 import RaceDescription from '../race/RaceDescription'
 import AllocateForm from './AllocateForm'
@@ -30,12 +28,14 @@ export default ({ network, vault }: Props) => {
 	const formRef = useRef<HTMLDivElement>(null)
 
 	const dispatch = useAppDispatch()
-	const allocationList = useSelector<AppState, AllocationRequestModel[]>(
+	const allocationList = useAppSelector<AllocationRequestModel[]>(
 		getAllocationListState
 	)
 
 	const [form, setForm] = useState<AllocationRequestModel>({
+		nft: '',
 		network: network,
+		protocol: '',
 		vault: vault,
 		amount: 0
 	})

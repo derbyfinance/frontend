@@ -93,7 +93,6 @@ const AccountInfoBox = styled.div<{ $isOpen: boolean }>`
 		display: block;
 	`};
 `
-
 const ConnectorActions = styled.div`
 	display: flex;
 	gap: 0.5em;

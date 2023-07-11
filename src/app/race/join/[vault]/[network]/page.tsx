@@ -1,6 +1,5 @@
-import Layout from '@components/Layout'
+import Layout from '@components/layout/Layout'
 import Content from '@components/pages/join/Content'
-import RaceBanner from '@components/pages/race/RaceBanner'
 
 interface Props {
 	params: {
@@ -10,7 +9,7 @@ interface Props {
 }
 export default ({ params }: Props) => {
 	return (
-		<Layout aside={<RaceBanner />}>
+		<Layout>
 			<Content network={params.network} vault={params.vault} />
 		</Layout>
 	)
