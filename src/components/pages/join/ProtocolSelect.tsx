@@ -1,4 +1,5 @@
 import SelectInputField from '@components/form/SelectInputField'
+import VaultIcon from '@components/icons/VaultIcon'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import { getPlayerData, getPlayerState } from '@store/UserSlice'
@@ -10,7 +11,7 @@ interface Props {
 	formikProps: FormikProps<any>
 }
 
-const NftSelect = ({ formikProps }: Props) => {
+const ProtocolSelect = ({ formikProps }: Props) => {
 	const dispatch = useAppDispatch()
 	const player = useAppSelector<PlayerDtoModel>(getPlayerState)
 	const { address } = useAccount()
@@ -18,27 +19,30 @@ const NftSelect = ({ formikProps }: Props) => {
 	useEffect(() => {
 		if (player && player?.player.baskets.length === 0 && address !== undefined)
 			dispatch(getPlayerData(address))
-	}, [address])
+
+		console.log(player)
+	}, [])
 
 	return (
 		<SelectInputField
-			inputName="nft"
-			label="Select NFT"
-			formikProps={formikProps}
-			placeholder="Select a NFT"
-			smallOptionList
-			tabIndex={1}
-			optionList={
-				player?.player.baskets
-					? player.player.baskets.map(({ id, vault }) => ({
-							name: vault.name,
-							value: id
-					  }))
-					: []
+			inputName="protocol"
+			label={
+				<>
+					<VaultIcon />
+					<span>Protocol</span>
+				</>
 			}
+			formikProps={formikProps}
+			placeholder="Select a protocol"
+			smallOptionList
+			tabIndex={3}
+			optionList={[].map(({ name, value }) => ({
+				name: name,
+				value: value
+			}))}
 			required
 		/>
 	)
 }
 
-export default NftSelect
+export default ProtocolSelect

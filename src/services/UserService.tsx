@@ -11,6 +11,7 @@ export const GetPlayer = async (address: Hex): Promise<PlayerDtoModel> => {
           id: $address,    
         ) {
           id,
+          name,
           baskets {
             id,
             vault {

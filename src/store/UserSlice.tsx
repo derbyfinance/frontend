@@ -53,7 +53,7 @@ export const getPlayerData = createAsyncThunk(
 )
 
 export const getPlayerState = (state: AppState): PlayerDtoModel =>
-	state.user?.player ?? {}
+	state.user?.player
 
 export const {} = userSlice.actions
 

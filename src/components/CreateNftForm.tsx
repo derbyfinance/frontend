@@ -1,12 +1,15 @@
 import CreateNftValidation from '@/validations/CreateNftValidation'
 import Notification from '@components/Notification'
+import { useAppDispatch } from '@hooks/ReduxStore'
 import useMintBasket from '@hooks/UseMintNewBasket'
 import CreateNftRequestModel from '@models/requests/CreateNftRequestModel'
+import { getPlayerData } from '@store/UserSlice'
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { useDebounce } from 'usehooks-ts'
 import { Abi } from 'viem'
+import { useAccount } from 'wagmi'
 import CategorySelect from './CategorySelect'
 import CoinSelect from './CoinSelect'
 import ActionButton from './buttons/ActionButton'
@@ -40,18 +43,20 @@ const abi: Abi = [
 ]
 
 const CreateNftForm = ({ closeModal }: Props) => {
-	const [tokenId, setTokenId] = useState<string>('')
-
-	const debouncedTokenId = useDebounce(tokenId, 500)
-
-	const { errorPrepare, isSuccessPrepare, errorTx, isSuccessTx, write } =
-		useMintBasket(debouncedTokenId)
+	const dispatch = useAppDispatch()
+	const { address } = useAccount()
 
 	const initial: CreateNftRequestModel = {
 		name: '',
 		category: '',
-		coin: ''
+		coin: '0'
 	}
+	const [token, setToken] = useState<CreateNftRequestModel>(initial)
+
+	const debouncedToken = useDebounce(token, 500)
+
+	const { errorPrepare, isSuccessPrepare, errorTx, isSuccessTx, write } =
+		useMintBasket(parseInt(debouncedToken.coin), debouncedToken.name)
 
 	useEffect(() => {
 		if (errorPrepare || errorTx) {
@@ -73,6 +78,8 @@ const CreateNftForm = ({ closeModal }: Props) => {
 				/>
 			)
 
+			dispatch(getPlayerData(address!))
+
 			closeModal()
 		}
 	}, [isSuccessPrepare, isSuccessTx])
@@ -88,7 +95,7 @@ const CreateNftForm = ({ closeModal }: Props) => {
 		form: CreateNftRequestModel,
 		formikHelpers: FormikHelpers<CreateNftRequestModel>
 	): void => {
-		setTokenId(form.coin)
+		setToken(form)
 
 		// formikHelpers.resetForm({
 		// 	values: {
@@ -103,7 +110,7 @@ const CreateNftForm = ({ closeModal }: Props) => {
 		<Formik
 			initialValues={initial}
 			validationSchema={CreateNftValidation}
-			isInitialValid={false}
+			validateOnMount={false}
 			enableReinitialize
 			onSubmit={onSubmit}>
 			{(formikProps: FormikProps<CreateNftRequestModel>) => (

@@ -23,7 +23,7 @@ export default ({ update, remove }: Props) => {
 		<Container>
 			<RowTable>
 				<tbody>
-					{allocationList.map((allocation, index) => (
+					{allocationList?.map((allocation, index) => (
 						<AllocateSummaryRow
 							allocate={allocation}
 							key={index}
@@ -35,7 +35,7 @@ export default ({ update, remove }: Props) => {
 				</tbody>
 			</RowTable>
 
-			{allocationList.length <= 0 ? (
+			{allocationList?.length <= 0 ? (
 				<Empty>
 					<h4>Nothing selected</h4>
 				</Empty>

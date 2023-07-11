@@ -153,7 +153,7 @@ export const getCategoryListState = (state: AppState): CategoryDtoModel[] =>
 
 export const getAllocationListState = (
 	state: AppState
-): AllocationRequestModel[] => state.race.allocationList ?? []
+): AllocationRequestModel[] => state.race.allocationList
 
 export const { setAllocationListState, removeAllocationListState } =
 	raceSlice.actions

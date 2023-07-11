@@ -44,7 +44,7 @@ mock
 		return [200, response]
 	})
 
-	.onGet(/\/vault(\?size=[\d]{1,})*/)
+	.onGet(/\/vault(\?size=[\d]{1,})*$/)
 	.reply((item) => {
 		const match = item.url?.match(/\d+$/)
 		const amount: number = match ? +match[0] : 0
@@ -58,7 +58,7 @@ mock
 		return [200, response]
 	})
 
-	.onGet(/\/vault\/[\d]$/)
+	.onGet(/\/vault\/[\d]+$/)
 	.reply((item) => {
 		const match = item.url?.match(/\d+$/)
 		const id: number = match ? +match[0] : 0

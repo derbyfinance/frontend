@@ -6,8 +6,6 @@ import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 
 import ActionButton from '@components/buttons/ActionButton'
 import InputField from '@components/form/InputField'
-import SelectInputField from '@components/form/SelectInputField'
-import VaultIcon from '@components/icons/VaultIcon'
 import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
 
 import { FormRow, SubmitContainer } from '@components/form/FormElements'
@@ -21,6 +19,7 @@ import { useAccount } from 'wagmi'
 import NetworkSelect from './NetworkSelect'
 import NftSelect from './NftSelect'
 import PercentageBar from './PercentageBar'
+import ProtocolSelect from './ProtocolSelect'
 import VaultSelect from './VaultSelect'
 
 interface Props {
@@ -73,7 +72,7 @@ const AllocateForm = ({ initial }: Props) => {
 			<Formik
 				initialValues={initial}
 				validationSchema={AllocationValidation}
-				isInitialValid={false}
+				validateOnMount={false}
 				enableReinitialize
 				onSubmit={onSubmit}>
 				{(formikProps: FormikProps<AllocationRequestModel>) => (
@@ -83,6 +82,7 @@ const AllocateForm = ({ initial }: Props) => {
 
 							<Label>or</Label>
 							<ActionButton
+								type="button"
 								$isGhost
 								onClick={handleCreateNft}
 								disabled={!isConnected}>
@@ -92,24 +92,7 @@ const AllocateForm = ({ initial }: Props) => {
 
 						<NetworkSelect formikProps={formikProps} />
 
-						<SelectInputField
-							inputName="protocol"
-							label={
-								<>
-									<VaultIcon />
-									<span>Protocol</span>
-								</>
-							}
-							formikProps={formikProps}
-							placeholder="Select a protocol"
-							smallOptionList
-							tabIndex={3}
-							optionList={[].map(({ name, value }) => ({
-								name: name,
-								value: value
-							}))}
-							required
-						/>
+						<ProtocolSelect formikProps={formikProps} />
 
 						<VaultSelect formikProps={formikProps} />
 
