@@ -10,10 +10,13 @@ import GraphIcon from '@components/icons/GraphIcon'
 import PortfolioIcon from '@components/icons/PortfolioIcon'
 import RewardIcon from '@components/icons/RewardIcon'
 import StakedIcon from '@components/icons/StakedIcon'
+import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
 import { styled } from 'styled-components'
-import RewardBox from './RewardBox'
+import RewardBox from '../pages/race/RewardBox'
 
 const RaceBanner = () => {
+	const rewards = useDerbyTokenBalance()
+
 	return (
 		<BannerBox>
 			<div>
@@ -85,7 +88,7 @@ const RaceBanner = () => {
 					<RewardsIcon />
 					<Label>Rewards</Label>
 				</div>
-				<StockCurrency $amount={2345} $decimals={0} $coin="DRB" />
+				<StockCurrency $amount={rewards} $decimals={0} $coin="DRB" />
 			</CardRow>
 			<CardFooter $align="right">
 				<ActionButton $isCta onClick={() => {}}>

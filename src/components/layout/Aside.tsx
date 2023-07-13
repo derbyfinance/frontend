@@ -1,5 +1,5 @@
+import RaceBanner from '@components/banner/RaceBanner'
 import Banner from '@components/pages/Banner'
-import RaceBanner from '@components/pages/race/RaceBanner'
 import { styled } from 'styled-components'
 import { useAccount } from 'wagmi'
 
