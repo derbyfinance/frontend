@@ -16,6 +16,7 @@ import { setCreateNftModalOpenState } from '@store/SettingsSlice'
 import { getPlayerData } from '@store/UserSlice'
 import { useRef } from 'react'
 import { useAccount } from 'wagmi'
+import CategoryHiddenInput from './CategoryHiddenInput'
 import NetworkSelect from './NetworkSelect'
 import NftSelect from './NftSelect'
 import PercentageBar from './PercentageBar'
@@ -41,12 +42,14 @@ const AllocateForm = ({ initial }: Props) => {
 		form: AllocationRequestModel,
 		formikHelpers: FormikHelpers<AllocationRequestModel>
 	) => {
+
 		form.amount = Number(form.amount)
 		dispatch(setAllocationListState(form))
 
 		formikHelpers.resetForm({
 			values: {
 				nft: '',
+				category: '',
 				network: '',
 				protocol: '',
 				vault: '',
@@ -89,6 +92,8 @@ const AllocateForm = ({ initial }: Props) => {
 								Create new NFT
 							</ActionButton>
 						</FormRow>
+
+						<CategoryHiddenInput />
 
 						<NetworkSelect formikProps={formikProps} />
 

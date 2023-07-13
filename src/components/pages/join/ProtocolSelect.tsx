@@ -1,27 +1,27 @@
 import SelectInputField from '@components/form/SelectInputField'
 import VaultIcon from '@components/icons/VaultIcon'
-import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
-import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
-import { getPlayerData, getPlayerState } from '@store/UserSlice'
-import { FormikProps } from 'formik'
-import { useEffect } from 'react'
-import { useAccount } from 'wagmi'
+import { useAppSelector } from '@hooks/ReduxStore'
+import { PlayerDtoModel, ProtocolDtoModel } from '@models/dto/PlayerDtoModel'
+import AllocationRequestModel from '@models/requests/AllocationRequestModel'
+import { getPlayerState } from '@store/UserSlice'
+import { FormikProps, useFormikContext } from 'formik'
+import { useEffect, useState } from 'react'
 
 interface Props {
 	formikProps: FormikProps<any>
 }
 
 const ProtocolSelect = ({ formikProps }: Props) => {
-	const dispatch = useAppDispatch()
+	const { values } = useFormikContext<AllocationRequestModel>()
 	const player = useAppSelector<PlayerDtoModel>(getPlayerState)
-	const { address } = useAccount()
+
+	const [protocolList, setProtocolList] = useState<ProtocolDtoModel[]>()
 
 	useEffect(() => {
-		if (player && player?.player.baskets.length === 0 && address !== undefined)
-			dispatch(getPlayerData(address))
-
-		console.log(player)
-	}, [])
+		const list = player?.player.baskets.find(({ id }) => id === values.nft)
+			?.vault.protocols
+		setProtocolList(list)
+	}, [values])
 
 	return (
 		<SelectInputField
@@ -36,10 +36,12 @@ const ProtocolSelect = ({ formikProps }: Props) => {
 			placeholder="Select a protocol"
 			smallOptionList
 			tabIndex={3}
-			optionList={[].map(({ name, value }) => ({
-				name: name,
-				value: value
-			}))}
+			optionList={
+				protocolList?.map(({ protocol, id }) => ({
+					name: protocol,
+					value: id
+				})) ?? []
+			}
 			required
 		/>
 	)

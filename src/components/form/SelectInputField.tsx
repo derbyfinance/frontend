@@ -55,9 +55,11 @@ const SelectInputField = ({
 					value={formikProps.values[inputName]}
 					//{...props}
 				>
-					<PlaceholderOption value="" disabled>
-						{placeholder}
-					</PlaceholderOption>
+					{placeholder && (
+						<PlaceholderOption value="" disabled>
+							{placeholder}
+						</PlaceholderOption>
+					)}
 					{optionList.map(({ name, value }, index) => (
 						<option key={index} value={value}>
 							{name}

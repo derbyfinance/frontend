@@ -31,6 +31,14 @@ const SelectOptionList = ({ optionList, inputName, formikProps }: Props) => {
 					</TableData>
 				</TableRow>
 			))}
+
+			{optionList && optionList.length <= 0 && (
+				<TableRow>
+					<TableData>
+						<label>No items</label>
+					</TableData>
+				</TableRow>
+			)}
 		</Table>
 	)
 }

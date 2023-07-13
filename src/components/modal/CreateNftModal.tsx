@@ -17,7 +17,7 @@ const CreateNftModal = () => {
 	}
 
 	return (
-		<Modal closeModal={closeModal} isOpen={isOpenModal}>
+		<Modal closeModal={closeModal} isOpen={isOpenModal ?? false}>
 			<>
 				<Header>
 					<LogoBox>
