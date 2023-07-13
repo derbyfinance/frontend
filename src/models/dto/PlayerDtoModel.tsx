@@ -6,6 +6,7 @@ export interface PlayerDtoModel {
 }
 export interface BasketDtoModel {
 	id: string
+	name: string
 	vault: VaultDtoModel
 	redeemedRewards: string
 	unredeemedRewards: string
