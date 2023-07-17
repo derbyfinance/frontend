@@ -23,7 +23,7 @@ const Size = styled.div`
 	padding: 0.5em;
 	background-color: ${({ theme }) => theme.style.colorText};
 	color: #fff;
-	position: absolute;
+	position: fixed;
 	bottom: 0;
 	left: 0;
 	z-index: 2;

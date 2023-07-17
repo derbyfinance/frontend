@@ -8,7 +8,8 @@ import { useFormikContext } from 'formik'
 import { useEffect } from 'react'
 
 const CategoryHiddenInput = () => {
-	const { handleChange, values } = useFormikContext<AllocationRequestModel>()
+	const { handleChange, values, setFieldValue } =
+		useFormikContext<AllocationRequestModel>()
 	const categoryList = useAppSelector<CategoryDtoModel[]>(getCategoryListState)
 	const player = useAppSelector<PlayerDtoModel>(getPlayerState)
 	const inputName = 'category'
@@ -19,9 +20,9 @@ const CategoryHiddenInput = () => {
 				player.player.baskets.find(({ id }) => id === values['nft'])?.vault
 					.category ?? ''
 
-			values[inputName] = categoryFilter(category)
+			setFieldValue(inputName, categoryFilter(category))
 		}
-	}, [values])
+	}, [values.nft])
 
 	//TODO: Ugly
 	const categoryFilter = (category: string): string => {

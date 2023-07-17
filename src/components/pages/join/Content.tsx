@@ -26,6 +26,7 @@ interface Props {
 }
 export default ({ network, vault }: Props) => {
 	const formRef = useRef<HTMLDivElement>(null)
+	const allocateRef = useRef<HTMLDivElement>(null)
 
 	const dispatch = useAppDispatch()
 	const allocationList = useAppSelector<AllocationRequestModel[]>(
@@ -41,6 +42,16 @@ export default ({ network, vault }: Props) => {
 		amount: 0
 	})
 
+	const addAllocation = (): void => {
+		setTimeout(() => {
+			allocateRef.current?.scrollIntoView({
+				block: 'start',
+				inline: 'nearest',
+				behavior: 'smooth'
+			})
+		}, 0)
+	}
+
 	const updateAllocation = (index: number) => {
 		removeAllocation(index)
 
@@ -48,7 +59,7 @@ export default ({ network, vault }: Props) => {
 
 		setTimeout(() => {
 			formRef.current?.scrollIntoView({
-				block: 'center',
+				block: 'start',
 				inline: 'nearest',
 				behavior: 'smooth'
 			})
@@ -63,28 +74,29 @@ export default ({ network, vault }: Props) => {
 		<Container>
 			<RaceDescription />
 			<AllocateCard>
-				<AllocateCardHeader>
-					<h1>Buy NFT</h1>
-					<p>Some information about what and how.</p>
-				</AllocateCardHeader>
+				<div ref={formRef}>
+					<AllocateCardHeader>
+						<h1>Buy NFT</h1>
+						<p>Some information about what and how.</p>
+					</AllocateCardHeader>
 
-				<AllocateCardContent>
-					<div ref={formRef}>
-						<AllocateForm initial={form} />
-					</div>
-				</AllocateCardContent>
+					<AllocateCardContent>
+						<AllocateForm initial={form} update={addAllocation} />
+					</AllocateCardContent>
+				</div>
+				<div ref={allocateRef}>
+					<AllocateCardHeader>
+						<h1>Summary</h1>
+						<p>Some information about what and how.</p>
+					</AllocateCardHeader>
 
-				<AllocateCardHeader>
-					<h1>Summary</h1>
-					<p>Some information about what and how.</p>
-				</AllocateCardHeader>
-
-				<CardContent>
-					<AllocateSummary
-						update={updateAllocation}
-						remove={removeAllocation}
-					/>
-				</CardContent>
+					<CardContent>
+						<AllocateSummary
+							update={updateAllocation}
+							remove={removeAllocation}
+						/>
+					</CardContent>
+				</div>
 			</AllocateCard>
 
 			<RaceCounter $isClean />

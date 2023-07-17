@@ -14,7 +14,6 @@ import useDidMountEffect from '@hooks/UseDidMountEffect'
 import { setAllocationListState } from '@store/RaceSlice'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
 import { getPlayerData } from '@store/UserSlice'
-import { useRef } from 'react'
 import { useAccount } from 'wagmi'
 import CategoryHiddenInput from './CategoryHiddenInput'
 import NetworkSelect from './NetworkSelect'
@@ -25,11 +24,10 @@ import VaultSelect from './VaultSelect'
 
 interface Props {
 	initial: AllocationRequestModel
+	update: VoidFunction
 }
 
-const AllocateForm = ({ initial }: Props) => {
-	const summaryRef = useRef<HTMLDivElement>(null)
-
+const AllocateForm = ({ initial, update }: Props) => {
 	const dispatch = useAppDispatch()
 
 	const { address, isConnected } = useAccount()
@@ -42,8 +40,8 @@ const AllocateForm = ({ initial }: Props) => {
 		form: AllocationRequestModel,
 		formikHelpers: FormikHelpers<AllocationRequestModel>
 	) => {
-
 		form.amount = Number(form.amount)
+
 		dispatch(setAllocationListState(form))
 
 		formikHelpers.resetForm({
@@ -57,13 +55,7 @@ const AllocateForm = ({ initial }: Props) => {
 			}
 		})
 
-		setTimeout(() => {
-			summaryRef.current?.scrollIntoView({
-				block: 'center',
-				inline: 'nearest',
-				behavior: 'smooth'
-			})
-		}, 0)
+		update()
 	}
 
 	const handleCreateNft = (): void => {
@@ -71,64 +63,62 @@ const AllocateForm = ({ initial }: Props) => {
 	}
 
 	return (
-		<div ref={summaryRef}>
-			<Formik
-				initialValues={initial}
-				validationSchema={AllocationValidation}
-				validateOnMount={false}
-				enableReinitialize
-				onSubmit={onSubmit}>
-				{(formikProps: FormikProps<AllocationRequestModel>) => (
-					<Form noValidate>
-						<FormRow>
-							<NftSelect formikProps={formikProps} />
+		<Formik
+			initialValues={initial}
+			validationSchema={AllocationValidation}
+			validateOnMount={false}
+			enableReinitialize
+			onSubmit={onSubmit}>
+			{(formikProps: FormikProps<AllocationRequestModel>) => (
+				<Form noValidate>
+					<FormRow>
+						<NftSelect formikProps={formikProps} />
 
-							<Label>or</Label>
-							<ActionButton
-								type="button"
-								$isGhost
-								onClick={handleCreateNft}
-								disabled={!isConnected}>
-								Create new NFT
-							</ActionButton>
-						</FormRow>
+						<Label>or</Label>
+						<ActionButton
+							type="button"
+							$isGhost
+							onClick={handleCreateNft}
+							disabled={!isConnected}>
+							Create new NFT
+						</ActionButton>
+					</FormRow>
 
-						<CategoryHiddenInput />
+					<CategoryHiddenInput />
 
-						<NetworkSelect formikProps={formikProps} />
+					<NetworkSelect formikProps={formikProps} />
 
-						<ProtocolSelect formikProps={formikProps} />
+					<ProtocolSelect formikProps={formikProps} />
 
-						<VaultSelect formikProps={formikProps} />
+					<VaultSelect formikProps={formikProps} />
 
-						<InputField
-							inputName="amount"
-							label="Amount"
-							tabIndex={5}
-							formikProps={formikProps}
-							placeholder="0.0"
-							required
-							icon={
-								<DerbyIconWrapper>
-									<span>DRB</span>
-									<DerbyIcon width="1.5em" height="100%" />
-								</DerbyIconWrapper>
-							}
-						/>
-						<PercentageBar />
-						<SubmitContainer>
-							<ActionButton
-								$isGhost
-								$isBlock
-								type="submit"
-								disabled={!formikProps.isValid}>
-								+ Save and Add another vault
-							</ActionButton>
-						</SubmitContainer>
-					</Form>
-				)}
-			</Formik>
-		</div>
+					<InputField
+						inputName="amount"
+						label="Amount"
+						tabIndex={5}
+						formikProps={formikProps}
+						placeholder="0.0"
+						required
+						icon={
+							<DerbyIconWrapper>
+								<span>DRB</span>
+								<DerbyIcon width="1.5em" height="100%" />
+							</DerbyIconWrapper>
+						}
+					/>
+					<PercentageBar />
+					<SubmitContainer>
+						<ActionButton
+							$isGhost
+							$isBlock
+							type="submit"
+							disabled={!formikProps.isValid}>
+							+ Save and Add another vault
+						</ActionButton>
+					</SubmitContainer>
+				</Form>
+			)}
+		</Formik>
 	)
 }
 

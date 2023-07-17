@@ -22,7 +22,9 @@ const NetworkSelect = ({ formikProps }: Props) => {
 			vault.protocols.map(({ name }) => name.replace(/(\_\w+)/gim, ''))
 		)
 
-		setNetworkList(list)
+		const uniqueList = [...new Set(list)]
+
+		setNetworkList(uniqueList)
 	}, [values])
 
 	return (

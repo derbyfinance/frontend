@@ -82,7 +82,7 @@ const SelectInputField = ({
 				)}
 				{!smallOptionList ? (
 					<Bottom>
-						<ActionButton $isCta onClick={openSelect}>
+						<ActionButton type="button" $isCta onClick={openSelect}>
 							Select
 						</ActionButton>
 					</Bottom>
