@@ -23,7 +23,7 @@ const abi: Abi = [
 
 const useBuyDerbyToken = (amount: number): UseContractWriteModel => {
 	const { address } = useAccount()
-	const debouncedAmount = useDebounce(parseEther(`${amount}`), 500)
+	const debouncedAmount = useDebounce<bigint>(parseEther(`${amount}`), 500)
 
 	const {
 		config,

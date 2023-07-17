@@ -1,14 +1,28 @@
+import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
+import AllocationRequestModel from '@models/requests/AllocationRequestModel'
+import { useFormikContext } from 'formik'
 import { styled } from 'styled-components'
 import { useAccount } from 'wagmi'
 
 export default () => {
 	const { isConnected } = useAccount()
+	const rewards = useDerbyTokenBalance()
+	const { values } = useFormikContext<AllocationRequestModel>()
 
 	const list = [20, 40, 60, 80, 100]
+
+	const handlePercentage = (percentage: number): void => {
+		values.amount = Math.round((rewards / 100) * percentage * 100) / 100
+	}
+
 	return (
 		<Bar>
 			{list.map((percentage, index) => (
-				<Badge $percentage={percentage} key={index} disabled={!isConnected}>
+				<Badge
+					onClick={() => handlePercentage(percentage)}
+					$percentage={percentage}
+					key={index}
+					disabled={!isConnected}>
 					{percentage == 100 ? 'Max' : `${percentage}%`}
 				</Badge>
 			))}

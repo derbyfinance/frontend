@@ -34,6 +34,7 @@ export default ({ network, vault }: Props) => {
 
 	const [form, setForm] = useState<AllocationRequestModel>({
 		nft: '',
+		category: '',
 		network: network,
 		protocol: '',
 		vault: vault,

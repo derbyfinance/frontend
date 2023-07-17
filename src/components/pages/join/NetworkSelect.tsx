@@ -1,23 +1,29 @@
 import SelectInputField from '@components/form/SelectInputField'
 import NetworkIcon from '@components/icons/NetworkIcon'
-import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
-import { NetworkDtoModel } from '@models/dto/NetworkDtoModel'
-import { getNetworkListData, getNetworkListState } from '@store/RaceSlice'
-import { FormikProps } from 'formik'
-import { useEffect } from 'react'
-import NetworkOptions from './NetworkOptions'
+import { useAppSelector } from '@hooks/ReduxStore'
+import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
+import AllocationRequestModel from '@models/requests/AllocationRequestModel'
+import { getPlayerState } from '@store/UserSlice'
+import { FormikProps, useFormikContext } from 'formik'
+import { useEffect, useState } from 'react'
 
 interface Props {
 	formikProps: FormikProps<any>
 }
 
 const NetworkSelect = ({ formikProps }: Props) => {
-	const dispatch = useAppDispatch()
-	const networkList = useAppSelector<NetworkDtoModel[]>(getNetworkListState)
+	const { values } = useFormikContext<AllocationRequestModel>()
+	const player = useAppSelector<PlayerDtoModel>(getPlayerState)
+
+	const [networkList, setNetworkList] = useState<string[]>([])
 
 	useEffect(() => {
-		if (networkList && networkList.length === 0) dispatch(getNetworkListData())
-	}, [])
+		const list = player?.player.baskets.flatMap(({ vault }) =>
+			vault.protocols.map(({ name }) => name.replace(/(\_\w+)/gim, ''))
+		)
+
+		setNetworkList(list)
+	}, [values])
 
 	return (
 		<SelectInputField
@@ -31,17 +37,20 @@ const NetworkSelect = ({ formikProps }: Props) => {
 			formikProps={formikProps}
 			placeholder="Select a network"
 			tabIndex={2}
-			optionList={networkList.map(({ name, symbol }) => ({
-				name: name,
-				value: symbol
-			}))}
-			options={
-				<NetworkOptions
-					optionList={networkList}
-					inputName="network"
-					formikProps={formikProps}
-				/>
+			smallOptionList
+			optionList={
+				networkList?.map((symbol) => ({
+					name: symbol,
+					value: symbol
+				})) ?? []
 			}
+			// options={
+			// 	<NetworkOptions
+			// 		optionList={networkList}
+			// 		inputName="network"
+			// 		formikProps={formikProps}
+			// 	/>
+			// }
 			required
 		/>
 	)

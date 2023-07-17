@@ -1,13 +1,16 @@
 import Notification from '@components/Notification'
 import ActionButton from '@components/buttons/ActionButton'
 import CardRow from '@components/card/CardRow'
-import CardButtonRow from '@components/card/CardRowButton'
+import CardRowButton from '@components/card/CardRowButton'
 import CardRowLink from '@components/card/CardRowLink'
 import CopyIcon from '@components/icons/CopyIcon'
+import CreateCoinIcon from '@components/icons/CreateCoinIcon'
 import ExternalIcon from '@components/icons/ExternalIcon'
 import { CopyToClipboard } from '@functions/StringFunction'
 import { useAppDispatch } from '@hooks/ReduxStore'
+import useBuyDerbyToken from '@hooks/UseBuyDerbyToken'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
@@ -20,6 +23,9 @@ const AccountInfo = ({ $isOpen }: Props) => {
 	const { address, connector } = useAccount()
 	const { disconnect } = useDisconnect()
 	const { chain } = useNetwork()
+	const [amount, setAmount] = useState<number>(0)
+	const { isSuccessTx, isSuccessPrepare, errorPrepare, errorTx, write } =
+		useBuyDerbyToken(amount)
 
 	const dispatch = useAppDispatch()
 
@@ -42,6 +48,43 @@ const AccountInfo = ({ $isOpen }: Props) => {
 		)
 	}
 
+	const handleDerbyTokens = (): void => {
+		setAmount(10)
+	}
+
+	useEffect(() => {
+		if (errorPrepare || errorTx) {
+			toast.error(
+				<Notification
+					title="Create Derby Tokens"
+					notification="Something went wrong during the creation of your Derby Tokens. Please try again."
+				/>
+			)
+
+			setAmount(0)
+		}
+	}, [errorTx, errorPrepare])
+
+	useEffect(() => {
+		if (isSuccessPrepare && isSuccessTx) {
+			toast.success(
+				<Notification
+					title="Create Derby Tokens"
+					notification="Your Derby Tokens for testing purposes are created."
+				/>
+			)
+
+			setAmount(0)
+		}
+	}, [isSuccessPrepare, isSuccessTx])
+
+	useEffect(() => {
+		if (isSuccessPrepare) {
+			console.log('write')
+			write?.()
+		}
+	}, [isSuccessPrepare])
+
 	return (
 		<AccountInfoBox $isOpen={$isOpen}>
 			<CardRow $align="center" $hasHover={false}>
@@ -55,14 +98,20 @@ const AccountInfo = ({ $isOpen }: Props) => {
 					</ConnectorButton>
 				</ConnectorActions>
 			</CardRow>
+			{Boolean(JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false')) ? (
+				<CardRowButton onClick={handleDerbyTokens}>
+					<CreateCoinIcon />
+					Create Derby Tokens
+				</CardRowButton>
+			) : null}
 			<CardRow>
 				<ChainStatus $isActive={!chain?.unsupported} />
 				{chain?.name}
 			</CardRow>
-			<CardButtonRow onClick={handleCopyAddress}>
+			<CardRowButton onClick={handleCopyAddress}>
 				<CopyIcon />
 				Copy address
-			</CardButtonRow>
+			</CardRowButton>
 			<CardRowLink
 				href={`${chain?.blockExplorers?.default.url}/address/${address}` ?? ''}
 				target="_blank"

@@ -30,8 +30,8 @@ const NftSelect = ({ formikProps }: Props) => {
 			tabIndex={1}
 			optionList={
 				player?.player.baskets
-					? player.player.baskets.map(({ id, vault }) => ({
-							name: vault.name,
+					? player.player.baskets.map(({ id, name }) => ({
+							name: name,
 							value: id
 					  }))
 					: []

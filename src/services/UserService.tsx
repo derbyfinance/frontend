@@ -11,16 +11,21 @@ export const GetPlayer = async (address: Hex): Promise<PlayerDtoModel> => {
           id: $address,    
         ) {
           id,
-          name,
           baskets {
             id,
+            name,
             vault {
               id,
               name,
+              category,
+              protocol,
               vaultNumber,
               protocols {
                 id,
-                name
+                name,
+                network,
+                coin,
+                protocol
               }
             },
             rebalancingPeriod,
