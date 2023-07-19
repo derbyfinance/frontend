@@ -1,12 +1,15 @@
+import Notification from '@components/Notification'
 import { useAppSelector } from '@hooks/ReduxStore'
+import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
+import useDidMountEffect from '@hooks/UseDidMountEffect'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
+import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { useAccount } from 'wagmi'
 import AllocateButton from './AllocateButton'
 import AllocateSummaryRow from './AllocateSummaryRow'
 import ConnectWalletButton from './ConnectWalletButton'
-
 interface Props {
 	update: (index: number) => void
 	remove: (index: number) => void
@@ -14,10 +17,26 @@ interface Props {
 
 export default ({ update, remove }: Props) => {
 	const { isConnected } = useAccount()
-
+	const rewards = useDerbyTokenBalance()
 	const allocationList = useAppSelector<AllocationRequestModel[]>(
 		getAllocationListState
 	)
+
+	useDidMountEffect(() => {
+		const amount =
+			allocationList?.reduce((prev, allocate) => {
+				return prev + allocate?.amount
+			}, 0) ?? 0
+
+		if (allocationList && rewards - amount <= 0) {
+			toast.info(
+				<Notification
+					title="Allocation"
+					notification="Your total amount of Derby tokens has been allocated."
+				/>
+			)
+		}
+	}, [allocationList])
 
 	return (
 		<Container>

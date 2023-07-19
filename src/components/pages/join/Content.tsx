@@ -39,7 +39,8 @@ export default ({ network, vault }: Props) => {
 		network: network,
 		protocol: '',
 		vault: vault,
-		amount: 0
+		amount: 0,
+		maxAmount: 0
 	})
 
 	const addAllocation = (): void => {
@@ -109,7 +110,6 @@ const Container = styled.div`
 	flex-direction: column;
 	gap: 2em;
 `
-
 const AllocateCard = styled(Card)`
 	background-color: ${({ theme }) => theme.style.formBg};
 	border: none;

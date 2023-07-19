@@ -1,5 +1,7 @@
+import { useAppSelector } from '@hooks/ReduxStore'
 import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
+import { getAllocationListState } from '@store/RaceSlice'
 import { useFormikContext } from 'formik'
 import { MouseEvent } from 'react'
 import { styled } from 'styled-components'
@@ -8,16 +10,28 @@ import { useAccount } from 'wagmi'
 export default () => {
 	const { isConnected } = useAccount()
 	const rewards = useDerbyTokenBalance()
-	const { setFieldValue } = useFormikContext<AllocationRequestModel>()
-
+	const { values, setFieldValue, validateOnBlur, handleBlur } =
+		useFormikContext<AllocationRequestModel>()
+	const allocationList = useAppSelector<AllocationRequestModel[]>(
+		getAllocationListState
+	)
 	const list = [20, 40, 60, 80, 100]
 
 	const handlePercentage = (
 		e: MouseEvent<HTMLButtonElement>,
 		percentage: number
 	): void => {
-		const value = Math.round((rewards / 100) * percentage * 100) / 100
+		const allocated =
+			allocationList?.reduce((prev, allocate) => {
+				return prev + allocate?.amount
+			}, 0) ?? 0
+
+		const value =
+			Math.round(((rewards - allocated) / 100) * percentage * 100) / 100
+
 		setFieldValue('amount', value)
+		validateOnBlur
+		handleBlur('amount')
 		e.stopPropagation()
 		e.preventDefault()
 	}
@@ -33,7 +47,7 @@ export default () => {
 					name="amount"
 					$percentage={percentage}
 					key={index}
-					disabled={!isConnected}>
+					disabled={!isConnected || values.maxAmount <= 0}>
 					{percentage == 100 ? 'Max' : `${percentage}%`}
 				</Badge>
 			))}

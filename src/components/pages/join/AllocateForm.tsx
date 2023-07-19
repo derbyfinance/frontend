@@ -16,6 +16,7 @@ import { setCreateNftModalOpenState } from '@store/SettingsSlice'
 import { getPlayerData } from '@store/UserSlice'
 import { useAccount } from 'wagmi'
 import CategoryHiddenInput from './CategoryHiddenInput'
+import MaxAmountHiddenInput from './MaxAmountHiddenInput'
 import NetworkSelect from './NetworkSelect'
 import NftSelect from './NftSelect'
 import PercentageBar from './PercentageBar'
@@ -51,7 +52,8 @@ const AllocateForm = ({ initial, update }: Props) => {
 				network: '',
 				protocol: '',
 				vault: '',
-				amount: 0
+				amount: 0,
+				maxAmount: 0
 			}
 		})
 
@@ -86,6 +88,8 @@ const AllocateForm = ({ initial, update }: Props) => {
 
 					<CategoryHiddenInput />
 
+					<MaxAmountHiddenInput />
+
 					<NetworkSelect formikProps={formikProps} />
 
 					<ProtocolSelect formikProps={formikProps} />
@@ -112,7 +116,9 @@ const AllocateForm = ({ initial, update }: Props) => {
 							$isGhost
 							$isBlock
 							type="submit"
-							disabled={!formikProps.isValid}>
+							disabled={
+								!formikProps.isValid || formikProps.values.maxAmount === 0
+							}>
 							+ Save and Add another vault
 						</ActionButton>
 					</SubmitContainer>
