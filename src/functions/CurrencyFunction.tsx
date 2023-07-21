@@ -4,6 +4,7 @@ export const ToCurrency = (
 	abbr: boolean = false,
 	currency: 'USD' | 'EUR' = 'USD'
 ): string => {
+	const isNegative: boolean = amount < 0
 	let minDecimals: number = decimals
 	let newAmount = amount
 	let newAbbr = ''
@@ -16,6 +17,7 @@ export const ToCurrency = (
 	}
 
 	return (
+		(isNegative ? '-' : '') +
 		newAmount
 			.toLocaleString(currency === 'USD' ? 'en-US' : 'nl-NL', {
 				minimumFractionDigits: minDecimals,
@@ -23,9 +25,11 @@ export const ToCurrency = (
 				compactDisplay: 'short',
 				currencyDisplay: 'narrowSymbol',
 				style: 'currency',
+				signDisplay: 'never',
 				currency: currency
 			})
-			.replace(/[\u202F\u00A0]/g, '') + newAbbr
+			.replace(/[\u202F\u00A0]/g, '') +
+		newAbbr
 	)
 }
 
@@ -62,16 +66,18 @@ const setAbbreviation = (amount: number): [number, string] => {
 	const isMillion = 1000000
 	const isBillion = 1000000000
 
+	const amountAbs = Math.abs(amount)
+
 	let newAmount = amount
 	let newAbbr = ''
 
-	if (amount >= isThousand && amount < isMillion) {
+	if (amountAbs >= isThousand && amountAbs < isMillion) {
 		newAbbr = '\u00A0K'
 		newAmount = amount / isThousand
-	} else if (amount >= isMillion && amount < isBillion) {
+	} else if (amountAbs >= isMillion && amountAbs < isBillion) {
 		newAbbr = '\u00A0M'
 		newAmount = amount / isMillion
-	} else if (amount >= isBillion) {
+	} else if (amountAbs >= isBillion) {
 		newAbbr = '\u00A0B'
 		newAmount = amount / isBillion
 	}

@@ -77,10 +77,11 @@ export default {
   // An array of file extensions your modules use
   moduleFileExtensions: [
     "js",
-    // "mjs",
-    // "cjs",
+    "mjs",
+    "cjs",
+    "esm",
     "jsx",
-    // "ts",
+     "ts",
     "tsx",
     // "json",
     // "node"
@@ -189,12 +190,13 @@ export default {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "^.+\\.(tsx)$": ["ts-jest", { useESM: true, tsconfig: { jsx: 'react-jsx' } }]
+    "^.+\\.(ts|tsx|js|jsx)?$": ["ts-jest", { useESM: true, tsconfig: { jsx: 'react-jsx'} }]
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
-    "/node_modules/",
+    //"<rootDir>/node_modules/",
+     "node_modules\/(?!(react-redux)\/)",
    // "\\.pnp\\.[^\\/]+$"
   ],
 
