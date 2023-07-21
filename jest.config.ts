@@ -94,10 +94,14 @@ export default {
     '^@helpers/(.*)$': '<rootDir>/src/helpers/$1',
     '^@functions/(.*)$': '<rootDir>/src/functions/$1',
     '^@models/(.*)$': '<rootDir>/src/models/$1',
+    '^@network/(.*)$': '<rootDir>/src/network/$1',
+    '^@services/(.*)$': '<rootDir>/src/services/$1',
     '^@datatypes/(.*)$': '<rootDir>/src/datatypes/$1',
     '^@store/(.*)$': '<rootDir>/src/store/$1',
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
-    'styled-components': '<rootDir>/__mocks__/styledComponentsMock.tsx'
+    '^@validations/(.*)$': '<rootDir>/src/validations/$1'
+    // 'styled-components': '<rootDir>/__mocks__/styledComponentsMock.tsx',
+    // 'viem': '<rootDir>/__mocks__/viemMock.tsx',
     // '^(\\.{1,2}/.*)\\.js$': '$1',
    },
 
