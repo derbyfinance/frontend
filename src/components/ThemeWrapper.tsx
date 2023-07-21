@@ -8,7 +8,7 @@ interface Props {
 }
 
 const ThemeWrapper = ({ children }: Props) => {
-	const isDarkMode = useAppSelector<boolean>(isDarkModeState)
+	const isDarkMode = useAppSelector<boolean | undefined>(isDarkModeState)
 
 	return (
 		<ThemeProvider theme={isDarkMode ? darkTheme : lightTheme}>
