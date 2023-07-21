@@ -16,14 +16,14 @@ export default ({ vault }: Props) => {
 			<TableData>
 				<Avatar name="" icon={<IconSelector name={vault.coin} />} />
 			</TableData>
-			<TableData align="left" $focus>
+			<TableData $align="left" $focus>
 				{vault.name} <Network>{vault.network}</Network>
 			</TableData>
-			<TableData align="right">
+			<TableData $align="right">
 				{/* {ToCurrency(vault.allocated, 2, true)} */}
 			</TableData>
-			<TableData align="right">{/* {vault.performance}% */}</TableData>
-			<TableData align="right">
+			<TableData $align="right">{/* {vault.performance}% */}</TableData>
+			<TableData $align="right">
 				<LinkButton $isGhost href={`/race/join/${vault.coin}/${vault.network}`}>
 					+Invest
 				</LinkButton>

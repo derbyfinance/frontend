@@ -28,10 +28,10 @@ export default ({ index, allocate, remove, update }: Props) => {
 			<TableData width="*">
 				{allocate.vault} <Network>{allocate.network}</Network>
 			</TableData>
-			<TableData width="15%" align="right">
+			<TableData width="15%" $align="right">
 				{allocate.amount.toLocaleString()}&nbsp;<Network>DRB</Network>
 			</TableData>
-			<TableData width="10%" align="right">
+			<TableData width="10%" $align="right">
 				66%
 			</TableData>
 			<TableData width="5%">

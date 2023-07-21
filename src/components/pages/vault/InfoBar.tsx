@@ -1,17 +1,17 @@
-import { Title } from '@components/fonts/Title'
-import { styled } from 'styled-components'
 import NetworkInfo from '@components/NetworkInfo'
+import { Title } from '@components/fonts/Title'
 import LockIcon from '@components/icons/LockIcon'
-import VaultIcon from '@components/icons/VaultIcon'
 import MembersIcon from '@components/icons/MembersIcon'
-import { ToCurrency } from '@functions/CurrencyFunction'
+import VaultIcon from '@components/icons/VaultIcon'
 import PolygonIcon from '@components/icons/chainIcons/PolygonIcon'
+import { ToCurrency } from '@functions/CurrencyFunction'
+import { styled } from 'styled-components'
 
 export default () => {
 	return (
 		<InfoBar>
 			<ChangeNetwork>
-				<Title align="left">Polygon Mumbai</Title>
+				<Title $align="left">Polygon Mumbai</Title>
 				<Network>
 					<NetworkData>
 						<NetworkInfo

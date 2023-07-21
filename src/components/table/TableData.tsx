@@ -1,6 +1,7 @@
+import { AlignType } from '@datatypes/AlignType'
 import { styled } from 'styled-components'
 
-export default styled.td<{ $focus?: boolean }>`
+export default styled.td<{ $align?: AlignType; $focus?: boolean }>`
 	font-family: ${({ theme, $focus }) =>
 		$focus ? theme.fonts.slabMedium : 'inherit'};
 	font-size: ${({ $focus }) => ($focus ? '1.125em' : 'inherit')};
@@ -19,11 +20,19 @@ export default styled.td<{ $focus?: boolean }>`
 		padding: 0.5em;
 	}
 
-	&[align='right'] > label {
-		justify-content: flex-end;
-	}
+	${({ $align }) =>
+		$align === 'right' &&
+		`
+		> label {
+			justify-content: flex-end;
+		}
+	`}
 
-	&[align='center'] > label {
-		justify-content: center;
-	}
+	${({ $align }) =>
+		$align === 'center' &&
+		`
+		> label {
+			justify-content: center;
+		}
+	`}
 `

@@ -1,7 +1,7 @@
 import { AlignType } from '@datatypes/AlignType'
 import Link, { LinkProps } from 'next/link'
-import styled from 'styled-components'
-import { ButtonStyle } from './ActionButton'
+import { styled } from 'styled-components'
+import { ButtonStyle, ButtonStyleProps } from './ActionButton'
 
 interface Props extends LinkProps {
 	$isCta?: boolean
@@ -32,11 +32,6 @@ export default ({
 	)
 }
 
-const Button = styled(Link)<{
-	$isCta: boolean
-	$isGhost: boolean
-	$isBlock: boolean
-	$align?: AlignType
-}>`
-	${ButtonStyle}
+const Button = styled(Link)<ButtonStyleProps>`
+	${ButtonStyle as any}
 `

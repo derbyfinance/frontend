@@ -49,7 +49,7 @@ const LineChart = ({ filter, title, data, format }: Props) => {
 	return (
 		<Container>
 			<ChartHeader>
-				<Title align="left">{title}</Title>
+				<Title $align="left">{title}</Title>
 
 				<Filter>
 					{filters.map((name, index) => (

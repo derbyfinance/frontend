@@ -30,7 +30,7 @@ export default ({
 				<Thead $isSticky={$isSticky}>
 					<tr>
 						{headers.map(({ name, align, colspan }, index) => (
-							<Th align={align} colSpan={colspan ?? 1} key={index}>
+							<Th $align={align} colSpan={colspan ?? 1} key={index}>
 								{name}
 							</Th>
 						))}
@@ -78,7 +78,7 @@ const Thead = styled.thead<{ $isSticky: boolean }>`
 	`}
 `
 
-const Th = styled.th<{ align?: AlignType }>`
+const Th = styled.th<{ $align?: AlignType }>`
 	font-family: ${({ theme }) => theme.fonts.robotoMedium};
 	color: ${({ theme }) => theme.style.colorLabel};
 	font-weight: normal;
@@ -86,7 +86,7 @@ const Th = styled.th<{ align?: AlignType }>`
 	font-size: 1em;
 	line-height: 1em;
 	padding: 0 0.5em;
-	text-align: ${({ align }) => align ?? 'left'};
+	text-align: ${({ $align }) => $align ?? 'left'};
 `
 const FooterShadow = styled.tfoot`
 	position: sticky;

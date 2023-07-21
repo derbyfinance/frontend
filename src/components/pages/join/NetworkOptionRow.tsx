@@ -36,7 +36,7 @@ export default ({ inputName, network, formikProps }: Props) => {
 					{network.name}
 				</label>
 			</TableData>
-			<TableData align="right">
+			<TableData $align="right">
 				<label htmlFor={`radio-${inputName}-${network.name}`}>
 					{ToCurrency(network.allocated, 2, true)}
 				</label>

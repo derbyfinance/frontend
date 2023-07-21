@@ -1,6 +1,6 @@
 import Link, { LinkProps } from 'next/link'
 import { usePathname } from 'next/navigation'
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 
 interface Props extends LinkProps {
 	children: string | JSX.Element | JSX.Element[]
