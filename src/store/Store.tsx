@@ -4,112 +4,34 @@ import {
 	combineReducers,
 	configureStore
 } from '@reduxjs/toolkit'
-import {
-	FLUSH,
-	PAUSE,
-	PERSIST,
-	PURGE,
-	PersistConfig,
-	REGISTER,
-	REHYDRATE,
-	WebStorage,
-	persistReducer
-} from 'redux-persist'
-import persistStore from 'redux-persist/es/persistStore'
-import createWebStorage from 'redux-persist/es/storage/createWebStorage'
-import { RaceState, raceSlice } from './RaceSlice'
-import { SettingsState, settingsSlice } from './SettingsSlice'
-import { VaultState, vaultSlice } from './VaultSlice'
-import { UserState, userSlice } from './UserSlice'
-
-const persistStorage = (): WebStorage => {
-	const isServer = typeof window === 'undefined'
-
-	// Returns noop (dummy) storage.
-	if (isServer) {
-		return {
-			getItem() {
-				return Promise.resolve(null)
-			},
-			setItem() {
-				return Promise.resolve()
-			},
-			removeItem() {
-				return Promise.resolve()
-			}
-		}
-	}
-
-	return createWebStorage('local')
-}
-
-const rootPersistConfig: PersistConfig<any> = {
-	key: 'root',
-	storage: persistStorage(),
-	blacklist: [],
-	debug: process.env.NODE_ENV !== 'production'
-}
-
-const settingsPersistConfig: PersistConfig<SettingsState> = {
-	key: 'settings',
-	storage: persistStorage(),
-	blacklist: [],
-	debug: process.env.NODE_ENV !== 'production'
-}
-
-const userPersistConfig: PersistConfig<UserState> = {
-	key: 'user',
-	storage: persistStorage(),
-	blacklist: [],
-	debug: process.env.NODE_ENV !== 'production'
-}
-
-const vaultPersistConfig: PersistConfig<VaultState> = {
-	key: 'vault',
-	storage: persistStorage(),
-	blacklist: [],
-	debug: process.env.NODE_ENV !== 'production'
-}
-
-const racePersistConfig: PersistConfig<RaceState> = {
-	key: 'race',
-	storage: persistStorage(),
-	blacklist: [],
-	debug: process.env.NODE_ENV !== 'production'
-}
+import { raceSlice } from './RaceSlice'
+import { settingsSlice } from './SettingsSlice'
+import { userSlice } from './UserSlice'
+import { vaultSlice } from './VaultSlice'
 
 export const reducers = combineReducers({
-	[settingsSlice.name]: persistReducer(
-		settingsPersistConfig,
-		settingsSlice.reducer
-	),
-	[vaultSlice.name]: persistReducer(vaultPersistConfig, vaultSlice.reducer),
-	[userSlice.name]: persistReducer(userPersistConfig, userSlice.reducer),
-	[raceSlice.name]: persistReducer(racePersistConfig, raceSlice.reducer)
+	[settingsSlice.name]: settingsSlice.reducer,
+	[vaultSlice.name]: vaultSlice.reducer,
+	[userSlice.name]: userSlice.reducer,
+	[raceSlice.name]: raceSlice.reducer
 })
 
-const makeConfiguredStore = (reducer: any) => {
-	return configureStore({
-		reducer: reducer,
-		middleware: (getDefaultMiddleware) =>
-			getDefaultMiddleware({
-				serializableCheck: {
-					ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
-				}
-			}),
-		devTools: process.env.NODE_ENV !== 'production'
-	})
-}
+export const rootStore = configureStore({
+	reducer: reducers,
+	middleware: (getDefaultMiddleware) =>
+		getDefaultMiddleware({
+			serializableCheck: {
+				//ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+			}
+		}),
+	devTools: process.env.NODE_ENV !== 'production'
+})
 
-const persistedStoreReducer = persistReducer(rootPersistConfig, reducers)
-const pstore = makeConfiguredStore(persistedStoreReducer)
-const makeStore = () => pstore
-
-export let persistor = persistStore(pstore)
+const makeStore = () => rootStore
 
 export type AppStore = ReturnType<typeof makeStore>
-export type AppState = ReturnType<AppStore['getState']>
-export type AppDispatch = AppStore['dispatch']
+export type AppState = ReturnType<typeof rootStore.getState>
+export type AppDispatch = typeof rootStore.dispatch
 export type AppThunk<ReturnType = void> = ThunkAction<
 	ReturnType,
 	AppState,

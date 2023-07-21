@@ -10,8 +10,10 @@ import { useEffect } from 'react'
 const CategoryHiddenInput = () => {
 	const { handleChange, values, setFieldValue } =
 		useFormikContext<AllocationRequestModel>()
-	const categoryList = useAppSelector<CategoryDtoModel[]>(getCategoryListState)
-	const player = useAppSelector<PlayerDtoModel>(getPlayerState)
+	const categoryList = useAppSelector<CategoryDtoModel[] | undefined>(
+		getCategoryListState
+	)
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const inputName = 'category'
 
 	useEffect(() => {
@@ -26,7 +28,7 @@ const CategoryHiddenInput = () => {
 
 	//TODO: Ugly
 	const categoryFilter = (category: string): string => {
-		return categoryList.find(({ name }) => name === category)?.id ?? ''
+		return categoryList?.find(({ name }) => name === category)?.id ?? ''
 	}
 
 	return (

@@ -9,7 +9,9 @@ import { styled } from 'styled-components'
 import Modal from './Modal'
 
 const CreateNftModal = () => {
-	const isOpenModal = useAppSelector<boolean>(isCreateNftModalOpenState)
+	const isOpenModal = useAppSelector<boolean | undefined>(
+		isCreateNftModalOpenState
+	)
 	const dispatch = useAppDispatch()
 
 	const closeModal = (): void => {

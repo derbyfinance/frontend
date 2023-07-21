@@ -13,7 +13,7 @@ interface Props {
 
 const ProtocolSelect = ({ formikProps }: Props) => {
 	const { values } = useFormikContext<AllocationRequestModel>()
-	const player = useAppSelector<PlayerDtoModel>(getPlayerState)
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 
 	const [protocolList, setProtocolList] = useState<ProtocolDtoModel[]>()
 

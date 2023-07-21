@@ -11,11 +11,17 @@ import PortfolioIcon from '@components/icons/PortfolioIcon'
 import RewardIcon from '@components/icons/RewardIcon'
 import StakedIcon from '@components/icons/StakedIcon'
 import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
+import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import RewardBox from '../pages/race/RewardBox'
 
 const RaceBanner = () => {
-	const rewards = useDerbyTokenBalance()
+	const [derbyBalance, setDerbyBalance] = useState<number>(0)
+	const balance = useDerbyTokenBalance()
+
+	useEffect(() => {
+		setDerbyBalance(balance)
+	}, [balance])
 
 	return (
 		<BannerBox>
@@ -88,7 +94,7 @@ const RaceBanner = () => {
 					<RewardsIcon />
 					<Label>Rewards</Label>
 				</div>
-				<StockCurrency $amount={rewards} $decimals={0} $coin="DRB" />
+				<StockCurrency $amount={derbyBalance} $decimals={0} $coin="DRB" />
 			</CardRow>
 			<CardFooter $align="right">
 				<ActionButton $isCta onClick={() => {}}>

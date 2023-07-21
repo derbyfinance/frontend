@@ -9,29 +9,33 @@ import {
 	isConnectModalOpenState,
 	setConnectModalOpenState
 } from '@store/SettingsSlice'
-import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
-import { Connector, useAccount, useConnect, useSignMessage } from 'wagmi'
+import { Connector, useAccount, useConnect } from 'wagmi'
 import Modal from './Modal'
 
 interface Props {}
 
 const ConnectWalletModal = ({}: Props) => {
-	const isOpenModal = useAppSelector<boolean>(isConnectModalOpenState)
+	const [isConnected, setIsConnected] = useState<boolean>(false)
+	const isOpenModal = useAppSelector<boolean | undefined>(
+		isConnectModalOpenState
+	)
 	const dispatch = useAppDispatch()
 
 	const { connectors, connectAsync, isSuccess } = useConnect()
-	const { isConnected } = useAccount()
-	const { signMessageAsync } = useSignMessage()
-	const { push } = useRouter()
+	const account = useAccount()
+
+	useEffect(() => {
+		setIsConnected(account.isConnected)
+	}, [account.isConnected])
 
 	const closeModal = (): void => {
 		dispatch(setConnectModalOpenState(false))
 	}
 
 	const connectWallet = async (connector: Connector) => {
-		console.log(isConnected, isSuccess)
 		if (isConnected) {
 			toast.info(
 				<Notification
@@ -43,7 +47,7 @@ const ConnectWalletModal = ({}: Props) => {
 		}
 
 		try {
-			const { account, chain } = await connectAsync({ connector })
+			const { account } = await connectAsync({ connector })
 
 			if (account) {
 				toast.success(
@@ -67,7 +71,7 @@ const ConnectWalletModal = ({}: Props) => {
 	}
 
 	return (
-		<Modal closeModal={closeModal} isOpen={isOpenModal}>
+		<Modal closeModal={closeModal} isOpen={isOpenModal ?? false}>
 			<>
 				<Header>
 					<LogoBox>

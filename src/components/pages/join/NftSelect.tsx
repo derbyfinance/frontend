@@ -12,7 +12,7 @@ interface Props {
 
 const NftSelect = ({ formikProps }: Props) => {
 	const dispatch = useAppDispatch()
-	const player = useAppSelector<PlayerDtoModel>(getPlayerState)
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const { address } = useAccount()
 
 	useEffect(() => {

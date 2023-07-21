@@ -24,12 +24,13 @@ interface Props {
 	network: string
 	vault: string
 }
+
 export default ({ network, vault }: Props) => {
 	const formRef = useRef<HTMLDivElement>(null)
 	const allocateRef = useRef<HTMLDivElement>(null)
 
 	const dispatch = useAppDispatch()
-	const allocationList = useAppSelector<AllocationRequestModel[]>(
+	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
 	)
 
@@ -56,7 +57,7 @@ export default ({ network, vault }: Props) => {
 	const updateAllocation = (index: number) => {
 		removeAllocation(index)
 
-		setForm(allocationList[index])
+		setForm(allocationList![index])
 
 		setTimeout(() => {
 			formRef.current?.scrollIntoView({

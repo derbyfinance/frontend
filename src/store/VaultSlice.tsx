@@ -98,17 +98,19 @@ export const getVaultStatsData = createAsyncThunk(
 		await GetVaultStats(id, filter)
 )
 
-export const getVaultListState = (state: AppState): VaultDtoModel[] =>
-	state.vault?.vaultList ?? []
+export const getVaultListState = (
+	state: AppState
+): VaultDtoModel[] | undefined => state.vault?.vaultList
 
 export const getVaultListCountState = (state: AppState): number =>
 	state.vault?.vaultListCount ?? 0
 
-export const getVaultState = (state: AppState): VaultDtoModel =>
-	state.vault?.vault ?? {}
+export const getVaultState = (state: AppState): VaultDtoModel | undefined =>
+	state.vault?.vault
 
-export const getVaultStatsState = (state: AppState): StatsDtoModel[] =>
-	state.vault?.vaultStats ?? []
+export const getVaultStatsState = (
+	state: AppState
+): StatsDtoModel[] | undefined => state.vault?.vaultStats
 
 export const getVaultStatsCountState = (state: AppState): number =>
 	state.vault?.vaultStatsCount ?? 0

@@ -1,4 +1,4 @@
-import AllocationValidation from '@/validations/AllocationValidation'
+import AllocationValidation from '@validations/AllocationValidation'
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import { styled } from 'styled-components'
 
@@ -14,6 +14,7 @@ import useDidMountEffect from '@hooks/UseDidMountEffect'
 import { setAllocationListState } from '@store/RaceSlice'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
 import { getPlayerData } from '@store/UserSlice'
+import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import CategoryHiddenInput from './CategoryHiddenInput'
 import MaxAmountHiddenInput from './MaxAmountHiddenInput'
@@ -29,13 +30,18 @@ interface Props {
 }
 
 const AllocateForm = ({ initial, update }: Props) => {
+	const [isConnected, setIsConnected] = useState<boolean>(false)
 	const dispatch = useAppDispatch()
 
-	const { address, isConnected } = useAccount()
+	const account = useAccount()
 
 	useDidMountEffect(() => {
-		if (address !== undefined) dispatch(getPlayerData(address))
-	}, [address])
+		if (account.address !== undefined) dispatch(getPlayerData(account.address))
+	}, [account.address])
+
+	useEffect(() => {
+		setIsConnected(account.isConnected)
+	}, [account.isConnected])
 
 	const onSubmit = (
 		form: AllocationRequestModel,

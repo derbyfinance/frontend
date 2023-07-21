@@ -6,7 +6,7 @@ import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
 
 const AllocateButton = () => {
-	const allocationList = useAppSelector<AllocationRequestModel[]>(
+	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
 	)
 

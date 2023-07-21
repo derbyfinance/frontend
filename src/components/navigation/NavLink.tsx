@@ -10,14 +10,14 @@ export default ({ children, as, ...props }: Props) => {
 	const pathname = usePathname()
 
 	const isActive = (): boolean => {
-		const urlPath = pathname.replaceAll('/', '').toLocaleLowerCase()
+		const urlPath = pathname?.replaceAll('/', '').toLocaleLowerCase()
 		const linkPath = props.href
 			.toString()
 			.replaceAll('/', '')
 			.toLocaleLowerCase()
 		return (
-			(urlPath.startsWith(linkPath) && linkPath !== '') ||
-			(urlPath.startsWith(linkPath) && urlPath === '')
+			(urlPath?.startsWith(linkPath) && linkPath !== '') ||
+			(urlPath?.startsWith(linkPath) && urlPath === '')
 		)
 	}
 

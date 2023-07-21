@@ -13,7 +13,7 @@ interface Props {
 
 const NetworkSelect = ({ formikProps }: Props) => {
 	const { values } = useFormikContext<AllocationRequestModel>()
-	const player = useAppSelector<PlayerDtoModel>(getPlayerState)
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 
 	const [networkList, setNetworkList] = useState<string[]>([])
 

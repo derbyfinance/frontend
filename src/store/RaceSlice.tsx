@@ -137,23 +137,25 @@ export const getCategoryListData = createAsyncThunk(
 
 export const getLeaderboardListState = (
 	state: AppState
-): LeaderboardDtoModel[] => state.race.leaderboardList ?? []
+): LeaderboardDtoModel[] | undefined => state.race?.leaderboardList
 
 export const getLeaderboardListCountState = (state: AppState): number =>
-	state.race.leaderboardListCount ?? 0
+	state.race?.leaderboardListCount ?? 0
 
-export const getNetworkListState = (state: AppState): NetworkDtoModel[] =>
-	state.race.networkList ?? []
+export const getNetworkListState = (
+	state: AppState
+): NetworkDtoModel[] | undefined => state.race?.networkList
 
 export const getNetworkListCountState = (state: AppState): number =>
-	state.race.networkListCount ?? 0
+	state.race?.networkListCount ?? 0
 
-export const getCategoryListState = (state: AppState): CategoryDtoModel[] =>
-	state.race.categoryList ?? []
+export const getCategoryListState = (
+	state: AppState
+): CategoryDtoModel[] | undefined => state.race?.categoryList
 
 export const getAllocationListState = (
 	state: AppState
-): AllocationRequestModel[] => state.race.allocationList
+): AllocationRequestModel[] | undefined => state.race?.allocationList
 
 export const { setAllocationListState, removeAllocationListState } =
 	raceSlice.actions

@@ -1,5 +1,6 @@
 import RaceBanner from '@components/banner/RaceBanner'
 import Banner from '@components/pages/Banner'
+import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import { useAccount } from 'wagmi'
 
@@ -9,7 +10,12 @@ interface Props {
 }
 
 const Aside = ({ isFullPage, aside }: Props) => {
-	const { isConnected } = useAccount()
+	const [isConnected, setIsConnected] = useState<boolean>(false)
+	const account = useAccount()
+
+	useEffect(() => {
+		setIsConnected(account.isConnected)
+	}, [account.isConnected])
 
 	return (
 		<>

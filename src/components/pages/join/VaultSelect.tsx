@@ -19,24 +19,30 @@ const VaultSelect = ({}: Props) => {
 	const formikProps = useFormikContext<AllocationRequestModel>()
 	const { values } = formikProps
 
-	const categoryList = useAppSelector<CategoryDtoModel[]>(getCategoryListState)
-	const vaultList = useAppSelector<VaultDtoModel[]>(getVaultListState)
+	const categoryList = useAppSelector<CategoryDtoModel[] | undefined>(
+		getCategoryListState
+	)
+	const vaultList = useAppSelector<VaultDtoModel[] | undefined>(
+		getVaultListState
+	)
 	const [selectedList, setSelectedList] = useState<VaultDtoModel[]>([])
 
 	useEffect(() => {
-		if (vaultList && vaultList.length === 0) dispatch(getVaultListData())
+		if (!vaultList || vaultList.length === 0) dispatch(getVaultListData())
 	}, [])
 
 	useEffect(() => {
-		const list = vaultList.filter(({ network, category, protocols }) => {
-			return (
-				protocols.find(
-					({ id }) => id.toLowerCase() === values.protocol.toLowerCase()
-				) !== undefined &&
-				network.toLowerCase() === values.network.toLowerCase() &&
-				categoryFilter(category).toLowerCase() === values.category.toLowerCase()
-			)
-		})
+		const list =
+			vaultList?.filter(({ network, category, protocols }) => {
+				return (
+					protocols.find(
+						({ id }) => id.toLowerCase() === values.protocol.toLowerCase()
+					) !== undefined &&
+					network.toLowerCase() === values.network.toLowerCase() &&
+					categoryFilter(category).toLowerCase() ===
+						values.category.toLowerCase()
+				)
+			}) ?? []
 
 		setSelectedList(list)
 	}, [values])
@@ -44,7 +50,7 @@ const VaultSelect = ({}: Props) => {
 	//TODO: Ugly
 	const categoryFilter = (category: string): string => {
 		return (
-			categoryList.find(
+			categoryList?.find(
 				({ name }) => name.toLowerCase() === category.toLowerCase()
 			)?.id ?? ''
 		)

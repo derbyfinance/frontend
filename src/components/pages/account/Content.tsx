@@ -14,7 +14,7 @@ import { styled } from 'styled-components'
 
 const Content = () => {
 	const dispatch = useAppDispatch()
-	const stats = useAppSelector<StatsDtoModel[]>(getVaultStatsState)
+	const stats = useAppSelector<StatsDtoModel[] | undefined>(getVaultStatsState)
 	const [filter, setFilter] = useState<ChartFilterType>()
 
 	const format: LocalizeModel = {
@@ -32,10 +32,15 @@ const Content = () => {
 			<LineChart
 				title="Your historical performance"
 				format={format}
-				data={stats.map(({ date, price }) => ({
-					label: formatDate(new Date(date), { month: 'short', day: '2-digit' }),
-					data: price
-				}))}
+				data={
+					stats?.map(({ date, price }) => ({
+						label: formatDate(new Date(date), {
+							month: 'short',
+							day: '2-digit'
+						}),
+						data: price
+					})) ?? []
+				}
 				filter={setFilter}
 			/>
 		</Container>

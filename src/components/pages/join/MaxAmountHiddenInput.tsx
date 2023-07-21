@@ -9,7 +9,7 @@ const MaxAmountHiddenInput = () => {
 	const rewards = useDerbyTokenBalance()
 	const { handleChange, values, setFieldValue } =
 		useFormikContext<AllocationRequestModel>()
-	const allocationList = useAppSelector<AllocationRequestModel[]>(
+	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
 	)
 	const inputName = 'maxAmount'

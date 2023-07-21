@@ -20,7 +20,7 @@ export default () => {
 	const amount: number = 5
 	const dispatch = useAppDispatch()
 
-	const leaderboardList = useAppSelector<LeaderboardDtoModel[]>(
+	const leaderboardList = useAppSelector<LeaderboardDtoModel[] | undefined>(
 		getLeaderboardListState
 	)
 	const leaderboardListCount = useAppSelector<number>(
