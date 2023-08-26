@@ -4,8 +4,12 @@ import { useEffect, useState } from 'react'
 interface Props {
 	stop?: 'mo' | 'tu' | 'we' | 'th' | 'fr' | 'sa' | 'su'
 }
-export const StartCountdown = ({ stop = 'fr' }: Props) => {
-	const [countdown, setCountdown] = useState<CountdownModel | undefined>()
+export const StartCountdown = ({
+	stop = 'fr'
+}: Props): CountdownModel | undefined => {
+	const [countdown, setCountdown] = useState<CountdownModel | undefined>(
+		undefined
+	)
 
 	const days = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'sa']
 	const secondsInWeek: number = 604800

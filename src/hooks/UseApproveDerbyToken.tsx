@@ -1,11 +1,11 @@
 import { UseContractWriteModel } from '@models/contract/UseContractWriteModel'
-import { useDebounce } from 'usehooks-ts'
 import { Abi, Hex, parseEther } from 'viem'
 import {
 	useContractWrite,
 	usePrepareContractWrite,
 	useWaitForTransaction
 } from 'wagmi'
+import useDebounce from './UseDebounce'
 
 const abi: Abi = [
 	{

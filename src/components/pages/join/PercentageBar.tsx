@@ -12,6 +12,7 @@ export default () => {
 	const rewards = useDerbyTokenBalance()
 	const { values, setFieldValue, validateOnBlur, handleBlur } =
 		useFormikContext<AllocationRequestModel>()
+	
 	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
 	)

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { styled } from 'styled-components'
 
@@ -19,6 +19,8 @@ import RaceCounter from '../race/RaceCounter'
 import RaceDescription from '../race/RaceDescription'
 import AllocateForm from './AllocateForm'
 import AllocateSummary from './AllocateSummary'
+import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
+import { getPlayerState } from '@store/UserSlice'
 
 interface Props {
 	network: string
@@ -29,6 +31,8 @@ export default ({ network, vault }: Props) => {
 	const formRef = useRef<HTMLDivElement>(null)
 	const allocateRef = useRef<HTMLDivElement>(null)
 
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
+	
 	const dispatch = useAppDispatch()
 	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
@@ -43,6 +47,12 @@ export default ({ network, vault }: Props) => {
 		amount: 0,
 		maxAmount: 0
 	})
+
+	useEffect(() => {
+		if (player && player.player.baskets.length > 0) {
+			setForm({ ...form, ...{ nft: player.player.baskets[0].id }  })
+		}
+	}, [player])
 
 	const addAllocation = (): void => {
 		setTimeout(() => {

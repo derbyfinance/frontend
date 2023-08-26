@@ -11,7 +11,7 @@
 		"lint": "next lint",
 		"test": "jest --coverage --colors --silent --verbose --watchAll=false",
 		"test:debug": "jest --clearCache && NODE_OPTIONS=--experimental-vm-modules jest --watchAll --coverage --color --detectOpenHandles --silent=false --verbose=true --debug",
-		"test:focus": "jest --clearCache && NODE_OPTIONS=--experimental-vm-modules jest -i ./__tests__/app/page.test.tsx -t --watchAll --coverage --color --detectOpenHandles --silent=false --verbose=true --debug",
+		"test:focus": "jest --clearCache && NODE_OPTIONS=--experimental-vm-modules jest -i ./__tests__/functions/CounterFunction.test.tsx -t --watchAll --coverage --color --detectOpenHandles --silent=false --verbose=true --debug",
 		"coverage": "open -a \"Google Chrome\" ./coverage/index.html"
 	},
 	"dependencies": {

@@ -31,7 +31,7 @@ const VaultSelect = ({}: Props) => {
 		if (!vaultList || vaultList.length === 0) dispatch(getVaultListData())
 	}, [])
 
-	useEffect(() => {
+	useEffect(() => {	
 		const list =
 			vaultList?.filter(({ network, category, protocols }) => {
 				return (
@@ -68,17 +68,11 @@ const VaultSelect = ({}: Props) => {
 			formikProps={formikProps}
 			placeholder="Select a vault"
 			tabIndex={4}
+			smallOptionList
 			optionList={selectedList.map(({ name, vaultNumber }) => ({
 				name: name,
 				value: vaultNumber
 			}))}
-			options={
-				<VaultOptions
-					optionList={selectedList}
-					inputName="vault"
-					formikProps={formikProps}
-				/>
-			}
 			required
 		/>
 	)

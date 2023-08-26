@@ -24,7 +24,7 @@ const CategoryHiddenInput = () => {
 
 			setFieldValue(inputName, categoryFilter(category))
 		}
-	}, [values.nft])
+	}, [values])
 
 	//TODO: Ugly
 	const categoryFilter = (category: string): string => {

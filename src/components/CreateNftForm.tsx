@@ -86,7 +86,6 @@ const CreateNftForm = ({ closeModal }: Props) => {
 
 	useEffect(() => {
 		if (isSuccessPrepare) {
-			console.log('write')
 			write?.()
 		}
 	}, [isSuccessPrepare])

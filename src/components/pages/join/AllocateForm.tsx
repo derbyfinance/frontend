@@ -9,11 +9,11 @@ import InputField from '@components/form/InputField'
 import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
 
 import { FormRow, SubmitContainer } from '@components/form/FormElements'
-import { useAppDispatch } from '@hooks/ReduxStore'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import useDidMountEffect from '@hooks/UseDidMountEffect'
 import { setAllocationListState } from '@store/RaceSlice'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
-import { getPlayerData } from '@store/UserSlice'
+import { getPlayerData, getPlayerState } from '@store/UserSlice'
 import { useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import CategoryHiddenInput from './CategoryHiddenInput'
@@ -23,6 +23,7 @@ import NftSelect from './NftSelect'
 import PercentageBar from './PercentageBar'
 import ProtocolSelect from './ProtocolSelect'
 import VaultSelect from './VaultSelect'
+import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 
 interface Props {
 	initial: AllocationRequestModel
@@ -31,6 +32,7 @@ interface Props {
 
 const AllocateForm = ({ initial, update }: Props) => {
 	const [isConnected, setIsConnected] = useState<boolean>(false)
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const dispatch = useAppDispatch()
 
 	const account = useAccount()
@@ -53,7 +55,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 
 		formikHelpers.resetForm({
 			values: {
-				nft: '',
+				nft: initial.nft,
 				category: '',
 				network: '',
 				protocol: '',
@@ -82,14 +84,18 @@ const AllocateForm = ({ initial, update }: Props) => {
 					<FormRow>
 						<NftSelect formikProps={formikProps} />
 
-						<Label>or</Label>
-						<ActionButton
-							type="button"
-							$isGhost
-							onClick={handleCreateNft}
-							disabled={!isConnected}>
-							Create new NFT
-						</ActionButton>
+						{player && player?.player.baskets.length === 0 && (<>
+							<Label>or</Label>
+							<ActionButton
+								type="button"
+								$isGhost
+								onClick={handleCreateNft}
+								disabled={!isConnected}>
+								Create new NFT
+								</ActionButton>
+							</>
+						)}
+						
 					</FormRow>
 
 					<CategoryHiddenInput />
@@ -117,6 +123,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 						}
 					/>
 					<PercentageBar />
+					
 					<SubmitContainer>
 						<ActionButton
 							$isGhost

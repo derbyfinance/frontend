@@ -49,17 +49,18 @@ export const raceSlice = createSlice({
 				({ network, vault }) =>
 					network === payload.network && vault === payload.vault
 			)
-
-			if (allocationList === undefined || index === undefined || index <= 0) {
+			
+			if (allocationList === undefined || index === undefined || index < 0) {
 				state.allocationList = [...(allocationList ?? []), payload]
 				return
 			}
 
-			const update = allocationList[index]
-			update.amount += payload.amount
+			const amount = allocationList[index].amount
+			payload.amount += amount
+
 			state.allocationList = [
 				...allocationList.slice(0, index),
-				update,
+				payload,
 				...allocationList.slice(index + 1)
 			]
 		},
@@ -69,6 +70,9 @@ export const raceSlice = createSlice({
 			const items = [...(allocationList ?? [])]
 			items.splice(payload, 1)
 			state.allocationList = items
+		},
+		clearAllocationListState(state) {
+			state.allocationList = []
 		}
 	},
 	extraReducers: (builder) => {
@@ -157,7 +161,7 @@ export const getAllocationListState = (
 	state: AppState
 ): AllocationRequestModel[] | undefined => state.race?.allocationList
 
-export const { setAllocationListState, removeAllocationListState } =
+export const { setAllocationListState, removeAllocationListState, clearAllocationListState } =
 	raceSlice.actions
 
 export default raceSlice.reducer

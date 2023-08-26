@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 
 const MaxAmountHiddenInput = () => {
 	const rewards = useDerbyTokenBalance()
-	const { handleChange, values, setFieldValue } =
+	const { handleChange, values, setFieldValue, isValid } =
 		useFormikContext<AllocationRequestModel>()
 	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
@@ -21,7 +21,7 @@ const MaxAmountHiddenInput = () => {
 			}, 0) ?? 0
 
 		setFieldValue(inputName, Math.round((rewards - allocated) * 100) / 100)
-	}, [allocationList])
+	}, [allocationList, isValid])
 
 	return (
 		<input
