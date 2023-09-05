@@ -8,7 +8,7 @@ interface Props {
 	size?: string
 }
 
-export default ({
+const CircleGraph = ({
 	color = '#FFFFFF',
 	stroke = 10,
 	size = '100%',
@@ -58,3 +58,5 @@ export default ({
 		</svg>
 	)
 }
+
+export default CircleGraph

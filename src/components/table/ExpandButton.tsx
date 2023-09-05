@@ -8,16 +8,16 @@ interface Props {
 	handle: VoidFunction
 }
 
-export default ({ isOpen, handle }: Props) => {
+const ExpandButton = ({ isOpen, handle }: Props) => {
 	return (
-		<ExpandButton onClick={handle}>
+		<ExpandButtonComponent onClick={handle}>
 			<span>{isOpen ? 'Show less' : 'See more'}</span>
 			{isOpen ? <ArrowBackwardIcon /> : <ArrowForwardIcon />}
-		</ExpandButton>
+		</ExpandButtonComponent>
 	)
 }
 
-const ExpandButton = styled.button`
+const ExpandButtonComponent = styled.button`
 	font-family: ${({ theme }) => theme.fonts.robotoMedium};
 	font-size: 1.25em;
 	color: ${({ theme }) => theme.style.colorLink};
@@ -28,3 +28,4 @@ const ExpandButton = styled.button`
 		margin-left: 0.5em;
 	}
 `
+export default ExpandButton

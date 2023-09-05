@@ -13,7 +13,8 @@ interface Props {
 	inputName: string
 	formikProps: FormikProps<any>
 }
-export default ({ optionList, inputName, formikProps }: Props) => {
+
+const NetworkOptions = ({ optionList, inputName, formikProps }: Props) => {
 	const headers: TableHeaderModel[] = [
 		{ name: 'Name', align: 'left', colspan: 3 },
 		{ name: 'Allocated', align: 'right' }
@@ -40,3 +41,4 @@ const Container = styled.div`
 	overflow-y: scroll;
 	max-height: 20em;
 `
+export default NetworkOptions

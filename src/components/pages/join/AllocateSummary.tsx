@@ -16,7 +16,7 @@ interface Props {
 	remove: (index: number) => void
 }
 
-export default ({ update, remove }: Props) => {
+const AllocateSummary = ({ update, remove }: Props) => {
 	const [isConnected, setIsConnected] = useState<boolean>(false)
 
 	const account = useAccount()
@@ -85,3 +85,4 @@ const RowTable = styled.table`
 	border-spacing: 0 1em;
 	width: 100%;
 `
+export default AllocateSummary

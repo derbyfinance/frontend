@@ -10,7 +10,7 @@ import TableRow from '@components/table/TableRow'
 interface Props {
 	leader: LeaderboardDtoModel
 }
-export default ({ leader }: Props) => {
+const RaceLeaderboardRow = ({ leader }: Props) => {
 	const handleFollow = (id: string): void => {
 		console.log('error', 'follow', id)
 	}
@@ -36,3 +36,4 @@ export default ({ leader }: Props) => {
 		</TableRow>
 	)
 }
+export default RaceLeaderboardRow

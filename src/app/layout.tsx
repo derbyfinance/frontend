@@ -9,10 +9,12 @@ interface Props {
 	children: React.ReactNode
 }
 
-export default ({ children }: Props) => {
+const Layout = ({ children }: Props) => {
 	return (
 		<html lang="en">
 			<body>{children}</body>
 		</html>
 	)
 }
+
+export default Layout

@@ -7,9 +7,9 @@ import PolygonIcon from '@components/icons/chainIcons/PolygonIcon'
 import { ToCurrency } from '@functions/CurrencyFunction'
 import { styled } from 'styled-components'
 
-export default () => {
+const InfoBar = () => {
 	return (
-		<InfoBar>
+		<InfoBarComponent>
 			<ChangeNetwork>
 				<Title $align="left">Polygon Mumbai</Title>
 				<Network>
@@ -31,11 +31,11 @@ export default () => {
 					</NetworkLogo>
 				</Network>
 			</ChangeNetwork>
-		</InfoBar>
+		</InfoBarComponent>
 	)
 }
 
-const InfoBar = styled.div`
+const InfoBarComponent = styled.div`
 	width: 100%;
 	padding: 2em;
 	border-radius: ${({ theme }) => theme.style.radius}px;
@@ -66,3 +66,4 @@ const NetworkLogo = styled.div`
 	height: 100px;
 	overflow: hidden;
 `
+export default InfoBar

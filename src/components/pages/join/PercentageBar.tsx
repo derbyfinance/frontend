@@ -7,7 +7,7 @@ import { MouseEvent } from 'react'
 import { styled } from 'styled-components'
 import { useAccount } from 'wagmi'
 
-export default () => {
+const PercentageBar = () => {
 	const { isConnected } = useAccount()
 	const rewards = useDerbyTokenBalance()
 	const { values, setFieldValue, validateOnBlur, handleBlur } =
@@ -80,3 +80,4 @@ const Badge = styled.button<{ $percentage: number }>`
 		cursor: hand;
 	}
 `
+export default PercentageBar

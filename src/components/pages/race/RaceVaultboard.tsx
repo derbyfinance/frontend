@@ -16,7 +16,7 @@ import {
 } from '@store/VaultSlice'
 import RaceVaultboardRow from './RaceVaultboardRow'
 
-export default () => {
+const RaceVaultboard = () => {
 	const amount: number = 5
 	const dispatch = useAppDispatch()
 
@@ -60,3 +60,5 @@ export default () => {
 }
 
 const Container = styled.div``
+
+export default RaceVaultboard

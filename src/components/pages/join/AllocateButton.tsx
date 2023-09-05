@@ -36,6 +36,15 @@ const AllocateButton = () => {
 	}, [errorTx, errorPrepare, rebalanceBasket.errorPrepare, rebalanceBasket.errorTx])
 
 	useEffect(() => {
+		if (isSuccessPrepare && isSuccessTx) {			
+			const id = Number(allocationList![0].nft)
+			//TODO: what needs to be in the delta
+			const delta: number[][] = []
+			setRebalance({basketId: id, delta: delta})
+		}
+	}, [isSuccessPrepare, isSuccessTx])
+
+	useEffect(() => {
 		if (rebalanceBasket.isSuccessPrepare) {
 			rebalanceBasket.write?.()
 		}

@@ -16,7 +16,7 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	icon?: string | JSX.Element
 }
 
-export default ({
+const InputField = ({
 	inputName,
 	label,
 	formikProps,
@@ -112,3 +112,4 @@ const TextInput = styled.input`
 		opacity: 1;
 	}
 `
+export default InputField

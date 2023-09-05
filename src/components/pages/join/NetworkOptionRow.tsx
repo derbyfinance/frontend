@@ -14,7 +14,8 @@ interface Props {
 	network: NetworkDtoModel
 	formikProps: FormikProps<any>
 }
-export default ({ inputName, network, formikProps }: Props) => {
+
+const NetworkOptionRow = ({ inputName, network, formikProps }: Props) => {
 	return (
 		<TableRow>
 			<TableData>
@@ -44,3 +45,5 @@ export default ({ inputName, network, formikProps }: Props) => {
 		</TableRow>
 	)
 }
+
+export default NetworkOptionRow

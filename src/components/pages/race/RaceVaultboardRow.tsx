@@ -10,7 +10,7 @@ interface Props {
 	vault: VaultDtoModel
 }
 
-export default ({ vault }: Props) => {
+const RaceVaultboardRow = ({ vault }: Props) => {
 	return (
 		<TableRow>
 			<TableData>
@@ -37,3 +37,4 @@ const Network = styled.span`
 	font-size: 0.875rem;
 	color: ${({ theme }) => theme.style.colorLabel};
 `
+export default RaceVaultboardRow

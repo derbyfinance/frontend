@@ -19,9 +19,9 @@ describe('Homepage', () => {
 			}
 		})
 
-		await act(async () => {
+		//await act(async () => {
 			render(<Page />)
-		})
+		//})
 
 		expect(screen).toBeDefined()
 	})

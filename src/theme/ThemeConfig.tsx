@@ -122,7 +122,9 @@ const lightThemeStyle: DefaultStyle = {
 	buttonColorCtaBg: '#39079b',
 	backgroundGradient:
 		'linear-gradient(149.11deg, #f13abc 0.41%, #5f08ee 99.26%)',
-	backgroundCtaGradient: 'linear-gradient(93.03deg, #1D08EE 0%, #F13ABC 100%)',
+    backgroundCtaGradient: 'linear-gradient(180deg, #1D08EE 0%, #F13ABC 100%)',
+    backgroundInfoGradient: 'linear-gradient(180deg, #39079B 0%, #2775C9 100%)',
+    backgroundWarningGradient: 'linear-gradient(180deg, #F13ABC 0%, #FE5E76 100%)',
 	formBg: '#2775C905'
 }
 

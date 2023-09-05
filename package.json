@@ -11,11 +11,11 @@
 		"lint": "next lint",
 		"test": "jest --coverage --colors --silent --verbose --watchAll=false",
 		"test:debug": "jest --clearCache && NODE_OPTIONS=--experimental-vm-modules jest --watchAll --coverage --color --detectOpenHandles --silent=false --verbose=true --debug",
-		"test:focus": "jest --clearCache && NODE_OPTIONS=--experimental-vm-modules jest -i ./__tests__/functions/CounterFunction.test.tsx -t --watchAll --coverage --color --detectOpenHandles --silent=false --verbose=true --debug",
+		"test:focus": "jest --clearCache && NODE_OPTIONS=--experimental-vm-modules jest -i ./__tests__/components/pages/join/Content.test.tsx -t --watchAll --color --detectOpenHandles --silent=false --verbose=true --debug",
 		"coverage": "open -a \"Google Chrome\" ./coverage/index.html"
 	},
 	"dependencies": {
-		"@reduxjs/toolkit": "^2.0.0-alpha.4",
+		"@reduxjs/toolkit": "^2.0.0-beta.1",
 		"axios": "^1.4.0",
 		"chart.js": "^4.3.0",
 		"eslint": "8.45.0",
@@ -39,7 +39,9 @@
 	},
 	"devDependencies": {
 		"@inrupt/jest-jsdom-polyfills": "^2.1.0",
+		"@testing-library/jest-dom": "^6.1.2",
 		"@testing-library/react": "^14.0.0",
+		"@testing-library/user-event": "^14.4.3",
 		"@trivago/prettier-plugin-sort-imports": "^4.1.1",
 		"@types/fastestsmallesttextencoderdecoder": "^1.0.0",
 		"@types/jest": "^29.5.3",

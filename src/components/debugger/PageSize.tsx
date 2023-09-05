@@ -1,7 +1,7 @@
 import { device } from '@helpers/DeviceHelper'
 import { styled } from 'styled-components'
 
-export default () => {
+const PageSize = () => {
 	const showFontSize = (): void => {
 		const list: number[] = [
 			2, 1.875, 1.75, 1.625, 1.5, 1.375, 1.25, 1.125, 1, 0.875, 0.75, 0.625,
@@ -48,3 +48,4 @@ const Size = styled.div`
 		}
 	}
 `
+export default PageSize

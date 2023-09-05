@@ -47,7 +47,7 @@ const SelectInputField = ({
 		<Container>
 			<Label htmlFor={inputName}>{label}</Label>
 			<Wrapper onClick={openSelect}>
-				
+				{!readOnly ? <ClickableSelect onClick={openSelect} />: null}
 				<SelectInput
 					disabled
 					id={inputName}
@@ -70,7 +70,7 @@ const SelectInputField = ({
 						</option>
 					))}
 				</SelectInput>
-				<FloatArrowDropdownIcon $isOpen={open} />
+				{!readOnly ? <FloatArrowDropdownIcon $isOpen={open} /> : null }
 			</Wrapper>
 			<OptionOverlay $isOpen={open} onClick={openSelect} />
 			<OptionList
@@ -135,6 +135,14 @@ const Wrapper = styled.div`
 		);
 	}
 `
+const ClickableSelect = styled.div`
+	display: block;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+`
 const FloatArrowDropdownIcon = styled(ArrowDropdownIcon)<{ $isOpen: boolean }>`
 	display: block;
 	position: absolute;
@@ -166,7 +174,7 @@ const SelectInput = styled.select<{readOnly: boolean}>`
 	padding: 0.5em;
 	display: block;
 	width: 100%;
-	cursor: ${({ readOnly }) => readOnly ? 'hand' : 'pointer'};
+	cursor: ${({ readOnly }) => readOnly ? 'none' : 'pointer'};
 	pointer-events: ${({readOnly}) => readOnly ? 'none' : 'auto'};
 
 	&[disabled] {

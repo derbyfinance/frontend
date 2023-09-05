@@ -27,7 +27,7 @@ interface Props {
 	vault: string
 }
 
-export default ({ network, vault }: Props) => {
+const Content = ({ network, vault }: Props) => {
 	const formRef = useRef<HTMLDivElement>(null)
 	const allocateRef = useRef<HTMLDivElement>(null)
 
@@ -134,3 +134,5 @@ const AllocateCardHeader = styled(CardHeader)`
 const AllocateCardContent = styled(CardContent)`
 	padding: 1em 15%;
 `
+
+export default Content

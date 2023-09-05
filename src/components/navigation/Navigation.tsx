@@ -26,24 +26,27 @@ const Navigation = () => {
 	}
 
 	return (
-		<Navbar>
-			<Link href="/">
-				<Logo />
-			</Link>
-			<MenuBar>
-				<NavLink href="/">Race</NavLink>
-				{/* <NavLink href="/race">Race</NavLink> */}
-				<NavLink href="/account">Account</NavLink>
-				<NavLink href="/governance">Governance</NavLink>
-				{isConnected ? (
-					<AccountButton />
-				) : (
-					<ActionButton $isCta onClick={handleWalletConnect}>
-						Connect your Wallet
-					</ActionButton>
-				)}
-			</MenuBar>
-		</Navbar>
+		<>
+			<a id="top" />
+			<Navbar>
+				<Link href="/">
+					<Logo />
+				</Link>
+				<MenuBar>
+					<NavLink href="/">Race</NavLink>
+					{/* <NavLink href="/race">Race</NavLink> */}
+					<NavLink href="/account">Account</NavLink>
+					<NavLink href="/governance">Governance</NavLink>
+					{isConnected ? (
+						<AccountButton />
+					) : (
+						<ActionButton $isCta onClick={handleWalletConnect}>
+							Connect your Wallet
+						</ActionButton>
+					)}
+				</MenuBar>
+			</Navbar>
+		</>
 	)
 }
 

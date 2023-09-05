@@ -13,25 +13,23 @@ import MembersIcon from '@components/icons/MembersIcon'
 
 import CircleGraph from '../CircleGraph'
 import RaceTimer from './RaceTimer'
+import RocketIcon from '@components/icons/RocketIcon'
 
 interface Props {
 	$isClean?: boolean
 }
 
-const RaceCounter = ({ $isClean = false }: Props) => {
+const RaceGetStarted = ({ $isClean = false }: Props) => {
 	const timer = StartCountdown({})
 
 	return (
-		<RaceCard type="cta" $isClean={$isClean}>
+		<RaceCard type='info' $isClean={$isClean}>
 			<CounterContent>
-				<h3>Next Race in</h3>
-				<Counter>
-					<CircleGraph initial={timer?.start} current={timer?.time} />
-					<IconWrapper>
-						<LogoIcon width="100%" height="100%" />
-					</IconWrapper>
-				</Counter>
-				<RaceTimer countdown={timer} />
+				<h3>Get Started</h3>
+				<IconWrapper>
+					<RocketIcon />
+				</IconWrapper>
+				<span>How to place a race</span>
 			</CounterContent>
 		</RaceCard>
 	)
@@ -46,21 +44,18 @@ const RaceCard = styled(Card)<{ $isClean?: boolean }>`
 	`}
 `
 const IconWrapper = styled.div`
-	width: 2rem;
-	height: 2rem;
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	margin: auto;
+
 `
 const CounterContent = styled(CardContent)`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	gap: 1em;
+
+	> * {
+		flex: 1 1 auto;
+	}
 `
 const CountdownInfo = styled.div`
 	display: flex;
@@ -92,4 +87,4 @@ const InfoBlock = styled.div`
 		color: ${({ theme }) => theme.style.buttonColor};
 	}
 `
-export default RaceCounter
+export default RaceGetStarted

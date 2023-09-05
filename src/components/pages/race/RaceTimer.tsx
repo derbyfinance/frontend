@@ -7,7 +7,7 @@ import CountdownModel from '@models/internal/CountdownModel'
 interface Props {
 	countdown?: CountdownModel
 }
-export default ({ countdown }: Props) => {
+const RaceTimer = ({ countdown }: Props) => {
 	return (
 		<Timer>
 			<span>
@@ -29,5 +29,6 @@ export default ({ countdown }: Props) => {
 
 const Timer = styled.div`
 	font-family: ${({ theme }) => theme.fonts.robotoMedium};
-	font-size: 1.75em;
+	font-size: 1em;
 `
+export default RaceTimer

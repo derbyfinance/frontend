@@ -33,6 +33,8 @@ declare module 'styled-components' {
         buttonColorCtaBg: string
         backgroundGradient: string
         backgroundCtaGradient: string
+        backgroundInfoGradient: string
+        backgroundWarningGradient: string
         formBg: string
     }
 

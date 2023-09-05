@@ -5,10 +5,11 @@ interface Props extends LinkProps {
 	children: JSX.Element | string
 }
 
-export default ({ children, as, ...props }: Props) => {
-	return <TextLink {...props}>{children}</TextLink>
+const TextLink = ({ children, as, ...props }: Props) => {
+	return <TextLinkComponent {...props}>{children}</TextLinkComponent>
 }
 
-const TextLink = styled(Link)`
+const TextLinkComponent = styled(Link)`
 	color: ${({ theme }) => theme.style.colorCta};
 `
+export default TextLink

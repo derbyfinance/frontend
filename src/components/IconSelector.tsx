@@ -11,7 +11,7 @@ import WalletConnecIcon from './icons/walletIcons/WalletConnecIcon'
 interface Props {
 	name: string
 }
-export default ({ name }: Props) => {
+const IconSelector = ({ name }: Props) => {
 	const selectIcon = (name: string): JSX.Element => {
 		switch (name) {
 			case 'ETH':
@@ -37,3 +37,5 @@ export default ({ name }: Props) => {
 
 	return selectIcon(name)
 }
+
+export default IconSelector

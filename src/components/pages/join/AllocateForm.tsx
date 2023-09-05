@@ -57,7 +57,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 			values: {
 				nft: initial.nft,
 				category: '',
-				network: '',
+				network: initial.network,
 				protocol: '',
 				vault: '',
 				amount: 0,
@@ -102,7 +102,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 
 					<MaxAmountHiddenInput />
 
-					<NetworkSelect formikProps={formikProps} />
+					{/* <NetworkSelect formikProps={formikProps} /> */}
 
 					<ProtocolSelect formikProps={formikProps} />
 

@@ -12,6 +12,7 @@ var mock = new MockAdapter(axios, { delayResponse: 10 })
 mock
 	.onGet(/\/race\/leaderboard[\w?=]*/)
 	.reply((item) => {
+		console.info('---mock race/leaderboard/xxxx')
 		const match = item.url?.match(/\d+$/)
 		const amount: number = match ? +match[0] : 0
 
@@ -25,6 +26,7 @@ mock
 
 	.onGet(/\/race\/network[\w?=]*/)
 	.reply((item) => {
+		console.info('---mock race/network/xxxx')
 		const match = item.url?.match(/\d+$/)
 		const amount: number = match ? +match[0] : 0
 
@@ -38,7 +40,7 @@ mock
 
 	.onGet(/\/race\/category*/)
 	.reply(() => {
-		console.log('category list')
+		console.info('---mock race/category')
 		let response = CategoryListResult
 
 		return [200, response]
@@ -46,6 +48,7 @@ mock
 
 	.onGet(/\/vault(\?size=[\d]{1,})*$/)
 	.reply((item) => {
+		console.info('---mock vault/')
 		const match = item.url?.match(/\d+$/)
 		const amount: number = match ? +match[0] : 0
 
@@ -60,6 +63,7 @@ mock
 
 	.onGet(/\/vault\/[\d]+$/)
 	.reply((item) => {
+		console.info('---mock vault/id')
 		const match = item.url?.match(/\d+$/)
 		const id: number = match ? +match[0] : 0
 
@@ -70,6 +74,7 @@ mock
 
 	.onGet(/\/vault\/[\d]+\/stats[?filter=(Y|M|D|ALL)]*/)
 	.reply((item) => {
+		console.info('---mock vault/id/stats')
 		const match = item.url?.match(/(?<=filter\=)(Y|M|D|ALL)/)
 		const filter: string = match ? match[0] : ''
 

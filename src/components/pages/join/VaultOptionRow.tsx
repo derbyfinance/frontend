@@ -10,7 +10,8 @@ interface Props {
 	vault: VaultDtoModel
 	formikProps: FormikProps<any>
 }
-export default ({ inputName, vault, formikProps }: Props) => {
+
+const VaultOptionRow = ({ inputName, vault, formikProps }: Props) => {
 	return (
 		<TableRow>
 			<TableData>
@@ -43,3 +44,4 @@ export default ({ inputName, vault, formikProps }: Props) => {
 		</TableRow>
 	)
 }
+export default VaultOptionRow

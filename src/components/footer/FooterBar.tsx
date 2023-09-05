@@ -5,7 +5,7 @@ import TwitterIcon from '@components/icons/socialIcons/TwitterIcon'
 import NavLink from '@components/navigation/NavLink'
 import { styled } from 'styled-components'
 
-export default () => {
+const FooterBar = () => {
 	return (
 		<Container>
 			<div>
@@ -45,3 +45,5 @@ const FooterLink = styled(NavLink)`
 	font-size: 1.125em;
 	display: inline-block;
 `
+
+export default FooterBar

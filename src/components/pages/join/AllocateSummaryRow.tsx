@@ -12,7 +12,7 @@ interface Props {
 	update: (index: number) => void
 }
 
-export default ({ index, allocate, remove, update }: Props) => {
+const AllocateSummaryRow = ({ index, allocate, remove, update }: Props) => {
 	return (
 		<TableRowBar>
 			<TableData width="5%">
@@ -111,3 +111,4 @@ const ConfigButton = styled.button`
 		display: block;
 	}
 `
+export default AllocateSummaryRow

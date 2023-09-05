@@ -8,9 +8,9 @@ interface Props {
 	handleClick?: VoidFunction
 	children: JSX.Element | JSX.Element[] | React.ReactNode
 }
-export default ({ isOpen, handleClick, children, ...props }: Props) => {
+const CardHeader = ({ isOpen, handleClick, children, ...props }: Props) => {
 	return (
-		<CardHeader {...props}>
+		<CardHeaderComponent {...props}>
 			<div>{children}</div>
 			{handleClick ? (
 				<CollapseButton onClick={handleClick}>
@@ -18,11 +18,11 @@ export default ({ isOpen, handleClick, children, ...props }: Props) => {
 					<Label>{isOpen ? 'Hide' : 'Show'} explanation</Label>
 				</CollapseButton>
 			) : null}
-		</CardHeader>
+		</CardHeaderComponent>
 	)
 }
 
-const CardHeader = styled.div`
+const CardHeaderComponent = styled.div`
 	padding: 2em;
 	display: flex;
 	justify-content: space-between;
@@ -41,3 +41,4 @@ const CollapseButton = styled.button`
 	}
 `
 const Label = styled.span``
+export default CardHeader

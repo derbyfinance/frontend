@@ -11,7 +11,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: string | JSX.Element | JSX.Element[] | React.ReactNode
 }
 
-export default ({
+const ActionButton =({
 	$isCta = false,
 	$isGhost = false,
 	$isBlock = false,
@@ -98,3 +98,5 @@ export const ButtonStyle = css<ButtonStyleProps>`
 const Button = styled.button<ButtonStyleProps>`
 	${ButtonStyle}
 `
+
+export default ActionButton

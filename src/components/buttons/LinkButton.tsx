@@ -11,7 +11,7 @@ interface Props extends LinkProps {
 	children: string | JSX.Element | JSX.Element[] | React.ReactNode
 }
 
-export default ({
+const LinkButton = ({
 	$isCta = false,
 	$isGhost = false,
 	$isBlock = false,
@@ -26,6 +26,7 @@ export default ({
 			$isGhost={$isGhost}
 			$isBlock={$isBlock}
 			$align={$align}
+			scroll={true}
 			{...props}>
 			{children}
 		</Button>
@@ -35,3 +36,5 @@ export default ({
 const Button = styled(Link)<ButtonStyleProps>`
 	${ButtonStyle as any}
 `
+
+export default LinkButton

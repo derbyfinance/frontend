@@ -1,6 +1,7 @@
 const StockDownIcon = () => {
 	return (
 		<svg
+			data-testid="stock-down-icon"
 			width="11"
 			height="10"
 			viewBox="0 0 11 10"
