@@ -7,6 +7,7 @@ import RaceDescription from './RaceDescription'
 import RaceLeaderboard from './RaceLeaderboard'
 import RaceVaultboard from './RaceVaultboard'
 import RaceGetStarted from './RaceGetStarted'
+import RaceJoinDiscord from './RaceJoinDiscord'
 
 const Content = () => {
 	return (
@@ -19,7 +20,7 @@ const Content = () => {
 			<RaceInfo>
 				<RaceGetStarted />
 				<RaceCounter />
-				<RaceCounter />	
+				<RaceJoinDiscord />	
 			</RaceInfo>
 			<InfoContainer>
 				<h1>Leaderboard</h1>
@@ -53,8 +54,16 @@ const RaceInfo = styled.div`
 	gap: 1em;
 	justify-content: space-between;
 
-	> div {
-		flex: 1 1 auto;
+	> a {
+		display: flex;
+		flex: 1 1 33.3%;
+
+		&:hover {
+			opacity:.9;
+			> div {
+				border-color: transparent;
+			}
+		}
 	}
 `
 export default Content
