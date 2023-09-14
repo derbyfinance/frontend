@@ -6,7 +6,7 @@ interface Props {
 	description: string
 }
 
-export default ({ icon, amount, description }: Props) => {
+const NetworkInfo = ({ icon, amount, description }: Props) => {
 	return (
 		<Block>
 			<Icon>{icon}</Icon>
@@ -42,3 +42,4 @@ const Label = styled.span`
 	text-transform: uppercase;
 	display: block;
 `
+export default NetworkInfo

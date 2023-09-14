@@ -1,4 +1,4 @@
-export default () => {
+const BackgroundVault = () => {
 	return (
 		<svg
 			width="894"
@@ -146,3 +146,4 @@ export default () => {
 		</svg>
 	)
 }
+export default BackgroundVault

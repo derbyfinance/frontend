@@ -3,7 +3,7 @@ import CardContent from '@components/card/CardContent'
 import CardHeader from '@components/card/CardHeader'
 import { useState } from 'react'
 
-export default () => {
+const RaceDescription = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(true)
 
 	const handleClick = (): void => {
@@ -26,3 +26,5 @@ export default () => {
 		</Card>
 	)
 }
+
+export default RaceDescription

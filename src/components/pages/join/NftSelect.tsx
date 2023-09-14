@@ -12,7 +12,7 @@ interface Props {
 
 const NftSelect = ({ formikProps }: Props) => {
 	const dispatch = useAppDispatch()
-	const player = useAppSelector<PlayerDtoModel>(getPlayerState)
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const { address } = useAccount()
 
 	useEffect(() => {
@@ -27,12 +27,14 @@ const NftSelect = ({ formikProps }: Props) => {
 			formikProps={formikProps}
 			placeholder="Select a NFT"
 			smallOptionList
+			readOnly
 			tabIndex={1}
 			optionList={
 				player?.player.baskets
-					? player.player.baskets.map(({ id, name }) => ({
+					? player.player.baskets.map(({ id, name }, index) => ({
 							name: name,
-							value: id
+						value: id,
+						disabled: index > 0
 					  }))
 					: []
 			}

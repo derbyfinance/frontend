@@ -49,9 +49,9 @@ export default {
   // errorOnDeprecated: false,
 
   // The default configuration for fake timers
-  // fakeTimers: {
-  //   "enableGlobally": false
-  // },
+  fakeTimers: {
+    "enableGlobally": true
+  },
 
   // Force coverage collection from ignored files using an array of glob patterns
   // forceCoverageMatch: [],
@@ -77,10 +77,11 @@ export default {
   // An array of file extensions your modules use
   moduleFileExtensions: [
     "js",
-    // "mjs",
-    // "cjs",
+    "mjs",
+    "cjs",
+    "esm",
     "jsx",
-    // "ts",
+     "ts",
     "tsx",
     // "json",
     // "node"
@@ -94,10 +95,14 @@ export default {
     '^@helpers/(.*)$': '<rootDir>/src/helpers/$1',
     '^@functions/(.*)$': '<rootDir>/src/functions/$1',
     '^@models/(.*)$': '<rootDir>/src/models/$1',
+    '^@network/(.*)$': '<rootDir>/src/network/$1',
+    '^@services/(.*)$': '<rootDir>/src/services/$1',
     '^@datatypes/(.*)$': '<rootDir>/src/datatypes/$1',
     '^@store/(.*)$': '<rootDir>/src/store/$1',
     '^@hooks/(.*)$': '<rootDir>/src/hooks/$1',
-    'styled-components': '<rootDir>/__mocks__/styledComponentsMock.tsx'
+    '^@validations/(.*)$': '<rootDir>/src/validations/$1'
+    // 'styled-components': '<rootDir>/__mocks__/styledComponentsMock.tsx',
+    // 'viem': '<rootDir>/__mocks__/viemMock.tsx',
     // '^(\\.{1,2}/.*)\\.js$': '$1',
    },
 
@@ -185,12 +190,13 @@ export default {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "^.+\\.(tsx)$": ["ts-jest", { useESM: true, tsconfig: { jsx: 'react-jsx' } }]
+    "^.+\\.(ts|tsx|js|jsx)?$": ["ts-jest", { useESM: true, tsconfig: { jsx: 'react-jsx'} }]
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
-    "/node_modules/",
+    //"<rootDir>/node_modules/",
+     "node_modules\/(?!(react-redux)\/)",
    // "\\.pnp\\.[^\\/]+$"
   ],
 

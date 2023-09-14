@@ -1,0 +1,1 @@
+export type CardType = 'cta' | 'info' | 'warning'

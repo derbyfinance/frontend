@@ -1,7 +1,7 @@
 import { AlignType } from '@datatypes/AlignType'
 import { ButtonHTMLAttributes } from 'react'
 
-import styled, { css } from 'styled-components'
+import { css, styled } from 'styled-components'
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	$isCta?: boolean
@@ -11,7 +11,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: string | JSX.Element | JSX.Element[] | React.ReactNode
 }
 
-export default ({
+const ActionButton =({
 	$isCta = false,
 	$isGhost = false,
 	$isBlock = false,
@@ -30,13 +30,14 @@ export default ({
 		</Button>
 	)
 }
-
-export const ButtonStyle = css<{
+export interface ButtonStyleProps {
 	$isCta: boolean
 	$isGhost: boolean
 	$isBlock: boolean
 	$align?: AlignType
-}>`
+}
+
+export const ButtonStyle = css<ButtonStyleProps>`
 	font-family: ${({ theme }) => theme.fonts.slabRegular};
 	font-size: 1.25em;
 	padding: 0.5em 1em;
@@ -94,11 +95,8 @@ export const ButtonStyle = css<{
 	}
 `
 
-const Button = styled.button<{
-	$isCta: boolean
-	$isGhost: boolean
-	$isBlock: boolean
-	$align?: AlignType
-}>`
+const Button = styled.button<ButtonStyleProps>`
 	${ButtonStyle}
 `
+
+export default ActionButton

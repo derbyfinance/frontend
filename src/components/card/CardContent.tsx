@@ -5,15 +5,15 @@ interface Props {
 	children: JSX.Element | JSX.Element[] | React.ReactNode
 }
 
-export default ({ isOpen = true, children, ...props }: Props) => {
+const CardContent = ({ isOpen = true, children, ...props }: Props) => {
 	return (
-		<CardContent $isOpen={isOpen} {...props}>
+		<CardContentComponent $isOpen={isOpen} {...props}>
 			{children}
-		</CardContent>
+		</CardContentComponent>
 	)
 }
 
-const CardContent = styled.div<{ $isOpen?: boolean }>`
+const CardContentComponent = styled.div<{ $isOpen?: boolean }>`
 	padding: 2em;
 	overflow: hidden;
 	transition: max-height 0.4s ease-in-out, padding 0.1s ease-in-out;
@@ -28,3 +28,4 @@ const CardContent = styled.div<{ $isOpen?: boolean }>`
         padding-bottom: 0;
 	`}
 `
+export default CardContent

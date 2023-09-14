@@ -16,11 +16,11 @@ import {
 } from '@store/RaceSlice'
 import RaceLeaderboardRow from './RaceLeaderboardRow'
 
-export default () => {
+const RaceLeaderboard = () => {
 	const amount: number = 5
 	const dispatch = useAppDispatch()
 
-	const leaderboardList = useAppSelector<LeaderboardDtoModel[]>(
+	const leaderboardList = useAppSelector<LeaderboardDtoModel[] | undefined>(
 		getLeaderboardListState
 	)
 	const leaderboardListCount = useAppSelector<number>(
@@ -63,3 +63,4 @@ export default () => {
 }
 
 const Container = styled.div``
+export default RaceLeaderboard

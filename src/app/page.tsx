@@ -7,10 +7,12 @@ export const metadata: Metadata = {
 	title: 'Derby Finance - Welcome to the race'
 }
 
-export default () => {
+const Page = () => {
 	return (
 		<Layout>
 			<Content />
 		</Layout>
 	)
 }
+
+export default Page

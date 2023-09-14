@@ -6,8 +6,10 @@ import RaceCounter from './RaceCounter'
 import RaceDescription from './RaceDescription'
 import RaceLeaderboard from './RaceLeaderboard'
 import RaceVaultboard from './RaceVaultboard'
+import RaceGetStarted from './RaceGetStarted'
+import RaceJoinDiscord from './RaceJoinDiscord'
 
-export default () => {
+const Content = () => {
 	return (
 		<Container>
 			<InfoContainer>
@@ -15,7 +17,11 @@ export default () => {
 				<p>Analyse, pick and follow your winners. Invest and allocate</p>
 			</InfoContainer>
 			<RaceDescription />
-			<RaceCounter />
+			<RaceInfo>
+				<RaceGetStarted />
+				<RaceCounter />
+				<RaceJoinDiscord />	
+			</RaceInfo>
 			<InfoContainer>
 				<h1>Leaderboard</h1>
 				<p>
@@ -43,3 +49,21 @@ const Container = styled.div`
 `
 
 const InfoContainer = styled.div``
+const RaceInfo = styled.div`
+	display: flex;
+	gap: 1em;
+	justify-content: space-between;
+
+	> a {
+		display: flex;
+		flex: 1 1 33.3%;
+
+		&:hover {
+			opacity:.9;
+			> div {
+				border-color: transparent;
+			}
+		}
+	}
+`
+export default Content

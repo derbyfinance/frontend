@@ -1,6 +1,7 @@
 const StockNeutralIcon = () => {
 	return (
 		<svg
+			data-testid="stock-neutral-icon"
 			width="10"
 			height="12"
 			fill="currentColor"

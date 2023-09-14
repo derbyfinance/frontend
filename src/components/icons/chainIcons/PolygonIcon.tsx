@@ -2,7 +2,8 @@ interface Props {
 	width?: string
 	height?: string
 }
-export default ({ width = '38', height = '33' }: Props) => {
+
+const PolygonIcon = ({ width = '38', height = '33' }: Props) => {
 	return (
 		<svg
 			width={width}
@@ -21,3 +22,5 @@ export default ({ width = '38', height = '33' }: Props) => {
 		</svg>
 	)
 }
+
+export default PolygonIcon

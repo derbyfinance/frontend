@@ -10,7 +10,7 @@ import TableRow from '@components/table/TableRow'
 interface Props {
 	leader: LeaderboardDtoModel
 }
-export default ({ leader }: Props) => {
+const RaceLeaderboardRow = ({ leader }: Props) => {
 	const handleFollow = (id: string): void => {
 		console.log('error', 'follow', id)
 	}
@@ -20,15 +20,15 @@ export default ({ leader }: Props) => {
 			<TableData>
 				<Avatar name={leader.name} />
 			</TableData>
-			<TableData align="left" $focus>
+			<TableData $align="left" $focus>
 				{leader.name}
 			</TableData>
-			<TableData align="right">{leader.followers}</TableData>
-			<TableData align="right">
+			<TableData $align="right">{leader.followers}</TableData>
+			<TableData $align="right">
 				{ToCurrency(leader.invested, 2, true)}
 			</TableData>
-			<TableData align="right">{leader.performance}%</TableData>
-			<TableData align="right">
+			<TableData $align="right">{leader.performance}%</TableData>
+			<TableData $align="right">
 				<ActionButton $isGhost onClick={() => handleFollow(leader.id)}>
 					+Follow
 				</ActionButton>
@@ -36,3 +36,4 @@ export default ({ leader }: Props) => {
 		</TableRow>
 	)
 }
+export default RaceLeaderboardRow

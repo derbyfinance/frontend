@@ -13,16 +13,20 @@ interface Props {
 
 const CoinSelect = ({ formikProps }: Props) => {
 	const dispatch = useAppDispatch()
-	const vaultList = useAppSelector<VaultDtoModel[]>(getVaultListState)
-	const categoryList = useAppSelector<CategoryDtoModel[]>(getCategoryListState)
+	const vaultList = useAppSelector<VaultDtoModel[] | undefined>(
+		getVaultListState
+	)
+	const categoryList = useAppSelector<CategoryDtoModel[] | undefined>(
+		getCategoryListState
+	)
 
 	useEffect(() => {
-		if (vaultList && vaultList.length === 0) dispatch(getVaultListData())
+		if (!vaultList || vaultList.length === 0) dispatch(getVaultListData())
 	}, [])
 
 	//TODO: Ugly
 	const categoryFilter = (category: string): string => {
-		return categoryList.find(({ name }) => name === category)?.id ?? ''
+		return categoryList?.find(({ name }) => name === category)?.id ?? ''
 	}
 
 	return (
@@ -32,15 +36,17 @@ const CoinSelect = ({ formikProps }: Props) => {
 			smallOptionList
 			placeholder="Select a coin"
 			formikProps={formikProps}
-			optionList={vaultList
-				.filter(
-					({ category }) =>
-						categoryFilter(category) === formikProps.values['category']
-				)
-				.map(({ name, id }) => ({
-					name: name,
-					value: id
-				}))}
+			optionList={
+				vaultList
+					?.filter(
+						({ category }) =>
+							categoryFilter(category) === formikProps.values['category']
+					)
+					.map(({ name, id }) => ({
+						name: name,
+						value: id
+					})) ?? []
+			}
 		/>
 	)
 }

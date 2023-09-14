@@ -1,23 +1,49 @@
+import Notification from '@components/Notification'
 import { useAppSelector } from '@hooks/ReduxStore'
+import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
+import useDidMountEffect from '@hooks/UseDidMountEffect'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
+import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { useAccount } from 'wagmi'
 import AllocateButton from './AllocateButton'
 import AllocateSummaryRow from './AllocateSummaryRow'
 import ConnectWalletButton from './ConnectWalletButton'
-
 interface Props {
 	update: (index: number) => void
 	remove: (index: number) => void
 }
 
-export default ({ update, remove }: Props) => {
-	const { isConnected } = useAccount()
+const AllocateSummary = ({ update, remove }: Props) => {
+	const [isConnected, setIsConnected] = useState<boolean>(false)
 
-	const allocationList = useAppSelector<AllocationRequestModel[]>(
+	const account = useAccount()
+	const rewards = useDerbyTokenBalance()
+	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
 	)
+
+	useEffect(() => {
+		setIsConnected(account.isConnected)
+	}, [account.isConnected])
+
+	useDidMountEffect(() => {
+		const amount =
+			allocationList?.reduce((prev, allocate) => {
+				return prev + allocate?.amount
+			}, 0) ?? 0
+
+		if (allocationList && rewards - amount <= 0) {
+			toast.info(
+				<Notification
+					title="Allocation"
+					notification="Your total amount of Derby tokens has been allocated."
+				/>
+			)
+		}
+	}, [allocationList])
 
 	return (
 		<Container>
@@ -35,7 +61,7 @@ export default ({ update, remove }: Props) => {
 				</tbody>
 			</RowTable>
 
-			{allocationList?.length <= 0 ? (
+			{allocationList === undefined || allocationList?.length <= 0 ? (
 				<Empty>
 					<h4>Nothing selected</h4>
 				</Empty>
@@ -59,3 +85,4 @@ const RowTable = styled.table`
 	border-spacing: 0 1em;
 	width: 100%;
 `
+export default AllocateSummary

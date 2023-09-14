@@ -1,25 +1,41 @@
+import { CardType } from '@datatypes/CardType'
 import { styled } from 'styled-components'
 
 interface Props {
 	isCta?: boolean
+	type?: CardType
 	children: JSX.Element | JSX.Element[] | React.ReactNode
 }
-export default ({ isCta, children, ...props }: Props) => {
+const Card = ({ type, children, ...props }: Props) => {
 	return (
-		<Card $isCta={isCta} {...props}>
+		<CardComponent $type={type} {...props}>
 			{children}
-		</Card>
+		</CardComponent>
 	)
 }
 
-const Card = styled.div<{ $isCta?: boolean }>`
+const CardComponent = styled.div<{ $type?: CardType }>`
 	background-color: ${({ theme }) => theme.style.colorBg};
 	border: 1px solid ${({ theme }) => theme.style.colorBorder};
 	border-radius: ${({ theme }) => theme.style.radius}px;
 	overflow: hidden;
 
-	${({ theme, $isCta }) =>
-		$isCta &&
+	${({ theme, $type }) =>
+		$type === 'info' &&
+		`
+		background-image: ${theme.style.backgroundInfoGradient};
+		color: ${theme.style.buttonColor};
+	`}
+
+	${({ theme, $type }) =>
+		$type === 'warning' &&
+		`
+		background-image: ${theme.style.backgroundWarningGradient};
+		color: ${theme.style.buttonColor};
+	`}
+
+	${({ theme, $type }) =>
+		$type === 'cta' &&
 		`
 		background-image: ${theme.style.backgroundCtaGradient};
 		color: ${theme.style.buttonColor};
@@ -29,3 +45,4 @@ const Card = styled.div<{ $isCta?: boolean }>`
 		padding-top: 0;
 	}
 `
+export default Card

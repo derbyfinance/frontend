@@ -8,9 +8,12 @@ import { useFormikContext } from 'formik'
 import { useEffect } from 'react'
 
 const CategoryHiddenInput = () => {
-	const { handleChange, values } = useFormikContext<AllocationRequestModel>()
-	const categoryList = useAppSelector<CategoryDtoModel[]>(getCategoryListState)
-	const player = useAppSelector<PlayerDtoModel>(getPlayerState)
+	const { handleChange, values, setFieldValue } =
+		useFormikContext<AllocationRequestModel>()
+	const categoryList = useAppSelector<CategoryDtoModel[] | undefined>(
+		getCategoryListState
+	)
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const inputName = 'category'
 
 	useEffect(() => {
@@ -19,13 +22,13 @@ const CategoryHiddenInput = () => {
 				player.player.baskets.find(({ id }) => id === values['nft'])?.vault
 					.category ?? ''
 
-			values[inputName] = categoryFilter(category)
+			setFieldValue(inputName, categoryFilter(category))
 		}
 	}, [values])
 
 	//TODO: Ugly
 	const categoryFilter = (category: string): string => {
-		return categoryList.find(({ name }) => name === category)?.id ?? ''
+		return categoryList?.find(({ name }) => name === category)?.id ?? ''
 	}
 
 	return (

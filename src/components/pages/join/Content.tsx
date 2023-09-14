@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { styled } from 'styled-components'
 
@@ -19,16 +19,22 @@ import RaceCounter from '../race/RaceCounter'
 import RaceDescription from '../race/RaceDescription'
 import AllocateForm from './AllocateForm'
 import AllocateSummary from './AllocateSummary'
+import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
+import { getPlayerState } from '@store/UserSlice'
 
 interface Props {
 	network: string
 	vault: string
 }
-export default ({ network, vault }: Props) => {
-	const formRef = useRef<HTMLDivElement>(null)
 
+const Content = ({ network, vault }: Props) => {
+	const formRef = useRef<HTMLDivElement>(null)
+	const allocateRef = useRef<HTMLDivElement>(null)
+
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
+	
 	const dispatch = useAppDispatch()
-	const allocationList = useAppSelector<AllocationRequestModel[]>(
+	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
 	)
 
@@ -38,17 +44,34 @@ export default ({ network, vault }: Props) => {
 		network: network,
 		protocol: '',
 		vault: vault,
-		amount: 0
+		amount: 0,
+		maxAmount: 0
 	})
+
+	useEffect(() => {
+		if (player && player.player.baskets.length > 0) {
+			setForm({ ...form, ...{ nft: player.player.baskets[0].id }  })
+		}
+	}, [player])
+
+	const addAllocation = (): void => {
+		setTimeout(() => {
+			allocateRef.current?.scrollIntoView({
+				block: 'start',
+				inline: 'nearest',
+				behavior: 'smooth'
+			})
+		}, 0)
+	}
 
 	const updateAllocation = (index: number) => {
 		removeAllocation(index)
 
-		setForm(allocationList[index])
+		setForm(allocationList![index])
 
 		setTimeout(() => {
 			formRef.current?.scrollIntoView({
-				block: 'center',
+				block: 'start',
 				inline: 'nearest',
 				behavior: 'smooth'
 			})
@@ -63,28 +86,29 @@ export default ({ network, vault }: Props) => {
 		<Container>
 			<RaceDescription />
 			<AllocateCard>
-				<AllocateCardHeader>
-					<h1>Buy NFT</h1>
-					<p>Some information about what and how.</p>
-				</AllocateCardHeader>
+				<div ref={formRef}>
+					<AllocateCardHeader>
+						<h1>Buy NFT</h1>
+						<p>Some information about what and how.</p>
+					</AllocateCardHeader>
 
-				<AllocateCardContent>
-					<div ref={formRef}>
-						<AllocateForm initial={form} />
-					</div>
-				</AllocateCardContent>
+					<AllocateCardContent>
+						<AllocateForm initial={form} update={addAllocation} />
+					</AllocateCardContent>
+				</div>
+				<div ref={allocateRef}>
+					<AllocateCardHeader>
+						<h1>Summary</h1>
+						<p>Some information about what and how.</p>
+					</AllocateCardHeader>
 
-				<AllocateCardHeader>
-					<h1>Summary</h1>
-					<p>Some information about what and how.</p>
-				</AllocateCardHeader>
-
-				<CardContent>
-					<AllocateSummary
-						update={updateAllocation}
-						remove={removeAllocation}
-					/>
-				</CardContent>
+					<CardContent>
+						<AllocateSummary
+							update={updateAllocation}
+							remove={removeAllocation}
+						/>
+					</CardContent>
+				</div>
 			</AllocateCard>
 
 			<RaceCounter $isClean />
@@ -97,7 +121,6 @@ const Container = styled.div`
 	flex-direction: column;
 	gap: 2em;
 `
-
 const AllocateCard = styled(Card)`
 	background-color: ${({ theme }) => theme.style.formBg};
 	border: none;
@@ -111,3 +134,5 @@ const AllocateCardHeader = styled(CardHeader)`
 const AllocateCardContent = styled(CardContent)`
 	padding: 1em 15%;
 `
+
+export default Content

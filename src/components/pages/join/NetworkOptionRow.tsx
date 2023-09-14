@@ -14,7 +14,8 @@ interface Props {
 	network: NetworkDtoModel
 	formikProps: FormikProps<any>
 }
-export default ({ inputName, network, formikProps }: Props) => {
+
+const NetworkOptionRow = ({ inputName, network, formikProps }: Props) => {
 	return (
 		<TableRow>
 			<TableData>
@@ -36,7 +37,7 @@ export default ({ inputName, network, formikProps }: Props) => {
 					{network.name}
 				</label>
 			</TableData>
-			<TableData align="right">
+			<TableData $align="right">
 				<label htmlFor={`radio-${inputName}-${network.name}`}>
 					{ToCurrency(network.allocated, 2, true)}
 				</label>
@@ -44,3 +45,5 @@ export default ({ inputName, network, formikProps }: Props) => {
 		</TableRow>
 	)
 }
+
+export default NetworkOptionRow

@@ -39,17 +39,18 @@ export const settingsSlice = createSlice({
 	}
 })
 
-export const isDarkModeState = (state: AppState): boolean =>
-	state.settings.isDarkMode
+export const isDarkModeState = (state: AppState): boolean | undefined =>
+	state.settings?.isDarkMode
 
-export const isLargeModeState = (state: AppState): boolean =>
-	state.settings.isLargeMode
+export const isLargeModeState = (state: AppState): boolean | undefined =>
+	state.settings?.isLargeMode
 
-export const isConnectModalOpenState = (state: AppState): boolean =>
-	state.settings.isConnectModalOpen
+export const isConnectModalOpenState = (state: AppState): boolean | undefined =>
+	state.settings?.isConnectModalOpen
 
-export const isCreateNftModalOpenState = (state: AppState): boolean =>
-	state.settings.isCreateNftModalOpen
+export const isCreateNftModalOpenState = (
+	state: AppState
+): boolean | undefined => state.settings?.isCreateNftModalOpen
 
 export const {
 	setDarkModeState,

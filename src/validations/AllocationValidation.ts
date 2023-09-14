@@ -3,14 +3,11 @@ import * as Yup from 'yup'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 
 const AllocationValidation = Yup.object<AllocationRequestModel>({
+
 	network: Yup.string().required(),
 	vault: Yup.string().required(),
-	amount: Yup.number().required().min(10).max(10000)
+	maxAmount: Yup.number(),
+	amount: Yup.number().required().min(1).when(["maxAmount"], ([maxAmount], schema) =>  maxAmount ? schema.max(maxAmount) : schema.max(1000) )
 })
-//.shape({
-// 	network: Yup.string().required(),
-// 	message: Yup.string().required(),
-// 	email: Yup.string().email().required()
-// })
 
 export default AllocationValidation

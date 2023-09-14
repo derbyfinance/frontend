@@ -13,7 +13,7 @@ interface Props {
 
 const NetworkSelect = ({ formikProps }: Props) => {
 	const { values } = useFormikContext<AllocationRequestModel>()
-	const player = useAppSelector<PlayerDtoModel>(getPlayerState)
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 
 	const [networkList, setNetworkList] = useState<string[]>([])
 
@@ -22,7 +22,9 @@ const NetworkSelect = ({ formikProps }: Props) => {
 			vault.protocols.map(({ name }) => name.replace(/(\_\w+)/gim, ''))
 		)
 
-		setNetworkList(list)
+		const uniqueList = [...new Set(list)]
+
+		setNetworkList(uniqueList)
 	}, [values])
 
 	return (

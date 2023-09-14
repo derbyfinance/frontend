@@ -18,6 +18,7 @@ interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
 	optionList: SelectOptionModel[]
 	required?: boolean
 	smallOptionList?: boolean
+	readOnly?: boolean
 }
 
 const SelectInputField = ({
@@ -29,12 +30,13 @@ const SelectInputField = ({
 	placeholder = '',
 	required = false,
 	smallOptionList = false,
+	readOnly = false,
 	...props
 }: Props) => {
 	const [open, setOpen] = useState<boolean>(false)
 
 	const openSelect = (): void => {
-		setOpen(!open)
+		if(!readOnly) setOpen(!open)
 	}
 
 	const closeOptionList = (): void => {
@@ -45,6 +47,7 @@ const SelectInputField = ({
 		<Container>
 			<Label htmlFor={inputName}>{label}</Label>
 			<Wrapper onClick={openSelect}>
+				{!readOnly ? <ClickableSelect onClick={openSelect} />: null}
 				<SelectInput
 					disabled
 					id={inputName}
@@ -53,6 +56,7 @@ const SelectInputField = ({
 					onChange={formikProps.handleChange}
 					onBlur={formikProps.handleBlur}
 					value={formikProps.values[inputName]}
+					readOnly={readOnly}
 					//{...props}
 				>
 					{placeholder && (
@@ -66,7 +70,7 @@ const SelectInputField = ({
 						</option>
 					))}
 				</SelectInput>
-				<FloatArrowDropdownIcon $isOpen={open} />
+				{!readOnly ? <FloatArrowDropdownIcon $isOpen={open} /> : null }
 			</Wrapper>
 			<OptionOverlay $isOpen={open} onClick={openSelect} />
 			<OptionList
@@ -82,7 +86,7 @@ const SelectInputField = ({
 				)}
 				{!smallOptionList ? (
 					<Bottom>
-						<ActionButton $isCta onClick={openSelect}>
+						<ActionButton type="button" $isCta onClick={openSelect}>
 							Select
 						</ActionButton>
 					</Bottom>
@@ -131,6 +135,14 @@ const Wrapper = styled.div`
 		);
 	}
 `
+const ClickableSelect = styled.div`
+	display: block;
+	position: absolute;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+`
 const FloatArrowDropdownIcon = styled(ArrowDropdownIcon)<{ $isOpen: boolean }>`
 	display: block;
 	position: absolute;
@@ -149,7 +161,7 @@ const FloatArrowDropdownIcon = styled(ArrowDropdownIcon)<{ $isOpen: boolean }>`
 		rotate: 180deg;
 	`}
 `
-const SelectInput = styled.select`
+const SelectInput = styled.select<{readOnly: boolean}>`
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	text-indent: 1px;
@@ -162,11 +174,17 @@ const SelectInput = styled.select`
 	padding: 0.5em;
 	display: block;
 	width: 100%;
-	cursor: pointer;
+	cursor: ${({ readOnly }) => readOnly ? 'none' : 'pointer'};
+	pointer-events: ${({readOnly}) => readOnly ? 'none' : 'auto'};
 
 	&[disabled] {
 		opacity: 1;
 	}
+
+	${({ readOnly, theme }) => readOnly && `
+		opacity: 0.75;
+		color: ${theme.style.colorPlaceholder};
+	`}
 
 	&:has(option:disabled:checked) {
 		color: ${({ theme }) => theme.style.colorPlaceholder};

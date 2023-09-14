@@ -1,7 +1,7 @@
 import { AlignType } from '@datatypes/AlignType'
 import Link, { LinkProps } from 'next/link'
-import styled from 'styled-components'
-import { ButtonStyle } from './ActionButton'
+import { styled } from 'styled-components'
+import { ButtonStyle, ButtonStyleProps } from './ActionButton'
 
 interface Props extends LinkProps {
 	$isCta?: boolean
@@ -11,7 +11,7 @@ interface Props extends LinkProps {
 	children: string | JSX.Element | JSX.Element[] | React.ReactNode
 }
 
-export default ({
+const LinkButton = ({
 	$isCta = false,
 	$isGhost = false,
 	$isBlock = false,
@@ -26,17 +26,15 @@ export default ({
 			$isGhost={$isGhost}
 			$isBlock={$isBlock}
 			$align={$align}
+			scroll={true}
 			{...props}>
 			{children}
 		</Button>
 	)
 }
 
-const Button = styled(Link)<{
-	$isCta: boolean
-	$isGhost: boolean
-	$isBlock: boolean
-	$align?: AlignType
-}>`
-	${ButtonStyle}
+const Button = styled(Link)<ButtonStyleProps>`
+	${ButtonStyle as any}
 `
+
+export default LinkButton

@@ -1,11 +1,10 @@
 'use client'
 
 import { device, deviceSize } from '@helpers/DeviceHelper'
-import { persistor, store } from '@store/Store'
+import { store } from '@store/Store'
 import { GlobalStyles } from '@theme/ThemeConfig'
 import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 import NotificationConfig from '../NotificationConfig'
 import ThemeWrapper from '../ThemeWrapper'
 import WalletConfig from '../WalletConfig'
@@ -25,29 +24,27 @@ interface Props {
 const Layout = ({ isFullPage = false, aside, children }: Props) => {
 	return (
 		<Provider store={store}>
-			<PersistGate loading={null} persistor={persistor}>
-				<ThemeWrapper>
-					<GlobalStyles />
-					<WalletConfig>
-						<MainContainer>
-							<NotificationConfig />
-							<ConnectWalletModal />
-							<CreateNftModal />
-							<Header>
-								<Navigation />
-							</Header>
-							<Content>
-								<Main>{children}</Main>
-								<Aside isFullPage={isFullPage} aside={aside} />
-							</Content>
-							<Footer>
-								<FooterBar />
-							</Footer>
-						</MainContainer>
-					</WalletConfig>
-					<PageSize />
-				</ThemeWrapper>
-			</PersistGate>
+			<ThemeWrapper>
+				<GlobalStyles />
+				<WalletConfig>
+					<MainContainer>
+						<NotificationConfig />
+						<ConnectWalletModal />
+						<CreateNftModal />
+						<Header>
+							<Navigation />
+						</Header>
+						<Content>
+							<Main>{children}</Main>
+							<Aside isFullPage={isFullPage} aside={aside} />
+						</Content>
+						<Footer>
+							<FooterBar />
+						</Footer>
+					</MainContainer>
+				</WalletConfig>
+				<PageSize />
+			</ThemeWrapper>
 		</Provider>
 	)
 }

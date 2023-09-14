@@ -13,7 +13,7 @@ interface Props {
 	children: JSX.Element | JSX.Element[] | React.ReactNode
 }
 
-export default ({
+const Table = ({
 	headers = [],
 	footer,
 	children,
@@ -25,12 +25,12 @@ export default ({
 	}, 0)
 
 	return (
-		<Table $isSmall={$isSmall}>
+		<TableComponent $isSmall={$isSmall}>
 			{headers.length > 0 ? (
 				<Thead $isSticky={$isSticky}>
 					<tr>
 						{headers.map(({ name, align, colspan }, index) => (
-							<Th align={align} colSpan={colspan ?? 1} key={index}>
+							<Th $align={align} colSpan={colspan ?? 1} key={index}>
 								{name}
 							</Th>
 						))}
@@ -52,11 +52,11 @@ export default ({
 					</tr>
 				</FooterShadow>
 			) : null}
-		</Table>
+		</TableComponent>
 	)
 }
 
-const Table = styled.table<{ $isSmall: boolean }>`
+const TableComponent = styled.table<{ $isSmall: boolean }>`
 	border-collapse: collapse;
 	width: 100%;
 	margin-top: ${({ $isSmall }) => ($isSmall ? '0' : '2em')};
@@ -78,7 +78,7 @@ const Thead = styled.thead<{ $isSticky: boolean }>`
 	`}
 `
 
-const Th = styled.th<{ align?: AlignType }>`
+const Th = styled.th<{ $align?: AlignType }>`
 	font-family: ${({ theme }) => theme.fonts.robotoMedium};
 	color: ${({ theme }) => theme.style.colorLabel};
 	font-weight: normal;
@@ -86,7 +86,7 @@ const Th = styled.th<{ align?: AlignType }>`
 	font-size: 1em;
 	line-height: 1em;
 	padding: 0 0.5em;
-	text-align: ${({ align }) => align ?? 'left'};
+	text-align: ${({ $align }) => $align ?? 'left'};
 `
 const FooterShadow = styled.tfoot`
 	position: sticky;
@@ -95,3 +95,4 @@ const FooterShadow = styled.tfoot`
 	box-shadow: 0px -7px 5px rgba(255, 255, 255, 0.85);
 	z-index: 1;
 `
+export default Table

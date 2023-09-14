@@ -1,13 +1,13 @@
-import CreateNftValidation from '@/validations/CreateNftValidation'
 import Notification from '@components/Notification'
 import { useAppDispatch } from '@hooks/ReduxStore'
+import useDebounce from '@hooks/UseDebounce'
 import useMintBasket from '@hooks/UseMintNewBasket'
 import CreateNftRequestModel from '@models/requests/CreateNftRequestModel'
 import { getPlayerData } from '@store/UserSlice'
+import CreateNftValidation from '@validations/CreateNftValidation'
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { useDebounce } from 'usehooks-ts'
 import { Abi } from 'viem'
 import { useAccount } from 'wagmi'
 import CategorySelect from './CategorySelect'
@@ -86,7 +86,6 @@ const CreateNftForm = ({ closeModal }: Props) => {
 
 	useEffect(() => {
 		if (isSuccessPrepare) {
-			console.log('write')
 			write?.()
 		}
 	}, [isSuccessPrepare])

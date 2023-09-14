@@ -5,4 +5,5 @@ export default interface AllocationRequestModel {
 	protocol: string
 	vault: string
 	amount: number
+	maxAmount: number
 }

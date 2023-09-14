@@ -10,7 +10,8 @@ interface Props {
 	vault: VaultDtoModel
 	formikProps: FormikProps<any>
 }
-export default ({ inputName, vault, formikProps }: Props) => {
+
+const VaultOptionRow = ({ inputName, vault, formikProps }: Props) => {
 	return (
 		<TableRow>
 			<TableData>
@@ -30,12 +31,12 @@ export default ({ inputName, vault, formikProps }: Props) => {
 			<TableData $focus>
 				<label htmlFor={`radio-${inputName}-${vault.name}`}>{vault.name}</label>
 			</TableData>
-			<TableData align="right">
+			<TableData $align="right">
 				<label htmlFor={`radio-${inputName}-${vault.name}`}>
 					{/* {ToCurrency(vault.allocated, 2, true)} */}
 				</label>
 			</TableData>
-			<TableData align="right">
+			<TableData $align="right">
 				<label htmlFor={`radio-${inputName}-${vault.name}`}>
 					{/* {vault.performance}% */}
 				</label>
@@ -43,3 +44,4 @@ export default ({ inputName, vault, formikProps }: Props) => {
 		</TableRow>
 	)
 }
+export default VaultOptionRow

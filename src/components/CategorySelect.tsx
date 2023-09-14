@@ -11,7 +11,9 @@ interface Props {
 
 const CategorySelect = ({ formikProps }: Props) => {
 	const dispatch = useAppDispatch()
-	const categoryList = useAppSelector<CategoryDtoModel[]>(getCategoryListState)
+	const categoryList = useAppSelector<CategoryDtoModel[] | undefined>(
+		getCategoryListState
+	)
 
 	useEffect(() => {
 		dispatch(getCategoryListData())
@@ -24,10 +26,12 @@ const CategorySelect = ({ formikProps }: Props) => {
 			smallOptionList
 			placeholder="Select a category"
 			formikProps={formikProps}
-			optionList={categoryList.map(({ name, id }) => ({
-				name: name,
-				value: id
-			}))}
+			optionList={
+				categoryList?.map(({ name, id }) => ({
+					name: name,
+					value: id
+				})) ?? []
+			}
 		/>
 	)
 }

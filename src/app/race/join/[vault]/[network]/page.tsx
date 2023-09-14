@@ -7,10 +7,12 @@ interface Props {
 		vault: string
 	}
 }
-export default ({ params }: Props) => {
+const Page = ({ params }: Props) => {
 	return (
 		<Layout>
 			<Content network={params.network} vault={params.vault} />
 		</Layout>
 	)
 }
+
+export default Page

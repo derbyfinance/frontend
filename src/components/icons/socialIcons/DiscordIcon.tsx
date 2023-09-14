@@ -1,8 +1,12 @@
-export default () => {
+interface Props { 
+	width?: number | `${string}%`
+	height?: number | `${string}%`
+}
+export default ({ width = 31, height = 24 }: Props) => {
 	return (
 		<svg
-			width="31"
-			height="24"
+			width={width}
+			height={height}
 			viewBox="0 0 31 24"
 			fill="currentColor"
 			xmlns="http://www.w3.org/2000/svg">

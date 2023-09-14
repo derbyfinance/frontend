@@ -8,7 +8,8 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	value: string
 	formikProps: FormikProps<any>
 }
-export default ({ inputName, value, formikProps, ...props }: Props) => {
+
+const RadioInputField = ({ inputName, value, formikProps, ...props }: Props) => {
 	return (
 		<RadioInput
 			type="radio"
@@ -25,3 +26,4 @@ const RadioInput = styled.input`
 	width: 1em;
 	height: 1em;
 `
+export default RadioInputField

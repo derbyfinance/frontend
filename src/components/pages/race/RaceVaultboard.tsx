@@ -16,11 +16,17 @@ import {
 } from '@store/VaultSlice'
 import RaceVaultboardRow from './RaceVaultboardRow'
 
-export default () => {
+interface Props {
+	$hasMargin?: boolean
+}
+
+const RaceVaultboard = ({ $hasMargin = true}: Props) => {
 	const amount: number = 5
 	const dispatch = useAppDispatch()
 
-	const vaultList = useAppSelector<VaultDtoModel[]>(getVaultListState)
+	const vaultList = useAppSelector<VaultDtoModel[] | undefined>(
+		getVaultListState
+	)
 	const vaultListCount = useAppSelector<number>(getVaultListCountState)
 
 	const [size, setSize] = useState<number | undefined>(amount)
@@ -33,7 +39,7 @@ export default () => {
 	]
 
 	useEffect(() => {
-		if (vaultList && vaultList.length === 0) dispatch(getVaultListData(size))
+		if (!vaultList || vaultList.length === 0) dispatch(getVaultListData(size))
 	}, [size])
 
 	const handleShow = (): void => {
@@ -43,6 +49,7 @@ export default () => {
 	return (
 		<Container>
 			<Table
+				$isSmall={!$hasMargin}
 				headers={headers}
 				footer={
 					vaultListCount > amount ? (
@@ -58,3 +65,5 @@ export default () => {
 }
 
 const Container = styled.div``
+
+export default RaceVaultboard
