@@ -16,7 +16,11 @@ import {
 } from '@store/VaultSlice'
 import RaceVaultboardRow from './RaceVaultboardRow'
 
-const RaceVaultboard = () => {
+interface Props {
+	$hasMargin?: boolean
+}
+
+const RaceVaultboard = ({ $hasMargin = true}: Props) => {
 	const amount: number = 5
 	const dispatch = useAppDispatch()
 
@@ -45,6 +49,7 @@ const RaceVaultboard = () => {
 	return (
 		<Container>
 			<Table
+				$isSmall={!$hasMargin}
 				headers={headers}
 				footer={
 					vaultListCount > amount ? (

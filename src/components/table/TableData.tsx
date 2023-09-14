@@ -23,6 +23,7 @@ export default styled.td<{ $align?: AlignType; $focus?: boolean }>`
 	${({ $align }) =>
 		$align === 'right' &&
 		`
+		text-align: right;
 		> label {
 			justify-content: flex-end;
 		}
@@ -31,6 +32,7 @@ export default styled.td<{ $align?: AlignType; $focus?: boolean }>`
 	${({ $align }) =>
 		$align === 'center' &&
 		`
+		text-align: center;
 		> label {
 			justify-content: center;
 		}
