@@ -61,8 +61,6 @@ const useRebalanceBasket = (
 		hash: data?.hash
 	})
 
-	console.log({ errorPrepare })
-
 	return {
 		data,
 		errorPrepare,
