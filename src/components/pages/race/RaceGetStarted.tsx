@@ -1,8 +1,8 @@
-import { styled } from 'styled-components'
 import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
 import RocketIcon from '@components/icons/RocketIcon'
 import Link from 'next/link'
+import { styled } from 'styled-components'
 
 interface Props {
 	$isClean?: boolean
@@ -11,7 +11,7 @@ interface Props {
 const RaceGetStarted = ({ $isClean = false }: Props) => {
 	return (
 		<Link href="/race/join">
-			<RaceCard type='info' $isClean={$isClean}>
+			<RaceCard type="info" $isClean={$isClean}>
 				<RaceContent>
 					<h3>Get Started</h3>
 					<IconWrapper>
@@ -35,11 +35,9 @@ const RaceCard = styled(Card)<{ $isClean?: boolean }>`
 	flex: 1 1 auto;
 	text-align: center;
 `
-const IconWrapper = styled.div`
-
-`
+const IconWrapper = styled.div``
 const RaceContent = styled(CardContent)`
-	flex: 1 1 auto;	
+	flex: 1 1 auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
