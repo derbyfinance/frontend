@@ -6,7 +6,7 @@ import Logo from '@components/icons/Logo'
 import ActionButton from '@components/buttons/ActionButton'
 import { useAppDispatch } from '@hooks/ReduxStore'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import AccountButton from './AccountButton'
 import NavLink from './NavLink'
@@ -21,9 +21,9 @@ const Navigation = () => {
 		setIsConnected(account.isConnected)
 	}, [account.isConnected])
 
-	const handleWalletConnect = (): void => {
+	const handleWalletConnect = useCallback((): void => {
 		dispatch(setConnectModalOpenState(true))
-	}
+	}, [])
 
 	return (
 		<>

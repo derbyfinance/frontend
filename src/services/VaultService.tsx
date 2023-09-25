@@ -27,18 +27,18 @@ export const GetVaultList = async (
         vaults(first: $amount) {
           id,
           name,
-          network,
-          protocol,
+          number,
+          chainId,
           coin,
           category,
-          vaultNumber,
           protocols {
               id,
-              name,
-              network,
-              coin,
-              protocol,
-              protocolNumber
+              protocolName,
+              protocolVault
+              number,
+              underlying,
+              protocolLPToken,
+              govToken,
           }
         }
       }`,

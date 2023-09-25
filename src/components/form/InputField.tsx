@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, useState } from 'react'
+import { InputHTMLAttributes, useCallback, useState } from 'react'
 
 import { ErrorMessage, FormikProps } from 'formik'
 import { styled } from 'styled-components'
@@ -26,16 +26,16 @@ const InputField = ({
 	icon,
 	...props
 }: Props) => {
-	const [open, setOpen] = useState<boolean>(false)
+	const [isOpen, setIsOpen] = useState<boolean>(false)
 
-	const openSelect = () => {
-		setOpen(!open)
-	}
+	const openSelect = useCallback((isOpen: boolean) => {
+		setIsOpen(!isOpen)
+	}, [])
 
 	return (
 		<Container>
 			<Label htmlFor={inputName}>{label}</Label>
-			<Wrapper onClick={openSelect} $isOpen={open}>
+			<Wrapper onClick={() => openSelect(isOpen)} $isOpen={isOpen}>
 				<TextInput
 					type={type}
 					id={inputName}

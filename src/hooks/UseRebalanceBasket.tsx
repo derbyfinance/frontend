@@ -5,6 +5,8 @@ import {
 	usePrepareContractWrite,
 	useWaitForTransaction
 } from 'wagmi'
+import useDebounce from './UseDebounce'
+import RebalanceModel from '@models/internal/RebalanceModel'
 
 const abi: Abi = [
 	{
@@ -34,10 +36,11 @@ const abi: Abi = [
 // Requirement: The user must have approved the DerbyToken contract.
 // With the spender as the Game contract
 // and the amount as the sum of the deltaAllocations.
-const useRebalanceBasket = (
-	basketId: number,
-	deltaAllocations: number[]
+const useRebalanceBasket = ( rebalance: RebalanceModel
 ): UseContractWriteModel => {
+
+	const debounceDelta = useDebounce<RebalanceModel>(rebalance, 500)
+
 	const {
 		config,
 		error: errorPrepare,
@@ -47,8 +50,8 @@ const useRebalanceBasket = (
 		address: process.env.NEXT_PUBLIC_GAME_CONTRACT as Hex,
 		abi: abi,
 		functionName: 'rebalanceBasket',
-		args: [basketId.toString(), deltaAllocations],
-		enabled: Boolean(deltaAllocations)
+		args: [debounceDelta.basketId.toString(), debounceDelta.delta],
+		enabled: Boolean(debounceDelta.delta.length > 0)
 	})
 
 	const { data, write } = useContractWrite(config)

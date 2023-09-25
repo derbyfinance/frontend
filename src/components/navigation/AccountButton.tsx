@@ -2,7 +2,7 @@ import Avatar from '@components/Avatar'
 import ActionButton from '@components/buttons/ActionButton'
 import ArrowDropdownIcon from '@components/icons/ArrowDropdownIcon'
 import { MaskCoinAddress } from '@functions/StringFunction'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { styled } from 'styled-components'
 import { useAccount } from 'wagmi'
 import AccountInfo from './AccountInfo'
@@ -12,16 +12,16 @@ const AccountButton = () => {
 
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
-	const toggleOpen = (): void => {
+	const toggleOpen = useCallback((isOpen: boolean): void => {
 		setIsOpen(!isOpen)
-	}
+	}, [])
 
 	return (
 		<>
-			<AccountInfoOverlay $isOpen={isOpen} onClick={toggleOpen} />
+			<AccountInfoOverlay $isOpen={isOpen} onClick={()=> toggleOpen(isOpen)} />
 
 			<Container>
-				<WalletButton $isCta onClick={toggleOpen}>
+				<WalletButton $isCta onClick={()=> toggleOpen(isOpen)}>
 					<Icon>
 						<Avatar $isSmall={true} name={address?.toString() ?? ''} />
 					</Icon>

@@ -16,7 +16,7 @@ const NftSelect = ({ formikProps }: Props) => {
 	const { address } = useAccount()
 
 	useEffect(() => {
-		if (player && player?.player.baskets.length === 0 && address !== undefined)
+		if (player && player?.player?.baskets.length === 0 && address !== undefined)
 			dispatch(getPlayerData(address))
 	}, [address])
 
@@ -30,7 +30,7 @@ const NftSelect = ({ formikProps }: Props) => {
 			readOnly
 			tabIndex={1}
 			optionList={
-				player?.player.baskets
+				player?.player?.baskets
 					? player.player.baskets.map(({ id, name }, index) => ({
 							name: name,
 						value: id,

@@ -5,7 +5,7 @@ import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getCategoryListState } from '@store/RaceSlice'
 import { getPlayerState } from '@store/UserSlice'
 import { useFormikContext } from 'formik'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
 const CategoryHiddenInput = () => {
 	const { handleChange, values, setFieldValue } =
@@ -17,7 +17,7 @@ const CategoryHiddenInput = () => {
 	const inputName = 'category'
 
 	useEffect(() => {
-		if (player && player.player.baskets.length > 0) {
+		if (player && player.player?.baskets.length > 0) {
 			const category =
 				player.player.baskets.find(({ id }) => id === values['nft'])?.vault
 					.category ?? ''
@@ -27,9 +27,9 @@ const CategoryHiddenInput = () => {
 	}, [values])
 
 	//TODO: Ugly
-	const categoryFilter = (category: string): string => {
+	const categoryFilter = useCallback((category: string): string => {
 		return categoryList?.find(({ name }) => name === category)?.id ?? ''
-	}
+	}, [])
 
 	return (
 		<input

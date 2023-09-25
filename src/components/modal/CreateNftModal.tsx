@@ -7,6 +7,7 @@ import {
 } from '@store/SettingsSlice'
 import { styled } from 'styled-components'
 import Modal from './Modal'
+import { useCallback } from 'react'
 
 const CreateNftModal = () => {
 	const isOpenModal = useAppSelector<boolean | undefined>(
@@ -14,9 +15,9 @@ const CreateNftModal = () => {
 	)
 	const dispatch = useAppDispatch()
 
-	const closeModal = (): void => {
+	const closeModal = useCallback((): void => {
 		dispatch(setCreateNftModalOpenState(false))
-	}
+	}, [])
 
 	return (
 		<Modal closeModal={closeModal} isOpen={isOpenModal ?? false}>

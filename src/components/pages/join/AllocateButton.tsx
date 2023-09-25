@@ -8,7 +8,7 @@ import useRebalanceBasket from '@hooks/UseRebalanceBasket'
 import RebalanceModel from '@models/internal/RebalanceModel'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { clearAllocationListState, getAllocationListState } from '@store/RaceSlice'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
 const AllocateButton = () => {
@@ -18,12 +18,12 @@ const AllocateButton = () => {
 	)
 
 	const [amount, setAmount] = useState<number>(0)
-	const [rebalance, setRebalance] = useState<RebalanceModel>({ basketId: 0, delta: []})
+	const [rebalance, setRebalance] = useState<RebalanceModel>({ basketId: 0, delta: [] })
 
-	const {isSuccessPrepare, errorPrepare, isSuccessTx, errorTx, write} = useApproveDerbyToken(amount)
-
-	const rebalanceBasket = useRebalanceBasket(rebalance.basketId, rebalance.delta)
-
+	const { isSuccessPrepare, errorPrepare, isSuccessTx, errorTx, write } = useApproveDerbyToken(amount)
+	
+	const rebalanceBasket = useRebalanceBasket(rebalance)
+	
 	useEffect(() => {
 		if (errorPrepare || errorTx || rebalanceBasket.errorPrepare ||  rebalanceBasket.errorTx) {
 			toast.error(
@@ -39,7 +39,7 @@ const AllocateButton = () => {
 		if (isSuccessPrepare && isSuccessTx) {			
 			const id = Number(allocationList![0].nft)
 			//TODO: what needs to be in the delta
-			const delta: number[][] = []
+			const delta: number[] = []
 			setRebalance({basketId: id, delta: delta})
 		}
 	}, [isSuccessPrepare, isSuccessTx])
@@ -63,12 +63,12 @@ const AllocateButton = () => {
 		}
 	}, [rebalanceBasket.isSuccessPrepare, rebalanceBasket.isSuccessTx])
 
-	const handleAllocate = (): void => { 
+	const handleAllocate = useCallback((): void => { 
 
 		allocationList?.forEach(({ amount }) => {
 			setAmount(amount)
 		})
-	}
+	}, [])
 
 	useEffect(() => {
 		if (isSuccessPrepare) {

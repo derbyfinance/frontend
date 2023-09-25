@@ -1,5 +1,6 @@
 import Link, { LinkProps } from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useCallback } from 'react'
 import { styled } from 'styled-components'
 
 interface Props extends LinkProps {
@@ -9,7 +10,7 @@ interface Props extends LinkProps {
 const NavLink = ({ children, as, ...props }: Props) => {
 	const pathname = usePathname()
 
-	const isActive = (): boolean => {
+	const isActive = useCallback((): boolean => {
 		const urlPath = pathname?.replaceAll('/', '').toLocaleLowerCase()
 		const linkPath = props.href
 			.toString()
@@ -19,7 +20,7 @@ const NavLink = ({ children, as, ...props }: Props) => {
 			(urlPath?.startsWith(linkPath) && linkPath !== '') ||
 			(urlPath?.startsWith(linkPath) && urlPath === '')
 		)
-	}
+	}, [pathname])
 
 	return (
 		<NavLinkComponent $isActive={isActive()} {...props}>

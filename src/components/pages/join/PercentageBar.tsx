@@ -3,7 +3,7 @@ import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
 import { useFormikContext } from 'formik'
-import { MouseEvent } from 'react'
+import { MouseEvent, useCallback } from 'react'
 import { styled } from 'styled-components'
 import { useAccount } from 'wagmi'
 
@@ -18,7 +18,7 @@ const PercentageBar = () => {
 	)
 	const list = [20, 40, 60, 80, 100]
 
-	const handlePercentage = (
+	const handlePercentage = useCallback((
 		e: MouseEvent<HTMLButtonElement>,
 		percentage: number
 	): void => {
@@ -35,7 +35,7 @@ const PercentageBar = () => {
 		handleBlur('amount')
 		e.stopPropagation()
 		e.preventDefault()
-	}
+	}, [])
 
 	return (
 		<Bar>

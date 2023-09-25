@@ -1,4 +1,4 @@
-import { SelectHTMLAttributes, useState } from 'react'
+import { SelectHTMLAttributes, useCallback, useState } from 'react'
 
 import { ErrorMessage, FormikProps } from 'formik'
 import { styled } from 'styled-components'
@@ -33,21 +33,21 @@ const SelectInputField = ({
 	readOnly = false,
 	...props
 }: Props) => {
-	const [open, setOpen] = useState<boolean>(false)
+	const [isOpen, setIsOpen] = useState<boolean>(false)
 
-	const openSelect = (): void => {
-		if(!readOnly) setOpen(!open)
-	}
+	const openSelect = useCallback((isOpen: boolean): void => {
+		if(!readOnly) setIsOpen(!isOpen)
+	}, [])
 
-	const closeOptionList = (): void => {
-		if (smallOptionList) setOpen(false)
-	}
+	const closeOptionList = useCallback((): void => {
+		if (smallOptionList) setIsOpen(false)
+	}, [])
 
 	return (
 		<Container>
 			<Label htmlFor={inputName}>{label}</Label>
-			<Wrapper onClick={openSelect}>
-				{!readOnly ? <ClickableSelect onClick={openSelect} />: null}
+			<Wrapper onClick={() => openSelect(isOpen)}>
+				{!readOnly ? <ClickableSelect onClick={() => openSelect(isOpen)} />: null}
 				<SelectInput
 					disabled
 					id={inputName}
@@ -70,11 +70,11 @@ const SelectInputField = ({
 						</option>
 					))}
 				</SelectInput>
-				{!readOnly ? <FloatArrowDropdownIcon $isOpen={open} /> : null }
+				{!readOnly ? <FloatArrowDropdownIcon $isOpen={isOpen} /> : null }
 			</Wrapper>
-			<OptionOverlay $isOpen={open} onClick={openSelect} />
+			<OptionOverlay $isOpen={isOpen} onClick={()=> openSelect(isOpen)} />
 			<OptionList
-				$isOpen={open}
+				$isOpen={isOpen}
 				$smallOptionList={smallOptionList}
 				onClick={closeOptionList}>
 				{options ?? (
@@ -86,7 +86,7 @@ const SelectInputField = ({
 				)}
 				{!smallOptionList ? (
 					<Bottom>
-						<ActionButton type="button" $isCta onClick={openSelect}>
+						<ActionButton type="button" $isCta onClick={() => openSelect(isOpen)}>
 							Select
 						</ActionButton>
 					</Bottom>

@@ -47,8 +47,9 @@ const useApproveDerbyToken = (amount: number): UseContractWriteModel => {
 		abi: abi,
 		functionName: 'approve',
 		args: [process.env.NEXT_PUBLIC_GAME_CONTRACT, debouncedAmount],
-		enabled: Boolean(debouncedAmount)
+		enabled: Boolean(amount > 0)
 	})
+
 	const { data, write } = useContractWrite(config)
 
 	const {

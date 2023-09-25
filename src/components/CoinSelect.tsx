@@ -4,7 +4,7 @@ import { VaultDtoModel } from '@models/dto/PlayerDtoModel'
 import { getCategoryListState } from '@store/RaceSlice'
 import { getVaultListData, getVaultListState } from '@store/VaultSlice'
 import { FormikProps } from 'formik'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import SelectInputField from './form/SelectInputField'
 
 interface Props {
@@ -25,9 +25,9 @@ const CoinSelect = ({ formikProps }: Props) => {
 	}, [])
 
 	//TODO: Ugly
-	const categoryFilter = (category: string): string => {
+	const categoryFilter = useCallback((category: string): string => {
 		return categoryList?.find(({ name }) => name === category)?.id ?? ''
-	}
+	}, [formikProps.values])
 
 	return (
 		<SelectInputField

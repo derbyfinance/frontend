@@ -1,18 +1,18 @@
 import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
 import CardHeader from '@components/card/CardHeader'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 
 const RaceDescription = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(true)
 
-	const handleClick = (): void => {
+	const handleClick = useCallback((isOpen: boolean): void => {
 		setIsOpen(!isOpen)
-	}
+	}, [])
 
 	return (
 		<Card>
-			<CardHeader isOpen={isOpen} handleClick={handleClick}>
+			<CardHeader isOpen={isOpen} handleClick={()=>handleClick(isOpen)}>
 				<h2>Welcome to The Race</h2>
 			</CardHeader>
 			<CardContent isOpen={isOpen}>

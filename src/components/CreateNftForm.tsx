@@ -6,7 +6,7 @@ import CreateNftRequestModel from '@models/requests/CreateNftRequestModel'
 import { getPlayerData } from '@store/UserSlice'
 import CreateNftValidation from '@validations/CreateNftValidation'
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Abi } from 'viem'
 import { useAccount } from 'wagmi'
@@ -90,7 +90,7 @@ const CreateNftForm = ({ closeModal }: Props) => {
 		}
 	}, [isSuccessPrepare])
 
-	const onSubmit = (
+	const onSubmit = useCallback((
 		form: CreateNftRequestModel,
 		formikHelpers: FormikHelpers<CreateNftRequestModel>
 	): void => {
@@ -103,7 +103,7 @@ const CreateNftForm = ({ closeModal }: Props) => {
 		// 		name: ''
 		// 	}
 		// })
-	}
+	}, [])
 
 	return (
 		<Formik
