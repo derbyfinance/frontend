@@ -6,34 +6,38 @@ import { Hex } from 'viem'
 export const GetPlayer = async (address: Hex): Promise<PlayerDtoModel> => {
 	const data = {
 		query: `
-      query ($address: String!) {
+      query ($address: ID!) {
         player (
           id: $address,    
         ) {
-          id,
-          baskets {
+        id,
+        baskets {
             id,
+            basketId
             name,
-            vault {
-              id,
-              name,
-              category,
-              protocol,
-              vaultNumber,
-              protocols {
-                id,
-                name,
-                network,
-                coin,
-                protocol
-              }
-            },
             rebalancingPeriod,
+            allocations,
             redeemedRewards,
             unredeemedRewards,
-          }
+            vault {
+                id,
+                name,
+                number,
+                chainId,
+                category,
+                coin,
+                protocols {
+                    id,
+                    name,
+                    number,
+                    protocolName,
+                    protocolVault,
+                }
+            }
         }
-      }`,
+      }
+    }
+    `,
 		variables: { address: address.toString() }
 	}
 

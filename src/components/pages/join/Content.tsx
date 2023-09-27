@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { styled } from 'styled-components'
 
@@ -49,12 +49,12 @@ const Content = ({ network, vault }: Props) => {
 	})
 
 	useEffect(() => {
-		if (player && player.player.baskets.length > 0) {
+		if (player && player.player?.baskets.length > 0) {
 			setForm({ ...form, ...{ nft: player.player.baskets[0].id }  })
 		}
 	}, [player])
 
-	const addAllocation = (): void => {
+	const addAllocation = useCallback((): void => {
 		setTimeout(() => {
 			allocateRef.current?.scrollIntoView({
 				block: 'start',
@@ -62,9 +62,9 @@ const Content = ({ network, vault }: Props) => {
 				behavior: 'smooth'
 			})
 		}, 0)
-	}
+	}, [allocateRef])
 
-	const updateAllocation = (index: number) => {
+	const updateAllocation = useCallback((index: number) => {
 		removeAllocation(index)
 
 		setForm(allocationList![index])
@@ -76,11 +76,11 @@ const Content = ({ network, vault }: Props) => {
 				behavior: 'smooth'
 			})
 		}, 0)
-	}
+	}, [formRef, allocationList])
 
-	const removeAllocation = (index: number) => {
+	const removeAllocation = useCallback((index: number) => {
 		dispatch(removeAllocationListState(index))
-	}
+	}, [])
 
 	return (
 		<Container>

@@ -14,7 +14,7 @@ import useDidMountEffect from '@hooks/UseDidMountEffect'
 import { setAllocationListState } from '@store/RaceSlice'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
 import { getPlayerData, getPlayerState } from '@store/UserSlice'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 import CategoryHiddenInput from './CategoryHiddenInput'
 import MaxAmountHiddenInput from './MaxAmountHiddenInput'
@@ -45,7 +45,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 		setIsConnected(account.isConnected)
 	}, [account.isConnected])
 
-	const onSubmit = (
+	const onSubmit = useCallback((
 		form: AllocationRequestModel,
 		formikHelpers: FormikHelpers<AllocationRequestModel>
 	) => {
@@ -66,11 +66,11 @@ const AllocateForm = ({ initial, update }: Props) => {
 		})
 
 		update()
-	}
+	}, [player, initial])
 
-	const handleCreateNft = (): void => {
+	const handleCreateNft = useCallback((): void => {
 		dispatch(setCreateNftModalOpenState(true))
-	}
+	}, [])
 
 	return (
 		<Formik
@@ -84,7 +84,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 					<FormRow>
 						<NftSelect formikProps={formikProps} />
 
-						{player && player?.player.baskets.length === 0 && (<>
+						{(!player?.player || player?.player?.baskets.length === 0) && (<>
 							<Label>or</Label>
 							<ActionButton
 								type="button"

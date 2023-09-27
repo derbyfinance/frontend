@@ -19,6 +19,7 @@ export interface ProtocolDtoModel {
 	network: string
 	coin: string
 	protocol: string
+	protocolName: string
 	protocolNumber: string
 }
 

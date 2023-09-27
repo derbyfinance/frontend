@@ -1,8 +1,9 @@
 import { device } from '@helpers/DeviceHelper'
+import { useCallback } from 'react'
 import { styled } from 'styled-components'
 
 const PageSize = () => {
-	const showFontSize = (): void => {
+	const showFontSize = useCallback((): void => {
 		const list: number[] = [
 			2, 1.875, 1.75, 1.625, 1.5, 1.375, 1.25, 1.125, 1, 0.875, 0.75, 0.625,
 			0.5, 0.375, 0.25, 0.125
@@ -12,7 +13,8 @@ const PageSize = () => {
 			'fontsize 16px / 24px: ',
 			list.map((x) => `${x}em ==> ${x * 16}px / ${x * 24}px `)
 		)
-	}
+	}, [])
+	
 	return Boolean(JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false')) ? (
 		<Size onClick={showFontSize} />
 	) : null

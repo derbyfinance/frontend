@@ -5,13 +5,15 @@ import { Title } from '@components/fonts/Title'
 import LogoIcon from '@components/icons/LogoIcon'
 import { useAppDispatch } from '@hooks/ReduxStore'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
+import { useCallback } from 'react'
 
 const Banner = () => {
 	const dispatch = useAppDispatch()
 
-	const handleWalletConnect = (): void => {
+	const handleWalletConnect = useCallback((): void => {
 		dispatch(setConnectModalOpenState(true))
-	}
+	}, [])
+
 	return (
 		<BannerBox>
 			<LogoIcon />

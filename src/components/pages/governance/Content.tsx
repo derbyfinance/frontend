@@ -6,7 +6,6 @@ import { toast } from 'react-toastify'
 
 const Content = () => {
 	useDidMountEffect(() => {
-		console.log('useEffect')
 		toast.info(
 			<Notification
 				title="Governance"

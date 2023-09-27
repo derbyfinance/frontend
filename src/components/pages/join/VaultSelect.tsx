@@ -7,7 +7,7 @@ import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getCategoryListState } from '@store/RaceSlice'
 import { getVaultListData, getVaultListState } from '@store/VaultSlice'
 import { FormikProps, useFormikContext } from 'formik'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import VaultOptions from './VaultOptions'
 
 interface Props {
@@ -33,12 +33,12 @@ const VaultSelect = ({}: Props) => {
 
 	useEffect(() => {	
 		const list =
-			vaultList?.filter(({ network, category, protocols }) => {
+			vaultList?.filter(({ category, protocols }) => {
 				return (
 					protocols.find(
 						({ id }) => id.toLowerCase() === values.protocol.toLowerCase()
 					) !== undefined &&
-					network.toLowerCase() === values.network.toLowerCase() &&
+					//network.toLowerCase() === values.network.toLowerCase() &&
 					categoryFilter(category).toLowerCase() ===
 						values.category.toLowerCase()
 				)
@@ -48,13 +48,13 @@ const VaultSelect = ({}: Props) => {
 	}, [values])
 
 	//TODO: Ugly
-	const categoryFilter = (category: string): string => {
+	const categoryFilter = useCallback((category: string): string => {
 		return (
 			categoryList?.find(
 				({ name }) => name.toLowerCase() === category.toLowerCase()
 			)?.id ?? ''
 		)
-	}
+	},[categoryList])
 
 	return (
 		<SelectInputField

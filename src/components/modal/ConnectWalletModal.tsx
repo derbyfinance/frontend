@@ -9,7 +9,7 @@ import {
 	isConnectModalOpenState,
 	setConnectModalOpenState
 } from '@store/SettingsSlice'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { Connector, useAccount, useConnect } from 'wagmi'
@@ -24,18 +24,18 @@ const ConnectWalletModal = ({}: Props) => {
 	)
 	const dispatch = useAppDispatch()
 
-	const { connectors, connectAsync, isSuccess } = useConnect()
+	const { connectors, connectAsync } = useConnect()
 	const account = useAccount()
 
 	useEffect(() => {
 		setIsConnected(account.isConnected)
 	}, [account.isConnected])
 
-	const closeModal = (): void => {
+	const closeModal = useCallback((): void => {
 		dispatch(setConnectModalOpenState(false))
-	}
+	}, [])
 
-	const connectWallet = async (connector: Connector) => {
+	const connectWallet = useCallback(async (connector: Connector) => {
 		if (isConnected) {
 			toast.info(
 				<Notification
@@ -68,7 +68,7 @@ const ConnectWalletModal = ({}: Props) => {
 			)
 			console.log(e)
 		}
-	}
+	}, [])
 
 	return (
 		<Modal closeModal={closeModal} isOpen={isOpenModal ?? false}>
