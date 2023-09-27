@@ -66,7 +66,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 		})
 
 		update()
-	}, [])
+	}, [player, initial])
 
 	const handleCreateNft = useCallback((): void => {
 		dispatch(setCreateNftModalOpenState(true))

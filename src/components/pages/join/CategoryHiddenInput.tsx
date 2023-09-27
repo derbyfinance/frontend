@@ -29,7 +29,7 @@ const CategoryHiddenInput = () => {
 	//TODO: Ugly
 	const categoryFilter = useCallback((category: string): string => {
 		return categoryList?.find(({ name }) => name === category)?.id ?? ''
-	}, [])
+	}, [categoryList])
 
 	return (
 		<input

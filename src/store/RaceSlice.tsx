@@ -46,8 +46,8 @@ export const raceSlice = createSlice({
 			const { allocationList } = current(state)
 
 			const index = allocationList?.findIndex(
-				({ network, vault }) =>
-					network === payload.network && vault === payload.vault
+				({ vault, protocol }) =>
+					protocol === payload.protocol && vault === payload.vault
 			)
 			
 			if (allocationList === undefined || index === undefined || index < 0) {

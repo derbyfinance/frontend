@@ -50,7 +50,7 @@ const useRebalanceBasket = ( rebalance: RebalanceModel
 		address: process.env.NEXT_PUBLIC_GAME_CONTRACT as Hex,
 		abi: abi,
 		functionName: 'rebalanceBasket',
-		args: [debounceDelta.basketId.toString(), debounceDelta.delta],
+		args: [debounceDelta.basketId, debounceDelta.delta],
 		enabled: Boolean(debounceDelta.delta.length > 0)
 	})
 

@@ -7,6 +7,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	$isCta?: boolean
 	$isGhost?: boolean
 	$isBlock?: boolean
+	$isLoading?: boolean
 	$align?: AlignType
 	children: string | JSX.Element | JSX.Element[] | React.ReactNode
 }
@@ -15,6 +16,7 @@ const ActionButton =({
 	$isCta = false,
 	$isGhost = false,
 	$isBlock = false,
+	$isLoading = false,
 	$align,
 	children,
 	...props
@@ -24,6 +26,7 @@ const ActionButton =({
 			$isCta={$isCta}
 			$isGhost={$isGhost}
 			$isBlock={$isBlock}
+			$isLoading={$isLoading}
 			$align={$align}
 			{...props}>
 			{children}
@@ -34,6 +37,7 @@ export interface ButtonStyleProps {
 	$isCta: boolean
 	$isGhost: boolean
 	$isBlock: boolean
+	$isLoading?: boolean
 	$align?: AlignType
 }
 
@@ -49,6 +53,7 @@ export const ButtonStyle = css<ButtonStyleProps>`
 	border-radius: ${({ theme }) => theme.style.radius}px;
 	display: inline-block;
 	cursor: pointer;
+	position: relative;
 
 	${({ $isGhost, theme }) =>
 		$isGhost &&
@@ -93,6 +98,27 @@ export const ButtonStyle = css<ButtonStyleProps>`
 		pointer-events: none;
 		cursor: hand;
 	}
+
+	transition: padding-right 0.2s ease-in-out;
+	
+	${({ $isLoading }) => $isLoading && `
+		padding-right: 2em;
+		pointer-event: none;
+		
+		&::after{
+			content: '';
+			position: absolute;
+			display: inline-block;
+			right: .5em;
+			margin: .25em;
+			width: 1em;
+			height: 1em;
+			border-radius: 50%;
+			border: 2px solid;
+			border-bottom-color: transparent;
+			animation: rotating 1s linear infinite;
+		}
+	`}
 `
 
 const Button = styled.button<ButtonStyleProps>`

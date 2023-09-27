@@ -62,7 +62,7 @@ const Content = ({ network, vault }: Props) => {
 				behavior: 'smooth'
 			})
 		}, 0)
-	}, [])
+	}, [allocateRef])
 
 	const updateAllocation = useCallback((index: number) => {
 		removeAllocation(index)
@@ -76,7 +76,7 @@ const Content = ({ network, vault }: Props) => {
 				behavior: 'smooth'
 			})
 		}, 0)
-	}, [])
+	}, [formRef, allocationList])
 
 	const removeAllocation = useCallback((index: number) => {
 		dispatch(removeAllocationListState(index))

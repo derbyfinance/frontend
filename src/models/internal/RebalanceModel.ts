@@ -1,4 +1,4 @@
 export default interface RebalanceModel { 
-    basketId: number
+    basketId: string
     delta: number[]
 } 

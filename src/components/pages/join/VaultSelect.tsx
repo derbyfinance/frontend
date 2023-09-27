@@ -33,12 +33,12 @@ const VaultSelect = ({}: Props) => {
 
 	useEffect(() => {	
 		const list =
-			vaultList?.filter(({ network, category, protocols }) => {
+			vaultList?.filter(({ category, protocols }) => {
 				return (
 					protocols.find(
 						({ id }) => id.toLowerCase() === values.protocol.toLowerCase()
 					) !== undefined &&
-					network.toLowerCase() === values.network.toLowerCase() &&
+					//network.toLowerCase() === values.network.toLowerCase() &&
 					categoryFilter(category).toLowerCase() ===
 						values.category.toLowerCase()
 				)
@@ -54,7 +54,7 @@ const VaultSelect = ({}: Props) => {
 				({ name }) => name.toLowerCase() === category.toLowerCase()
 			)?.id ?? ''
 		)
-	},[])
+	},[categoryList])
 
 	return (
 		<SelectInputField
