@@ -10,7 +10,7 @@ interface Props {
 
 const RaceGetStarted = ({ $isClean = false }: Props) => {
 	return (
-		<Link href="/race/join">
+		<Link href="https://derby-finance.gitbook.io/derby-finance-docs/game/the-game" target="_blank">
 			<RaceCard type='info' $isClean={$isClean}>
 				<RaceContent>
 					<h3>Get Started</h3>

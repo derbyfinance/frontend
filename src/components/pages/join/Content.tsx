@@ -50,7 +50,7 @@ const Content = ({ network, vault }: Props) => {
 
 	useEffect(() => {
 		if (player && player.player?.baskets.length > 0) {
-			setForm({ ...form, ...{ nft: player.player.baskets[0].id }  })
+			setForm({ ...form, ...{ nft: [...player.player.baskets].reverse()[0].id }  })
 		}
 	}, [player])
 

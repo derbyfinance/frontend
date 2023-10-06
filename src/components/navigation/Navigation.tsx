@@ -33,10 +33,10 @@ const Navigation = () => {
 					<Logo />
 				</Link>
 				<MenuBar>
+					<NavLink href="/vaults" disabled title="Coming soon">Vaults</NavLink>
 					<NavLink href="/">Race</NavLink>
-					{/* <NavLink href="/race">Race</NavLink> */}
 					<NavLink href="/account">Account</NavLink>
-					<NavLink href="/governance">Governance</NavLink>
+					<NavLink href="/governance" disabled title="Coming soon">Governance</NavLink>
 					{isConnected ? (
 						<AccountButton />
 					) : (

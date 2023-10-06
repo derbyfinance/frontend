@@ -1,5 +1,4 @@
 import IconSelector from '@components/IconSelector'
-import TextLink from '@components/buttons/TextLink'
 import ChevronIcon from '@components/icons/ChevronIcon'
 
 import Notification from '@components/Notification'
@@ -93,10 +92,6 @@ const ConnectWalletModal = ({}: Props) => {
 						</ConnectButton>
 					))}
 				</Content>
-				<Footer>
-					By connecting I accept Derby's{' '}
-					<TextLink href="/terms">terms of Services</TextLink>
-				</Footer>
 			</>
 		</Modal>
 	)
@@ -112,11 +107,10 @@ const Header = styled.div`
 `
 const Content = styled.div`
 	text-align: center;
-`
-const Footer = styled.div`
-	text-align: center;
-	font-size: 0.75em;
-	color: ${({ theme }) => theme.style.colorLabel};
+
+	> button:last-child {
+		border-bottom: none;
+	}
 `
 const LogoBox = styled.div`
 	width: 6em;
