@@ -9,22 +9,27 @@ const FooterBar = () => {
 	return (
 		<Container>
 			<div>
-				<FooterLink href="/privacy">Privacy policy</FooterLink>
-				<FooterLink href="/agreement">User agreement</FooterLink>
-				<FooterLink href="/terms">Terms of use</FooterLink>
 			</div>
 			<div>
-				<FooterLink href="https://twitter.com/derby_finance">
-					<TwitterIcon />
+				<FooterLink>
+					<NavLink href="https://twitter.com/derby_finance">
+						<TwitterIcon />
+					</NavLink>
 				</FooterLink>
-				<FooterLink href="https://discord.gg/DyxRxs9mQ6">
-					<DiscordIcon />
+				<FooterLink>
+					<NavLink href="https://discord.gg/DyxRxs9mQ6">
+						<DiscordIcon />
+					</NavLink>
 				</FooterLink>
-				<FooterLink href="https://derby-finance.gitbook.io">
-					<GithubIcon />
+				<FooterLink>
+					<NavLink href="https://derby-finance.gitbook.io">
+						<GithubIcon />
+					</NavLink>
 				</FooterLink>
-				<FooterLink href="https://medium.com/derbyfinance">
-					<MediumIcon />
+				<FooterLink>
+					<NavLink href="https://medium.com/derbyfinance">
+						<MediumIcon />
+					</NavLink>
 				</FooterLink>
 			</div>
 		</Container>
@@ -39,8 +44,7 @@ const Container = styled.div`
 	flex-wrap: nowrap;
 	margin: 1em 0;
 `
-
-const FooterLink = styled(NavLink)`
+const FooterLink = styled.div`
 	font-family: ${({ theme }) => theme.fonts.robotoRegular};
 	font-size: 1.125em;
 	display: inline-block;

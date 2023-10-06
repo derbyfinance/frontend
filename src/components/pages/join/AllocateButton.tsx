@@ -116,8 +116,6 @@ const AllocateButton = () => {
 	}, [allocationList])
 
 	return (
-		<>
-			{approveToken.isLoadingPrepare.toString()} {approveToken.isLoadingTx.toString()} {rebalanceBasket.isLoadingPrepare.toString()} {rebalanceBasket.isLoadingTx.toString()}
 		<ActionButton
 			$isCta
 			$align="right"
@@ -128,8 +126,7 @@ const AllocateButton = () => {
 			{ToCoinCurrency(getTotal(), 0)}
 			{` `}
 			<Small>DRB</Small>
-			</ActionButton>
-			</>
+		</ActionButton>
 	)
 }
 

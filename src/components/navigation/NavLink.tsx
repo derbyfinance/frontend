@@ -4,10 +4,12 @@ import { useCallback } from 'react'
 import { styled } from 'styled-components'
 
 interface Props extends LinkProps {
+	disabled?: boolean
+	title?: string
 	children: string | JSX.Element | JSX.Element[]
 }
 
-const NavLink = ({ children, as, ...props }: Props) => {
+const NavLink = ({ children, as, disabled = false, title, ...props }: Props) => {
 	const pathname = usePathname()
 
 	const isActive = useCallback((): boolean => {
@@ -23,13 +25,15 @@ const NavLink = ({ children, as, ...props }: Props) => {
 	}, [pathname])
 
 	return (
-		<NavLinkComponent $isActive={isActive()} {...props}>
-			{children}
-		</NavLinkComponent>
+		<div title={title}>
+			<NavLinkComponent $isDisabled={disabled} $isActive={isActive()} {...props}>
+				{children}
+			</NavLinkComponent>
+		</div>
 	)
 }
 
-const NavLinkComponent = styled(Link)<{ $isActive: boolean }>`
+const NavLinkComponent = styled(Link)<{ $isActive: boolean, $isDisabled: boolean }>`
 	line-height: 2em;
 	padding: 0 1em;
 	font-family: ${({ theme }) => theme.fonts.slabLight};
@@ -43,5 +47,10 @@ const NavLinkComponent = styled(Link)<{ $isActive: boolean }>`
         font-family: ${theme.fonts.slabMedium};
         border-bottom-color: ${theme.style.colorCta};
     `};
+
+	${({ $isDisabled, theme }) => $isDisabled && `
+		pointer-events: none;
+		color: ${theme.style.colorDisabled};
+	`}
 `
 export default NavLink

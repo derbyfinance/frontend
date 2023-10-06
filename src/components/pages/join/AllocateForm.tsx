@@ -84,7 +84,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 					<FormRow>
 						<NftSelect formikProps={formikProps} />
 
-						{(!player?.player || player?.player?.baskets.length === 0) && (<>
+						{(!player?.player || player?.player?.baskets.length === 0 || Boolean(JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false'))) && (<>
 							<Label>or</Label>
 							<ActionButton
 								type="button"

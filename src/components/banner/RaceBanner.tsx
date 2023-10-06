@@ -11,11 +11,17 @@ import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import RewardBox from '../pages/race/RewardBox'
 import WalletCard from './WalletCard'
+import ActionButton from '@components/buttons/ActionButton'
+import LinkButton from '@components/buttons/LinkButton'
+import { useAppSelector } from '@hooks/ReduxStore'
+import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
+import { getPlayerState } from '@store/UserSlice'
 
 const RaceBanner = () => {
 	const [derbyBalance, setDerbyBalance] = useState<number>(0)
 	const balance = useDerbyTokenBalance()
-
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
+	
 	useEffect(() => {
 		setDerbyBalance(balance)
 	}, [balance])
@@ -61,6 +67,10 @@ const RaceBanner = () => {
 				<RewardBox $amount={0} $type="Bronze" />
 			</CardRow>
 			 <WalletCard/> */}
+			
+			<LinkButton $isBlock href="/race/join" $isGhost>
+				{(!player?.player || player?.player?.baskets.length === 0) ? 'Create NFT' : 'Rebalance'}
+			</LinkButton>
 		</BannerBox>
 	)
 }

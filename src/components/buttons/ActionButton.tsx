@@ -74,6 +74,7 @@ export const ButtonStyle = css<ButtonStyleProps>`
 		`
 		display: block;
 		width: 100%;
+		text-align: center;
 	`}
 
 	${({ $align }) =>
