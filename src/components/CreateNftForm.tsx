@@ -96,7 +96,7 @@ const CreateNftForm = ({ closeModal, isOpen }: Props) => {
 					<ResetForm initial={initial} trigger={isOpen} />
 					<InputField
 						inputName="name"
-						label="name NFT"
+						label="Name NFT"
 						placeholder="Wagmi borrowing"
 						formikProps={formikProps}
 					/>
