@@ -64,7 +64,7 @@ const InputField = ({
 const Container = styled.div``
 
 const Label = styled.label`
-	font-family: ${({ theme }) => theme.fonts.slabMedium};
+	font-family: ${({ theme }) => theme.fonts.slabRegular};
 	font-size: 1.25em;
 	vertical-align: middle;
 	margin: 0.75em 0;
