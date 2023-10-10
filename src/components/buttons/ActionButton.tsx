@@ -55,12 +55,21 @@ export const ButtonStyle = css<ButtonStyleProps>`
 	cursor: pointer;
 	position: relative;
 
+	&:hover {
+		filter: hue-rotate(15deg) brightness(105%);
+	}
+
 	${({ $isGhost, theme }) =>
 		$isGhost &&
 		`
 		color: inherit;
 		background: transparent;
 		border: 1px solid;
+
+		&:hover {
+			background-color: ${theme.style.colorHover};
+			filter: none;
+		}
 
 		&:disabled,
 		&:[disabled] {

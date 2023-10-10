@@ -22,7 +22,7 @@ const Content = () => {
 				<RaceCounter />
 				<RaceJoinDiscord />	
 			</RaceInfo>
-			<InfoContainer>
+			{/* <InfoContainer>
 				<h1>Leaderboard</h1>
 				<p>
 					Who are the best of the best. The 5 best are shown here as inspiration
@@ -37,7 +37,7 @@ const Content = () => {
 					to follow.
 				</p>
 			</InfoContainer>
-			<RaceVaultboard />
+			<RaceVaultboard /> */}
 		</Container>
 	)
 }

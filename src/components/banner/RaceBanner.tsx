@@ -7,25 +7,31 @@ import GraphIcon from '@components/icons/GraphIcon'
 import RewardIcon from '@components/icons/RewardIcon'
 import StakedIcon from '@components/icons/StakedIcon'
 import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import RewardBox from '../pages/race/RewardBox'
 import WalletCard from './WalletCard'
 import ActionButton from '@components/buttons/ActionButton'
 import LinkButton from '@components/buttons/LinkButton'
-import { useAppSelector } from '@hooks/ReduxStore'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import { getPlayerState } from '@store/UserSlice'
+import { setCreateNftModalOpenState } from '@store/SettingsSlice'
 
 const RaceBanner = () => {
 	const [derbyBalance, setDerbyBalance] = useState<number>(0)
 	const balance = useDerbyTokenBalance()
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
+	const dispatch = useAppDispatch()
 	
 	useEffect(() => {
 		setDerbyBalance(balance)
 	}, [balance])
 
+	const handleModal = useCallback(() => { 
+		dispatch(setCreateNftModalOpenState(true))
+	}, [])
+	
 	return (
 		<BannerBox>
 			<div>
@@ -68,7 +74,7 @@ const RaceBanner = () => {
 			</CardRow>
 			 <WalletCard/> */}
 			
-			<LinkButton $isBlock href="/race/join" $isGhost>
+			<LinkButton $isBlock href="/race/join" $isGhost onClick={(!player?.player || player?.player?.baskets.length === 0)? handleModal: undefined}>
 				{(!player?.player || player?.player?.baskets.length === 0) ? 'Create NFT' : 'Rebalance'}
 			</LinkButton>
 		</BannerBox>

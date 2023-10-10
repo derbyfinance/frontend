@@ -187,6 +187,7 @@ const SelectInput = styled.select<{readOnly: boolean}>`
 	`}
 
 	&:has(option:disabled:checked) {
+		font-family: ${({ theme }) => theme.fonts.slabLight};
 		color: ${({ theme }) => theme.style.colorPlaceholder};
 	}
 `
@@ -209,7 +210,8 @@ const OptionList = styled.div<{ $isOpen: boolean; $smallOptionList?: boolean }>`
 		display: block;
 	`};
 `
-const PlaceholderOption = styled.option``
+const PlaceholderOption = styled.option`
+`
 const OptionOverlay = styled.div<{ $isOpen: boolean }>`
 	position: absolute;
 	//background: rgba(0, 0, 0, 0.25);
