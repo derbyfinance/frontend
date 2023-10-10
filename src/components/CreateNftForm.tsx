@@ -8,41 +8,20 @@ import CreateNftValidation from '@validations/CreateNftValidation'
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { Abi } from 'viem'
 import { useAccount } from 'wagmi'
 import CategorySelect from './CategorySelect'
 import CoinSelect from './CoinSelect'
 import ActionButton from './buttons/ActionButton'
 import { FormRow, SubmitContainer } from './form/FormElements'
 import InputField from './form/InputField'
+import ResetForm from './form/ResetForm'
 
 interface Props {
+	isOpen: boolean
 	closeModal: VoidFunction
 }
 
-const abi: Abi = [
-	{
-		inputs: [
-			{
-				internalType: 'uint256',
-				name: '_vaultNumber',
-				type: 'uint256'
-			}
-		],
-		name: 'mintNewBasket',
-		outputs: [
-			{
-				internalType: 'uint256',
-				name: '',
-				type: 'uint256'
-			}
-		],
-		stateMutability: 'nonpayable',
-		type: 'function'
-	}
-]
-
-const CreateNftForm = ({ closeModal }: Props) => {
+const CreateNftForm = ({ closeModal, isOpen }: Props) => {
 	const dispatch = useAppDispatch()
 	const { address } = useAccount()
 
@@ -55,7 +34,7 @@ const CreateNftForm = ({ closeModal }: Props) => {
 
 	const debouncedToken = useDebounce(token, 500)
 
-	const { errorPrepare, isSuccessPrepare, errorTx, isSuccessTx, write } =
+	const { errorPrepare, isSuccessPrepare, errorTx, isSuccessTx, isLoadingPrepare, isLoadingTx, write } =
 		useMintBasket(parseInt(debouncedToken.coin), debouncedToken.name)
 
 	useEffect(() => {
@@ -110,10 +89,11 @@ const CreateNftForm = ({ closeModal }: Props) => {
 			initialValues={initial}
 			validationSchema={CreateNftValidation}
 			validateOnMount={false}
-			enableReinitialize
+			isInitialValid={false}
 			onSubmit={onSubmit}>
 			{(formikProps: FormikProps<CreateNftRequestModel>) => (
 				<Form noValidate>
+					<ResetForm initial={initial} trigger={isOpen} />
 					<InputField
 						inputName="name"
 						label="name NFT"
@@ -130,6 +110,7 @@ const CreateNftForm = ({ closeModal }: Props) => {
 							$isGhost
 							$isBlock
 							type="submit"
+							$isLoading={isLoadingPrepare || isLoadingTx}
 							disabled={!formikProps.isValid}>
 							Create NFT
 						</ActionButton>

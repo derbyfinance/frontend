@@ -30,7 +30,7 @@ const CreateNftModal = () => {
 					<p>to start using Derby Finance</p>
 				</Header>
 				<Content>
-					<CreateNftForm closeModal={closeModal} />
+					<CreateNftForm closeModal={closeModal} isOpen={isOpenModal ?? false} />
 				</Content>
 				<Footer></Footer>
 			</>

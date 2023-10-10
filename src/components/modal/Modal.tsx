@@ -36,22 +36,24 @@ const Container = styled.div<{ $isOpen: boolean }>`
 	position: fixed;
 	inset: 0px;
 	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 1000;
 	backdrop-filter: blur(2px);
-	overflow-y: auto;
-	opacity: 1;
-	transition: opacity 0.5s ease-in-out, z-index 0.5s step-start;
 	padding-top: 4em;
 	scrollbar-gutter: stable;
 
+	opacity: 0;
+	z-index: -10;
+	pointer-events: none;
+	overflow-y: hidden;
+	transition: opacity 0.5s ease-in-out, z-index 0.5s step-end, overflow-y 0.5s step-end;
+
 	${({ $isOpen }) =>
-		!$isOpen &&
+		$isOpen &&
 		`
-		opacity: 0;
-		z-index: -10;
-		pointer-events: none;
-		overflow-y: hidden;
-		transition: opacity 0.5s ease-in-out, z-index 0.5s step-end, overflow-y 0.5s step-end;
+		opacity: 1;
+		z-index: 1000;
+		pointer-events: auto;
+		overflow-y: auto;
+		transition: opacity 0.5s ease-in-out, z-index 0.5s step-start;
 	`}
 `
 const ModalBox = styled.div`

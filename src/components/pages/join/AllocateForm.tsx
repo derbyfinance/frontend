@@ -77,7 +77,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 			initialValues={initial}
 			validationSchema={AllocationValidation}
 			validateOnMount={false}
-			enableReinitialize
+			isInitialValid={false}
 			onSubmit={onSubmit}>
 			{(formikProps: FormikProps<AllocationRequestModel>) => (
 				<Form noValidate>

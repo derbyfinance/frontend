@@ -108,6 +108,7 @@ const TextInput = styled.input`
 	cursor: pointer;
 
 	&::placeholder {
+		font-family: ${({ theme }) => theme.fonts.slabLight};
 		color: ${({ theme }) => theme.style.colorPlaceholder};
 		opacity: 1;
 	}
