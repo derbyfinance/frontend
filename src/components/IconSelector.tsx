@@ -28,7 +28,7 @@ const IconSelector = ({ name }: Props) => {
 				return <MetaMaskIcon />
 			case 'Coinbase Wallet':
 				return <CoinbaseIcon />
-			case 'Wallet Connect':
+			case 'WalletConnect':
 				return <WalletConnecIcon />
 			default:
 				return <DerbyIcon width="100%" height="100%" />
