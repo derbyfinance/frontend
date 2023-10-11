@@ -50,7 +50,7 @@ const Container = styled.div<{ $isOpen: boolean }>`
 		$isOpen &&
 		`
 		opacity: 1;
-		z-index: 1000;
+		z-index: 89;
 		pointer-events: auto;
 		overflow-y: auto;
 		transition: opacity 0.5s ease-in-out, z-index 0.5s step-start;
@@ -58,7 +58,6 @@ const Container = styled.div<{ $isOpen: boolean }>`
 `
 const ModalBox = styled.div`
 	max-width: 25em;
-
 	margin: auto;
 	position: absolute;
 	left: 0;
