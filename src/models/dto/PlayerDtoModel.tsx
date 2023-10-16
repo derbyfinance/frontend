@@ -4,6 +4,7 @@ export interface PlayerDtoModel {
 		baskets: BasketDtoModel[]
 	}
 }
+
 export interface BasketDtoModel {
 	id: string
 	name: string
@@ -11,6 +12,11 @@ export interface BasketDtoModel {
 	redeemedRewards: string
 	unredeemedRewards: string
 	rebalancingPeriod?: string
+	allocations: AllocationDtoModel[]
+}
+
+export interface AllocationDtoModel { 
+	id: string
 }
 
 export interface ProtocolDtoModel {

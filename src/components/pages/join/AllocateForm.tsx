@@ -76,6 +76,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 		<Formik
 			initialValues={initial}
 			validationSchema={AllocationValidation}
+			enableReinitialize={true}
 			validateOnMount={false}
 			isInitialValid={false}
 			onSubmit={onSubmit}>
