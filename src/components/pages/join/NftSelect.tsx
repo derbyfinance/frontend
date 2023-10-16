@@ -18,7 +18,7 @@ const NftSelect = ({ formikProps }: Props) => {
 	useEffect(() => {
 		if (player && player?.player?.baskets.length === 0 && address !== undefined)
 			dispatch(getPlayerData(address))
-	}, [address])
+	}, [address, player])
 
 	return (
 		<SelectInputField

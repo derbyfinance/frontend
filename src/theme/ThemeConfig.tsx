@@ -26,19 +26,6 @@ export const GlobalStyles = createGlobalStyle`
     html {
         height: 100%;
         scrollbar-gutter: stable;
-
-        // ::-webkit-scrollbar {
-        //     background-color: ${({ theme }) => theme.style.colorBg};
-        //     border: 1px solid ${({ theme }) => theme.style.colorBorder};
-        //     border-radius: ${({ theme }) => theme.style.radius}px;
-        //     width: ${({ theme }) => theme.style.radius + 2}px;
-        //     height: ${({ theme }) => theme.style.radius + 2}px;
-        // }
-
-        // ::-webkit-scrollbar-thumb {
-        //     background-color: ${({ theme }) => theme.style.colorSecondary};
-        //     border-radius: ${({ theme }) => theme.style.radius}px;
-        // }
     }
 
     body {
@@ -49,11 +36,9 @@ export const GlobalStyles = createGlobalStyle`
         line-height: 1.75em;
         height: 100%;
         overflow: auto;
-       // margin-right: 0;
         
         &.modal-open {
             overflow: hidden;
-            //margin-right:${({ theme }) => theme.style.radius + 2}px;
             transition: margin-right 0.5s step-start, overflow 0.6s step-start;
         }
     }
