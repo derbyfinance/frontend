@@ -8,6 +8,7 @@ import RaceLeaderboard from './RaceLeaderboard'
 import RaceVaultboard from './RaceVaultboard'
 import RaceGetStarted from './RaceGetStarted'
 import RaceJoinDiscord from './RaceJoinDiscord'
+import KeyStatistics from './KeyStatistics'
 
 const Content = () => {
 	return (
@@ -22,6 +23,7 @@ const Content = () => {
 				<RaceCounter />
 				<RaceJoinDiscord />	
 			</RaceInfo>
+			<KeyStatistics />
 			{/* <InfoContainer>
 				<h1>Leaderboard</h1>
 				<p>

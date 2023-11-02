@@ -12,7 +12,7 @@ export interface BasketDtoModel {
 	redeemedRewards: string
 	unredeemedRewards: string
 	rebalancingPeriod?: string
-	allocations: AllocationDtoModel[]
+	allocations: string[]
 }
 
 export interface AllocationDtoModel { 
@@ -26,7 +26,7 @@ export interface ProtocolDtoModel {
 	coin: string
 	protocol: string
 	protocolName: string
-	protocolNumber: string
+	number: string
 }
 
 export interface VaultDtoModel {
