@@ -1,4 +1,4 @@
-export default () => {
+const CoinbaseIcon = () => {
 	return (
 		<svg
 			width="52"
@@ -20,3 +20,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default CoinbaseIcon

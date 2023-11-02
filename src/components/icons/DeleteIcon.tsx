@@ -1,4 +1,4 @@
-export default () => {
+const DeleteIcon = () => {
 	return (
 		<svg
 			width="19"
@@ -10,3 +10,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default DeleteIcon

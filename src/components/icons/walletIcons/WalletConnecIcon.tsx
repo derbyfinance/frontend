@@ -1,4 +1,4 @@
-export default () => {
+const WalletConnectIcon = () => {
 	return (
 		<svg
 			width="50"
@@ -13,3 +13,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default WalletConnectIcon

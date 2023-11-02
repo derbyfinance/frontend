@@ -1,4 +1,4 @@
-export default () => {
+const LockIcon = () => {
 	return (
 		<svg
 			width="20"
@@ -10,3 +10,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default LockIcon

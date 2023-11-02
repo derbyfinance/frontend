@@ -1,4 +1,4 @@
-export default () => {
+const VaultIcon = () => {
 	return (
 		<svg
 			width="26"
@@ -12,3 +12,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default VaultIcon

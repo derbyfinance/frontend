@@ -2,7 +2,7 @@ interface Props {
 	width?: string
 	height?: string
 }
-export default ({ width = '24', height = '24' }: Props) => {
+const DerbyIcon = ({ width = '24', height = '24' }: Props) => {
 	return (
 		<svg
 			width={width}
@@ -23,3 +23,5 @@ export default ({ width = '24', height = '24' }: Props) => {
 		</svg>
 	)
 }
+
+export default DerbyIcon

@@ -1,4 +1,4 @@
-export default () => {
+const UsdTIcon = () => {
 	return (
 		<svg
 			width="100%"
@@ -19,3 +19,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default UsdTIcon

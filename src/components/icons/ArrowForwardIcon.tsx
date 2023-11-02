@@ -1,4 +1,4 @@
-export default () => {
+const ArrowForwardIcon = () => {
 	return (
 		<svg
 			width="16"
@@ -11,3 +11,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default ArrowForwardIcon

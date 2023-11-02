@@ -1,4 +1,4 @@
-export default () => {
+const MediumIcon = () => {
 	return (
 		<svg
 			width="43"
@@ -12,3 +12,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default MediumIcon

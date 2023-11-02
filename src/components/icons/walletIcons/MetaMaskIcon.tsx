@@ -1,4 +1,4 @@
-export default () => {
+const MetaMaskIcon = () => {
 	return (
 		<svg
 			width="52"
@@ -93,3 +93,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default MetaMaskIcon
