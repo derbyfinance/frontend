@@ -1,4 +1,4 @@
-export default () => {
+const EyeClosedIcon = () => {
 	return (
 		<svg
 			width="18"
@@ -12,3 +12,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default EyeClosedIcon

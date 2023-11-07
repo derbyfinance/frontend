@@ -10,6 +10,15 @@ export default {
     compiler: {
         styledComponents: true
     },
+    async rewrites() {
+        return [
+            {
+                source: '/subgraph/:slug*',
+                destination: `${process.env.NEXT_PUBLIC_SUBGRAPH_URL}/:slug*`,
+                basePath: false
+            },
+        ]
+    },
     webpack: (config) => {
         config.externals.push("pino-pretty", "lokijs", "encoding");
         return config;

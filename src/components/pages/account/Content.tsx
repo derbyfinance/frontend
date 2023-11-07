@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import RaceVaultboard from '../race/RaceVaultboard'
 import AllocationBoard from './AllocationBoard'
+import AllocationChart from './AllocationChart'
 
 const Content = () => {
 	const dispatch = useAppDispatch()
@@ -53,23 +54,7 @@ const Content = () => {
 			/> */}
 
 			<SplitContainer>
-				<Chart>
-					<DoughnutChart data={[
-						{
-							label: 'Derby_USDC_LB_10',
-							data: 5
-						},
-						{
-							label: 'Derby Derby_USDC_LB_21',
-							data: 20
-						},
-						{
-							label: 'Derby_USDC_LB_30',
-							data: 15
-						}
-					]
-					} />
-				</Chart>
+				<AllocationChart />
 				<AllocationBoard />
 			</SplitContainer>
 		</Container>
@@ -84,8 +69,5 @@ const SplitContainer = styled.div`
 	gap: 2em;
 	align-items: center;
 `
-const Chart = styled.div`
-	flex: 0 1 auto;
-	max-width: 12em;
-`
+
 export default Content

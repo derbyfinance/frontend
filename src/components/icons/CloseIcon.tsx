@@ -1,4 +1,4 @@
-export default () => {
+const CloseIcon = () => {
 	return (
 		<svg
 			width="14"
@@ -10,3 +10,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default CloseIcon

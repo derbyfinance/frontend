@@ -1,55 +1,49 @@
 import Table from '@components/table/Table'
-import { useAppSelector } from '@hooks/ReduxStore'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
 import { styled } from 'styled-components'
 import AllocationBoardRow from './AllocationBoardRow'
 import ActionButton from '@components/buttons/ActionButton'
-
-interface Props {
-   children: JSX.Element
-}
+import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
+import { getPlayerData, getPlayerState } from '@store/UserSlice'
+import { useEffect, useState } from 'react'
+import { useAccount } from 'wagmi'
 
 const AllocationBoard = () => {
-    const allocationList: AllocationRequestModel[] = [
-        {
-            nft: '',
-            network: 'USDC yVault (USDC)',
-            protocol: 'Yearn Finance',
-            vault: '',
-            maxAmount: 11.6,
-            category: '',
-            amount: 1152360
-        },
-         {
-            nft: '',
-            network: 'USD Coin',
-            protocol: 'Aave',
-            vault: '',
-            maxAmount: 9.35,
-            category: '',
-            amount: 925650
-        },
-         {
-            nft: '',
-            network: 'dUSDC',
-            protocol: 'Gearbox',
-            vault: '',
-            maxAmount: 7.51,
-            category: '',
-            amount: 743490
-        },
-         {
-            nft: '',
-            network: 'fUSDC',
-            protocol: 'Harvest Finance',
-            vault: '',
-            maxAmount: 2.9,
-            category: '',
-            amount: 287100
+    const dispatch = useAppDispatch()
+    const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
+    const [allocationList, setAllocationList] = useState<AllocationRequestModel[]>([])
+    
+    const {address} = useAccount()
+
+    useEffect(() => {
+		if (address !== undefined)
+			dispatch(getPlayerData(address))
+    }, [address])
+    
+    useEffect(() => { 
+        if (player && player?.player?.baskets.length > 0) { 
+            const allocations: string[] = player.player.baskets[0].allocations
+    
+            const list:AllocationRequestModel[] = player.player.baskets[0].vault.protocols.map((protocol) => {
+
+                const amount = Number(allocations[Number(protocol.number)])
+                return {
+                    nft: '',
+                    network: protocol.name,
+                    protocol: protocol.protocolName,
+                    amount: amount,
+                    vault: '',
+                    category: '',
+                    maxAmount: 0 
+                }
+            })
+
+            setAllocationList(list.filter(item => item.amount > 0))
         }
-    ] 
+    }, [player])
     
     const headers: TableHeaderModel[] = [
         { name: 'LP Token' },

@@ -1,4 +1,4 @@
-export default () => {
+const MembersIcon = () => {
 	return (
 		<svg
 			width="26"
@@ -15,3 +15,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default MembersIcon

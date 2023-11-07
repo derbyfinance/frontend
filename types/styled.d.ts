@@ -18,6 +18,7 @@ declare module 'styled-components' {
         colorText: string
         colorLink: string
         colorCta: string
+        colorPrimary: string
         colorSecondary: string
         colorBorder: string
         colorLabel: string

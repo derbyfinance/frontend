@@ -1,4 +1,4 @@
-export default () => {
+const UsdCIcon = () => {
 	return (
 		<svg
 			width="100%"
@@ -20,3 +20,5 @@ export default () => {
 		</svg>
 	)
 }
+
+export default UsdCIcon

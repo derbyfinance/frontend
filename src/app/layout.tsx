@@ -1,3 +1,4 @@
+import StyledComponentsRegistry from '@components/layout/StyledComponentsRegistry'
 import '../theme/globalImports.css'
 
 export const metadata = {
@@ -12,7 +13,11 @@ interface Props {
 const Layout = ({ children }: Props) => {
 	return (
 		<html lang="en">
-			<body>{children}</body>
+			<body>
+				<StyledComponentsRegistry>
+					{children}
+				</StyledComponentsRegistry>
+			</body>
 		</html>
 	)
 }

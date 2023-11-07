@@ -2,7 +2,7 @@ interface Props {
 	width?: string
 	height?: string
 }
-export default ({ width = '121', height = '86' }: Props) => {
+const LogoIcon = ({ width = '121', height = '86' }: Props) => {
 	return (
 		<svg
 			width={width}
@@ -15,3 +15,5 @@ export default ({ width = '121', height = '86' }: Props) => {
 		</svg>
 	)
 }
+
+export default LogoIcon
