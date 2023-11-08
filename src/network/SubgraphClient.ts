@@ -4,7 +4,6 @@ const subgraphClient = axios.create({
 	baseURL: process.env.NEXT_PUBLIC_PROXY ? `${process.env.NEXT_PUBLIC_PROXY_URL}/subgraph`: process.env.NEXT_PUBLIC_SUBGRAPH_URL,
 	//timeout: 1500,
 	headers: {
-		'test': `isProxy ${process.env.NEXT_PUBLIC_PROXY}`,
 		'Content-Type': 'application/json',
 		Accept: 'application/json',
 		'Access-Control-Allow-Methods': 'POST,GET'
