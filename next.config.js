@@ -10,11 +10,15 @@ export default {
     compiler: {
         styledComponents: true
     },
+    exclude: [
+        'certificates',
+        'server.js'
+    ],
     async rewrites() {
         return [
             {
                 source: '/subgraph/:slug*',
-                destination: `${process.env.NEXT_PUBLIC_SUBGRAPH_URL}/:slug*`,
+                destination: `${process.env.NEXT_PUBLIC_SUBGRAPH_URL}`,
                 basePath: false
             },
         ]
