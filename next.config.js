@@ -10,10 +10,6 @@ export default {
     compiler: {
         styledComponents: true
     },
-    exclude: [
-        'certificates',
-        'server.js'
-    ],
     async rewrites() {
         return [
             {

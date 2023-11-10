@@ -17,6 +17,7 @@ import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import { getPlayerState } from '@store/UserSlice'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
+import BigNumber from 'bignumber.js'
 
 const RaceBanner = () => {
 	const [derbyBalance, setDerbyBalance] = useState<number>(0)
@@ -43,7 +44,7 @@ const RaceBanner = () => {
 					<StakedIcon />
 					<Label>Staked amount</Label>
 				</div>
-				<StockCurrency $amount={11645} $decimals={0} $coin="USDC" />
+				<StockCurrency $amount={Number(player?.player.baskets[0].stakedAmount ?? 0)} $decimals={0} $coin="USDC" />
 			</CardRow>
 			<CardRow $hasHover={false} $isFlex>
 				<div>
@@ -52,12 +53,12 @@ const RaceBanner = () => {
 				</div>
 				<Amount>
 					<StockCurrency
-						$amount={84585}
+						$amount={0}
 						$isStock={true}
 						$decimals={0}
 						$coin={''}
 					/>
-					<StockBadge $amount={0.129} />
+					<StockBadge $amount={0} />
 				</Amount>
 			</CardRow>
 			<CardRow $hasHover={false} $isFlex $hasBorder={false}>
@@ -65,7 +66,7 @@ const RaceBanner = () => {
 					<RewardIcon />
 					<Label>Rewards</Label>
 				</div>
-				<StockCurrency $amount={derbyBalance} $coin="DRB" />
+				<StockCurrency $amount={Number(new BigNumber(player?.player.baskets[0].redeemedRewards ?? 0).div(10000000))} $coin="DRB" />
 			</CardRow>
 			{/*<CardRow $hasHover={false} $isFlex>
 				<RewardBox $amount={3} $type="Gold" />
