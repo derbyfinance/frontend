@@ -2,7 +2,6 @@ import DiscordIcon from '@components/icons/socialIcons/DiscordIcon'
 import GithubIcon from '@components/icons/socialIcons/GithubIcon'
 import MediumIcon from '@components/icons/socialIcons/MediumIcon'
 import TwitterIcon from '@components/icons/socialIcons/TwitterIcon'
-import NavLink from '@components/navigation/NavLink'
 import { styled } from 'styled-components'
 
 const FooterBar = () => {
@@ -12,24 +11,24 @@ const FooterBar = () => {
 			</div>
 			<div>
 				<FooterLink>
-					<NavLink href="https://twitter.com/derby_finance">
+					<ExternalLink href="https://twitter.com/derby_finance" target="_blank">
 						<TwitterIcon />
-					</NavLink>
+					</ExternalLink>
 				</FooterLink>
 				<FooterLink>
-					<NavLink href="https://discord.gg/DyxRxs9mQ6">
+					<ExternalLink href="https://discord.gg/DyxRxs9mQ6" target="_blank">
 						<DiscordIcon />
-					</NavLink>
+					</ExternalLink>
 				</FooterLink>
 				<FooterLink>
-					<NavLink href="https://derby-finance.gitbook.io">
+					<ExternalLink href="https://derby-finance.gitbook.io">
 						<GithubIcon />
-					</NavLink>
+					</ExternalLink>
 				</FooterLink>
 				<FooterLink>
-					<NavLink href="https://medium.com/derbyfinance">
+					<ExternalLink href="https://medium.com/derbyfinance" target="_blank">
 						<MediumIcon />
-					</NavLink>
+					</ExternalLink>
 				</FooterLink>
 			</div>
 		</Container>
@@ -48,6 +47,14 @@ const FooterLink = styled.div`
 	font-family: ${({ theme }) => theme.fonts.robotoRegular};
 	font-size: 1.125em;
 	display: inline-block;
+`
+const ExternalLink = styled.a`
+	line-height: 2em;
+	padding: 0 1em;
+	font-family: ${({ theme }) => theme.fonts.slabLight};
+	color: ${({ theme }) => theme.style.colorText};
+	font-size: 1.25em;
+	border-bottom: 4px solid transparent;
 `
 
 export default FooterBar

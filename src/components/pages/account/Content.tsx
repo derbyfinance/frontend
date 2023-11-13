@@ -15,11 +15,18 @@ import { styled } from 'styled-components'
 import RaceVaultboard from '../race/RaceVaultboard'
 import AllocationBoard from './AllocationBoard'
 import AllocationChart from './AllocationChart'
+import { useAccount } from 'wagmi'
 
 const Content = () => {
 	const dispatch = useAppDispatch()
 	const stats = useAppSelector<StatsDtoModel[] | undefined>(getVaultStatsState)
 	const [filter, setFilter] = useState<ChartFilterType>()
+	const [isConnected, setIsConnected] = useState<boolean>(false)
+	const account = useAccount()
+
+	useEffect(() => {
+		setIsConnected(account.isConnected)
+	}, [account.isConnected])
 
 	const format: LocalizeModel = {
 		decimals: 2,
@@ -32,7 +39,7 @@ const Content = () => {
 	}, [filter])
 
 	return (
-		<Container>
+		isConnected && <Container>
 			<InfoContainer>
 				<h1>Your allocation</h1>
 				<p>Who is in the race for you</p>

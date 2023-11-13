@@ -6,8 +6,7 @@ import CardRow from '@components/card/CardRow'
 import GraphIcon from '@components/icons/GraphIcon'
 import RewardIcon from '@components/icons/RewardIcon'
 import StakedIcon from '@components/icons/StakedIcon'
-import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { styled } from 'styled-components'
 import RewardBox from '../pages/race/RewardBox'
 import WalletCard from './WalletCard'
@@ -15,20 +14,22 @@ import ActionButton from '@components/buttons/ActionButton'
 import LinkButton from '@components/buttons/LinkButton'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
-import { getPlayerState } from '@store/UserSlice'
+import { getPlayerData, getPlayerState } from '@store/UserSlice'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
 import BigNumber from 'bignumber.js'
+import { useAccount } from 'wagmi'
 
 const RaceBanner = () => {
-	const [derbyBalance, setDerbyBalance] = useState<number>(0)
-	const balance = useDerbyTokenBalance()
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const dispatch = useAppDispatch()
 	
-	useEffect(() => {
-		setDerbyBalance(balance)
-	}, [balance])
+	 const {address} = useAccount()
 
+    useEffect(() => {
+		if (address !== undefined)
+			dispatch(getPlayerData(address))
+	}, [address])
+	
 	const handleModal = useCallback(() => { 
 		dispatch(setCreateNftModalOpenState(true))
 	}, [])

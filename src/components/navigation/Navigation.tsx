@@ -35,7 +35,9 @@ const Navigation = () => {
 				<MenuBar>
 					<NavLink href="/vaults" disabled title="Coming soon">Vaults</NavLink>
 					<NavLink href="/">Race</NavLink>
-					<NavLink href="/account">Account</NavLink>
+					{isConnected ? <NavLink href="/account">Account</NavLink> :
+						<NavLink href="/account" onClick={handleWalletConnect}>Account</NavLink>
+					 }
 					<NavLink href="/governance" disabled title="Coming soon">Governance</NavLink>
 					{isConnected ? (
 						<AccountButton />
