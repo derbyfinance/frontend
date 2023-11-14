@@ -1,8 +1,8 @@
 import RaceBanner from '@components/banner/RaceBanner'
 import Banner from '@components/pages/Banner'
-import { useEffect, useState } from 'react'
+import { useAppSelector } from '@hooks/ReduxStore'
+import { isConnectedState } from '@store/UserSlice'
 import { styled } from 'styled-components'
-import { useAccount } from 'wagmi'
 
 interface Props {
 	isFullPage: boolean
@@ -10,12 +10,7 @@ interface Props {
 }
 
 const Aside = ({ isFullPage, aside }: Props) => {
-	const [isConnected, setIsConnected] = useState<boolean>(false)
-	const account = useAccount()
-
-	useEffect(() => {
-		setIsConnected(account.isConnected)
-	}, [account.isConnected])
+	const isConnected = useAppSelector<boolean>(isConnectedState)
 
 	return (
 		<>

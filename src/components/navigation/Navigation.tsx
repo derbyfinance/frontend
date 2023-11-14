@@ -4,22 +4,22 @@ import { styled } from 'styled-components'
 import Logo from '@components/icons/Logo'
 
 import ActionButton from '@components/buttons/ActionButton'
-import { useAppDispatch } from '@hooks/ReduxStore'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import AccountButton from './AccountButton'
 import NavLink from './NavLink'
+import { isConnectedState, setIsConnectedState } from '@store/UserSlice'
 
 const Navigation = () => {
-	const [isConnected, setIsConnected] = useState<boolean>(false)
-
 	const dispatch = useAppDispatch()
 	const account = useAccount()
+	const isConnected = useAppSelector<boolean>(isConnectedState)
 
 	useEffect(() => {
-		setIsConnected(account.isConnected)
-	}, [account.isConnected])
+		dispatch(setIsConnectedState(account.isConnected))
+	 }, [account.isConnected])
 
 	const handleWalletConnect = useCallback((): void => {
 		dispatch(setConnectModalOpenState(true))

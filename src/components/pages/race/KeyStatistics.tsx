@@ -25,7 +25,7 @@ const KeyStatistics = () => {
                     <Info>Race number</Info>
                 </Statistic>
                 <Statistic>
-                    <Title>{ToCoinCurrency(vaultList?.[0].baskets.length ?? 0)}</Title>
+                    <Title>{ToCoinCurrency(vaultList?.[0].baskets.length ?? 0, 0, true)}</Title>
                     <Info>Players in the race</Info>
                 </Statistic>
                 <Statistic>

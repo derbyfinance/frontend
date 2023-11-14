@@ -8,27 +8,21 @@ import {
 	isConnectModalOpenState,
 	setConnectModalOpenState
 } from '@store/SettingsSlice'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { Connector, useAccount, useConnect } from 'wagmi'
 import Modal from './Modal'
+import { isConnectedState } from '@store/UserSlice'
 
-interface Props {}
-
-const ConnectWalletModal = ({}: Props) => {
-	const [isConnected, setIsConnected] = useState<boolean>(false)
+const ConnectWalletModal = () => {
+	const dispatch = useAppDispatch()
+	const isConnected = useAppSelector<boolean>(isConnectedState)
 	const isOpenModal = useAppSelector<boolean | undefined>(
 		isConnectModalOpenState
 	)
-	const dispatch = useAppDispatch()
 
 	const { connectors, connectAsync } = useConnect()
-	const account = useAccount()
-
-	useEffect(() => {
-		setIsConnected(account.isConnected)
-	}, [account.isConnected])
 
 	const closeModal = useCallback((): void => {
 		dispatch(setConnectModalOpenState(false))
@@ -78,7 +72,7 @@ const ConnectWalletModal = ({}: Props) => {
 					</LogoBox>
 					<h4>Connect Wallet</h4>
 					<p>to start using Derby Finance</p>
-					{isConnected ? 'Connected' : 'Not connected'}
+					<p>{isConnected ? 'Connected' : 'Not connected'}</p>
 				</Header>
 				<Content>
 					{connectors.map((connector, index) => (
