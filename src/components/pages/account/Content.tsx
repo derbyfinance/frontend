@@ -1,9 +1,6 @@
 'use client'
 
-import DoughnutChart from '@components/charts/DoughnutChart'
-import LineChart from '@components/charts/LineChart'
 import { ChartFilterType } from '@datatypes/ChartFilterType'
-import { formatDate } from '@functions/DateFunction'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 
 import StatsDtoModel from '@models/dto/StatsDtoModel'
@@ -12,14 +9,17 @@ import { getVaultStatsData, getVaultStatsState } from '@store/VaultSlice'
 
 import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
-import RaceVaultboard from '../race/RaceVaultboard'
 import AllocationBoard from './AllocationBoard'
 import AllocationChart from './AllocationChart'
+import { useAccount } from 'wagmi'
+import { isConnectedState } from '@store/UserSlice'
 
 const Content = () => {
 	const dispatch = useAppDispatch()
+	const isConnected = useAppSelector<boolean>(isConnectedState)
 	const stats = useAppSelector<StatsDtoModel[] | undefined>(getVaultStatsState)
 	const [filter, setFilter] = useState<ChartFilterType>()
+	const account = useAccount()
 
 	const format: LocalizeModel = {
 		decimals: 2,
@@ -32,7 +32,7 @@ const Content = () => {
 	}, [filter])
 
 	return (
-		<Container>
+		isConnected && <Container>
 			<InfoContainer>
 				<h1>Your allocation</h1>
 				<p>Who is in the race for you</p>

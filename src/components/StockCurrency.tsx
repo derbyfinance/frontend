@@ -8,20 +8,22 @@ interface Props {
 	$decimals?: number
 	$coin?: CoinType
 	$isStock?: boolean
+	$isAbbr?: boolean
 }
 
 const StockCurrency = ({
 	$amount,
 	$coin,
 	$isStock = false,
+	$isAbbr = false,
 	$decimals = 2
 }: Props) => {
 	return (
 		<Container $isStock={$isStock} $amount={$amount}>
 			{$isStock && $amount > 0 ? '+' : null}
 			{$coin !== undefined
-				? ToCoinCurrency($amount, $decimals)
-				: ToCurrency($amount, $decimals)}
+				? ToCoinCurrency($amount, $decimals, $isAbbr)
+				: ToCurrency($amount, $decimals, $isAbbr)}
 			{$coin !== undefined ? (
 				<CoinCurrency>{$coin.toUpperCase()}</CoinCurrency>
 			) : null}

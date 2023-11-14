@@ -1,7 +1,16 @@
+import StockCurrency from '@components/StockCurrency'
 import { ToCoinCurrency } from '@functions/CurrencyFunction'
+import { useAppSelector } from '@hooks/ReduxStore'
+import { VaultDtoModel } from '@models/dto/PlayerDtoModel'
+import { getVaultListState } from '@store/VaultSlice'
+import BigNumber from 'bignumber.js'
 import { styled } from 'styled-components'
 
 const KeyStatistics = () => {
+    const vaultList = useAppSelector<VaultDtoModel[] | undefined>(
+		getVaultListState
+    )
+    
     return (
         <>
             <InfoContainer>
@@ -12,27 +21,32 @@ const KeyStatistics = () => {
             </InfoContainer>
             <Container>
                 <Statistic>
-                    <Title>#4</Title>
+                    <Title>#{vaultList?.[0].races.length}</Title>
                     <Info>Race number</Info>
                 </Statistic>
                 <Statistic>
-                    <Title>1,999</Title>
+                    <Title>{ToCoinCurrency(vaultList?.[0].baskets.length ?? 0, 0, true)}</Title>
                     <Info>Players in the race</Info>
                 </Statistic>
                 <Statistic>
-                    <Title>{ToCoinCurrency(1230000,1, true)} DRB</Title>
+                    <Title>
+                        <StockCurrency $amount={vaultList?.[0].races[0].stakedTokens ?? 0} $isAbbr $coin="DRB"/>
+                    </Title>
                     <Info>Amount of staked tokens</Info>
                 </Statistic>
                 <Statistic>
-                    <Title>6.47%</Title>
+                    {/* <Title>{ vaultList?.[0].exchangeRates?.length > 1 ? ((vaultList?.[0].exchangeRates?.[1] - vaultList?.[0].exchangeRates?.[0])/vaultList?.[0].exchangeRates?.[0])*26: 0}%</Title> */}
+                    <Title>--%</Title>
                     <Info>APY of the vault</Info>
                 </Statistic>
                 <Statistic>
-                    <Title>{ToCoinCurrency(6470, 1, true)} DRB</Title>
+                    <Title>
+                        <StockCurrency $amount={Number(new BigNumber(vaultList?.[0].races[0].totalRewards ?? 0).div(10000000))} $isAbbr $coin="DRB"/>
+                    </Title>
                     <Info>Total rewards</Info>
                 </Statistic>
                 <Statistic>
-                    <Title>6 days</Title>
+                    <Title>-- days</Title>
                     <Info>Time to rebalance</Info>
                 </Statistic>
             </Container>

@@ -2,17 +2,17 @@ import { useAppSelector } from '@hooks/ReduxStore'
 import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
+import { isConnectedState } from '@store/UserSlice'
 import { useFormikContext } from 'formik'
 import { MouseEvent, useCallback } from 'react'
 import { styled } from 'styled-components'
-import { useAccount } from 'wagmi'
 
 const PercentageBar = () => {
-	const { isConnected } = useAccount()
 	const rewards = useDerbyTokenBalance()
 	const { values, setFieldValue, validateOnBlur, handleBlur } =
 		useFormikContext<AllocationRequestModel>()
 	
+	const isConnected = useAppSelector<boolean>(isConnectedState)
 	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
 	)

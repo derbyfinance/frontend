@@ -31,6 +31,23 @@ export const GetVaultList = async (
           chainId,
           coin,
           category,
+          baskets {
+            id,
+            name,
+            vault,
+            stakedAmount,
+            redeemedRewards,
+            unredeemedRewards,
+            allocations
+          },
+          exchangeRates(first: 2) {
+            id,
+            exchangeRate
+          }
+          races {
+            stakedTokens,
+            totalRewards 
+          }
           protocols {
               id,
               protocolName,

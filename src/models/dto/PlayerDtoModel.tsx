@@ -9,6 +9,7 @@ export interface BasketDtoModel {
 	id: string
 	name: string
 	vault: VaultDtoModel
+	stakedAmount: string
 	redeemedRewards: string
 	unredeemedRewards: string
 	rebalancingPeriod?: string
@@ -29,6 +30,19 @@ export interface ProtocolDtoModel {
 	number: string
 }
 
+export interface RewardsDtoModel {
+	rewards: string[]
+}
+
+export interface RaceDtoModel {
+	stakedTokens: number
+	totalRewards: number
+}
+
+export interface ExchangeRateDtoModel { 
+	id: string
+	exchangeRate: number
+}
 export interface VaultDtoModel {
 	id: string
 	name: string
@@ -38,4 +52,8 @@ export interface VaultDtoModel {
 	category: string
 	vaultNumber: string
 	protocols: ProtocolDtoModel[]
+	vaultRewards: RewardsDtoModel
+	races: RaceDtoModel[]
+	baskets: BasketDtoModel[]
+	exchangeRates: ExchangeRateDtoModel[]
 }

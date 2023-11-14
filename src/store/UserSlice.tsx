@@ -5,30 +5,26 @@ import { Hex } from 'viem'
 
 import { AppState } from './Store'
 export interface UserState {
-	staked?: number
-	performance?: number
-	reward?: number
-	amountGold: number
-	amountSilver: number
-	amountBronze: number
-
 	player?: PlayerDtoModel
 	playerPending: boolean
 	playerError: boolean
+	isConnected:boolean
 }
 
 const initialState: UserState = {
-	amountGold: 0,
-	amountSilver: 0,
-	amountBronze: 0,
 	playerPending: false,
-	playerError: false
+	playerError: false,
+	isConnected: false
 }
 
 export const userSlice = createSlice({
 	name: 'user',
 	initialState,
-	reducers: {},
+	reducers: {
+		setIsConnectedState(state, { payload }) {
+			state.isConnected = payload
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			// LeaderboardList
@@ -55,6 +51,8 @@ export const getPlayerData = createAsyncThunk(
 export const getPlayerState = (state: AppState): PlayerDtoModel | undefined =>
 	state.user?.player
 
-export const {} = userSlice.actions
+export const isConnectedState = (state: AppState): boolean => state.user?.isConnected
+
+export const {setIsConnectedState} = userSlice.actions
 
 export default userSlice.reducer

@@ -2,15 +2,22 @@ import Avatar from '@components/Avatar'
 import ActionButton from '@components/buttons/ActionButton'
 import ArrowDropdownIcon from '@components/icons/ArrowDropdownIcon'
 import { MaskCoinAddress } from '@functions/StringFunction'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import { useAccount } from 'wagmi'
 import AccountInfo from './AccountInfo'
+import { Hex } from 'viem'
 
 const AccountButton = () => {
-	const { address } = useAccount()
 
 	const [isOpen, setIsOpen] = useState<boolean>(false)
+	const [address, setAddress] = useState<Hex>()
+	
+	const account = useAccount()
+
+	useEffect(() => { 
+		setAddress(account.address)
+	}, [account.address])
 
 	const toggleOpen = useCallback((isOpen: boolean): void => {
 		setIsOpen(!isOpen)

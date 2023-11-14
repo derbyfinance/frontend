@@ -16,6 +16,7 @@ export const GetPlayer = async (address: Hex): Promise<PlayerDtoModel> => {
             basketId
             name,
             rebalancingPeriod,
+            stakedAmount
             allocations,
             redeemedRewards,
             unredeemedRewards,
@@ -32,6 +33,9 @@ export const GetPlayer = async (address: Hex): Promise<PlayerDtoModel> => {
                     number,
                     protocolName,
                     protocolVault,
+                }
+                vaultRewards {
+                    rewards
                 }
             }
         }

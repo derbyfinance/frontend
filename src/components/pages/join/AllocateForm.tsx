@@ -13,12 +13,11 @@ import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import useDidMountEffect from '@hooks/UseDidMountEffect'
 import { setAllocationListState } from '@store/RaceSlice'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
-import { getPlayerData, getPlayerState } from '@store/UserSlice'
-import { useCallback, useEffect, useState } from 'react'
+import { getPlayerData, getPlayerState, isConnectedState } from '@store/UserSlice'
+import { useCallback } from 'react'
 import { useAccount } from 'wagmi'
 import CategoryHiddenInput from './CategoryHiddenInput'
 import MaxAmountHiddenInput from './MaxAmountHiddenInput'
-import NetworkSelect from './NetworkSelect'
 import NftSelect from './NftSelect'
 import PercentageBar from './PercentageBar'
 import ProtocolSelect from './ProtocolSelect'
@@ -31,7 +30,7 @@ interface Props {
 }
 
 const AllocateForm = ({ initial, update }: Props) => {
-	const [isConnected, setIsConnected] = useState<boolean>(false)
+	const isConnected = useAppSelector<boolean>(isConnectedState)
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const dispatch = useAppDispatch()
 
@@ -40,10 +39,6 @@ const AllocateForm = ({ initial, update }: Props) => {
 	useDidMountEffect(() => {
 		if (account.address !== undefined) dispatch(getPlayerData(account.address))
 	}, [account.address])
-
-	useEffect(() => {
-		setIsConnected(account.isConnected)
-	}, [account.isConnected])
 
 	const onSubmit = useCallback((
 		form: AllocationRequestModel,

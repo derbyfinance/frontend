@@ -4,30 +4,23 @@ import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
 import useDidMountEffect from '@hooks/UseDidMountEffect'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
-import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
-import { useAccount } from 'wagmi'
 import AllocateButton from './AllocateButton'
 import AllocateSummaryRow from './AllocateSummaryRow'
 import ConnectWalletButton from './ConnectWalletButton'
+import { isConnectedState } from '@store/UserSlice'
 interface Props {
 	update: (index: number) => void
 	remove: (index: number) => void
 }
 
 const AllocateSummary = ({ update, remove }: Props) => {
-	const [isConnected, setIsConnected] = useState<boolean>(false)
-
-	const account = useAccount()
 	const rewards = useDerbyTokenBalance()
+	const isConnected = useAppSelector<boolean>(isConnectedState)
 	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
 	)
-
-	useEffect(() => {
-		setIsConnected(account.isConnected)
-	}, [account.isConnected])
 
 	useDidMountEffect(() => {
 		const amount =
