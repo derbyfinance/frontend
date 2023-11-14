@@ -1,20 +1,20 @@
 import Notification from '@components/Notification'
-import { useAppDispatch } from '@hooks/ReduxStore'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import useDebounce from '@hooks/UseDebounce'
 import useMintBasket from '@hooks/UseMintNewBasket'
 import CreateNftRequestModel from '@models/requests/CreateNftRequestModel'
-import { getPlayerData } from '@store/UserSlice'
+import { getAddressState, getPlayerData } from '@store/UserSlice'
 import CreateNftValidation from '@validations/CreateNftValidation'
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import { useAccount } from 'wagmi'
 import CategorySelect from './CategorySelect'
 import CoinSelect from './CoinSelect'
 import ActionButton from './buttons/ActionButton'
 import { FormRow, SubmitContainer } from './form/FormElements'
 import InputField from './form/InputField'
 import ResetForm from './form/ResetForm'
+import { Hex } from 'viem'
 
 interface Props {
 	isOpen: boolean
@@ -23,7 +23,7 @@ interface Props {
 
 const CreateNftForm = ({ closeModal, isOpen }: Props) => {
 	const dispatch = useAppDispatch()
-	const { address } = useAccount()
+	const address = useAppSelector<Hex | undefined>(getAddressState)
 
 	const initial: CreateNftRequestModel = {
 		name: '',

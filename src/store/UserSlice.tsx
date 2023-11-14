@@ -8,7 +8,8 @@ export interface UserState {
 	player?: PlayerDtoModel
 	playerPending: boolean
 	playerError: boolean
-	isConnected:boolean
+	isConnected: boolean
+	address?: Hex
 }
 
 const initialState: UserState = {
@@ -24,6 +25,9 @@ export const userSlice = createSlice({
 		setIsConnectedState(state, { payload }) {
 			state.isConnected = payload
 		},
+		setAddressState(state, { payload }) {
+			state.address = payload
+		}
 	},
 	extraReducers: (builder) => {
 		builder
@@ -53,6 +57,8 @@ export const getPlayerState = (state: AppState): PlayerDtoModel | undefined =>
 
 export const isConnectedState = (state: AppState): boolean => state.user?.isConnected
 
-export const {setIsConnectedState} = userSlice.actions
+export const getAddressState = (state: AppState): Hex | undefined => state.user?.address
+
+export const {setIsConnectedState, setAddressState} = userSlice.actions
 
 export default userSlice.reducer
