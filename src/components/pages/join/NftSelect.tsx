@@ -1,9 +1,10 @@
 import SelectInputField from '@components/form/SelectInputField'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
-import { getPlayerData, getPlayerState } from '@store/UserSlice'
+import { getAddressState, getPlayerData, getPlayerState } from '@store/UserSlice'
 import { FormikProps } from 'formik'
 import { useEffect } from 'react'
+import { Hex } from 'viem'
 import { useAccount } from 'wagmi'
 
 interface Props {
@@ -12,13 +13,13 @@ interface Props {
 
 const NftSelect = ({ formikProps }: Props) => {
 	const dispatch = useAppDispatch()
+	const address = useAppSelector<Hex | undefined>(getAddressState)
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
-	const { address } = useAccount()
-
+	
 	useEffect(() => {
 		if (player && player?.player?.baskets.length === 0 && address !== undefined)
 			dispatch(getPlayerData(address))
-	}, [address, player])
+	}, [player])
 
 	return (
 		<SelectInputField

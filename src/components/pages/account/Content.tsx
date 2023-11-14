@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import AllocationBoard from './AllocationBoard'
 import AllocationChart from './AllocationChart'
-import { useAccount } from 'wagmi'
 import { isConnectedState } from '@store/UserSlice'
 
 const Content = () => {
@@ -19,7 +18,6 @@ const Content = () => {
 	const isConnected = useAppSelector<boolean>(isConnectedState)
 	const stats = useAppSelector<StatsDtoModel[] | undefined>(getVaultStatsState)
 	const [filter, setFilter] = useState<ChartFilterType>()
-	const account = useAccount()
 
 	const format: LocalizeModel = {
 		decimals: 2,

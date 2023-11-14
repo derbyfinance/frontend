@@ -10,16 +10,20 @@ import { useCallback, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import AccountButton from './AccountButton'
 import NavLink from './NavLink'
-import { isConnectedState, setIsConnectedState } from '@store/UserSlice'
+import { getPlayerData, isConnectedState, setAddressState, setIsConnectedState } from '@store/UserSlice'
 
 const Navigation = () => {
 	const dispatch = useAppDispatch()
-	const account = useAccount()
-	const isConnected = useAppSelector<boolean>(isConnectedState)
+	const {isConnected, address} = useAccount()
+	const isConnectedUser = useAppSelector<boolean>(isConnectedState)
 
 	useEffect(() => {
-		dispatch(setIsConnectedState(account.isConnected))
-	 }, [account.isConnected])
+		dispatch(setIsConnectedState(isConnected))
+		dispatch(setAddressState(address))
+		if (address !== undefined) {
+			dispatch(getPlayerData(address))
+		}
+	 }, [isConnected, address])
 
 	const handleWalletConnect = useCallback((): void => {
 		dispatch(setConnectModalOpenState(true))
@@ -35,11 +39,11 @@ const Navigation = () => {
 				<MenuBar>
 					<NavLink href="/vaults" disabled title="Coming soon">Vaults</NavLink>
 					<NavLink href="/">Race</NavLink>
-					{isConnected ? <NavLink href="/account">Account</NavLink> :
+					{isConnectedUser ? <NavLink href="/account">Account</NavLink> :
 						<NavLink href="/account" onClick={handleWalletConnect}>Account</NavLink>
 					 }
 					<NavLink href="/governance" disabled title="Coming soon">Governance</NavLink>
-					{isConnected ? (
+					{isConnectedUser ? (
 						<AccountButton />
 					) : (
 						<ActionButton $isCta onClick={handleWalletConnect}>

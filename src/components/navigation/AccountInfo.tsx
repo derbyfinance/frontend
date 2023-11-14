@@ -7,12 +7,14 @@ import CopyIcon from '@components/icons/CopyIcon'
 import CreateCoinIcon from '@components/icons/CreateCoinIcon'
 import ExternalIcon from '@components/icons/ExternalIcon'
 import { CopyToClipboard } from '@functions/StringFunction'
-import { useAppDispatch } from '@hooks/ReduxStore'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import useBuyDerbyToken from '@hooks/UseBuyDerbyToken'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
+import { getAddressState } from '@store/UserSlice'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
+import { Hex } from 'viem'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 interface Props {
@@ -20,7 +22,8 @@ interface Props {
 }
 
 const AccountInfo = ({ $isOpen }: Props) => {
-	const { address, connector } = useAccount()
+	const address = useAppSelector<Hex | undefined>(getAddressState)
+	const { connector } = useAccount()
 	const { disconnect } = useDisconnect()
 	const { chain } = useNetwork()
 	const [amount, setAmount] = useState<number>(0)

@@ -23,13 +23,6 @@ const RaceBanner = () => {
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const dispatch = useAppDispatch()
 	
-	 const {address} = useAccount()
-
-    useEffect(() => {
-		if (address !== undefined)
-			dispatch(getPlayerData(address))
-	}, [address])
-	
 	const handleModal = useCallback(() => { 
 		dispatch(setCreateNftModalOpenState(true))
 	}, [])

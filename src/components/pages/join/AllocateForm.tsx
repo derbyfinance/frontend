@@ -10,12 +10,10 @@ import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
 
 import { FormRow, SubmitContainer } from '@components/form/FormElements'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
-import useDidMountEffect from '@hooks/UseDidMountEffect'
 import { setAllocationListState } from '@store/RaceSlice'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
-import { getPlayerData, getPlayerState, isConnectedState } from '@store/UserSlice'
+import { getPlayerState, isConnectedState } from '@store/UserSlice'
 import { useCallback } from 'react'
-import { useAccount } from 'wagmi'
 import CategoryHiddenInput from './CategoryHiddenInput'
 import MaxAmountHiddenInput from './MaxAmountHiddenInput'
 import NftSelect from './NftSelect'
@@ -33,12 +31,6 @@ const AllocateForm = ({ initial, update }: Props) => {
 	const isConnected = useAppSelector<boolean>(isConnectedState)
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const dispatch = useAppDispatch()
-
-	const account = useAccount()
-
-	useDidMountEffect(() => {
-		if (account.address !== undefined) dispatch(getPlayerData(account.address))
-	}, [account.address])
 
 	const onSubmit = useCallback((
 		form: AllocationRequestModel,

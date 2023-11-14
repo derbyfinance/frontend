@@ -2,7 +2,6 @@ import Table from '@components/table/Table'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
-import { getAllocationListState } from '@store/RaceSlice'
 import { styled } from 'styled-components'
 import AllocationBoardRow from './AllocationBoardRow'
 import ActionButton from '@components/buttons/ActionButton'
@@ -15,13 +14,6 @@ const AllocationBoard = () => {
     const dispatch = useAppDispatch()
     const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
     const [allocationList, setAllocationList] = useState<AllocationRequestModel[]>([])
-    
-    const {address} = useAccount()
-
-    useEffect(() => {
-		if (address !== undefined)
-			dispatch(getPlayerData(address))
-    }, [address])
     
     useEffect(() => { 
         if (player && player?.player?.baskets.length > 0) { 

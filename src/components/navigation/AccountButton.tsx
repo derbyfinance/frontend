@@ -2,22 +2,16 @@ import Avatar from '@components/Avatar'
 import ActionButton from '@components/buttons/ActionButton'
 import ArrowDropdownIcon from '@components/icons/ArrowDropdownIcon'
 import { MaskCoinAddress } from '@functions/StringFunction'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { styled } from 'styled-components'
-import { useAccount } from 'wagmi'
 import AccountInfo from './AccountInfo'
 import { Hex } from 'viem'
+import { useAppSelector } from '@hooks/ReduxStore'
+import { getAddressState } from '@store/UserSlice'
 
 const AccountButton = () => {
-
+	const address = useAppSelector<Hex | undefined>(getAddressState)
 	const [isOpen, setIsOpen] = useState<boolean>(false)
-	const [address, setAddress] = useState<Hex>()
-	
-	const account = useAccount()
-
-	useEffect(() => { 
-		setAddress(account.address)
-	}, [account.address])
 
 	const toggleOpen = useCallback((isOpen: boolean): void => {
 		setIsOpen(!isOpen)
@@ -32,7 +26,7 @@ const AccountButton = () => {
 					<Icon>
 						<Avatar $isSmall={true} name={address?.toString() ?? ''} />
 					</Icon>
-					{MaskCoinAddress(address)}
+					{address ? MaskCoinAddress(address) : ''}
 					<FloatArrowDropdownIcon $isOpen={isOpen} />
 				</WalletButton>
 
