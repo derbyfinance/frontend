@@ -9,6 +9,7 @@ import RaceVaultboard from './RaceVaultboard'
 import RaceGetStarted from './RaceGetStarted'
 import RaceJoinDiscord from './RaceJoinDiscord'
 import KeyStatistics from './KeyStatistics'
+import HistoricalRaceStats from './HistoricalRaceStats'
 
 const Content = () => {
 	return (
@@ -24,6 +25,14 @@ const Content = () => {
 				<RaceJoinDiscord />	
 			</RaceInfo>
 			<KeyStatistics />
+			<InfoContainer>
+				<h1>Historical Race statistics</h1>
+				<p>
+					Who are the best of the best. The 5 best are shown here as inspiration
+					to follow.
+				</p>
+			</InfoContainer>
+			<HistoricalRaceStats />
 			{/* <InfoContainer>
 				<h1>Leaderboard</h1>
 				<p>
