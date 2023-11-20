@@ -16,7 +16,7 @@ export interface BasketDtoModel {
 	allocations: string[]
 }
 
-export interface AllocationDtoModel { 
+export interface AllocationDtoModel {
 	id: string
 }
 
@@ -37,9 +37,12 @@ export interface RewardsDtoModel {
 export interface RaceDtoModel {
 	stakedTokens: number
 	totalRewards: number
+	id: number
+	rebalancingPeriod: string
+	apy: number
 }
 
-export interface ExchangeRateDtoModel { 
+export interface ExchangeRateDtoModel {
 	id: string
 	exchangeRate: number
 }

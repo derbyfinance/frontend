@@ -19,7 +19,7 @@ const HistoricalRaceStats = () => {
 
 	const headers: TableHeaderModel[] = [
 		{ name: 'Race' },
-		{ name: '# Placers', align: 'right' },
+		{ name: '# Players', align: 'right' },
 		{ name: 'Total Staked', align: 'right' },
 		{ name: 'APY', align: 'right' },
 		{ name: 'Rewards', align: 'right' }
@@ -29,7 +29,7 @@ const HistoricalRaceStats = () => {
 		<Container>
 			<Table headers={headers}>
 				{raceList?.map((race, index) => (
-					<HistoricalRaceRow key={index} race={race} />
+					<HistoricalRaceRow key={index} race={race} raceNumber={index + 1} />
 				))}
 			</Table>
 		</Container>

@@ -45,8 +45,11 @@ export const GetVaultList = async (
             exchangeRate
           }
           races {
+            id,
+            rebalancingPeriod,
             stakedTokens,
-            totalRewards 
+            totalRewards,
+            apy
           }
           protocols {
               id,
