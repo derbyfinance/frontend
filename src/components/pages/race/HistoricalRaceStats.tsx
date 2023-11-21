@@ -12,9 +12,13 @@ const HistoricalRaceStats = () => {
 		getVaultListState
 	)
 	const [raceList, setRaceList] = useState<RaceDtoModel[]>()
+	const [playerList, setPlayerList] = useState<number[]>()
 
 	useEffect(() => {
-		if (vaultList && vaultList.length > 0) setRaceList(vaultList[0].races)
+		if (vaultList && vaultList.length > 0) {
+			setRaceList(vaultList[0].races)
+			setPlayerList(vaultList.map(({ baskets }) => baskets.length))
+		}
 	}, [vaultList])
 
 	const headers: TableHeaderModel[] = [
@@ -29,7 +33,12 @@ const HistoricalRaceStats = () => {
 		<Container>
 			<Table headers={headers}>
 				{raceList?.map((race, index) => (
-					<HistoricalRaceRow key={index} race={race} raceNumber={index + 1} />
+					<HistoricalRaceRow
+						key={index}
+						race={race}
+						raceNumber={index + 1}
+						players={playerList ? playerList[index] : 0}
+					/>
 				))}
 			</Table>
 		</Container>

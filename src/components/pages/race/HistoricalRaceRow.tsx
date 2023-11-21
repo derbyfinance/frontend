@@ -8,13 +8,14 @@ import { styled } from 'styled-components'
 interface Props {
 	race: RaceDtoModel
 	raceNumber: number
+	players: number
 }
 
-const HistoricalRaceRow = ({ race, raceNumber }: Props) => {
+const HistoricalRaceRow = ({ race, raceNumber, players }: Props) => {
 	return (
 		<TableRow>
 			<TableData>Race {raceNumber}</TableData>
-			<TableData align="right">---</TableData>
+			<TableData align="right">{players}</TableData>
 			<TableData align="right">
 				<StockCurrency $amount={race.stakedTokens ?? 0} $isAbbr $coin="DRB" />
 			</TableData>
