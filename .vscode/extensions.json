@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "whosydd.prettier-config",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "PKief.material-icon-theme"
     ]
 }
