@@ -6,15 +6,20 @@ import Logo from '@components/icons/Logo'
 import ActionButton from '@components/buttons/ActionButton'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
+import {
+	getPlayerData,
+	isConnectedState,
+	setAddressState,
+	setIsConnectedState
+} from '@store/UserSlice'
 import { useCallback, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import AccountButton from './AccountButton'
 import NavLink from './NavLink'
-import { getPlayerData, isConnectedState, setAddressState, setIsConnectedState } from '@store/UserSlice'
 
 const Navigation = () => {
 	const dispatch = useAppDispatch()
-	const {isConnected, address} = useAccount()
+	const { isConnected, address } = useAccount()
 	const isConnectedUser = useAppSelector<boolean>(isConnectedState)
 
 	useEffect(() => {
@@ -23,7 +28,7 @@ const Navigation = () => {
 		if (address !== undefined) {
 			dispatch(getPlayerData(address))
 		}
-	 }, [isConnected, address])
+	}, [isConnected, address])
 
 	const handleWalletConnect = useCallback((): void => {
 		dispatch(setConnectModalOpenState(true))
@@ -37,12 +42,20 @@ const Navigation = () => {
 					<Logo />
 				</Link>
 				<MenuBar>
-					<NavLink href="/vaults" disabled title="Coming soon">Vaults</NavLink>
+					<NavLink href="/vault" disabled title="Coming soon">
+						Vault
+					</NavLink>
 					<NavLink href="/">Race</NavLink>
-					{isConnectedUser ? <NavLink href="/account">Account</NavLink> :
-						<NavLink href="/account" onClick={handleWalletConnect}>Account</NavLink>
-					 }
-					<NavLink href="/governance" disabled title="Coming soon">Governance</NavLink>
+					{isConnectedUser ? (
+						<NavLink href="/account">Account</NavLink>
+					) : (
+						<NavLink href="/account" onClick={handleWalletConnect}>
+							Account
+						</NavLink>
+					)}
+					<NavLink href="/governance" disabled title="Coming soon">
+						Governance
+					</NavLink>
 					{isConnectedUser ? (
 						<AccountButton />
 					) : (

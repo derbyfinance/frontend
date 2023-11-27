@@ -7,11 +7,11 @@ import StatsDtoModel from '@models/dto/StatsDtoModel'
 import LocalizeModel from '@models/internal/LocalizeModel'
 import { getVaultStatsData, getVaultStatsState } from '@store/VaultSlice'
 
+import { isConnectedState } from '@store/UserSlice'
 import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import AllocationBoard from './AllocationBoard'
 import AllocationChart from './AllocationChart'
-import { isConnectedState } from '@store/UserSlice'
 
 const Content = () => {
 	const dispatch = useAppDispatch()
@@ -30,13 +30,14 @@ const Content = () => {
 	}, [filter])
 
 	return (
-		isConnected && <Container>
-			<InfoContainer>
-				<h1>Your allocation</h1>
-				<p>Who is in the race for you</p>
-			</InfoContainer>
+		isConnected && (
+			<Container>
+				<InfoContainer>
+					<h1>Your allocation</h1>
+					<p>Who is in the race for you</p>
+				</InfoContainer>
 
-			{/* <LineChart
+				{/* <LineChart
 				title="Your historical performance"
 				format={format}
 				data={
@@ -51,11 +52,12 @@ const Content = () => {
 				filter={setFilter}
 			/> */}
 
-			<SplitContainer>
-				<AllocationChart />
-				<AllocationBoard />
-			</SplitContainer>
-		</Container>
+				<SplitContainer>
+					<AllocationChart />
+					<AllocationBoard />
+				</SplitContainer>
+			</Container>
+		)
 	)
 }
 
