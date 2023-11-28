@@ -13,7 +13,7 @@ export interface BasketDtoModel {
 	redeemedRewards: string
 	unredeemedRewards: string
 	rebalancingPeriod?: string
-	allocations: string[]
+	allocations?: string[]
 }
 
 export interface AllocationDtoModel {

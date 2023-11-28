@@ -1,5 +1,7 @@
 import LinkButton from '@components/buttons/LinkButton'
 import Table from '@components/table/Table'
+import TableData from '@components/table/TableData'
+import TableRow from '@components/table/TableRow'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
@@ -18,7 +20,9 @@ const AllocationBoard = () => {
 
 	useEffect(() => {
 		if (player && player?.player?.baskets.length > 0) {
-			const allocations: string[] = player.player.baskets[0].allocations
+			const allocations: string[] = player.player.baskets[0].allocations ?? []
+
+			if (allocations.length === 0) return
 
 			const list: AllocationRequestModel[] =
 				player.player.baskets[0].vault.protocols.map((protocol) => {
@@ -58,6 +62,13 @@ const AllocationBoard = () => {
 				{allocationList?.map((allocation, index) => (
 					<AllocationBoardRow key={index} allocation={allocation} />
 				))}
+				{allocationList?.length === 0 ? (
+					<TableRow>
+						<TableData $align={'center'} colSpan={4}>
+							No allocations created
+						</TableData>
+					</TableRow>
+				) : null}
 			</Table>
 		</Container>
 	)
