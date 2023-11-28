@@ -51,7 +51,7 @@ const AllocationBoard = () => {
 				$isSmall={true}
 				headers={headers}
 				footer={
-					<LinkButton href="/race/join" $isGhost $align="right" onClick={}>
+					<LinkButton href="/race/join" $isGhost $align="right">
 						Rebalance your allocation
 					</LinkButton>
 				}>
