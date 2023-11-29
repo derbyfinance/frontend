@@ -10,17 +10,16 @@ import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
 
 import { FormRow, SubmitContainer } from '@components/form/FormElements'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
+import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import { setAllocationListState } from '@store/RaceSlice'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
 import { getPlayerState, isConnectedState } from '@store/UserSlice'
 import { useCallback } from 'react'
-import CategoryHiddenInput from './CategoryHiddenInput'
 import MaxAmountHiddenInput from './MaxAmountHiddenInput'
 import NftSelect from './NftSelect'
 import PercentageBar from './PercentageBar'
 import ProtocolSelect from './ProtocolSelect'
 import VaultSelect from './VaultSelect'
-import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 
 interface Props {
 	initial: AllocationRequestModel
@@ -32,28 +31,29 @@ const AllocateForm = ({ initial, update }: Props) => {
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const dispatch = useAppDispatch()
 
-	const onSubmit = useCallback((
-		form: AllocationRequestModel,
-		formikHelpers: FormikHelpers<AllocationRequestModel>
-	) => {
-		form.amount = Number(form.amount)
+	const onSubmit = useCallback(
+		(
+			form: AllocationRequestModel,
+			formikHelpers: FormikHelpers<AllocationRequestModel>
+		) => {
+			form.amount = Number(form.amount)
 
-		dispatch(setAllocationListState(form))
+			dispatch(setAllocationListState(form))
 
-		formikHelpers.resetForm({
-			values: {
-				nft: initial.nft,
-				category: '',
-				network: initial.network,
-				protocol: '',
-				vault: '',
-				amount: 0,
-				maxAmount: 0
-			}
-		})
+			formikHelpers.resetForm({
+				values: {
+					nft: initial.nft,
+					protocol: '',
+					vault: '',
+					amount: 0,
+					maxAmount: 0
+				}
+			})
 
-		update()
-	}, [player, initial])
+			update()
+		},
+		[player, initial]
+	)
 
 	const handleCreateNft = useCallback((): void => {
 		dispatch(setCreateNftModalOpenState(true))
@@ -72,25 +72,25 @@ const AllocateForm = ({ initial, update }: Props) => {
 					<FormRow>
 						<NftSelect formikProps={formikProps} />
 
-						{(!player?.player || player?.player?.baskets.length === 0 || Boolean(JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false'))) && (<>
-							<Label>or</Label>
-							<ActionButton
-								type="button"
-								$isGhost
-								onClick={handleCreateNft}
-								disabled={!isConnected}>
-								Create new NFT
+						{(!player?.player ||
+							player?.player?.baskets.length === 0 ||
+							Boolean(
+								JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false')
+							)) && (
+							<>
+								<Label>or</Label>
+								<ActionButton
+									type="button"
+									$isGhost
+									onClick={handleCreateNft}
+									disabled={!isConnected}>
+									Create new NFT
 								</ActionButton>
 							</>
 						)}
-						
 					</FormRow>
 
-					<CategoryHiddenInput />
-
 					<MaxAmountHiddenInput />
-
-					{/* <NetworkSelect formikProps={formikProps} /> */}
 
 					<ProtocolSelect formikProps={formikProps} />
 
@@ -111,7 +111,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 						}
 					/>
 					<PercentageBar />
-					
+
 					<SubmitContainer>
 						<ActionButton
 							$isGhost

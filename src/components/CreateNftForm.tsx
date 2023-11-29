@@ -5,16 +5,15 @@ import useMintBasket from '@hooks/UseMintNewBasket'
 import CreateNftRequestModel from '@models/requests/CreateNftRequestModel'
 import { getAddressState, getPlayerData } from '@store/UserSlice'
 import CreateNftValidation from '@validations/CreateNftValidation'
-import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
+import { Form, Formik, FormikProps } from 'formik'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
-import CategorySelect from './CategorySelect'
+import { Hex } from 'viem'
 import CoinSelect from './CoinSelect'
 import ActionButton from './buttons/ActionButton'
-import { FormRow, SubmitContainer } from './form/FormElements'
+import { SubmitContainer } from './form/FormElements'
 import InputField from './form/InputField'
 import ResetForm from './form/ResetForm'
-import { Hex } from 'viem'
 
 interface Props {
 	isOpen: boolean
@@ -27,15 +26,21 @@ const CreateNftForm = ({ closeModal, isOpen }: Props) => {
 
 	const initial: CreateNftRequestModel = {
 		name: '',
-		category: '',
 		coin: '0'
 	}
 	const [token, setToken] = useState<CreateNftRequestModel>(initial)
 
 	const debouncedToken = useDebounce(token, 500)
 
-	const { errorPrepare, isSuccessPrepare, errorTx, isSuccessTx, isLoadingPrepare, isLoadingTx, write } =
-		useMintBasket(parseInt(debouncedToken.coin), debouncedToken.name)
+	const {
+		errorPrepare,
+		isSuccessPrepare,
+		errorTx,
+		isSuccessTx,
+		isLoadingPrepare,
+		isLoadingTx,
+		write
+	} = useMintBasket(parseInt(debouncedToken.coin), debouncedToken.name)
 
 	useEffect(() => {
 		if (errorPrepare || errorTx) {
@@ -69,19 +74,8 @@ const CreateNftForm = ({ closeModal, isOpen }: Props) => {
 		}
 	}, [isSuccessPrepare])
 
-	const onSubmit = useCallback((
-		form: CreateNftRequestModel,
-		formikHelpers: FormikHelpers<CreateNftRequestModel>
-	): void => {
+	const onSubmit = useCallback((form: CreateNftRequestModel): void => {
 		setToken(form)
-
-		// formikHelpers.resetForm({
-		// 	values: {
-		// 		coin: '',
-		// 		category: '',
-		// 		name: ''
-		// 	}
-		// })
 	}, [])
 
 	return (
@@ -100,11 +94,9 @@ const CreateNftForm = ({ closeModal, isOpen }: Props) => {
 						placeholder="Wagmi borrowing"
 						formikProps={formikProps}
 					/>
-					<FormRow>
-						<CategorySelect formikProps={formikProps} />
 
-						<CoinSelect formikProps={formikProps} />
-					</FormRow>
+					<CoinSelect formikProps={formikProps} />
+
 					<SubmitContainer>
 						<ActionButton
 							$isGhost

@@ -1,8 +1,12 @@
 import IconSelector from '@components/IconSelector'
+import StockCurrency from '@components/StockCurrency'
 import DeleteIcon from '@components/icons/DeleteIcon'
 import EditIcon from '@components/icons/EditIcon'
 import TableData from '@components/table/TableData'
+import { useAppSelector } from '@hooks/ReduxStore'
+import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
+import { getPlayerState } from '@store/UserSlice'
 import { styled } from 'styled-components'
 
 interface Props {
@@ -13,6 +17,8 @@ interface Props {
 }
 
 const AllocateSummaryRow = ({ index, allocate, remove, update }: Props) => {
+	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
+
 	return (
 		<TableRowBar>
 			<TableData width="5%">
@@ -21,18 +27,25 @@ const AllocateSummaryRow = ({ index, allocate, remove, update }: Props) => {
 						<IconSelector name={allocate.vault} />
 					</VaultIcon>
 					<NetworkIcon>
-						<IconSelector name={allocate.network} />
+						<IconSelector name="ETH" />
 					</NetworkIcon>
 				</IconWrapper>
 			</TableData>
 			<TableData width="*">
-				{allocate.vault} <Network>{allocate.network}</Network>
+				{
+					player?.player.baskets
+						.find(({ id }) => id === allocate.nft)
+						?.vault.protocols.find(({ id }) => id === allocate.protocol)?.name
+				}{' '}
+				<Network>ETH</Network>
 			</TableData>
 			<TableData width="15%" $align="right">
-				{allocate.amount.toLocaleString()}&nbsp;<Network>DRB</Network>
-			</TableData>
-			<TableData width="10%" $align="right">
-				66%
+				<StockCurrency
+					$amount={allocate.amount}
+					$isAbbr
+					$coin="DRB"
+					$color="inherit"
+				/>
 			</TableData>
 			<TableData width="5%">
 				<ConfigButton onClick={() => update(index)}>

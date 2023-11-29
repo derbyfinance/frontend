@@ -1,7 +1,6 @@
 import Notification from '@components/Notification'
+import StockCurrency from '@components/StockCurrency'
 import ActionButton from '@components/buttons/ActionButton'
-import { Small } from '@components/fonts/Title'
-import { ToCoinCurrency } from '@functions/CurrencyFunction'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import useApproveDerbyToken from '@hooks/UseApproveDerbyToken'
 import useDidMountEffect from '@hooks/UseDidMountEffect'
@@ -9,31 +8,42 @@ import useRebalanceBasket from '@hooks/UseRebalanceBasket'
 import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import RebalanceModel from '@models/internal/RebalanceModel'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
-import { clearAllocationListState, getAllocationListState } from '@store/RaceSlice'
+import {
+	clearAllocationListState,
+	getAllocationListState,
+	getIsChangedState
+} from '@store/RaceSlice'
 import { getPlayerState } from '@store/UserSlice'
 import { useCallback, useState } from 'react'
 import { toast } from 'react-toastify'
 
-const AllocateButton = () => {
+interface Props {
+	isRebalance: boolean
+}
+const AllocateButton = ({ isRebalance }: Props) => {
 	const dispatch = useAppDispatch()
+	const isChanged = useAppSelector<boolean>(getIsChangedState)
 	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
 	)
-	
+
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const [amount, setAmount] = useState<number>(0)
-	const [rebalance, setRebalance] = useState<RebalanceModel>({ basketId: '', delta: [] })
+	const [rebalance, setRebalance] = useState<RebalanceModel>({
+		basketId: '',
+		delta: []
+	})
 
 	const approveToken = useApproveDerbyToken(amount)
-	
+
 	const rebalanceBasket = useRebalanceBasket(rebalance)
-	
+
 	useDidMountEffect(() => {
 		if (!approveToken.isSuccessPrepare || amount === 0) return
 		console.log('approveToken', 'write')
 		approveToken.write?.()
 	}, [approveToken.isSuccessPrepare, amount])
-	
+
 	useDidMountEffect(() => {
 		if (approveToken.errorPrepare || approveToken.errorTx) {
 			errorRebalance()
@@ -42,20 +52,17 @@ const AllocateButton = () => {
 
 	useDidMountEffect(() => {
 		if (!approveToken.isSuccessPrepare || !approveToken.isSuccessTx) return
-		startRebalance()	
+		startRebalance()
 	}, [approveToken.isSuccessPrepare, approveToken.isSuccessTx])
-
-
-
-
 
 	useDidMountEffect(() => {
 		if (!rebalanceBasket.isSuccessPrepare) return
 		rebalanceBasket.write?.()
 	}, [rebalanceBasket.isSuccessPrepare])
-		
-	useDidMountEffect(() => { 
-		if (!rebalanceBasket.isSuccessPrepare || !rebalanceBasket.isSuccessTx) return
+
+	useDidMountEffect(() => {
+		if (!rebalanceBasket.isSuccessPrepare || !rebalanceBasket.isSuccessTx)
+			return
 		successRebalance()
 	}, [rebalanceBasket.isSuccessPrepare, rebalanceBasket.isSuccessTx])
 
@@ -71,20 +78,21 @@ const AllocateButton = () => {
 		}
 	}, [rebalanceBasket.errorPrepare, rebalanceBasket.errorTx])
 
-	const startRebalance = useCallback((): void => { 
+	const startRebalance = useCallback((): void => {
 		const nft = allocationList![0].nft
-			
-		const list = player?.player.baskets.find(({ id }) => id === allocationList![0].nft)
-			?.vault.protocols ?? []
-		
+
+		const list =
+			player?.player.baskets.find(({ id }) => id === allocationList![0].nft)
+				?.vault.protocols ?? []
+
 		const delta: number[] = list.map(({ id }) => {
-			const item = allocationList?.find(({protocol}) => protocol === id)
-			return item ? item.amount: 0
+			const item = allocationList?.find(({ protocol }) => protocol === id)
+			return item ? item.amount : 0
 		})
-		setRebalance({basketId: nft, delta: delta})
+		setRebalance({ basketId: nft, delta: delta })
 	}, [allocationList, player])
 
-	const errorRebalance = useCallback((): void => { 
+	const errorRebalance = useCallback((): void => {
 		toast.error(
 			<Notification
 				title="Allocate tokens"
@@ -93,7 +101,7 @@ const AllocateButton = () => {
 		)
 	}, [])
 
-	const successRebalance = useCallback((): void => { 
+	const successRebalance = useCallback((): void => {
 		toast.success(
 			<Notification
 				title="Allocate tokens"
@@ -104,28 +112,41 @@ const AllocateButton = () => {
 		dispatch(clearAllocationListState())
 	}, [])
 
-	const handleAllocate = useCallback((): void => { 
+	const handleAllocate = useCallback((): void => {
 		startRebalance()
-
 	}, [allocationList])
 
-	const getTotal = useCallback((): number => { 
-		return allocationList?.reduce((prev, allocate) => {
-					return prev + allocate?.amount
-				}, 0) ?? 0
+	const getTotal = useCallback((): number => {
+		return (
+			allocationList?.reduce((prev, allocate) => {
+				return prev + allocate?.amount
+			}, 0) ?? 0
+		)
 	}, [allocationList])
 
 	return (
 		<ActionButton
 			$isCta
 			$align="right"
-			$isLoading={approveToken.isLoadingPrepare || approveToken.isLoadingTx || rebalanceBasket.isLoadingPrepare || rebalanceBasket.isLoadingTx}
+			$isLoading={
+				approveToken.isLoadingPrepare ||
+				approveToken.isLoadingTx ||
+				rebalanceBasket.isLoadingPrepare ||
+				rebalanceBasket.isLoadingTx
+			}
 			onClick={handleAllocate}
-			disabled={!allocationList || allocationList?.length <= 0}>
-			{`Buy now  `}
-			{ToCoinCurrency(getTotal(), 0)}
-			{` `}
-			<Small>DRB</Small>
+			disabled={
+				!allocationList ||
+				allocationList?.length <= 0 ||
+				(isRebalance && !isChanged)
+			}>
+			{isRebalance ? `Rabalance ` : `Buy now  `}
+			<StockCurrency
+				$amount={getTotal()}
+				$isAbbr
+				$coin="DRB"
+				$color="inherit"
+			/>
 		</ActionButton>
 	)
 }

@@ -2,7 +2,7 @@ import LinkButton from '@components/buttons/LinkButton'
 import Table from '@components/table/Table'
 import TableData from '@components/table/TableData'
 import TableRow from '@components/table/TableRow'
-import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
+import { useAppSelector } from '@hooks/ReduxStore'
 import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
@@ -12,7 +12,6 @@ import { styled } from 'styled-components'
 import AllocationBoardRow from './AllocationBoardRow'
 
 const AllocationBoard = () => {
-	const dispatch = useAppDispatch()
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const [allocationList, setAllocationList] = useState<
 		AllocationRequestModel[]
@@ -29,10 +28,9 @@ const AllocationBoard = () => {
 					const amount = Number(allocations[Number(protocol.number)])
 					return {
 						nft: '',
-						network: protocol.name,
 						protocol: protocol.protocolName,
 						amount: amount,
-						vault: '',
+						vault: protocol.name,
 						category: '',
 						maxAmount: 0
 					}

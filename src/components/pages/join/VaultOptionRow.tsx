@@ -18,9 +18,9 @@ const VaultOptionRow = ({ inputName, vault, formikProps }: Props) => {
 				<RadioInputField
 					id={`radio-${inputName}-${vault.name}`}
 					inputName={inputName}
-					value={vault.vaultNumber}
+					value={vault.number}
 					formikProps={formikProps}
-					checked={formikProps.values[inputName] === vault.vaultNumber}
+					checked={formikProps.values[inputName] === vault.number}
 				/>
 			</TableData>
 			<TableData>
