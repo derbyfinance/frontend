@@ -12,7 +12,9 @@ const AllocationChart = () => {
 
 	useEffect(() => {
 		if (player && player?.player?.baskets.length > 0) {
-			const allocations: string[] = player.player.baskets[0].allocations
+			const allocations: string[] = player.player.baskets[0].allocations ?? []
+
+			if (allocations.length === 0) return
 
 			const list: ChartDataModel[] =
 				player.player.baskets[0].vault?.protocols?.map((protocol) => {
