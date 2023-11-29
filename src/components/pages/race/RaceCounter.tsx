@@ -1,13 +1,13 @@
 import { styled } from 'styled-components'
 
-import { StartCountdown } from '@functions/CounterFunction'
 import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
 import LogoIcon from '@components/icons/LogoIcon'
+import { StartCountdown } from '@functions/CounterFunction'
 
+import Link from 'next/link'
 import CircleGraph from '../CircleGraph'
 import RaceTimer from './RaceTimer'
-import Link from 'next/link'
 
 interface Props {
 	$isClean?: boolean
@@ -56,7 +56,7 @@ const IconWrapper = styled.div`
 	margin: auto;
 `
 const CounterContent = styled(CardContent)`
-	flex: 1 1 auto;	
+	flex: 1 1 auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

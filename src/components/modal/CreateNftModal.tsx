@@ -5,9 +5,9 @@ import {
 	isCreateNftModalOpenState,
 	setCreateNftModalOpenState
 } from '@store/SettingsSlice'
+import { useCallback } from 'react'
 import { styled } from 'styled-components'
 import Modal from './Modal'
-import { useCallback } from 'react'
 
 const CreateNftModal = () => {
 	const isOpenModal = useAppSelector<boolean | undefined>(
@@ -30,7 +30,10 @@ const CreateNftModal = () => {
 					<p>to start using Derby Finance</p>
 				</Header>
 				<Content>
-					<CreateNftForm closeModal={closeModal} isOpen={isOpenModal ?? false} />
+					<CreateNftForm
+						closeModal={closeModal}
+						isOpen={isOpenModal ?? false}
+					/>
 				</Content>
 				<Footer></Footer>
 			</>

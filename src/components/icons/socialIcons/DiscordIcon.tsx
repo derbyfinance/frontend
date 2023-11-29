@@ -1,4 +1,4 @@
-interface Props { 
+interface Props {
 	width?: number | `${string}%`
 	height?: number | `${string}%`
 }

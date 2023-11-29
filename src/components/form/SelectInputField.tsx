@@ -36,7 +36,7 @@ const SelectInputField = ({
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
 	const openSelect = useCallback((isOpen: boolean): void => {
-		if(!readOnly) setIsOpen(!isOpen)
+		if (!readOnly) setIsOpen(!isOpen)
 	}, [])
 
 	const closeOptionList = useCallback((): void => {
@@ -47,7 +47,9 @@ const SelectInputField = ({
 		<Container>
 			<Label htmlFor={inputName}>{label}</Label>
 			<Wrapper onClick={() => openSelect(isOpen)}>
-				{!readOnly ? <ClickableSelect onClick={() => openSelect(isOpen)} />: null}
+				{!readOnly ? (
+					<ClickableSelect onClick={() => openSelect(isOpen)} />
+				) : null}
 				<SelectInput
 					disabled
 					id={inputName}
@@ -70,9 +72,9 @@ const SelectInputField = ({
 						</option>
 					))}
 				</SelectInput>
-				{!readOnly ? <FloatArrowDropdownIcon $isOpen={isOpen} /> : null }
+				{!readOnly ? <FloatArrowDropdownIcon $isOpen={isOpen} /> : null}
 			</Wrapper>
-			<OptionOverlay $isOpen={isOpen} onClick={()=> openSelect(isOpen)} />
+			<OptionOverlay $isOpen={isOpen} onClick={() => openSelect(isOpen)} />
 			<OptionList
 				$isOpen={isOpen}
 				$smallOptionList={smallOptionList}
@@ -86,7 +88,10 @@ const SelectInputField = ({
 				)}
 				{!smallOptionList ? (
 					<Bottom>
-						<ActionButton type="button" $isCta onClick={() => openSelect(isOpen)}>
+						<ActionButton
+							type="button"
+							$isCta
+							onClick={() => openSelect(isOpen)}>
 							Select
 						</ActionButton>
 					</Bottom>
@@ -138,7 +143,7 @@ const Wrapper = styled.div`
 const ClickableSelect = styled.div`
 	display: block;
 	position: absolute;
-	top:0;
+	top: 0;
 	bottom: 0;
 	left: 0;
 	right: 0;
@@ -161,7 +166,7 @@ const FloatArrowDropdownIcon = styled(ArrowDropdownIcon)<{ $isOpen: boolean }>`
 		rotate: 180deg;
 	`}
 `
-const SelectInput = styled.select<{readOnly: boolean}>`
+const SelectInput = styled.select<{ readOnly: boolean }>`
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	text-indent: 1px;
@@ -174,14 +179,16 @@ const SelectInput = styled.select<{readOnly: boolean}>`
 	padding: 0.5em;
 	display: block;
 	width: 100%;
-	cursor: ${({ readOnly }) => readOnly ? 'none' : 'pointer'};
-	pointer-events: ${({readOnly}) => readOnly ? 'none' : 'auto'};
+	cursor: ${({ readOnly }) => (readOnly ? 'none' : 'pointer')};
+	pointer-events: ${({ readOnly }) => (readOnly ? 'none' : 'auto')};
 
 	&[disabled] {
 		opacity: 1;
 	}
 
-	${({ readOnly, theme }) => readOnly && `
+	${({ readOnly, theme }) =>
+		readOnly &&
+		`
 		opacity: 0.75;
 		color: ${theme.style.colorPlaceholder};
 	`}
@@ -210,8 +217,7 @@ const OptionList = styled.div<{ $isOpen: boolean; $smallOptionList?: boolean }>`
 		display: block;
 	`};
 `
-const PlaceholderOption = styled.option`
-`
+const PlaceholderOption = styled.option``
 const OptionOverlay = styled.div<{ $isOpen: boolean }>`
 	position: absolute;
 	//background: rgba(0, 0, 0, 0.25);

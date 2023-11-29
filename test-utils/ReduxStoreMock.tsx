@@ -1,14 +1,14 @@
-import React, { PropsWithChildren } from 'react'
-import { render } from '@testing-library/react'
-import type { RenderOptions } from '@testing-library/react'
 import { configureStore } from '@reduxjs/toolkit'
+import type { RenderOptions } from '@testing-library/react'
+import { render } from '@testing-library/react'
+import React, { PropsWithChildren } from 'react'
 //import type { PreloadedState } from '@reduxjs/toolkit'
 import { Provider } from 'react-redux'
 
-import { AppStore, AppState, reducers } from '@store/Store'
 import ThemeWrapper from '@components/ThemeWrapper'
-import { GlobalStyles } from '@theme/ThemeConfig'
 import WalletConfig from '@components/WalletConfig'
+import { AppStore, reducers } from '@store/Store'
+import { GlobalStyles } from '@theme/ThemeConfig'
 // As a basic setup, import your same slice reducers
 //import   from '../features/users/userSlice'
 
@@ -29,14 +29,14 @@ export const renderWithProviders = (
 	}: ExtendedRenderOptions = {}
 ) => {
 	const Wrapper = ({ children }: PropsWithChildren<{}>): JSX.Element => {
-		return <Provider store={store}>
-			<ThemeWrapper>
-				<GlobalStyles />
-				<WalletConfig>
-					{children}
-					</WalletConfig>
-			</ThemeWrapper>
-		</Provider>
+		return (
+			<Provider store={store}>
+				<ThemeWrapper>
+					<GlobalStyles />
+					<WalletConfig>{children}</WalletConfig>
+				</ThemeWrapper>
+			</Provider>
+		)
 	}
 
 	// Return an object with the store and all of RTL's query functions

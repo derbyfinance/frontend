@@ -8,12 +8,12 @@ import {
 	isConnectModalOpenState,
 	setConnectModalOpenState
 } from '@store/SettingsSlice'
+import { isConnectedState } from '@store/UserSlice'
 import { useCallback } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
-import { Connector, useAccount, useConnect } from 'wagmi'
+import { Connector, useConnect } from 'wagmi'
 import Modal from './Modal'
-import { isConnectedState } from '@store/UserSlice'
 
 const ConnectWalletModal = () => {
 	const dispatch = useAppDispatch()

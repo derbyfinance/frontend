@@ -1,1 +1,1 @@
-export type ChartFilterType = 'Y'| 'M' | 'D' |'ALL'
+export type ChartFilterType = 'Y' | 'M' | 'D' | 'ALL'

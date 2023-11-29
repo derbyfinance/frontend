@@ -55,10 +55,12 @@ export const getPlayerData = createAsyncThunk(
 export const getPlayerState = (state: AppState): PlayerDtoModel | undefined =>
 	state.user?.player
 
-export const isConnectedState = (state: AppState): boolean => state.user?.isConnected
+export const isConnectedState = (state: AppState): boolean =>
+	state.user?.isConnected
 
-export const getAddressState = (state: AppState): Hex | undefined => state.user?.address
+export const getAddressState = (state: AppState): Hex | undefined =>
+	state.user?.address
 
-export const {setIsConnectedState, setAddressState} = userSlice.actions
+export const { setIsConnectedState, setAddressState } = userSlice.actions
 
 export default userSlice.reducer

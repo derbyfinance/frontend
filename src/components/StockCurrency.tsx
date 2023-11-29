@@ -1,4 +1,5 @@
 import { CoinType } from '@datatypes/CoinType'
+import { ColorType } from '@datatypes/ColorType'
 import { ToCoinCurrency, ToCurrency } from '@functions/CurrencyFunction'
 import { styled } from 'styled-components'
 import { Small } from './fonts/Title'
@@ -9,6 +10,7 @@ interface Props {
 	$coin?: CoinType
 	$isStock?: boolean
 	$isAbbr?: boolean
+	$color?: ColorType
 }
 
 const StockCurrency = ({
@@ -16,7 +18,8 @@ const StockCurrency = ({
 	$coin,
 	$isStock = false,
 	$isAbbr = false,
-	$decimals = 2
+	$decimals = 2,
+	$color
 }: Props) => {
 	return (
 		<Container $isStock={$isStock} $amount={$amount}>
@@ -25,7 +28,7 @@ const StockCurrency = ({
 				? ToCoinCurrency($amount, $decimals, $isAbbr)
 				: ToCurrency($amount, $decimals, $isAbbr)}
 			{$coin !== undefined ? (
-				<CoinCurrency>{$coin.toUpperCase()}</CoinCurrency>
+				<CoinCurrency $color={$color}>{$coin.toUpperCase()}</CoinCurrency>
 			) : null}
 		</Container>
 	)
@@ -48,8 +51,9 @@ const Container = styled.span<{ $isStock: boolean; $amount: number }>`
 		};        
     `}
 `
-const CoinCurrency = styled(Small)`
-	color: ${({ theme }) => theme.style.colorLabel};
+const CoinCurrency = styled(Small)<{ $color: ColorType | undefined }>`
+	color: ${({ theme, $color }) =>
+		$color ? 'inherit' : theme.style.colorLabel};
 	margin-left: 0.25em;
 `
 export default StockCurrency

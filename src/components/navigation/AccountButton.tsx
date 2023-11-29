@@ -2,12 +2,12 @@ import Avatar from '@components/Avatar'
 import ActionButton from '@components/buttons/ActionButton'
 import ArrowDropdownIcon from '@components/icons/ArrowDropdownIcon'
 import { MaskCoinAddress } from '@functions/StringFunction'
-import { useCallback, useState } from 'react'
-import { styled } from 'styled-components'
-import AccountInfo from './AccountInfo'
-import { Hex } from 'viem'
 import { useAppSelector } from '@hooks/ReduxStore'
 import { getAddressState } from '@store/UserSlice'
+import { useCallback, useState } from 'react'
+import { styled } from 'styled-components'
+import { Hex } from 'viem'
+import AccountInfo from './AccountInfo'
 
 const AccountButton = () => {
 	const address = useAppSelector<Hex | undefined>(getAddressState)
@@ -19,10 +19,10 @@ const AccountButton = () => {
 
 	return (
 		<>
-			<AccountInfoOverlay $isOpen={isOpen} onClick={()=> toggleOpen(isOpen)} />
+			<AccountInfoOverlay $isOpen={isOpen} onClick={() => toggleOpen(isOpen)} />
 
 			<Container>
-				<WalletButton $isCta onClick={()=> toggleOpen(isOpen)}>
+				<WalletButton $isCta onClick={() => toggleOpen(isOpen)}>
 					<Icon>
 						<Avatar $isSmall={true} name={address?.toString() ?? ''} />
 					</Icon>

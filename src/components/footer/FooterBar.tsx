@@ -7,11 +7,12 @@ import { styled } from 'styled-components'
 const FooterBar = () => {
 	return (
 		<Container>
-			<div>
-			</div>
+			<div></div>
 			<div>
 				<FooterLink>
-					<ExternalLink href="https://twitter.com/derby_finance" target="_blank">
+					<ExternalLink
+						href="https://twitter.com/derby_finance"
+						target="_blank">
 						<TwitterIcon />
 					</ExternalLink>
 				</FooterLink>

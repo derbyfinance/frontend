@@ -5,26 +5,18 @@ import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { styled } from 'styled-components'
 
 interface Props {
-   allocation: AllocationRequestModel
+	allocation: AllocationRequestModel
 }
 
 const AllocationBoardRow = ({ allocation }: Props) => {
-return (
-    <TableRow>
-        <TableData $align="left">
-            {allocation.network}
-        </TableData>
-        <TableData $align="left">
-            {allocation.protocol}
-        </TableData>
-        <TableData $align="right">
-            { allocation.maxAmount }%
-        </TableData>
-        <TableData $align="right">
-            {ToCurrency(allocation.amount, 0)}
-        </TableData>
-    </TableRow>
-   )
+	return (
+		<TableRow>
+			<TableData $align="left">{allocation.vault}</TableData>
+			<TableData $align="left">{allocation.protocol}</TableData>
+			<TableData $align="right">{allocation.maxAmount}%</TableData>
+			<TableData $align="right">{ToCurrency(allocation.amount, 0)}</TableData>
+		</TableRow>
+	)
 }
 
 const Container = styled.div``
