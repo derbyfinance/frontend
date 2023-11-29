@@ -8,9 +8,9 @@ import GraphIcon from '@components/icons/GraphIcon'
 import RewardIcon from '@components/icons/RewardIcon'
 import StakedIcon from '@components/icons/StakedIcon'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
-import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
+import { BasketDtoModel, PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
-import { getPlayerState } from '@store/UserSlice'
+import { getCurrentBasketState, getPlayerState } from '@store/UserSlice'
 import BigNumber from 'bignumber.js'
 import { usePathname } from 'next/navigation'
 import { useCallback } from 'react'
@@ -20,6 +20,9 @@ const RaceBanner = () => {
 	const pathname = usePathname()
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const dispatch = useAppDispatch()
+	const basket = useAppSelector<BasketDtoModel | undefined>(
+		getCurrentBasketState
+	)
 
 	const handleModal = useCallback(() => {
 		dispatch(setCreateNftModalOpenState(true))
@@ -44,7 +47,7 @@ const RaceBanner = () => {
 					<Label>Staked amount</Label>
 				</div>
 				<StockCurrency
-					$amount={Number(player?.player.baskets[0].stakedAmount ?? 0)}
+					$amount={Number(basket?.stakedAmount ?? 0)}
 					$decimals={0}
 					$coin="USDC"
 				/>
@@ -66,9 +69,7 @@ const RaceBanner = () => {
 				</div>
 				<StockCurrency
 					$amount={Number(
-						new BigNumber(player?.player.baskets[0].redeemedRewards ?? 0).div(
-							10000000
-						)
+						new BigNumber(basket?.redeemedRewards ?? 0).div(10000000)
 					)}
 					$coin="DRB"
 				/>

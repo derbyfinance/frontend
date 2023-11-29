@@ -2,20 +2,21 @@ import Notification from '@components/Notification'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
 import useDidMountEffect from '@hooks/UseDidMountEffect'
-import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
+import { BasketDtoModel } from '@models/dto/PlayerDtoModel'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import {
 	getAllocationListState,
 	setAllocationListState,
 	setIsChangedState
 } from '@store/RaceSlice'
-import { getPlayerState, isConnectedState } from '@store/UserSlice'
+import { getCurrentBasketState, isConnectedState } from '@store/UserSlice'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import AllocateButton from './AllocateButton'
 import AllocateSummaryRow from './AllocateSummaryRow'
 import ConnectWalletButton from './ConnectWalletButton'
+
 interface Props {
 	update: (index: number) => void
 	remove: (index: number) => void
@@ -29,7 +30,9 @@ const AllocateSummary = ({ update, remove }: Props) => {
 	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
 	)
-	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
+	const basket = useAppSelector<BasketDtoModel | undefined>(
+		getCurrentBasketState
+	)
 
 	useDidMountEffect(() => {
 		const amount =
@@ -52,39 +55,34 @@ const AllocateSummary = ({ update, remove }: Props) => {
 
 		if (allocationList && allocationList?.length > 0) return
 
-		player?.player.baskets[0]?.allocations?.map((allocation, index) => {
+		basket?.allocations?.map((allocation, index) => {
 			const amount = Number(allocation)
 
 			if (amount <= 0) return
 
-			const nft = [...player.player.baskets].reverse()[0]
-
-			const protocol = nft.vault.protocols.find(
+			const protocol = basket.vault.protocols.find(
 				({ number }) => Number(number) === index
 			)
 
 			if (!protocol) return
 
 			const item: AllocationRequestModel = {
-				nft: nft.id,
+				nft: basket.id,
 				protocol: protocol.id,
-				vault: nft.vault.number,
+				vault: basket.vault.number,
 				amount: amount,
 				maxAmount: 0
 			}
 
 			dispatch(setAllocationListState(item))
 		})
-	}, [player?.player?.baskets[0]?.allocations])
+	}, [basket?.allocations])
 
 	useEffect(() => {
 		const check =
-			player?.player?.baskets[0]?.allocations &&
-			player?.player?.baskets[0]?.allocations.length > 0
-				? true
-				: false
+			basket?.allocations && basket?.allocations.length > 0 ? true : false
 		setIsRebalance(check)
-	}, [player?.player?.baskets[0]?.allocations])
+	}, [basket?.allocations])
 
 	return (
 		<Container>

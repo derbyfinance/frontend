@@ -3,28 +3,31 @@ import Table from '@components/table/Table'
 import TableData from '@components/table/TableData'
 import TableRow from '@components/table/TableRow'
 import { useAppSelector } from '@hooks/ReduxStore'
-import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
+import { BasketDtoModel } from '@models/dto/PlayerDtoModel'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
-import { getPlayerState } from '@store/UserSlice'
+import { getBasketCountState, getCurrentBasketState } from '@store/UserSlice'
 import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import AllocationBoardRow from './AllocationBoardRow'
 
 const AllocationBoard = () => {
-	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
+	const basket = useAppSelector<BasketDtoModel | undefined>(
+		getCurrentBasketState
+	)
+	const basketCount = useAppSelector<number>(getBasketCountState)
 	const [allocationList, setAllocationList] = useState<
 		AllocationRequestModel[]
 	>([])
 
 	useEffect(() => {
-		if (player && player?.player?.baskets.length > 0) {
-			const allocations: string[] = player.player.baskets[0].allocations ?? []
+		if (basket && basketCount > 0) {
+			const allocations: string[] = basket?.allocations ?? []
 
 			if (allocations.length === 0) return
 
-			const list: AllocationRequestModel[] =
-				player.player.baskets[0].vault.protocols.map((protocol) => {
+			const list: AllocationRequestModel[] = basket.vault.protocols.map(
+				(protocol) => {
 					const amount = Number(allocations[Number(protocol.number)])
 					return {
 						nft: '',
@@ -34,11 +37,12 @@ const AllocationBoard = () => {
 						category: '',
 						maxAmount: 0
 					}
-				})
+				}
+			)
 
 			setAllocationList(list.filter((item) => item.amount > 0))
 		}
-	}, [player])
+	}, [basket])
 
 	const headers: TableHeaderModel[] = [
 		{ name: 'LP Token' },

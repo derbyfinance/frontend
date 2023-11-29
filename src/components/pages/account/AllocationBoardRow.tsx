@@ -1,6 +1,6 @@
+import StockCurrency from '@components/StockCurrency'
 import TableData from '@components/table/TableData'
 import TableRow from '@components/table/TableRow'
-import { ToCurrency } from '@functions/CurrencyFunction'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { styled } from 'styled-components'
 
@@ -14,7 +14,9 @@ const AllocationBoardRow = ({ allocation }: Props) => {
 			<TableData $align="left">{allocation.vault}</TableData>
 			<TableData $align="left">{allocation.protocol}</TableData>
 			<TableData $align="right">{allocation.maxAmount}%</TableData>
-			<TableData $align="right">{ToCurrency(allocation.amount, 0)}</TableData>
+			<TableData $align="right">
+				<StockCurrency $amount={allocation.amount} $isAbbr $coin="USDC" />
+			</TableData>
 		</TableRow>
 	)
 }

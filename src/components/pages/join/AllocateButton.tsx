@@ -9,9 +9,9 @@ import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import RebalanceModel from '@models/internal/RebalanceModel'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import {
-	clearAllocationListState,
 	getAllocationListState,
-	getIsChangedState
+	getIsChangedState,
+	setIsChangedState
 } from '@store/RaceSlice'
 import { getPlayerState } from '@store/UserSlice'
 import { useCallback, useState } from 'react'
@@ -109,7 +109,7 @@ const AllocateButton = ({ isRebalance }: Props) => {
 			/>
 		)
 
-		dispatch(clearAllocationListState())
+		dispatch(setIsChangedState(false))
 	}, [])
 
 	const handleAllocate = useCallback((): void => {
