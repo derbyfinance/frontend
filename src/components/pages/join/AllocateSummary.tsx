@@ -72,9 +72,18 @@ const AllocateSummary = ({ update, remove }: Props) => {
 				amount: amount,
 				maxAmount: 0
 			}
-			setIsRebalance(true)
+
 			dispatch(setAllocationListState(item))
 		})
+	}, [player?.player?.baskets[0]?.allocations])
+
+	useEffect(() => {
+		const check =
+			player?.player?.baskets[0]?.allocations &&
+			player?.player?.baskets[0]?.allocations.length > 0
+				? true
+				: false
+		setIsRebalance(check)
 	}, [player?.player?.baskets[0]?.allocations])
 
 	return (

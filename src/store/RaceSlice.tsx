@@ -23,8 +23,11 @@ export const raceSlice = createSlice({
 					protocol === payload.protocol && vault === payload.vault
 			)
 
+			state.isChanged = true
+
 			if (allocationList === undefined || index === undefined || index < 0) {
 				state.allocationList = [...(allocationList ?? []), payload]
+
 				return
 			}
 
@@ -36,8 +39,6 @@ export const raceSlice = createSlice({
 				payload,
 				...allocationList.slice(index + 1)
 			]
-
-			state.isChanged = true
 		},
 		removeAllocationListState(state, { payload }) {
 			const { allocationList } = current(state)
