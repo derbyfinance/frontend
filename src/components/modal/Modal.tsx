@@ -44,7 +44,8 @@ const Container = styled.div<{ $isOpen: boolean }>`
 	z-index: -10;
 	pointer-events: none;
 	overflow-y: hidden;
-	transition: opacity 0.5s ease-in-out, z-index 0.5s step-end, overflow-y 0.5s step-end;
+	transition: opacity 0.5s ease-in-out, z-index 0.5s step-end,
+		overflow-y 0.5s step-end;
 
 	${({ $isOpen }) =>
 		$isOpen &&

@@ -1,4 +1,5 @@
 import { UseContractWriteModel } from '@models/contract/UseContractWriteModel'
+import RebalanceModel from '@models/internal/RebalanceModel'
 import { Abi, Hex } from 'viem'
 import {
 	useContractWrite,
@@ -6,7 +7,6 @@ import {
 	useWaitForTransaction
 } from 'wagmi'
 import useDebounce from './UseDebounce'
-import RebalanceModel from '@models/internal/RebalanceModel'
 
 const abi: Abi = [
 	{
@@ -36,9 +36,9 @@ const abi: Abi = [
 // Requirement: The user must have approved the DerbyToken contract.
 // With the spender as the Game contract
 // and the amount as the sum of the deltaAllocations.
-const useRebalanceBasket = ( rebalance: RebalanceModel
+const useRebalanceBasket = (
+	rebalance: RebalanceModel
 ): UseContractWriteModel => {
-
 	const debounceDelta = useDebounce<RebalanceModel>(rebalance, 500)
 
 	const {

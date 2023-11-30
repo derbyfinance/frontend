@@ -9,7 +9,13 @@ interface Props extends LinkProps {
 	children: string | JSX.Element | JSX.Element[]
 }
 
-const NavLink = ({ children, as, disabled = false, title, ...props }: Props) => {
+const NavLink = ({
+	children,
+	as,
+	disabled = false,
+	title,
+	...props
+}: Props) => {
 	const pathname = usePathname()
 
 	const isActive = useCallback((): boolean => {
@@ -18,6 +24,7 @@ const NavLink = ({ children, as, disabled = false, title, ...props }: Props) => 
 			.toString()
 			.replaceAll('/', '')
 			.toLocaleLowerCase()
+
 		return (
 			(urlPath?.startsWith(linkPath) && linkPath !== '') ||
 			(urlPath?.startsWith(linkPath) && urlPath === '')
@@ -26,14 +33,20 @@ const NavLink = ({ children, as, disabled = false, title, ...props }: Props) => 
 
 	return (
 		<div title={title}>
-			<NavLinkComponent $isDisabled={disabled} $isActive={isActive()} {...props}>
+			<NavLinkComponent
+				$isDisabled={disabled}
+				$isActive={isActive()}
+				{...props}>
 				{children}
 			</NavLinkComponent>
 		</div>
 	)
 }
 
-const NavLinkComponent = styled(Link)<{ $isActive: boolean, $isDisabled: boolean }>`
+const NavLinkComponent = styled(Link)<{
+	$isActive: boolean
+	$isDisabled: boolean
+}>`
 	line-height: 2em;
 	padding: 0 1em;
 	font-family: ${({ theme }) => theme.fonts.slabLight};
@@ -48,7 +61,9 @@ const NavLinkComponent = styled(Link)<{ $isActive: boolean, $isDisabled: boolean
         border-bottom-color: ${theme.style.colorCta};
     `};
 
-	${({ $isDisabled, theme }) => $isDisabled && `
+	${({ $isDisabled, theme }) =>
+		$isDisabled &&
+		`
 		pointer-events: none;
 		color: ${theme.style.colorDisabled};
 	`}

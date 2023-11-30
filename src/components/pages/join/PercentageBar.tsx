@@ -11,31 +11,31 @@ const PercentageBar = () => {
 	const rewards = useDerbyTokenBalance()
 	const { values, setFieldValue, validateOnBlur, handleBlur } =
 		useFormikContext<AllocationRequestModel>()
-	
+
 	const isConnected = useAppSelector<boolean>(isConnectedState)
 	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
 	)
 	const list = [20, 40, 60, 80, 100]
 
-	const handlePercentage = useCallback((
-		e: MouseEvent<HTMLButtonElement>,
-		percentage: number
-	): void => {
-		const allocated =
-			allocationList?.reduce((prev, allocate) => {
-				return prev + allocate?.amount
-			}, 0) ?? 0
+	const handlePercentage = useCallback(
+		(e: MouseEvent<HTMLButtonElement>, percentage: number): void => {
+			const allocated =
+				allocationList?.reduce((prev, allocate) => {
+					return prev + allocate?.amount
+				}, 0) ?? 0
 
-		const value =
-			Math.round(((rewards - allocated) / 100) * percentage * 100) / 100
+			const value =
+				Math.round(((rewards - allocated) / 100) * percentage * 100) / 100
 
-		setFieldValue('amount', value)
-		validateOnBlur
-		handleBlur('amount')
-		e.stopPropagation()
-		e.preventDefault()
-	}, [])
+			setFieldValue('amount', value)
+			validateOnBlur
+			handleBlur('amount')
+			e.stopPropagation()
+			e.preventDefault()
+		},
+		[]
+	)
 
 	return (
 		<Bar>

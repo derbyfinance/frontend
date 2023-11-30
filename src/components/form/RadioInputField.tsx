@@ -9,7 +9,12 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	formikProps: FormikProps<any>
 }
 
-const RadioInputField = ({ inputName, value, formikProps, ...props }: Props) => {
+const RadioInputField = ({
+	inputName,
+	value,
+	formikProps,
+	...props
+}: Props) => {
 	return (
 		<RadioInput
 			type="radio"

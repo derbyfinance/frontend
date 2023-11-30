@@ -2,14 +2,12 @@
 
 import { styled } from 'styled-components'
 
+import HistoricalRaceStats from './HistoricalRaceStats'
+import KeyStatistics from './KeyStatistics'
 import RaceCounter from './RaceCounter'
 import RaceDescription from './RaceDescription'
-import RaceLeaderboard from './RaceLeaderboard'
-import RaceVaultboard from './RaceVaultboard'
 import RaceGetStarted from './RaceGetStarted'
 import RaceJoinDiscord from './RaceJoinDiscord'
-import KeyStatistics from './KeyStatistics'
-import HistoricalRaceStats from './HistoricalRaceStats'
 
 const Content = () => {
 	return (
@@ -22,7 +20,7 @@ const Content = () => {
 			<RaceInfo>
 				<RaceGetStarted />
 				<RaceCounter />
-				<RaceJoinDiscord />	
+				<RaceJoinDiscord />
 			</RaceInfo>
 			<KeyStatistics />
 			<InfoContainer>
@@ -33,22 +31,6 @@ const Content = () => {
 				</p>
 			</InfoContainer>
 			<HistoricalRaceStats />
-			{/* <InfoContainer>
-				<h1>Leaderboard</h1>
-				<p>
-					Who are the best of the best. The 5 best are shown here as inspiration
-					to follow.
-				</p>
-			</InfoContainer>
-			<RaceLeaderboard />
-			<InfoContainer>
-				<h1>Best Performing Vaults</h1>
-				<p>
-					Who are the best of the best. The 5 best are shown here as inspiration
-					to follow.
-				</p>
-			</InfoContainer>
-			<RaceVaultboard /> */}
 		</Container>
 	)
 }
@@ -70,7 +52,7 @@ const RaceInfo = styled.div`
 		flex: 1 1 33.3%;
 
 		&:hover {
-			opacity:.9;
+			opacity: 0.9;
 			> div {
 				border-color: transparent;
 			}

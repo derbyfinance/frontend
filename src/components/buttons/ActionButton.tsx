@@ -12,7 +12,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children: string | JSX.Element | JSX.Element[] | React.ReactNode
 }
 
-const ActionButton =({
+const ActionButton = ({
 	$isCta = false,
 	$isGhost = false,
 	$isBlock = false,
@@ -110,8 +110,10 @@ export const ButtonStyle = css<ButtonStyleProps>`
 	}
 
 	transition: padding-right 0.2s ease-in-out;
-	
-	${({ $isLoading }) => $isLoading && `
+
+	${({ $isLoading }) =>
+		$isLoading &&
+		`
 		padding-right: 2em;
 		pointer-event: none;
 		

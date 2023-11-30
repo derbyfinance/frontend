@@ -11,28 +11,23 @@ import CardContent from '@components/card/CardContent'
 import CardHeader from '@components/card/CardHeader'
 
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
+import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import {
 	getAllocationListState,
 	removeAllocationListState
 } from '@store/RaceSlice'
+import { getPlayerState } from '@store/UserSlice'
 import RaceCounter from '../race/RaceCounter'
 import RaceDescription from '../race/RaceDescription'
 import AllocateForm from './AllocateForm'
 import AllocateSummary from './AllocateSummary'
-import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
-import { getPlayerState } from '@store/UserSlice'
 
-interface Props {
-	network: string
-	vault: string
-}
-
-const Content = ({ network, vault }: Props) => {
+const Content = () => {
 	const formRef = useRef<HTMLDivElement>(null)
 	const allocateRef = useRef<HTMLDivElement>(null)
 
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
-	
+
 	const dispatch = useAppDispatch()
 	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
 		getAllocationListState
@@ -40,17 +35,18 @@ const Content = ({ network, vault }: Props) => {
 
 	const [form, setForm] = useState<AllocationRequestModel>({
 		nft: '',
-		category: '',
-		network: network,
 		protocol: '',
-		vault: vault,
+		vault: '',
 		amount: 0,
 		maxAmount: 0
 	})
 
 	useEffect(() => {
 		if (player && player.player?.baskets.length > 0) {
-			setForm({ ...form, ...{ nft: [...player.player.baskets].reverse()[0].id }  })
+			setForm({
+				...form,
+				...{ nft: [...player.player.baskets].reverse()[0].id }
+			})
 		}
 	}, [player])
 
@@ -64,19 +60,22 @@ const Content = ({ network, vault }: Props) => {
 		}, 0)
 	}, [allocateRef])
 
-	const updateAllocation = useCallback((index: number) => {
-		removeAllocation(index)
+	const updateAllocation = useCallback(
+		(index: number) => {
+			removeAllocation(index)
 
-		setForm(allocationList![index])
+			setForm(allocationList![index])
 
-		setTimeout(() => {
-			formRef.current?.scrollIntoView({
-				block: 'start',
-				inline: 'nearest',
-				behavior: 'smooth'
-			})
-		}, 0)
-	}, [formRef, allocationList])
+			setTimeout(() => {
+				formRef.current?.scrollIntoView({
+					block: 'start',
+					inline: 'nearest',
+					behavior: 'smooth'
+				})
+			}, 0)
+		},
+		[formRef, allocationList]
+	)
 
 	const removeAllocation = useCallback((index: number) => {
 		dispatch(removeAllocationListState(index))

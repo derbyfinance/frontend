@@ -2,31 +2,39 @@
 
 import StockCurrency from '@components/StockCurrency'
 import StockBadge from '@components/badges/StockBadge'
+import LinkButton from '@components/buttons/LinkButton'
 import CardRow from '@components/card/CardRow'
 import GraphIcon from '@components/icons/GraphIcon'
 import RewardIcon from '@components/icons/RewardIcon'
 import StakedIcon from '@components/icons/StakedIcon'
-import { useCallback, useEffect } from 'react'
-import { styled } from 'styled-components'
-import RewardBox from '../pages/race/RewardBox'
-import WalletCard from './WalletCard'
-import ActionButton from '@components/buttons/ActionButton'
-import LinkButton from '@components/buttons/LinkButton'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
-import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
-import { getPlayerData, getPlayerState } from '@store/UserSlice'
+import { BasketDtoModel, PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import { setCreateNftModalOpenState } from '@store/SettingsSlice'
+import { getCurrentBasketState, getPlayerState } from '@store/UserSlice'
 import BigNumber from 'bignumber.js'
-import { useAccount } from 'wagmi'
+import { usePathname } from 'next/navigation'
+import { useCallback } from 'react'
+import { styled } from 'styled-components'
 
 const RaceBanner = () => {
+	const pathname = usePathname()
 	const player = useAppSelector<PlayerDtoModel | undefined>(getPlayerState)
 	const dispatch = useAppDispatch()
-	
-	const handleModal = useCallback(() => { 
+	const basket = useAppSelector<BasketDtoModel | undefined>(
+		getCurrentBasketState
+	)
+
+	const handleModal = useCallback(() => {
 		dispatch(setCreateNftModalOpenState(true))
 	}, [])
-	
+
+	const showButton = useCallback((): boolean => {
+		const urlPath = pathname?.replaceAll('/', '').toLocaleLowerCase()
+		const linkPath = 'racejoin'
+
+		return !urlPath?.startsWith(linkPath)
+	}, [pathname])
+
 	return (
 		<BannerBox>
 			<div>
@@ -38,7 +46,11 @@ const RaceBanner = () => {
 					<StakedIcon />
 					<Label>Staked amount</Label>
 				</div>
-				<StockCurrency $amount={Number(player?.player.baskets[0].stakedAmount ?? 0)} $decimals={0} $coin="USDC" />
+				<StockCurrency
+					$amount={Number(basket?.stakedAmount ?? 0)}
+					$decimals={0}
+					$coin="USDC"
+				/>
 			</CardRow>
 			<CardRow $hasHover={false} $isFlex>
 				<div>
@@ -46,12 +58,7 @@ const RaceBanner = () => {
 					<Label>Performance</Label>
 				</div>
 				<Amount>
-					<StockCurrency
-						$amount={0}
-						$isStock={true}
-						$decimals={0}
-						$coin={''}
-					/>
+					<StockCurrency $amount={0} $isStock={true} $decimals={0} $coin={''} />
 					<StockBadge $amount={0} />
 				</Amount>
 			</CardRow>
@@ -60,7 +67,12 @@ const RaceBanner = () => {
 					<RewardIcon />
 					<Label>Rewards</Label>
 				</div>
-				<StockCurrency $amount={Number(new BigNumber(player?.player.baskets[0].redeemedRewards ?? 0).div(10000000))} $coin="DRB" />
+				<StockCurrency
+					$amount={Number(
+						new BigNumber(basket?.redeemedRewards ?? 0).div(10000000)
+					)}
+					$coin="DRB"
+				/>
 			</CardRow>
 			{/*<CardRow $hasHover={false} $isFlex>
 				<RewardBox $amount={3} $type="Gold" />
@@ -68,10 +80,22 @@ const RaceBanner = () => {
 				<RewardBox $amount={0} $type="Bronze" />
 			</CardRow>
 			 <WalletCard/> */}
-			
-			<LinkButton $isBlock href="/race/join" $isGhost onClick={(!player?.player || player?.player?.baskets.length === 0)? handleModal: undefined}>
-				{(!player?.player || player?.player?.baskets.length === 0) ? 'Create NFT' : 'Rebalance'}
-			</LinkButton>
+
+			{showButton() ? (
+				<LinkButton
+					$isBlock
+					href="/race/join"
+					$isGhost
+					onClick={
+						!player?.player || player?.player?.baskets.length === 0
+							? handleModal
+							: undefined
+					}>
+					{!player?.player || player?.player?.baskets.length === 0
+						? 'Create NFT'
+						: 'Rebalance'}
+				</LinkButton>
+			) : null}
 		</BannerBox>
 	)
 }
@@ -90,6 +114,5 @@ const Label = styled.span`
 	font-family: ${({ theme }) => theme.fonts.slabMedium};
 `
 const Amount = styled.div``
-
 
 export default RaceBanner

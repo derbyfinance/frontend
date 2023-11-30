@@ -14,7 +14,7 @@ const PageSize = () => {
 			list.map((x) => `${x}em ==> ${x * 16}px / ${x * 24}px `)
 		)
 	}, [])
-	
+
 	return Boolean(JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false')) ? (
 		<Size onClick={showFontSize} />
 	) : null

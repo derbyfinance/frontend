@@ -91,9 +91,9 @@ const lightThemeStyle: DefaultStyle = {
 	colorText: '#160344',
 	colorLink: '#2775C9',
 	colorCta: '#F13ABC',
-    colorBorder: '#E2E2E2',
-    colorPrimary: '#FE5E76',
-    colorSecondary: '#5F08EE',
+	colorBorder: '#E2E2E2',
+	colorPrimary: '#FE5E76',
+	colorSecondary: '#5F08EE',
 	colorLabel: '#A9A6AE',
 	colorInfo: '#D9E7F5',
 	colorHover: '#f5f5f5',
@@ -108,9 +108,10 @@ const lightThemeStyle: DefaultStyle = {
 	buttonColorCtaBg: '#39079b',
 	backgroundGradient:
 		'linear-gradient(149.11deg, #f13abc 0.41%, #5f08ee 99.26%)',
-    backgroundCtaGradient: 'linear-gradient(180deg, #1D08EE 0%, #F13ABC 100%)',
-    backgroundInfoGradient: 'linear-gradient(180deg, #39079B 0%, #2775C9 100%)',
-    backgroundWarningGradient: 'linear-gradient(180deg, #F13ABC 0%, #FE5E76 100%)',
+	backgroundCtaGradient: 'linear-gradient(180deg, #1D08EE 0%, #F13ABC 100%)',
+	backgroundInfoGradient: 'linear-gradient(180deg, #39079B 0%, #2775C9 100%)',
+	backgroundWarningGradient:
+		'linear-gradient(180deg, #F13ABC 0%, #FE5E76 100%)',
 	formBg: '#2775C905'
 }
 

@@ -4,7 +4,7 @@ import Content from '@components/pages/join/Content'
 const Page = () => {
 	return (
 		<Layout>
-			<Content network="ETH" vault="" />
+			<Content />
 		</Layout>
 	)
 }

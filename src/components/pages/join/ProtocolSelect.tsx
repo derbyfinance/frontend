@@ -20,7 +20,7 @@ const ProtocolSelect = ({ formikProps }: Props) => {
 	useEffect(() => {
 		const list = player?.player.baskets.find(({ id }) => id === values.nft)
 			?.vault.protocols
-		
+
 		setProtocolList(list)
 	}, [values])
 

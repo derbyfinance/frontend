@@ -10,7 +10,7 @@ import {
 import { WagmiConfig, configureChains, createConfig } from 'wagmi'
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
-import { WalletConnectConnector} from 'wagmi/connectors/walletConnect'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
 
@@ -34,7 +34,10 @@ const config = createConfig({
 				appName: 'Derby Finance'
 			}
 		}),
-		new WalletConnectConnector({ chains: chains, options: {projectId: process.env.NEXT_PUBLIC_PROJECT_ID ?? ''} }),
+		new WalletConnectConnector({
+			chains: chains,
+			options: { projectId: process.env.NEXT_PUBLIC_PROJECT_ID ?? '' }
+		})
 	]
 })
 

@@ -53,7 +53,7 @@ export interface VaultDtoModel {
 	protocol: string
 	coin: string
 	category: string
-	vaultNumber: string
+	number: string
 	protocols: ProtocolDtoModel[]
 	vaultRewards: RewardsDtoModel
 	races: RaceDtoModel[]
