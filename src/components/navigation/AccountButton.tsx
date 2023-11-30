@@ -65,7 +65,8 @@ const FloatArrowDropdownIcon = styled(ArrowDropdownIcon)<{ $isOpen: boolean }>`
 	`}
 `
 const AccountInfoOverlay = styled.div<{ $isOpen: boolean }>`
-	position: absolute;
+	position: fixed;
+	inset: 0px;
 	top: 0;
 	left: 0;
 	right: 0;

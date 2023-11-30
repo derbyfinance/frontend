@@ -22,7 +22,7 @@ const FooterBar = () => {
 					</ExternalLink>
 				</FooterLink>
 				<FooterLink>
-					<ExternalLink href="https://derby-finance.gitbook.io">
+					<ExternalLink href="https://derby-finance.gitbook.io" target="_blank">
 						<GithubIcon />
 					</ExternalLink>
 				</FooterLink>

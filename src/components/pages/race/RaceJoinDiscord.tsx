@@ -6,7 +6,7 @@ import { styled } from 'styled-components'
 
 const RaceJoinDiscord = () => {
 	return (
-		<Link href="https://discord.gg/DyxRxs9mQ6">
+		<Link href="https://discord.gg/DyxRxs9mQ6" target="_blank">
 			<RaceCard type="warning">
 				<RaceContent>
 					<h3>Join</h3>
