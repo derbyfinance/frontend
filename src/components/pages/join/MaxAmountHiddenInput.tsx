@@ -4,7 +4,6 @@ import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
 import { useFormikContext } from 'formik'
 import { useEffect } from 'react'
-import { useAccount } from 'wagmi'
 
 const MaxAmountHiddenInput = () => {
 	const rewards = useDerbyTokenBalance()
@@ -14,11 +13,6 @@ const MaxAmountHiddenInput = () => {
 		getAllocationListState
 	)
 	const inputName = 'maxAmount'
-	const account = useAccount()
-
-	useEffect(() => {
-		console.log('--account', account)
-	}, [account])
 
 	useEffect(() => {
 		const allocated =
@@ -27,8 +21,6 @@ const MaxAmountHiddenInput = () => {
 			}, 0) ?? 0
 
 		setFieldValue(inputName, Math.round((rewards - allocated) * 100) / 100)
-
-		// console.log('---maxAmount', rewards)
 	}, [allocationList, isValid, rewards])
 
 	return (
