@@ -10,7 +10,7 @@ const useDerbyTokenBalance = (): number => {
 		watch: true
 	})
 
-	return data?.decimals ?? 0
+	return Number(data?.value) ?? 0
 }
 
 export default useDerbyTokenBalance
