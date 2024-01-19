@@ -1,3 +1,4 @@
+import BigNumber from 'bignumber.js'
 import { Hex } from 'viem'
 import { useAccount, useBalance } from 'wagmi'
 
@@ -10,7 +11,9 @@ const useDerbyTokenBalance = (): number => {
 		watch: true
 	})
 
-	return Number(data?.value) ?? 0
+	return Number(
+		new BigNumber(Number(data?.value ?? 0)).div(1000000000000000000) ?? 0
+	)
 }
 
 export default useDerbyTokenBalance

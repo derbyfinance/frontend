@@ -1,6 +1,6 @@
 interface Props {
-	width?: number | `${string}%`
-	height?: number | `${string}%`
+	width?: number | `${string}%` | `${string}em`
+	height?: number | `${string}%` | `${string}em`
 }
 
 const DiscordMessageIcon = ({ width = 80, height = 92 }: Props) => {

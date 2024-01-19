@@ -54,6 +54,10 @@ const NavLinkComponent = styled(Link)<{
 	font-size: 1.25em;
 	border-bottom: 4px solid transparent;
 
+	&:hover {
+		border-bottom-color: ${({ theme }) => theme.style.colorCta};
+	}
+
 	${({ $isActive, theme }) =>
 		$isActive &&
 		`

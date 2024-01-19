@@ -68,6 +68,10 @@ export const GlobalStyles = createGlobalStyle`
         margin: 0.5em 0;
     }
 
+    u {
+        text-decoration: underline;
+    }
+
     svg {
         display: inline-block;
         vertical-align: middle;
@@ -86,7 +90,7 @@ const fonts: DefaultFonts = {
 
 const lightThemeStyle: DefaultStyle = {
 	fontSize: 16,
-	radius: 6,
+	radius: 8,
 	colorBg: '#fff',
 	colorText: '#160344',
 	colorLink: '#2775C9',
@@ -112,7 +116,7 @@ const lightThemeStyle: DefaultStyle = {
 	backgroundInfoGradient: 'linear-gradient(180deg, #39079B 0%, #2775C9 100%)',
 	backgroundWarningGradient:
 		'linear-gradient(180deg, #F13ABC 0%, #FE5E76 100%)',
-	formBg: '#2775C905'
+	formBg: '#F4F8FC'
 }
 
 const darkThemeStyle: DefaultStyle = {

@@ -7,8 +7,8 @@ import TableData from './TableData'
 
 interface Props {
 	headers?: TableHeaderModel[]
-	$isSticky?: boolean
-	$isSmall?: boolean
+	isSticky?: boolean
+	isSmall?: boolean
 	footer?: JSX.Element | JSX.Element[] | React.ReactNode
 	children: JSX.Element | JSX.Element[] | React.ReactNode
 }
@@ -17,17 +17,18 @@ const Table = ({
 	headers = [],
 	footer,
 	children,
-	$isSmall = false,
-	$isSticky = false
+	isSmall = false,
+	isSticky = false,
+	...props
 }: Props) => {
 	const colSpan: number = headers.reduce((prev, { colspan }) => {
 		return prev + (!colspan ? 1 : colspan)
 	}, 0)
 
 	return (
-		<TableComponent $isSmall={$isSmall}>
+		<TableComponent $isSmall={isSmall} {...props}>
 			{headers.length > 0 ? (
-				<Thead $isSticky={$isSticky}>
+				<Thead $isSticky={isSticky}>
 					<tr>
 						{headers.map(({ name, align, colspan }, index) => (
 							<Th $align={align} colSpan={colspan ?? 1} key={index}>
@@ -45,7 +46,7 @@ const Table = ({
 					</tr>
 				</tfoot>
 			)}
-			{$isSticky ? (
+			{isSticky ? (
 				<FooterShadow>
 					<tr>
 						<td colSpan={colSpan} />
@@ -64,6 +65,20 @@ const TableComponent = styled.table<{ $isSmall: boolean }>`
 
 	// FIX: Height: 100% for labels inside td
 	height: 1px;
+
+	${({ $isSmall, theme }) =>
+		$isSmall &&
+		`
+	
+	& > thead {
+		background-color: transparent;
+		> tr > th {
+			color: inherit;
+			text-transform: initial;
+			font-family: ${theme.fonts.slabLight};
+		}
+	}
+	`}
 `
 const Thead = styled.thead<{ $isSticky: boolean }>`
 	background-color: ${({ theme }) => theme.style.colorBg};

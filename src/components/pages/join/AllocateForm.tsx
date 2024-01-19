@@ -69,7 +69,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 			onSubmit={onSubmit}>
 			{(formikProps: FormikProps<AllocationRequestModel>) => (
 				<Form noValidate>
-					<FormRow>
+					<XFormRow>
 						<NftSelect formikProps={formikProps} />
 
 						{(!player?.player ||
@@ -88,7 +88,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 								</ActionButton>
 							</>
 						)}
-					</FormRow>
+					</XFormRow>
 
 					<MaxAmountHiddenInput />
 
@@ -136,6 +136,11 @@ const DerbyIconWrapper = styled.div`
 const Label = styled.span`
 	color: ${({ theme }) => theme.style.colorLabel};
 	line-height: 2.5em;
+`
+const XFormRow = styled(FormRow)`
+	& > div:first-child {
+		flex: 1 1 auto;
+	}
 `
 
 export default AllocateForm
