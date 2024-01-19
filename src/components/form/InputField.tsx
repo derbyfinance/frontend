@@ -3,27 +3,32 @@ import { InputHTMLAttributes, useCallback, useState } from 'react'
 import { ErrorMessage, FormikProps } from 'formik'
 import { styled } from 'styled-components'
 
+import { AlignType } from '@datatypes/AlignType'
 import { InputType } from '@datatypes/InputType'
 import { ErrorCaption } from './FormElements'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	inputName: string
 	label: string | JSX.Element
+	labelAlign?: AlignType
 	formikProps: FormikProps<any>
 	placeholder?: string
 	type?: InputType
 	required?: boolean
 	icon?: string | JSX.Element
+	iconAlign?: AlignType
 }
 
 const InputField = ({
 	inputName,
 	label,
+	labelAlign = 'left',
 	formikProps,
 	placeholder = '',
 	required = false,
 	type = 'text',
 	icon,
+	iconAlign = 'right',
 	...props
 }: Props) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -34,7 +39,9 @@ const InputField = ({
 
 	return (
 		<Container>
-			<Label htmlFor={inputName}>{label}</Label>
+			<Label htmlFor={inputName} $align={labelAlign}>
+				{label}
+			</Label>
 			<Wrapper onClick={() => openSelect(isOpen)} $isOpen={isOpen}>
 				<TextInput
 					type={type}
@@ -45,9 +52,10 @@ const InputField = ({
 					onChange={formikProps.handleChange}
 					onBlur={formikProps.handleBlur}
 					value={formikProps.values[inputName]}
+					$align={iconAlign}
 					{...props}
 				/>
-				<FloatIcon>{icon}</FloatIcon>
+				<FloatIcon $align={iconAlign}>{icon}</FloatIcon>
 			</Wrapper>
 
 			<ErrorCaption>
@@ -63,12 +71,21 @@ const InputField = ({
 
 const Container = styled.div``
 
-const Label = styled.label`
+const Label = styled.label<{ $align: AlignType }>`
 	font-family: ${({ theme }) => theme.fonts.slabRegular};
 	font-size: 1.25em;
 	vertical-align: middle;
 	margin: 0.75em 0;
 	display: block;
+
+	${({ $align }) =>
+		$align === 'right' &&
+		`
+		text-align: right;
+		font-family: inherit;
+		font-size: inherit;
+		margin: 0.25em 0;
+	'`}
 
 	> svg {
 		display: inline-block;
@@ -87,22 +104,40 @@ const Wrapper = styled.div<{ $isOpen: boolean }>`
 		}
 	`}
 `
-const FloatIcon = styled.div`
+const FloatIcon = styled.div<{ $align: AlignType }>`
 	display: block;
 	position: absolute;
 	top: 0;
-	right: 0;
-	//width: 1.5em;
+	${({ $align }) =>
+		$align === 'left' &&
+		`
+		left: 0;
+	`}
+	${({ $align }) =>
+		$align === 'right' &&
+		`
+		right: 0;
+	`}
 	height: 1.5em;
 	z-index: 1;
 	margin: 0.625em;
 `
-const TextInput = styled.input`
+const TextInput = styled.input<{ $align: AlignType }>`
 	font-family: ${({ theme }) => theme.fonts.slabMedium};
 	border: 1px solid ${({ theme }) => theme.style.colorBorder};
 	border-radius: ${({ theme }) => theme.style.radius}px;
 	background-color: ${({ theme }) => theme.style.colorBg};
 	padding: 0.5em;
+	${({ $align }) =>
+		$align === 'left' &&
+		`
+		padding-left: 4.5em;
+		`}
+	${({ $align }) =>
+		$align === 'right' &&
+		`
+		padding-right: 4.5em;
+		`}
 	display: block;
 	width: 100%;
 	cursor: pointer;

@@ -42,6 +42,7 @@ const Navigation = () => {
 					<Logo />
 				</Link>
 				<MenuBar>
+					<NavLink href="/restake">Restake</NavLink>
 					<NavLink href="/vault" disabled title="Coming soon">
 						Vault
 					</NavLink>

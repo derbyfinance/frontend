@@ -17,11 +17,17 @@ import Aside from './Aside'
 
 interface Props {
 	isFullPage?: boolean
+	isSmall?: boolean
 	aside?: JSX.Element | JSX.Element[] | React.ReactNode
 	children: JSX.Element | JSX.Element[] | React.ReactNode
 }
 
-const Layout = ({ isFullPage = false, aside, children }: Props) => {
+const Layout = ({
+	isFullPage = false,
+	isSmall = false,
+	aside,
+	children
+}: Props) => {
 	return (
 		<Provider store={store}>
 			<ThemeWrapper>
@@ -35,7 +41,7 @@ const Layout = ({ isFullPage = false, aside, children }: Props) => {
 							<Navigation />
 						</Header>
 						<Content>
-							<Main>{children}</Main>
+							<Main $isSmall={isSmall}>{children}</Main>
 							<Aside isFullPage={isFullPage} aside={aside} />
 						</Content>
 						<Footer>
@@ -62,17 +68,24 @@ const MainContainer = styled.div`
 
 	display: flex;
 	flex-direction: column;
+	gap: 1em;
 `
 const Content = styled.div`
 	flex: 1 0 auto;
 	display: flex;
 	gap: 1em;
+	justify-content: center;
 `
 const Header = styled.header`
 	flex: 0 0 auto;
 `
-const Main = styled.main`
+const Main = styled.main<{ $isSmall: boolean }>`
 	flex: 1 1 auto;
+	${({ $isSmall }) =>
+		$isSmall &&
+		`
+	flex: 0 0 50%;
+`}
 `
 const Footer = styled.footer`
 	flex: 0 0 auto;

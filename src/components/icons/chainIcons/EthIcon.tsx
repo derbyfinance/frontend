@@ -1,8 +1,13 @@
-const EthIcon = () => {
+interface Props {
+	width?: string
+	height?: string
+}
+
+const EthIcon = ({ width = '24', height = '24' }: Props) => {
 	return (
 		<svg
-			width="100%"
-			height="100%"
+			width={width}
+			height={height}
 			viewBox="0 0 784.37 1277.39"
 			xmlns="http://www.w3.org/2000/svg">
 			<g>

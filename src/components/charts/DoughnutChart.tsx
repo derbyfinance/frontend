@@ -34,8 +34,10 @@ const DoughnutChart = ({ data }: Props) => {
 
 	const options: ChartOptions<'doughnut'> = {
 		responsive: true,
+		cutout: 75,
 		plugins: {
 			legend: {
+				display: false,
 				position: 'bottom'
 			}
 		}

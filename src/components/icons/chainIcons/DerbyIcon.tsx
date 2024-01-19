@@ -2,6 +2,7 @@ interface Props {
 	width?: string
 	height?: string
 }
+
 const DerbyIcon = ({ width = '24', height = '24' }: Props) => {
 	return (
 		<svg

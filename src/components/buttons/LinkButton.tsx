@@ -8,6 +8,7 @@ interface Props extends LinkProps {
 	$isGhost?: boolean
 	$isBlock?: boolean
 	$align?: AlignType
+	target?: string
 	children: string | JSX.Element | JSX.Element[] | React.ReactNode
 }
 
