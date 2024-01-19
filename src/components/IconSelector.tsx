@@ -31,7 +31,7 @@ const IconSelector = ({ name }: Props) => {
 			case 'WalletConnect':
 				return <WalletConnecIcon />
 			default:
-				return <DerbyIcon width="100%" height="100%" />
+				return <DerbyIcon width="48" height="48" />
 		}
 	}
 

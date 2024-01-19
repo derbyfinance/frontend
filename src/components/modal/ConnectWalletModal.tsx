@@ -29,6 +29,7 @@ const ConnectWalletModal = () => {
 	}, [])
 
 	const connectWallet = useCallback(async (connector: Connector) => {
+		console.log(connectors)
 		if (isConnected) {
 			toast.info(
 				<Notification
@@ -78,7 +79,7 @@ const ConnectWalletModal = () => {
 					{connectors.map((connector, index) => (
 						<ConnectButton
 							key={index}
-							disabled={isConnected}
+							disabled={isConnected || !connector.ready}
 							onClick={() => connectWallet(connector)}>
 							{IconSelector({ name: connector.name })}
 							<Name>{connector.name}</Name>
