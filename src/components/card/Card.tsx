@@ -2,7 +2,6 @@ import { CardType } from '@datatypes/CardType'
 import { styled } from 'styled-components'
 
 interface Props {
-	isCta?: boolean
 	type?: CardType
 	children: JSX.Element | JSX.Element[] | React.ReactNode
 }
@@ -39,6 +38,13 @@ const CardComponent = styled.div<{ $type?: CardType }>`
 		`
 		background-image: ${theme.style.backgroundCtaGradient};
 		color: ${theme.style.buttonColor};
+	`}
+
+	${({ theme, $type }) =>
+		$type === 'block' &&
+		`
+		background-color: ${theme.style.formBg};
+		border: none;
 	`}
 
 	> div:last-child:not(:first-child) {

@@ -42,21 +42,14 @@ const Navigation = () => {
 					<Logo />
 				</Link>
 				<MenuBar>
-					<NavLink href="/restake">Restake</NavLink>
-					<NavLink href="/vault" disabled title="Coming soon">
-						Vault
-					</NavLink>
-					<NavLink href="/">Race</NavLink>
+					<NavLink href="/">Restake</NavLink>
 					{isConnectedUser ? (
-						<NavLink href="/account">Account</NavLink>
+						<NavLink href="/dashboard">Dashboard</NavLink>
 					) : (
-						<NavLink href="/account" onClick={handleWalletConnect}>
-							Account
+						<NavLink href="/dashboard" onClick={handleWalletConnect}>
+							Dashboard
 						</NavLink>
 					)}
-					<NavLink href="/governance" disabled title="Coming soon">
-						Governance
-					</NavLink>
 					{isConnectedUser ? (
 						<AccountButton />
 					) : (

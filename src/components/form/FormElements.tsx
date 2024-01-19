@@ -32,7 +32,5 @@ export const FormInfoRow = styled.div<{ $align?: AlignType }>`
 	& > p {
 		font-family: inherit;
 		color: inherit;
-		margin: 0;
-		margin-bottom: 0.5em;
 	}
 `
