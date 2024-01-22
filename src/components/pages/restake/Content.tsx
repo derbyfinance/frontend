@@ -16,46 +16,46 @@ const Content = () => {
 
 	return (
 		<Container>
-			<InfoContainer>
+			<div>
 				<h1>Restake</h1>
 				<p>
 					Stake ETH and receive back dfETH and start earning rewards and points
 				</p>
-			</InfoContainer>
+			</div>
 
-			<XCard>
+			<Card type="block">
 				<XCardTabMenu
 					menu={['Stake', 'Unstake']}
 					selected={selected}
 					onChange={setSelected}
 				/>
 				{selected === 'Stake' && (
-					<XCardContent>
+					<CardContent>
 						<StakeForm />
-					</XCardContent>
+					</CardContent>
 				)}
 				{selected === 'Unstake' && (
-					<XCardContent>
+					<CardContent>
 						<UnstakeForm />
-					</XCardContent>
+					</CardContent>
 				)}
-			</XCard>
+			</Card>
 
-			<XCard>
+			<Card type="block">
 				<XCardHeader>
 					<h3>Vault Composition</h3>
 					<p>Add a simple explanation of what this is about</p>
 				</XCardHeader>
-				<XCardContent>
+				<CardContent>
 					<VaultGraph />
-				</XCardContent>
-			</XCard>
+				</CardContent>
+			</Card>
 
-			<XCard>
-				<XCardContent>
+			<Card type="block">
+				<CardContent>
 					<Statistics />
-				</XCardContent>
-			</XCard>
+				</CardContent>
+			</Card>
 		</Container>
 	)
 }
@@ -65,26 +65,18 @@ const Container = styled.div`
 	flex-direction: column;
 	gap: 2em;
 `
-const InfoContainer = styled.div``
-const XCard = styled(Card)`
-	background-color: ${({ theme }) => theme.style.formBg};
-	border: none;
-`
 const XCardTabMenu = styled(CardTabMenu)`
 	margin: 2em;
 	margin-bottom: 1em;
 	padding: 0;
 `
 const XCardHeader = styled(CardHeader)`
-	margin: 2em;
-	margin-bottom: 1em;
-	padding: 0;
+	padding-bottom: 1em;
 
-	& p {
+	& > div > p {
 		font-family: inherit;
 		color: inherit;
 	}
 `
-const XCardContent = styled(CardContent)<{ id: string }>``
 
 export default Content

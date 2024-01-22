@@ -1,5 +1,5 @@
 import Layout from '@components/layout/Layout'
-import Content from '@components/pages/race/Content'
+import Content from '@components/pages/restake/Content'
 
 import { Metadata } from 'next'
 
@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const Page = () => {
 	return (
-		<Layout>
+		<Layout isFullPage isSmall>
 			<Content />
 		</Layout>
 	)

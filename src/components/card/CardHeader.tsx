@@ -41,4 +41,5 @@ const CollapseButton = styled.button`
 	}
 `
 const Label = styled.span``
+
 export default CardHeader

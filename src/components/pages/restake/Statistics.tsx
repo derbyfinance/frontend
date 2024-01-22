@@ -1,5 +1,4 @@
-import * as NewTable from '@components/table/Table'
-import TableData from '@components/table/TableData'
+import { device } from '@helpers/DeviceHelper'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
 import { styled } from 'styled-components'
 
@@ -20,25 +19,58 @@ const Statistics = () => {
 
 	return (
 		<Container>
-			<XTable headers={headers} isSmall>
-				<tr>
-					{list.map((item, index) => (
-						<TableData key={index} $align={index === 0 ? 'left' : 'right'}>
-							{item}
-						</TableData>
-					))}
-				</tr>
-			</XTable>
+			{headers.map(({ name, align }, key) => (
+				<Block key={key}>
+					<Title>{name}</Title>
+					<Data>{list.find((_, index) => index === key)}</Data>
+				</Block>
+			))}
 		</Container>
 	)
 }
 
-const Container = styled.div``
+const Container = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 0.5em;
 
-const XTable = styled(NewTable.default)`
-	& td:not(:last-child),
-	& th:not(:last-child) {
-		border-right: 1px solid ${({ theme }) => theme.style.colorBorder};
+	& > div {
+		padding: 1em 0;
+
+		&:not(:last-child) {
+			border-bottom: 1px solid ${({ theme }) => theme.style.colorBorder};
+		}
+	}
+
+	@media ${device.laptop} {
+		flex-direction: row;
+
+		& > div {
+			padding: 1em;
+			border-bottom: none !important;
+
+			&:not(:last-child) {
+				border-right: 1px solid ${({ theme }) => theme.style.colorBorder};
+			}
+		}
+	}
+`
+const Block = styled.div``
+const Title = styled.div`
+	font-family: ${({ theme }) => theme.fonts.slabLight};
+	text-align: center;
+
+	@media ${device.laptop} {
+		text-align: left;
+	}
+`
+const Data = styled.div`
+	font-weight: bold;
+	text-align: center;
+
+	@media ${device.laptop} {
+		text-align: right;
 	}
 `
 export default Statistics

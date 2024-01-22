@@ -87,9 +87,17 @@ export const ButtonStyle = css<ButtonStyleProps>`
 	`}
 
 	${({ $align }) =>
-		$align &&
+		$align !== 'center' &&
 		`
 		float: ${$align};
+	`}
+
+	${({ $align }) =>
+		$align === 'center' &&
+		`
+		margin-left: auto;
+		margin-right: auto;
+		display: block;
 	`}
 
 	${({ $isGhost, theme }) =>

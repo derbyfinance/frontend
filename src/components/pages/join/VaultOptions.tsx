@@ -19,7 +19,7 @@ const VaultOptions = ({ optionList, inputName, formikProps }: Props) => {
 
 	return (
 		<Container>
-			<Table $isSticky $isSmall headers={headers}>
+			<Table isSticky isSmall headers={headers}>
 				{optionList.map((vault, index) => (
 					<VaultOptionRow
 						key={index}

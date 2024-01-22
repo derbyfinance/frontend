@@ -9,7 +9,7 @@ import {
 	setConnectModalOpenState
 } from '@store/SettingsSlice'
 import { isConnectedState } from '@store/UserSlice'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { Connector, useConnect } from 'wagmi'
@@ -23,6 +23,12 @@ const ConnectWalletModal = () => {
 	)
 
 	const { connectors, connectAsync } = useConnect()
+
+	const [connectorList, setConnectorList] = useState<Connector[]>([])
+
+	useEffect(() => {
+		setConnectorList(connectors)
+	}, [connectors])
 
 	const closeModal = useCallback((): void => {
 		dispatch(setConnectModalOpenState(false))
@@ -75,10 +81,10 @@ const ConnectWalletModal = () => {
 					<p>{isConnected ? 'Connected' : 'Not connected'}</p>
 				</Header>
 				<Content>
-					{connectors.map((connector, index) => (
+					{connectorList.map((connector, index) => (
 						<ConnectButton
 							key={index}
-							disabled={isConnected}
+							disabled={isConnected || !connector.ready}
 							onClick={() => connectWallet(connector)}>
 							{IconSelector({ name: connector.name })}
 							<Name>{connector.name}</Name>

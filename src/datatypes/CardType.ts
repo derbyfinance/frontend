@@ -1,1 +1,1 @@
-export type CardType = 'cta' | 'info' | 'warning'
+export type CardType = 'cta' | 'info' | 'warning' | 'block'
