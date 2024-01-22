@@ -14,7 +14,7 @@ interface Props {
 
 const SelectOptionList = ({ optionList, inputName, formikProps }: Props) => {
 	return (
-		<Table $isSmall>
+		<Table isSmall>
 			{optionList?.map(({ value, name }, index) => (
 				<TableRow
 					key={index}
