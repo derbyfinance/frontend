@@ -1,5 +1,6 @@
 import DoughnutChart from '@components/charts/DoughnutChart'
 import { Colorpicker } from '@functions/ColorpickerFunction'
+import { device } from '@helpers/DeviceHelper'
 import { useAppSelector } from '@hooks/ReduxStore'
 import useDidMountEffect from '@hooks/UseDidMountEffect'
 import { BasketDtoModel } from '@models/dto/PlayerDtoModel'
@@ -71,6 +72,12 @@ const Container = styled.div`
 	& > * {
 		flex: 1 1 auto;
 	}
+
+	flex-direction: column;
+
+	@media ${device.laptop} {
+		flex-direction: row;
+	}
 `
 const Info = styled.li`
 	display: flex;
@@ -95,5 +102,11 @@ const Percentage = styled.span`
 const Chart = styled.div`
 	flex: 0 1 auto;
 	max-width: 12em;
+
+	align-self: center;
+
+	@media ${device.laptop} {
+		align: flex-start;
+	}
 `
 export default VaultGraph

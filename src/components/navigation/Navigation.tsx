@@ -4,6 +4,7 @@ import { styled } from 'styled-components'
 import Logo from '@components/icons/Logo'
 
 import ActionButton from '@components/buttons/ActionButton'
+import { device } from '@helpers/DeviceHelper'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
 import {
@@ -15,7 +16,7 @@ import {
 import { useCallback, useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import AccountButton from './AccountButton'
-import NavLink from './NavLink'
+import NavMenu from './NavMenu'
 
 const Navigation = () => {
 	const dispatch = useAppDispatch()
@@ -39,17 +40,12 @@ const Navigation = () => {
 			<a id="top" />
 			<Navbar>
 				<Link href="/">
-					<Logo />
+					<LogoWrapper>
+						<Logo />
+					</LogoWrapper>
 				</Link>
 				<MenuBar>
-					<NavLink href="/">Restake</NavLink>
-					{isConnectedUser ? (
-						<NavLink href="/dashboard">Dashboard</NavLink>
-					) : (
-						<NavLink href="/dashboard" onClick={handleWalletConnect}>
-							Dashboard
-						</NavLink>
-					)}
+					<XNavMenu />
 					{isConnectedUser ? (
 						<AccountButton />
 					) : (
@@ -78,5 +74,21 @@ const MenuBar = styled.div`
 	flex-wrap: nowrap;
 	align-items: center;
 `
-
+const LogoWrapper = styled.div`
+	width: 5.5em;
+	overflow: hidden;
+	@media ${device.laptop} {
+		width: auto;
+	}
+`
+const XNavMenu = styled(NavMenu)`
+	display: none;
+	@media ${device.laptop} {
+		display: flex;
+		justify-content: space-between;
+		gap: 0.5em;
+		flex-wrap: nowrap;
+		align-items: center;
+	}
+`
 export default Navigation

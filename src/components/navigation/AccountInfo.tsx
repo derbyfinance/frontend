@@ -16,6 +16,7 @@ import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { Hex } from 'viem'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
+import NavMenu from './NavMenu'
 
 interface Props {
 	$isOpen: boolean
@@ -122,6 +123,7 @@ const AccountInfo = ({ $isOpen }: Props) => {
 				<ExternalIcon />
 				View on {chain?.blockExplorers?.default.name}
 			</CardRowLink>
+			<XNavMenu />
 		</AccountInfoBox>
 	)
 }
@@ -166,5 +168,12 @@ const ChainStatus = styled.div<{ $isActive: boolean }>`
 	background-color: ${({ $isActive }) => ($isActive ? '#00FF38' : 'red')};
 	display: inline-block;
 	margin: 0 1em 0 0.5em;
+`
+const XNavMenu = styled(NavMenu)`
+	& a {
+		display: block;
+		border-top: 1px solid ${({ theme }) => theme.style.colorBorder};
+		padding: 0.5em;
+	}
 `
 export default AccountInfo

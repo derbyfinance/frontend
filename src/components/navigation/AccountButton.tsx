@@ -2,6 +2,7 @@ import Avatar from '@components/Avatar'
 import ActionButton from '@components/buttons/ActionButton'
 import ArrowDropdownIcon from '@components/icons/ArrowDropdownIcon'
 import { MaskCoinAddress } from '@functions/StringFunction'
+import { device } from '@helpers/DeviceHelper'
 import { useAppSelector } from '@hooks/ReduxStore'
 import { getAddressState } from '@store/UserSlice'
 import { useCallback, useState } from 'react'
@@ -26,7 +27,7 @@ const AccountButton = () => {
 					<Icon>
 						<Avatar $isSmall={true} name={address?.toString() ?? ''} />
 					</Icon>
-					{address ? MaskCoinAddress(address) : ''}
+					<Address>{address ? MaskCoinAddress(address) : ''}</Address>
 					<FloatArrowDropdownIcon $isOpen={isOpen} />
 				</WalletButton>
 
@@ -85,5 +86,11 @@ const Icon = styled.div`
 	margin-right: 0.5em;
 	vertical-align: middle;
 	font-size: 0.875em;
+`
+const Address = styled.div`
+	display: none;
+	@media ${device.laptop} {
+		display: inline;
+	}
 `
 export default AccountButton
