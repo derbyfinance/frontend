@@ -54,7 +54,7 @@ const AllocationBoard = () => {
 	return (
 		<Container>
 			<Table
-				$isSmall={true}
+				isSmall={true}
 				headers={headers}
 				footer={
 					<LinkButton href="/race/join" $isGhost $align="right">
