@@ -1,9 +1,9 @@
 import { UseContractWriteModel } from '@models/contract/UseContractWriteModel'
 import { Abi, Hex, parseEther } from 'viem'
 import {
-	useContractWrite,
-	usePrepareContractWrite,
-	useWaitForTransaction
+	useSimulateContract,
+	useWaitForTransactionReceipt,
+	useWriteContract
 } from 'wagmi'
 import useDebounce from './UseDebounce'
 
@@ -38,26 +38,28 @@ const useApproveDerbyToken = (amount: number): UseContractWriteModel => {
 	const debouncedAmount = useDebounce<bigint>(parseEther(`${amount}`), 500)
 
 	const {
-		config,
+		data,
 		error: errorPrepare,
 		isLoading: isLoadingPrepare,
 		isSuccess: isSuccessPrepare
-	} = usePrepareContractWrite({
+	} = useSimulateContract({
 		address: process.env.NEXT_PUBLIC_DERBY_TOKEN as Hex,
 		abi: abi,
 		functionName: 'approve',
 		args: [process.env.NEXT_PUBLIC_GAME_CONTRACT, debouncedAmount],
-		enabled: Boolean(amount > 0)
+		query: {
+			enabled: Boolean(debouncedAmount)
+		}
 	})
 
-	const { data, write } = useContractWrite(config)
+	const { data: dataWrite, writeContract: write } = useWriteContract()
 
 	const {
 		error: errorTx,
 		isLoading: isLoadingTx,
 		isSuccess: isSuccessTx
-	} = useWaitForTransaction({
-		hash: data?.hash
+	} = useWaitForTransactionReceipt({
+		hash: dataWrite
 	})
 
 	return {

@@ -1,3 +1,4 @@
+import Notification from '@components/Notification'
 import StockCurrency from '@components/StockCurrency'
 import ActionButton from '@components/buttons/ActionButton'
 import {
@@ -8,18 +9,45 @@ import {
 import InputField from '@components/form/InputField'
 import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
 import EthIcon from '@components/icons/chainIcons/EthIcon'
+import { useAppSelector } from '@hooks/ReduxStore'
+import useDepositDerbyToken from '@hooks/UseDepositDerbyToken'
 import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
+import useDidMountEffect from '@hooks/UseDidMountEffect'
 import StakeRequestModel from '@models/requests/StakeRequestModel'
+import { getAddressState, isConnectedState } from '@store/UserSlice'
 import StakeValidation from '@validations/StakeValidation'
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import { useCallback, useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
+import { Hex } from 'viem'
 import MaxAmountHiddenInput from '../join/MaxAmountHiddenInput'
 import PercentageBar from '../join/PercentageBar'
 
 const StakeForm = () => {
-	const rewards = useDerbyTokenBalance()
+	const address = useAppSelector<Hex | undefined>(getAddressState)
+	const isConnected = useAppSelector<boolean>(isConnectedState)
+	const rewards = useDerbyTokenBalance(address)
+
 	const [balance, setBalance] = useState<number>(0)
+	const [amount, setAmount] = useState<number>(0)
+	const [isApproved, setIsApproved] = useState<boolean>(false)
+
+	const {
+		data,
+		dataApprove,
+		errorApprove,
+		errorPrepare,
+		errorWrite,
+		errorTx,
+		isLoadingApprove,
+		isLoadingPrepare,
+		isLoadingTx,
+		isSuccessApprove,
+		isSuccessPrepare,
+		isSuccessTx,
+		write
+	} = useDepositDerbyToken(amount, address, isApproved)
 
 	const initial: StakeRequestModel = {
 		nft: '',
@@ -31,12 +59,70 @@ const StakeForm = () => {
 		setBalance(rewards)
 	}, [rewards])
 
+
+
+	useDidMountEffect(() => { 
+		if (!isSuccessApprove) return
+		
+		write(dataApprove!.request)
+	}, [isSuccessApprove])
+
+	useDidMountEffect(() => { 
+		if (!isSuccessPrepare) return 
+
+		write(data!.request)
+	}, [isSuccessPrepare])
+
+	useDidMountEffect(() => {
+		if (!isSuccessTx) return
+		
+		setIsApproved(true)
+	}, [isSuccessTx])
+
+	useDidMountEffect(() => {
+		if (!errorWrite?.message) return
+
+		setIsApproved(false)
+
+		toast.error(
+			<Notification
+				title="Write stake tokens"
+				notification="Something went wrong during the transaction"
+			/>
+		)
+	}, [errorWrite])
+
+	/*
+	useDidMountEffect(() => {
+		if (!errorApprove?.message) return
+
+		toast.error(
+			<Notification
+				title="Approve stake tokens"
+				notification={errorApprove.message}
+			/>
+		)
+	}, [errorApprove])
+
+	useDidMountEffect(() => {
+		if (!errorTx?.message) return
+
+		toast.error(
+			<Notification
+				title="Transaction stake tokens"
+				notification={errorTx.message}
+			/>
+		)
+	}, [errorTx])
+*/
+	
 	const onSubmit = useCallback(
 		(
 			form: StakeRequestModel,
 			formikHelpers: FormikHelpers<StakeRequestModel>
 		) => {
 			form.amount = Number(form.amount)
+			setAmount(form.amount)
 		},
 		[]
 	)
@@ -72,6 +158,8 @@ const StakeForm = () => {
 						placeholder="0.0"
 						required
 						iconAlign="left"
+						maxValue={rewards}
+						isConnected={isConnected}
 						icon={
 							<IconWrapper>
 								<span>ETH</span>
@@ -79,7 +167,7 @@ const StakeForm = () => {
 							</IconWrapper>
 						}
 					/>
-					<PercentageBar />
+					{/* <PercentageBar /> */}
 
 					<FormInfoRow>
 						<h3>Receive</h3>
@@ -109,10 +197,11 @@ const StakeForm = () => {
 							$isBlock
 							type="submit"
 							$isCta
+							$isLoading={isLoadingApprove || isLoadingPrepare || isLoadingTx}
 							disabled={
 								!formikProps.isValid || formikProps.values.maxAmount === 0
 							}>
-							Stake ETH
+							{isApproved ? 'Stake ETH' : 'Approve staking'}
 						</ActionButton>
 					</SubmitContainer>
 				</Form>

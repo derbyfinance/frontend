@@ -1,3 +1,5 @@
+import { QueryClient } from '@tanstack/query-core'
+import { QueryClientProvider } from '@tanstack/react-query'
 import {
 	arbitrum,
 	arbitrumGoerli,
@@ -7,36 +9,34 @@ import {
 	polygon,
 	polygonMumbai
 } from '@wagmi/core/chains'
-import { WagmiConfig, configureChains, createConfig } from 'wagmi'
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
-import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
-import { alchemyProvider } from 'wagmi/providers/alchemy'
-import { publicProvider } from 'wagmi/providers/public'
+import { createClient } from 'viem'
+import { WagmiProvider, createConfig, http } from 'wagmi'
+import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors'
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-	[mainnet, polygon, polygonMumbai, arbitrum, arbitrumGoerli, optimism, goerli],
-	[
-		alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API ?? '' }),
-		publicProvider()
-	]
-)
+const metaMask = injected({ target: 'metaMask' })
+
+const queryClient = new QueryClient()
 
 const config = createConfig({
-	publicClient: publicClient,
-	webSocketPublicClient: webSocketPublicClient,
-	autoConnect: true,
+	chains: [
+		mainnet,
+		polygon,
+		polygonMumbai,
+		arbitrum,
+		arbitrumGoerli,
+		optimism,
+		goerli
+	],
+	client({ chain }) {
+		return createClient({ chain, transport: http() })
+	},
 	connectors: [
-		new MetaMaskConnector({ chains }),
-		new CoinbaseWalletConnector({
-			chains: chains,
-			options: {
-				appName: 'Derby Finance'
-			}
+		metaMask,
+		coinbaseWallet({
+			appName: 'Derby Finance'
 		}),
-		new WalletConnectConnector({
-			chains: chains,
-			options: { projectId: process.env.NEXT_PUBLIC_PROJECT_ID ?? '' }
+		walletConnect({
+			projectId: process.env.NEXT_PUBLIC_PROJECT_ID ?? ''
 		})
 	]
 })
@@ -45,7 +45,11 @@ interface Props {
 	children: React.ReactNode
 }
 const WalletConfig = ({ children }: Props) => {
-	return <WagmiConfig config={config}>{children}</WagmiConfig>
+	return (
+		<WagmiProvider config={config}>
+			<QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+		</WagmiProvider>
+	)
 }
 
 export default WalletConfig

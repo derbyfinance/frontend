@@ -1,14 +1,17 @@
+import Badge from '@components/buttons/Badge'
 import { useAppSelector } from '@hooks/ReduxStore'
 import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
 import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 import { getAllocationListState } from '@store/RaceSlice'
-import { isConnectedState } from '@store/UserSlice'
+import { getAddressState, isConnectedState } from '@store/UserSlice'
 import { useFormikContext } from 'formik'
 import { MouseEvent, useCallback } from 'react'
 import { styled } from 'styled-components'
+import { Hex } from 'viem'
 
 const PercentageBar = () => {
-	const rewards = useDerbyTokenBalance()
+	const address = useAppSelector<Hex | undefined>(getAddressState)
+	const rewards = useDerbyTokenBalance(address)
 	const { values, setFieldValue, validateOnBlur, handleBlur } =
 		useFormikContext<AllocationRequestModel>()
 
@@ -34,23 +37,20 @@ const PercentageBar = () => {
 			e.stopPropagation()
 			e.preventDefault()
 		},
-		[]
+		[rewards]
 	)
 
 	return (
 		<Bar>
 			{list.map((percentage, index) => (
 				<Badge
-					type="button"
 					onClick={(e: MouseEvent<HTMLButtonElement>) =>
 						handlePercentage(e, percentage)
 					}
 					name="amount"
-					$percentage={percentage}
+					percentage={percentage}
 					key={index}
-					disabled={!isConnected || values.maxAmount <= 0}>
-					{percentage == 100 ? 'Max' : `${percentage}%`}
-				</Badge>
+					disabled={!isConnected || values.maxAmount <= 0}/>
 			))}
 		</Bar>
 	)
@@ -62,22 +62,5 @@ const Bar = styled.div`
 	gap: 0.5em;
 	margin-top: 0.5em;
 `
-const Badge = styled.button<{ $percentage: number }>`
-	background-color: ${({ theme, $percentage }) =>
-		theme.style.colorLink + `${$percentage < 100 ? $percentage : ''}`};
-	font-family: ${({ theme }) => theme.fonts.slabMedium};
-	color: ${({ theme }) => theme.style.buttonColor};
-	border-radius: ${({ theme }) => theme.style.radius}px;
-	padding: 0 0.5em;
-	cursor: pointer;
 
-	&:disabled,
-	&[disabled] {
-		background-color: ${({ theme, $percentage }) =>
-			theme.style.colorDisabled + `${$percentage < 100 ? $percentage : ''}`};
-		opacity: 0.5;
-		pointer-events: none;
-		cursor: hand;
-	}
-`
 export default PercentageBar

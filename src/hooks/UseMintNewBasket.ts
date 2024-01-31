@@ -1,9 +1,9 @@
 import { UseContractWriteModel } from '@models/contract/UseContractWriteModel'
 import { Abi, Hex } from 'viem'
 import {
-	useContractWrite,
-	usePrepareContractWrite,
-	useWaitForTransaction
+	useSimulateContract,
+	useWaitForTransactionReceipt,
+	useWriteContract
 } from 'wagmi'
 
 const abi: Abi = [
@@ -38,26 +38,28 @@ const useMintBasket = (
 	name: string
 ): UseContractWriteModel => {
 	const {
-		config,
+		data,
 		error: errorPrepare,
 		isLoading: isLoadingPrepare,
 		isSuccess: isSuccessPrepare
-	} = usePrepareContractWrite({
+	} = useSimulateContract({
 		address: process.env.NEXT_PUBLIC_GAME_CONTRACT as Hex,
 		abi: abi,
 		functionName: 'mintNewBasket',
 		args: [vaultNumber, name],
-		enabled: vaultNumber > 0
+		query: {
+			enabled: vaultNumber > 0
+		}
 	})
 
-	const { data, write } = useContractWrite(config)
+	const { data: dataWrite, writeContract: write } = useWriteContract()
 
 	const {
 		error: errorTx,
 		isLoading: isLoadingTx,
 		isSuccess: isSuccessTx
-	} = useWaitForTransaction({
-		hash: data?.hash
+	} = useWaitForTransactionReceipt({
+		hash: dataWrite
 	})
 
 	return {

@@ -30,9 +30,10 @@ const CreateNftForm = ({ closeModal, isOpen }: Props) => {
 	}
 	const [token, setToken] = useState<CreateNftRequestModel>(initial)
 
-	const debouncedToken = useDebounce(token, 500)
+	const debouncedToken = useDebounce<CreateNftRequestModel>(token, 500)
 
 	const {
+		data,
 		errorPrepare,
 		isSuccessPrepare,
 		errorTx,
@@ -70,7 +71,7 @@ const CreateNftForm = ({ closeModal, isOpen }: Props) => {
 
 	useEffect(() => {
 		if (isSuccessPrepare) {
-			write?.()
+			write?.(data!.request)
 		}
 	}, [isSuccessPrepare])
 

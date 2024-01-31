@@ -9,13 +9,14 @@ import {
 	setAllocationListState,
 	setIsChangedState
 } from '@store/RaceSlice'
-import { getCurrentBasketState, isConnectedState } from '@store/UserSlice'
+import { getAddressState, getCurrentBasketState, isConnectedState } from '@store/UserSlice'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import AllocateButton from './AllocateButton'
 import AllocateSummaryRow from './AllocateSummaryRow'
 import ConnectWalletButton from './ConnectWalletButton'
+import { Hex } from 'viem'
 
 interface Props {
 	update: (index: number) => void
@@ -24,7 +25,8 @@ interface Props {
 
 const AllocateSummary = ({ update, remove }: Props) => {
 	const dispatch = useAppDispatch()
-	const rewards = useDerbyTokenBalance()
+	const address = useAppSelector<Hex | undefined>(getAddressState)
+	const rewards = useDerbyTokenBalance(address)
 	const [isRebalance, setIsRebalance] = useState<boolean>(false)
 	const isConnected = useAppSelector<boolean>(isConnectedState)
 	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(

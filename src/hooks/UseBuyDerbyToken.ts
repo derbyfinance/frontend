@@ -1,10 +1,9 @@
 import { UseContractWriteModel } from '@models/contract/UseContractWriteModel'
 import { Abi, Hex, parseEther } from 'viem'
 import {
-	useAccount,
-	useContractWrite,
-	usePrepareContractWrite,
-	useWaitForTransaction
+	useSimulateContract,
+	useWaitForTransactionReceipt,
+	useWriteContract
 } from 'wagmi'
 import useDebounce from './UseDebounce'
 
@@ -21,30 +20,34 @@ const abi: Abi = [
 	}
 ]
 
-const useBuyDerbyToken = (amount: number): UseContractWriteModel => {
-	const { address } = useAccount()
+const useBuyDerbyToken = (
+	amount: number,
+	address: Hex | undefined
+): UseContractWriteModel => {
 	const debouncedAmount = useDebounce<bigint>(parseEther(`${amount}`), 500)
 
 	const {
-		config,
+		data,
 		error: errorPrepare,
 		isLoading: isLoadingPrepare,
 		isSuccess: isSuccessPrepare
-	} = usePrepareContractWrite({
+	} = useSimulateContract({
 		address: process.env.NEXT_PUBLIC_DERBY_TOKEN as Hex,
 		abi: abi,
 		functionName: 'mint',
 		args: [address, debouncedAmount],
-		enabled: Boolean(address) && Boolean(debouncedAmount)
+		query: {
+			enabled: Boolean(address) && Boolean(debouncedAmount)
+		}
 	})
-	const { data, write } = useContractWrite(config)
+	const { data: dataWrite, writeContract: write } = useWriteContract()
 
 	const {
 		error: errorTx,
 		isLoading: isLoadingTx,
 		isSuccess: isSuccessTx
-	} = useWaitForTransaction({
-		hash: data?.hash
+	} = useWaitForTransactionReceipt({
+		hash: dataWrite
 	})
 
 	return {

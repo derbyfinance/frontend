@@ -1,5 +1,5 @@
 import StockCurrency from '@components/StockCurrency'
-import { Colorpicker } from '@functions/ColorpickerFunction'
+import { Colorpicker, LazyColorPicker } from '@functions/ColorpickerFunction'
 import { useAppSelector } from '@hooks/ReduxStore'
 import { BasketDtoModel } from '@models/dto/PlayerDtoModel'
 import ChartDataModel from '@models/internal/ChartDataModel'
@@ -38,7 +38,8 @@ const RestakingList = () => {
 		<ul>
 			{allocationList.map(({ label, data }, index) => (
 				<Info key={index}>
-					<Label $color={Colorpicker(label)} />
+					{/* <Label $color={Colorpicker(label)} /> */}
+					<Label $color={ LazyColorPicker[index]} />
 					<span>{label}</span>
 					<Percentage>
 						{data > 0 ? (
