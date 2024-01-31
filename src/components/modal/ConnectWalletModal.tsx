@@ -27,7 +27,7 @@ const ConnectWalletModal = () => {
 	const [connectorList, setConnectorList] = useState<Connector[]>([])
 
 	useEffect(() => {
-		setConnectorList(connectors)
+		setConnectorList([...connectors])
 	}, [connectors])
 
 	const closeModal = useCallback((): void => {
@@ -46,9 +46,9 @@ const ConnectWalletModal = () => {
 		}
 
 		try {
-			const { account } = await connectAsync({ connector })
+			const { accounts } = await connectAsync({ connector })
 
-			if (account) {
+			if (accounts) {
 				toast.success(
 					<Notification
 						title="Wallet connection"
@@ -84,7 +84,7 @@ const ConnectWalletModal = () => {
 					{connectorList.map((connector, index) => (
 						<ConnectButton
 							key={index}
-							disabled={isConnected || !connector.ready}
+							disabled={isConnected || !connector.isAuthorized}
 							onClick={() => connectWallet(connector)}>
 							{IconSelector({ name: connector.name })}
 							<Name>{connector.name}</Name>

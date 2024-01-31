@@ -1,14 +1,11 @@
 import BigNumber from 'bignumber.js'
 import { Hex } from 'viem'
-import { useAccount, useBalance } from 'wagmi'
+import { useBalance } from 'wagmi'
 
-const useDerbyTokenBalance = (): number => {
-	const { address } = useAccount()
-
+const useDerbyTokenBalance = (address?: Hex | undefined): number => {
 	const { data } = useBalance({
 		address: address,
-		token: process.env.NEXT_PUBLIC_DERBY_TOKEN as Hex,
-		watch: true
+		token: process.env.NEXT_PUBLIC_DERBY_TOKEN as Hex
 	})
 
 	return Number(

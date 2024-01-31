@@ -1,5 +1,5 @@
 import DoughnutChart from '@components/charts/DoughnutChart'
-import { Colorpicker } from '@functions/ColorpickerFunction'
+import { Colorpicker, LazyColorPicker } from '@functions/ColorpickerFunction'
 import { device } from '@helpers/DeviceHelper'
 import { useAppSelector } from '@hooks/ReduxStore'
 import useDidMountEffect from '@hooks/UseDidMountEffect'
@@ -55,7 +55,8 @@ const VaultGraph = () => {
 			<ul>
 				{legenda.map(({ label, data }, index) => (
 					<Info key={index}>
-						<Label $color={Colorpicker(label)} />
+						{/* <Label $color={Colorpicker(label)} /> */}
+						<Label $color={LazyColorPicker[index]} />
 						<span>{label}</span>
 						<Percentage>{data}%</Percentage>
 					</Info>

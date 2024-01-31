@@ -6,6 +6,7 @@ import { styled } from 'styled-components'
 import { AlignType } from '@datatypes/AlignType'
 import { InputType } from '@datatypes/InputType'
 import { ErrorCaption } from './FormElements'
+import Badge from '@components/buttons/Badge'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	inputName: string
@@ -17,6 +18,8 @@ interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	required?: boolean
 	icon?: string | JSX.Element
 	iconAlign?: AlignType
+	maxValue?: number
+	isConnected?: boolean
 }
 
 const InputField = ({
@@ -29,6 +32,8 @@ const InputField = ({
 	type = 'text',
 	icon,
 	iconAlign = 'right',
+	maxValue,
+	isConnected,
 	...props
 }: Props) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -36,6 +41,11 @@ const InputField = ({
 	const openSelect = useCallback((isOpen: boolean) => {
 		setIsOpen(!isOpen)
 	}, [])
+
+	const handleMaxValue = useCallback((e: any) => { 
+		formikProps.values[inputName] = maxValue
+		formikProps.handleBlur(e)
+	}, [maxValue, formikProps])
 
 	return (
 		<Container>
@@ -56,6 +66,7 @@ const InputField = ({
 					{...props}
 				/>
 				<FloatIcon $align={iconAlign}>{icon}</FloatIcon>
+				<FloatBadge name={inputName} percentage={100} disabled={!isConnected} onClick={(e) => handleMaxValue(e)} />
 			</Wrapper>
 
 			<ErrorCaption>
@@ -71,6 +82,11 @@ const InputField = ({
 
 const Container = styled.div``
 
+const FloatBadge = styled(Badge)`
+	position: absolute;
+	top: .5em;
+	right: .5em;
+`
 const Label = styled.label<{ $align: AlignType }>`
 	font-family: ${({ theme }) => theme.fonts.slabRegular};
 	font-size: 1.25em;

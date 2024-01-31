@@ -15,8 +15,9 @@ import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { Hex } from 'viem'
-import { useAccount, useDisconnect, useNetwork } from 'wagmi'
+import { useAccount, useDisconnect } from 'wagmi'
 import NavMenu from './NavMenu'
+import { device } from '@helpers/DeviceHelper'
 
 interface Props {
 	$isOpen: boolean
@@ -24,12 +25,11 @@ interface Props {
 
 const AccountInfo = ({ $isOpen }: Props) => {
 	const address = useAppSelector<Hex | undefined>(getAddressState)
-	const { connector } = useAccount()
+	const { connector, chain } = useAccount()
 	const { disconnect } = useDisconnect()
-	const { chain } = useNetwork()
 	const [amount, setAmount] = useState<number>(0)
-	const { isSuccessTx, isSuccessPrepare, errorPrepare, errorTx, write } =
-		useBuyDerbyToken(amount)
+	const { isSuccessTx, isSuccessPrepare, errorPrepare, errorTx, write, data } =
+		useBuyDerbyToken(amount, address)
 
 	const dispatch = useAppDispatch()
 
@@ -85,7 +85,7 @@ const AccountInfo = ({ $isOpen }: Props) => {
 	useEffect(() => {
 		if (isSuccessPrepare) {
 			console.log('write')
-			write?.()
+			write?.(data!.request)
 		}
 	}, [isSuccessPrepare])
 
@@ -109,7 +109,7 @@ const AccountInfo = ({ $isOpen }: Props) => {
 				</CardRowButton>
 			) : null}
 			<CardRow>
-				<ChainStatus $isActive={!chain?.unsupported} />
+				<ChainStatus $isActive={!chain} />
 				{chain?.name}
 			</CardRow>
 			<CardRowButton onClick={handleCopyAddress}>
@@ -174,6 +174,10 @@ const XNavMenu = styled(NavMenu)`
 		display: block;
 		border-top: 1px solid ${({ theme }) => theme.style.colorBorder};
 		padding: 0.5em;
+	}
+
+	@media ${device.laptop} {
+		display: none;
 	}
 `
 export default AccountInfo

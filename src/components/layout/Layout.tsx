@@ -84,7 +84,9 @@ const Main = styled.main<{ $isSmall: boolean }>`
 	${({ $isSmall }) =>
 		$isSmall &&
 		`
-	flex: 0 0 50%;
+	@media ${device.laptop}{
+		flex: 0 0 50%;
+	}
 `}
 `
 const Footer = styled.footer`

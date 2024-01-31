@@ -2,9 +2,9 @@ import { UseContractWriteModel } from '@models/contract/UseContractWriteModel'
 import RebalanceModel from '@models/internal/RebalanceModel'
 import { Abi, Hex } from 'viem'
 import {
-	useContractWrite,
-	usePrepareContractWrite,
-	useWaitForTransaction
+	useSimulateContract,
+	useWaitForTransactionReceipt,
+	useWriteContract
 } from 'wagmi'
 import useDebounce from './UseDebounce'
 
@@ -42,26 +42,28 @@ const useRebalanceBasket = (
 	const debounceDelta = useDebounce<RebalanceModel>(rebalance, 500)
 
 	const {
-		config,
+		data,
 		error: errorPrepare,
 		isLoading: isLoadingPrepare,
 		isSuccess: isSuccessPrepare
-	} = usePrepareContractWrite({
+	} = useSimulateContract({
 		address: process.env.NEXT_PUBLIC_GAME_CONTRACT as Hex,
 		abi: abi,
 		functionName: 'rebalanceBasket',
 		args: [debounceDelta.basketId, debounceDelta.delta],
-		enabled: Boolean(debounceDelta.delta.length > 0)
+		query: {
+			enabled: Boolean(debounceDelta.delta.length > 0)
+		}
 	})
 
-	const { data, write } = useContractWrite(config)
+	const { data: dataWrite, writeContract: write } = useWriteContract()
 
 	const {
 		error: errorTx,
 		isLoading: isLoadingTx,
 		isSuccess: isSuccessTx
-	} = useWaitForTransaction({
-		hash: data?.hash
+	} = useWaitForTransactionReceipt({
+		hash: dataWrite
 	})
 
 	return {
