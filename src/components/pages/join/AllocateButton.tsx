@@ -41,7 +41,7 @@ const AllocateButton = ({ isRebalance }: Props) => {
 	useDidMountEffect(() => {
 		if (!approveToken.isSuccessPrepare || amount === 0) return
 		console.log('approveToken', 'write')
-		approveToken.write?.()
+		approveToken.write?.(approveToken.data!.request)
 	}, [approveToken.isSuccessPrepare, amount])
 
 	useDidMountEffect(() => {
@@ -57,7 +57,7 @@ const AllocateButton = ({ isRebalance }: Props) => {
 
 	useDidMountEffect(() => {
 		if (!rebalanceBasket.isSuccessPrepare) return
-		rebalanceBasket.write?.()
+		rebalanceBasket.write?.(rebalanceBasket.data!.request)
 	}, [rebalanceBasket.isSuccessPrepare])
 
 	useDidMountEffect(() => {
