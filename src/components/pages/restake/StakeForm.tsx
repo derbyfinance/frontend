@@ -22,7 +22,6 @@ import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { Hex } from 'viem'
 import MaxAmountHiddenInput from '../join/MaxAmountHiddenInput'
-import PercentageBar from '../join/PercentageBar'
 
 const StakeForm = () => {
 	const address = useAppSelector<Hex | undefined>(getAddressState)
@@ -59,23 +58,21 @@ const StakeForm = () => {
 		setBalance(rewards)
 	}, [rewards])
 
-
-
-	useDidMountEffect(() => { 
+	useDidMountEffect(() => {
 		if (!isSuccessApprove) return
-		
+
 		write(dataApprove!.request)
 	}, [isSuccessApprove])
 
-	useDidMountEffect(() => { 
-		if (!isSuccessPrepare) return 
+	useDidMountEffect(() => {
+		if (!isSuccessPrepare) return
 
 		write(data!.request)
 	}, [isSuccessPrepare])
 
 	useDidMountEffect(() => {
 		if (!isSuccessTx) return
-		
+
 		setIsApproved(true)
 	}, [isSuccessTx])
 
@@ -115,7 +112,7 @@ const StakeForm = () => {
 		)
 	}, [errorTx])
 */
-	
+
 	const onSubmit = useCallback(
 		(
 			form: StakeRequestModel,
@@ -155,7 +152,7 @@ const StakeForm = () => {
 						labelAlign="right"
 						tabIndex={5}
 						formikProps={formikProps}
-						placeholder="0.0"
+						placeholder="0"
 						required
 						iconAlign="left"
 						maxValue={rewards}
@@ -167,7 +164,6 @@ const StakeForm = () => {
 							</IconWrapper>
 						}
 					/>
-					{/* <PercentageBar /> */}
 
 					<FormInfoRow>
 						<h3>Receive</h3>
@@ -176,7 +172,7 @@ const StakeForm = () => {
 
 					<FormRow>
 						<IconWrapper>
-							<span>dfETH</span>
+							<span>akETH</span>
 							<DerbyIcon width="1em" height="100%" />
 						</IconWrapper>
 						<div>
@@ -201,7 +197,7 @@ const StakeForm = () => {
 							disabled={
 								!formikProps.isValid || formikProps.values.maxAmount === 0
 							}>
-							{isApproved ? 'Stake ETH' : 'Approve staking'}
+							{isApproved ? 'Stake ETH' : 'Stake'}
 						</ActionButton>
 					</SubmitContainer>
 				</Form>

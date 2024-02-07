@@ -33,7 +33,6 @@ const CardRow = styled.div<{
 		}
 	`}
 
-
 	svg {
 		margin-right: 0.5em;
 	}
