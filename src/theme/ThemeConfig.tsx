@@ -63,7 +63,7 @@ export const GlobalStyles = createGlobalStyle`
     }
 
     p {
-        font-family: ${({ theme }) => theme.fonts.robotoMedium};
+        font-family: ${({ theme }) => theme.fonts.robotoRegular};
         color: ${({ theme }) => theme.style.colorLabel};
         margin: 0.5em 0;
     }
@@ -100,7 +100,7 @@ const lightThemeStyle: DefaultStyle = {
 	colorSecondary: '#5F08EE',
 	colorLabel: '#A9A6AE',
 	colorInfo: '#D9E7F5',
-	colorHover: '#f5f5f5',
+	colorHover: '#ffffff',
 	colorDisabled: '#A9A6AE',
 	colorPlaceholder: '#959190',
 	colorPositive: '#26A17B',

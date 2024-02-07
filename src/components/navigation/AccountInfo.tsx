@@ -7,6 +7,7 @@ import CopyIcon from '@components/icons/CopyIcon'
 import CreateCoinIcon from '@components/icons/CreateCoinIcon'
 import ExternalIcon from '@components/icons/ExternalIcon'
 import { CopyToClipboard } from '@functions/StringFunction'
+import { device } from '@helpers/DeviceHelper'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import useBuyDerbyToken from '@hooks/UseBuyDerbyToken'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
@@ -17,7 +18,6 @@ import { styled } from 'styled-components'
 import { Hex } from 'viem'
 import { useAccount, useDisconnect } from 'wagmi'
 import NavMenu from './NavMenu'
-import { device } from '@helpers/DeviceHelper'
 
 interface Props {
 	$isOpen: boolean
@@ -150,7 +150,7 @@ const AccountInfoBox = styled.div<{ $isOpen: boolean }>`
 const ConnectorActions = styled.div`
 	display: flex;
 	gap: 0.5em;
-	justify-conent: space-between;
+	justify-content: space-between;
 	margin-top: 0.5em;
 `
 const ConnectorButton = styled(ActionButton)`

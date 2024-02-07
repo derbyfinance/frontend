@@ -3,10 +3,10 @@ import { InputHTMLAttributes, useCallback, useState } from 'react'
 import { ErrorMessage, FormikProps } from 'formik'
 import { styled } from 'styled-components'
 
+import Badge from '@components/buttons/Badge'
 import { AlignType } from '@datatypes/AlignType'
 import { InputType } from '@datatypes/InputType'
 import { ErrorCaption } from './FormElements'
-import Badge from '@components/buttons/Badge'
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
 	inputName: string
@@ -42,10 +42,13 @@ const InputField = ({
 		setIsOpen(!isOpen)
 	}, [])
 
-	const handleMaxValue = useCallback((e: any) => { 
-		formikProps.values[inputName] = maxValue
-		formikProps.handleBlur(e)
-	}, [maxValue, formikProps])
+	const handleMaxValue = useCallback(
+		(e: any) => {
+			formikProps.values[inputName] = maxValue
+			formikProps.handleBlur(e)
+		},
+		[maxValue, formikProps]
+	)
 
 	return (
 		<Container>
@@ -61,12 +64,21 @@ const InputField = ({
 					required={required}
 					onChange={formikProps.handleChange}
 					onBlur={formikProps.handleBlur}
-					value={formikProps.values[inputName]}
+					value={
+						formikProps.values[inputName] !== 0
+							? formikProps.values[inputName]
+							: ''
+					}
 					$align={iconAlign}
 					{...props}
 				/>
 				<FloatIcon $align={iconAlign}>{icon}</FloatIcon>
-				<FloatBadge name={inputName} percentage={100} disabled={!isConnected} onClick={(e) => handleMaxValue(e)} />
+				<FloatBadge
+					name={inputName}
+					percentage={100}
+					disabled={!isConnected}
+					onClick={(e) => handleMaxValue(e)}
+				/>
 			</Wrapper>
 
 			<ErrorCaption>
@@ -84,13 +96,12 @@ const Container = styled.div``
 
 const FloatBadge = styled(Badge)`
 	position: absolute;
-	top: .5em;
-	right: .5em;
+	top: 0.5em;
+	right: 0.5em;
 `
 const Label = styled.label<{ $align: AlignType }>`
 	font-family: ${({ theme }) => theme.fonts.slabRegular};
 	font-size: 1.25em;
-	vertical-align: middle;
 	margin: 0.75em 0;
 	display: block;
 

@@ -13,6 +13,8 @@ export const SubmitContainer = styled.div`
 export const ErrorCaption = styled.span`
 	color: ${({ theme }) => theme.style.colorNegative};
 	font-size: 0.75em;
+	min-height: 1.75em;
+	display: inline-block;
 `
 
 export const FormInfoRow = styled.div<{ $align?: AlignType }>`

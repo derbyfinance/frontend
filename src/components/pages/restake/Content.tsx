@@ -19,7 +19,7 @@ const Content = () => {
 			<div>
 				<h1>Restake</h1>
 				<p>
-					Stake ETH and receive back dfETH and start earning rewards and points
+					Stake ETH and receive back akETH and start earning rewards and points
 				</p>
 			</div>
 
