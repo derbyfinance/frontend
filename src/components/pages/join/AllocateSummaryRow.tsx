@@ -43,7 +43,7 @@ const AllocateSummaryRow = ({ index, allocate, remove, update }: Props) => {
 				<StockCurrency
 					$amount={allocate.amount}
 					$isAbbr
-					$coin="DRB"
+					$coin="akETH"
 					$color="inherit"
 				/>
 			</TableData>

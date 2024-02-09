@@ -7,7 +7,7 @@ import {
 	SubmitContainer
 } from '@components/form/FormElements'
 import InputField from '@components/form/InputField'
-import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
+import AkkoIcon from '@components/icons/chainIcons/AkkoIcon'
 import EthIcon from '@components/icons/chainIcons/EthIcon'
 import { useAppSelector } from '@hooks/ReduxStore'
 import useDepositDerbyToken from '@hooks/UseDepositDerbyToken'
@@ -173,7 +173,7 @@ const StakeForm = () => {
 					<FormRow>
 						<IconWrapper>
 							<span>akETH</span>
-							<DerbyIcon width="1em" height="100%" />
+							<AkkoIcon width="1em" height="100%" />
 						</IconWrapper>
 						<div>
 							<span>Exchange rate:</span>&nbsp;
@@ -184,7 +184,7 @@ const StakeForm = () => {
 								$decimals={0}
 							/>
 							<b> = </b>
-							<StockCurrency $amount={1} $coin="DRB" $color="inherit" />
+							<StockCurrency $amount={1} $coin="akETH" $color="inherit" />
 						</div>
 					</FormRow>
 

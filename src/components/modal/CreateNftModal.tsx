@@ -27,7 +27,7 @@ const CreateNftModal = () => {
 						<LogoIcon width="100%" height="100%" />
 					</LogoBox>
 					<h4>Create new NFT</h4>
-					<p>to start using Derby Finance</p>
+					<p>to start using Akko</p>
 				</Header>
 				<Content>
 					<CreateNftForm

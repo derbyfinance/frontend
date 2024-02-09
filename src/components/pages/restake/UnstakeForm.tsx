@@ -1,12 +1,15 @@
 import LinkButton from '@components/buttons/LinkButton'
 import { FormInfoRow } from '@components/form/FormElements'
+import LogoIcon from '@components/icons/LogoIcon'
 import DiscordMessageIcon from '@components/icons/socialIcons/DiscordMessageIcon'
 import { styled } from 'styled-components'
 
 const UnstakeForm = () => {
 	return (
 		<>
-			<Logo />
+			<LogoBox>
+				<LogoIcon />
+			</LogoBox>
 			<FormInfoRow $align="center">
 				<h3>Unstaking NFT is coming soon</h3>
 				<p>
@@ -27,10 +30,10 @@ const UnstakeForm = () => {
 	)
 }
 
-const Logo = styled.div`
-	width: 10em;
-	height: 10em;
-	margin: 2em auto;
+const LogoBox = styled.div`
+	width: 6em;
+	height: 6em;
+	margin: 1em auto;
 	border-radius: 50%;
 	border: 1px solid ${({ theme }) => theme.style.colorText};
 `

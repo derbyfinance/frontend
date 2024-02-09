@@ -33,7 +33,7 @@ const KeyStatistics = () => {
 						<StockCurrency
 							$amount={vaultList?.[0].races[0].stakedTokens ?? 0}
 							$isAbbr
-							$coin="DRB"
+							$coin="akETH"
 						/>
 					</Title>
 					<Info>Amount of staked tokens</Info>
@@ -51,7 +51,7 @@ const KeyStatistics = () => {
 								)
 							)}
 							$isAbbr
-							$coin="DRB"
+							$coin="akETH"
 						/>
 					</Title>
 					<Info>Total rewards</Info>

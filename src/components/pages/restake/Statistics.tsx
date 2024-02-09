@@ -7,7 +7,7 @@ const Statistics = () => {
 		{ name: 'Total Value Locked', align: 'left' },
 		{ name: 'APR', align: 'right' },
 		{ name: 'Restaking Points', align: 'right' },
-		{ name: 'Derby Points', align: 'right' }
+		{ name: 'Akko Points', align: 'right' }
 	]
 
 	const list: string[] = [

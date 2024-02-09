@@ -42,7 +42,7 @@ const WalletCard = () => {
 					<RewardsIcon />
 					<Label>Rewards</Label>
 				</div>
-				<StockCurrency $amount={1234} $decimals={0} $coin="DRB" />
+				<StockCurrency $amount={1234} $decimals={0} $coin="akETH" />
 			</CardRow>
 			<CardFooter $align="right">
 				<ActionButton $isCta onClick={() => {}}>

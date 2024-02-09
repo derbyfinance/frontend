@@ -33,7 +33,7 @@ const config = createConfig({
 	connectors: [
 		metaMask,
 		coinbaseWallet({
-			appName: 'Derby Finance'
+			appName: 'Akko'
 		}),
 		walletConnect({
 			projectId: process.env.NEXT_PUBLIC_PROJECT_ID ?? ''

@@ -28,7 +28,7 @@ const StockCurrency = ({
 				? ToCoinCurrency($amount, $decimals, $isAbbr)
 				: ToCurrency($amount, $decimals, $isAbbr)}
 			{$coin !== undefined ? (
-				<CoinCurrency $color={$color}>{$coin.toUpperCase()}</CoinCurrency>
+				<CoinCurrency $color={$color}>{$coin}</CoinCurrency>
 			) : null}
 		</Container>
 	)

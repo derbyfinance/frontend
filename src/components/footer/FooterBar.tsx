@@ -1,4 +1,3 @@
-import DiscordIcon from '@components/icons/socialIcons/DiscordIcon'
 import GithubIcon from '@components/icons/socialIcons/GithubIcon'
 import MediumIcon from '@components/icons/socialIcons/MediumIcon'
 import TwitterIcon from '@components/icons/socialIcons/TwitterIcon'
@@ -10,24 +9,22 @@ const FooterBar = () => {
 			<div></div>
 			<div>
 				<FooterLink>
-					<ExternalLink
-						href="https://twitter.com/derby_finance"
-						target="_blank">
+					<ExternalLink href="https://twitter.com/AkkoProtocol" target="_blank">
 						<TwitterIcon />
 					</ExternalLink>
 				</FooterLink>
-				<FooterLink>
+				{/* <FooterLink>
 					<ExternalLink href="https://discord.gg/DyxRxs9mQ6" target="_blank">
 						<DiscordIcon />
 					</ExternalLink>
-				</FooterLink>
+				</FooterLink> */}
 				<FooterLink>
-					<ExternalLink href="https://derby-finance.gitbook.io" target="_blank">
+					<ExternalLink href="https://github.com/akkoprotocol" target="_blank">
 						<GithubIcon />
 					</ExternalLink>
 				</FooterLink>
 				<FooterLink>
-					<ExternalLink href="https://medium.com/derbyfinance" target="_blank">
+					<ExternalLink href="https://medium.com/akkoprotocol" target="_blank">
 						<MediumIcon />
 					</ExternalLink>
 				</FooterLink>

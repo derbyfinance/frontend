@@ -6,9 +6,9 @@ import AllocationRequestModel from '@models/requests/AllocationRequestModel'
 
 import ActionButton from '@components/buttons/ActionButton'
 import InputField from '@components/form/InputField'
-import DerbyIcon from '@components/icons/chainIcons/DerbyIcon'
 
 import { FormRow, SubmitContainer } from '@components/form/FormElements'
+import AkkoIcon from '@components/icons/chainIcons/AkkoIcon'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import { setAllocationListState } from '@store/RaceSlice'
@@ -104,10 +104,10 @@ const AllocateForm = ({ initial, update }: Props) => {
 						placeholder="0.0"
 						required
 						icon={
-							<DerbyIconWrapper>
-								<span>DRB</span>
-								<DerbyIcon width="1.5em" height="100%" />
-							</DerbyIconWrapper>
+							<AkkoIconWrapper>
+								<span>AKK</span>
+								<AkkoIcon width="1.5em" height="100%" />
+							</AkkoIconWrapper>
 						}
 					/>
 					<PercentageBar />
@@ -129,7 +129,7 @@ const AllocateForm = ({ initial, update }: Props) => {
 	)
 }
 
-const DerbyIconWrapper = styled.div`
+const AkkoIconWrapper = styled.div`
 	display: flex;
 	gap: 0.25em;
 `
