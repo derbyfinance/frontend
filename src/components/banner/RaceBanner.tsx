@@ -71,7 +71,7 @@ const RaceBanner = () => {
 					$amount={Number(
 						new BigNumber(basket?.redeemedRewards ?? 0).div(10000000)
 					)}
-					$coin="DRB"
+					$coin="akETH"
 				/>
 			</CardRow>
 			{/*<CardRow $hasHover={false} $isFlex>

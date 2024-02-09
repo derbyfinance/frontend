@@ -52,7 +52,7 @@ const AccountInfo = ({ $isOpen }: Props) => {
 		)
 	}
 
-	const handleDerbyTokens = (): void => {
+	const handleAkkoTokens = (): void => {
 		setAmount(10)
 	}
 
@@ -60,8 +60,8 @@ const AccountInfo = ({ $isOpen }: Props) => {
 		if (errorPrepare || errorTx) {
 			toast.error(
 				<Notification
-					title="Create Derby Tokens"
-					notification="Something went wrong during the creation of your Derby Tokens. Please try again."
+					title="Create Akko Tokens"
+					notification="Something went wrong during the creation of your Akko Tokens. Please try again."
 				/>
 			)
 
@@ -73,8 +73,8 @@ const AccountInfo = ({ $isOpen }: Props) => {
 		if (isSuccessPrepare && isSuccessTx) {
 			toast.success(
 				<Notification
-					title="Create Derby Tokens"
-					notification="Your Derby Tokens for testing purposes are created."
+					title="Create Akko Tokens"
+					notification="Your Akko Tokens for testing purposes are created."
 				/>
 			)
 
@@ -103,9 +103,9 @@ const AccountInfo = ({ $isOpen }: Props) => {
 				</ConnectorActions>
 			</CardRow>
 			{Boolean(JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false')) ? (
-				<CardRowButton onClick={handleDerbyTokens}>
+				<CardRowButton onClick={handleAkkoTokens}>
 					<CreateCoinIcon />
-					Create Derby Tokens
+					Create Akko Tokens
 				</CardRowButton>
 			) : null}
 			<CardRow>

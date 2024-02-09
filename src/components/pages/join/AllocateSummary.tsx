@@ -9,14 +9,18 @@ import {
 	setAllocationListState,
 	setIsChangedState
 } from '@store/RaceSlice'
-import { getAddressState, getCurrentBasketState, isConnectedState } from '@store/UserSlice'
+import {
+	getAddressState,
+	getCurrentBasketState,
+	isConnectedState
+} from '@store/UserSlice'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
+import { Hex } from 'viem'
 import AllocateButton from './AllocateButton'
 import AllocateSummaryRow from './AllocateSummaryRow'
 import ConnectWalletButton from './ConnectWalletButton'
-import { Hex } from 'viem'
 
 interface Props {
 	update: (index: number) => void
@@ -46,7 +50,7 @@ const AllocateSummary = ({ update, remove }: Props) => {
 			toast.info(
 				<Notification
 					title="Allocation"
-					notification="Your total amount of Derby tokens has been allocated."
+					notification="Your total amount of Akko tokens has been allocated."
 				/>
 			)
 		}

@@ -2,6 +2,7 @@ import ActionButton from '@components/buttons/ActionButton'
 import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
 import { FormInfoRow } from '@components/form/FormElements'
+import LogoIcon from '@components/icons/LogoIcon'
 import { useAppDispatch } from '@hooks/ReduxStore'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
 import { useCallback } from 'react'
@@ -17,7 +18,9 @@ const WalletConnect = () => {
 	return (
 		<Card type="block">
 			<CardContent>
-				<Logo />
+				<LogoBox>
+					<LogoIcon />
+				</LogoBox>
 				<FormInfoRow $align="center">
 					<h3>Connect Wallet</h3>
 					<p>
@@ -33,10 +36,10 @@ const WalletConnect = () => {
 	)
 }
 
-const Logo = styled.div`
-	width: 10em;
-	height: 10em;
-	margin: 2em auto;
+const LogoBox = styled.div`
+	width: 6em;
+	height: 6em;
+	margin: 1em auto;
 	border-radius: 50%;
 	border: 1px solid ${({ theme }) => theme.style.colorText};
 `

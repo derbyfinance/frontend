@@ -1,5 +1,5 @@
+import AkkoIcon from './icons/chainIcons/AkkoIcon'
 import DaiIcon from './icons/chainIcons/DaiIcon'
-import DerbyIcon from './icons/chainIcons/DerbyIcon'
 import EthIcon from './icons/chainIcons/EthIcon'
 import UsdCIcon from './icons/chainIcons/UsdCIcon'
 import UsdTIcon from './icons/chainIcons/UsdTIcon'
@@ -31,7 +31,7 @@ const IconSelector = ({ name }: Props) => {
 			case 'WalletConnect':
 				return <WalletConnecIcon />
 			default:
-				return <DerbyIcon width="48" height="48" />
+				return <AkkoIcon width="48" height="48" />
 		}
 	}
 

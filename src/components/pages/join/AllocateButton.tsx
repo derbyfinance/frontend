@@ -144,7 +144,7 @@ const AllocateButton = ({ isRebalance }: Props) => {
 			<StockCurrency
 				$amount={getTotal()}
 				$isAbbr
-				$coin="DRB"
+				$coin="akETH"
 				$color="inherit"
 			/>
 		</ActionButton>
