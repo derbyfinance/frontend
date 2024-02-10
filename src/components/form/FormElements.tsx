@@ -1,11 +1,18 @@
 import { AlignType } from '@datatypes/AlignType'
+import { device } from '@helpers/DeviceHelper'
 import { styled } from 'styled-components'
 
 export const FormRow = styled.div`
 	display: flex;
 	gap: 0.5em;
 	justify-content: space-between;
-	align-items: flex-end;
+
+	flex-direction: column;
+
+	@media ${device.laptop} {
+		align-items: flex-end;
+		flex-direction: row;
+	}
 `
 export const SubmitContainer = styled.div`
 	margin-top: 2em;

@@ -4,19 +4,17 @@ import CardRow from '@components/card/CardRow'
 import CardRowButton from '@components/card/CardRowButton'
 import CardRowLink from '@components/card/CardRowLink'
 import CopyIcon from '@components/icons/CopyIcon'
-import CreateCoinIcon from '@components/icons/CreateCoinIcon'
 import ExternalIcon from '@components/icons/ExternalIcon'
 import { CopyToClipboard } from '@functions/StringFunction'
 import { device } from '@helpers/DeviceHelper'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
-import useBuyDerbyToken from '@hooks/UseBuyDerbyToken'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
 import { getAddressState } from '@store/UserSlice'
-import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { Hex } from 'viem'
 import { useAccount, useDisconnect } from 'wagmi'
+import CreateTestTokens from './CreateTestTokens'
 import NavMenu from './NavMenu'
 
 interface Props {
@@ -27,9 +25,6 @@ const AccountInfo = ({ $isOpen }: Props) => {
 	const address = useAppSelector<Hex | undefined>(getAddressState)
 	const { connector, chain } = useAccount()
 	const { disconnect } = useDisconnect()
-	const [amount, setAmount] = useState<number>(0)
-	const { isSuccessTx, isSuccessPrepare, errorPrepare, errorTx, write, data } =
-		useBuyDerbyToken(amount, address)
 
 	const dispatch = useAppDispatch()
 
@@ -52,43 +47,6 @@ const AccountInfo = ({ $isOpen }: Props) => {
 		)
 	}
 
-	const handleAkkoTokens = (): void => {
-		setAmount(10)
-	}
-
-	useEffect(() => {
-		if (errorPrepare || errorTx) {
-			toast.error(
-				<Notification
-					title="Create Akko Tokens"
-					notification="Something went wrong during the creation of your Akko Tokens. Please try again."
-				/>
-			)
-
-			setAmount(0)
-		}
-	}, [errorTx, errorPrepare])
-
-	useEffect(() => {
-		if (isSuccessPrepare && isSuccessTx) {
-			toast.success(
-				<Notification
-					title="Create Akko Tokens"
-					notification="Your Akko Tokens for testing purposes are created."
-				/>
-			)
-
-			setAmount(0)
-		}
-	}, [isSuccessPrepare, isSuccessTx])
-
-	useEffect(() => {
-		if (isSuccessPrepare) {
-			console.log('write')
-			write?.(data!.request)
-		}
-	}, [isSuccessPrepare])
-
 	return (
 		<AccountInfoBox $isOpen={$isOpen}>
 			<CardRow $align="center" $hasHover={false}>
@@ -103,10 +61,7 @@ const AccountInfo = ({ $isOpen }: Props) => {
 				</ConnectorActions>
 			</CardRow>
 			{Boolean(JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false')) ? (
-				<CardRowButton onClick={handleAkkoTokens}>
-					<CreateCoinIcon />
-					Create Akko Tokens
-				</CardRowButton>
+				<CreateTestTokens />
 			) : null}
 			<CardRow>
 				<ChainStatus $isActive={!chain} />

@@ -1,3 +1,4 @@
+import { vaultAbi } from '@/abis/vaultAbi'
 import Notification from '@components/Notification'
 import StockCurrency from '@components/StockCurrency'
 import ActionButton from '@components/buttons/ActionButton'
@@ -10,9 +11,9 @@ import InputField from '@components/form/InputField'
 import AkkoIcon from '@components/icons/chainIcons/AkkoIcon'
 import EthIcon from '@components/icons/chainIcons/EthIcon'
 import { useAppSelector } from '@hooks/ReduxStore'
-import useDepositDerbyToken from '@hooks/UseDepositDerbyToken'
 import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
 import useDidMountEffect from '@hooks/UseDidMountEffect'
+import useStakeEth from '@hooks/UseStakeEth'
 import StakeRequestModel from '@models/requests/StakeRequestModel'
 import { getAddressState, isConnectedState } from '@store/UserSlice'
 import StakeValidation from '@validations/StakeValidation'
@@ -20,36 +21,33 @@ import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
 import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
-import { Hex } from 'viem'
+import { Hex, parseEther } from 'viem'
+import { sepolia } from 'viem/chains'
+import { useChainId, useSwitchChain } from 'wagmi'
 import MaxAmountHiddenInput from '../join/MaxAmountHiddenInput'
+import ExchangeRate from './ExchangeRate'
 
 const StakeForm = () => {
 	const address = useAppSelector<Hex | undefined>(getAddressState)
 	const isConnected = useAppSelector<boolean>(isConnectedState)
 	const rewards = useDerbyTokenBalance(address)
+	const { switchChain } = useSwitchChain()
+	const chainId = useChainId()
 
 	const [balance, setBalance] = useState<number>(0)
-	const [amount, setAmount] = useState<number>(0)
-	const [isApproved, setIsApproved] = useState<boolean>(false)
+	const [exhangeRate, setExhangeRate] = useState<number>(1)
 
 	const {
-		data,
-		dataApprove,
-		errorApprove,
-		errorPrepare,
-		errorWrite,
-		errorTx,
-		isLoadingApprove,
-		isLoadingPrepare,
-		isLoadingTx,
-		isSuccessApprove,
-		isSuccessPrepare,
-		isSuccessTx,
-		write
-	} = useDepositDerbyToken(amount, address, isApproved)
+		tokenBalance,
+		refetch,
+		isLoading,
+		isPending,
+		isSuccess,
+		error,
+		writeContract
+	} = useStakeEth(address)
 
 	const initial: StakeRequestModel = {
-		nft: '',
 		amount: 0,
 		maxAmount: 0
 	}
@@ -58,68 +56,56 @@ const StakeForm = () => {
 		setBalance(rewards)
 	}, [rewards])
 
-	useDidMountEffect(() => {
-		if (!isSuccessApprove) return
-
-		write(dataApprove!.request)
-	}, [isSuccessApprove])
-
-	useDidMountEffect(() => {
-		if (!isSuccessPrepare) return
-
-		write(data!.request)
-	}, [isSuccessPrepare])
-
-	useDidMountEffect(() => {
-		if (!isSuccessTx) return
-
-		setIsApproved(true)
-	}, [isSuccessTx])
+	// Will prompt to switch chains when wallet is not connected to sepolia
+	// Probably not in the right place
+	useEffect(() => {
+		if (
+			!Boolean(JSON.parse(process.env.NEXT_PUBLIC_MAINNET ?? 'false')) &&
+			chainId != sepolia.id
+		) {
+			switchChain({ chainId: sepolia.id })
+		}
+	}, [])
 
 	useDidMountEffect(() => {
-		if (!errorWrite?.message) return
+		if (!isSuccess) return
 
-		setIsApproved(false)
+		refetch()
+
+		toast.success(
+			<Notification
+				title="Stake ETH"
+				notification="ETH is staked succesfully."
+			/>
+		)
+	}, [isSuccess])
+
+	useDidMountEffect(() => {
+		if (!error) return
 
 		toast.error(
 			<Notification
-				title="Write stake tokens"
-				notification="Something went wrong during the transaction"
+				title="Stake ETH"
+				notification="Something went wrong during staking. Please try again or contact us."
 			/>
 		)
-	}, [errorWrite])
-
-	/*
-	useDidMountEffect(() => {
-		if (!errorApprove?.message) return
-
-		toast.error(
-			<Notification
-				title="Approve stake tokens"
-				notification={errorApprove.message}
-			/>
-		)
-	}, [errorApprove])
-
-	useDidMountEffect(() => {
-		if (!errorTx?.message) return
-
-		toast.error(
-			<Notification
-				title="Transaction stake tokens"
-				notification={errorTx.message}
-			/>
-		)
-	}, [errorTx])
-*/
+	}, [error])
 
 	const onSubmit = useCallback(
 		(
 			form: StakeRequestModel,
 			formikHelpers: FormikHelpers<StakeRequestModel>
 		) => {
-			form.amount = Number(form.amount)
-			setAmount(form.amount)
+			writeContract({
+				address: process.env.NEXT_PUBLIC_VAULT_CONTRACT as Hex,
+				abi: vaultAbi,
+				functionName: 'depositToForwardAddr',
+				value: parseEther(form.amount.toString())
+			})
+
+			formikHelpers.resetForm({
+				values: { amount: 0, maxAmount: rewards }
+			})
 		},
 		[]
 	)
@@ -174,6 +160,7 @@ const StakeForm = () => {
 						<IconWrapper>
 							<span>akETH</span>
 							<AkkoIcon width="1em" height="100%" />
+							<ExchangeRate exhangeRate={exhangeRate} />
 						</IconWrapper>
 						<div>
 							<span>Exchange rate:</span>&nbsp;
@@ -184,7 +171,11 @@ const StakeForm = () => {
 								$decimals={0}
 							/>
 							<b> = </b>
-							<StockCurrency $amount={1} $coin="akETH" $color="inherit" />
+							<StockCurrency
+								$amount={exhangeRate}
+								$coin="akETH"
+								$color="inherit"
+							/>
 						</div>
 					</FormRow>
 
@@ -193,11 +184,11 @@ const StakeForm = () => {
 							$isBlock
 							type="submit"
 							$isCta
-							$isLoading={isLoadingApprove || isLoadingPrepare || isLoadingTx}
+							$isLoading={isLoading || isPending}
 							disabled={
 								!formikProps.isValid || formikProps.values.maxAmount === 0
 							}>
-							{isApproved ? 'Stake ETH' : 'Stake'}
+							Stake
 						</ActionButton>
 					</SubmitContainer>
 				</Form>
