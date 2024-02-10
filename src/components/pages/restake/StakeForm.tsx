@@ -37,8 +37,15 @@ const StakeForm = () => {
 	const [balance, setBalance] = useState<number>(0)
 	const [exhangeRate, setExhangeRate] = useState<number>(1)
 
-	const { refetch, isLoading, isPending, isSuccess, error, writeContract } =
-		useStakeEth(address)
+	const {
+		tokenBalance,
+		refetch,
+		isLoading,
+		isPending,
+		isSuccess,
+		error,
+		writeContract
+	} = useStakeEth(address)
 
 	const initial: StakeRequestModel = {
 		amount: 0,
@@ -52,7 +59,10 @@ const StakeForm = () => {
 	// Will prompt to switch chains when wallet is not connected to sepolia
 	// Probably not in the right place
 	useEffect(() => {
-		if (chainId != sepolia.id) {
+		if (
+			!Boolean(JSON.parse(process.env.NEXT_PUBLIC_MAINNET ?? 'false')) &&
+			chainId != sepolia.id
+		) {
 			switchChain({ chainId: sepolia.id })
 		}
 	}, [])
