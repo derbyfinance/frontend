@@ -4,8 +4,8 @@ import { useBalance } from 'wagmi'
 
 const useDerbyTokenBalance = (address?: Hex | undefined): number => {
 	const { data } = useBalance({
-		address: address,
-		token: process.env.NEXT_PUBLIC_DERBY_TOKEN as Hex
+		address: address
+		//token: process.env.NEXT_PUBLIC_TOKEN_CONTRACT as Hex
 	})
 
 	return Number(

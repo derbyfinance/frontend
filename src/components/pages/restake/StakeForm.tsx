@@ -54,7 +54,7 @@ const StakeForm = () => {
 
 	useEffect(() => {
 		setBalance(rewards)
-	}, [rewards])
+	}, [rewards, chainId])
 
 	// Will prompt to switch chains when wallet is not connected to sepolia
 	// Probably not in the right place
