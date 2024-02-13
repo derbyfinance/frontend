@@ -11,7 +11,7 @@ import { Hex } from 'viem'
 
 const PercentageBar = () => {
 	const address = useAppSelector<Hex | undefined>(getAddressState)
-	const rewards = useDerbyTokenBalance(address)
+	const { rewards } = useDerbyTokenBalance(address)
 	const { values, setFieldValue, validateOnBlur, handleBlur } =
 		useFormikContext<AllocationRequestModel>()
 
@@ -50,7 +50,8 @@ const PercentageBar = () => {
 					name="amount"
 					percentage={percentage}
 					key={index}
-					disabled={!isConnected || values.maxAmount <= 0}/>
+					disabled={!isConnected || values.maxAmount <= 0}
+				/>
 			))}
 		</Bar>
 	)
