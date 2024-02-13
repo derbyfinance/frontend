@@ -73,12 +73,14 @@ const InputField = ({
 					{...props}
 				/>
 				<FloatIcon $align={iconAlign}>{icon}</FloatIcon>
-				<FloatBadge
-					name={inputName}
-					percentage={100}
-					disabled={!isConnected}
-					onClick={(e) => handleMaxValue(e)}
-				/>
+				{maxValue && (
+					<FloatBadge
+						name={inputName}
+						percentage={100}
+						disabled={!isConnected}
+						onClick={(e) => handleMaxValue(e)}
+					/>
+				)}
 			</Wrapper>
 
 			<ErrorCaption>

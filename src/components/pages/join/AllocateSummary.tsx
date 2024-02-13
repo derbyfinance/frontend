@@ -30,7 +30,7 @@ interface Props {
 const AllocateSummary = ({ update, remove }: Props) => {
 	const dispatch = useAppDispatch()
 	const address = useAppSelector<Hex | undefined>(getAddressState)
-	const rewards = useDerbyTokenBalance(address)
+	const { rewards } = useDerbyTokenBalance(address)
 	const [isRebalance, setIsRebalance] = useState<boolean>(false)
 	const isConnected = useAppSelector<boolean>(isConnectedState)
 	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(

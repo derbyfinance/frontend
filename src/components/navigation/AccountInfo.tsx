@@ -64,7 +64,7 @@ const AccountInfo = ({ $isOpen }: Props) => {
 				<CreateTestTokens />
 			) : null}
 			<CardRow>
-				<ChainStatus $isActive={!chain} />
+				<ChainStatus $isActive={chain !== undefined} />
 				{chain?.name}
 			</CardRow>
 			<CardRowButton onClick={handleCopyAddress}>

@@ -30,7 +30,7 @@ import ExchangeRate from './ExchangeRate'
 const StakeForm = () => {
 	const address = useAppSelector<Hex | undefined>(getAddressState)
 	const isConnected = useAppSelector<boolean>(isConnectedState)
-	const rewards = useDerbyTokenBalance(address)
+	const { rewards, refetch: rewardsRefetch } = useDerbyTokenBalance(address)
 	const { switchChain } = useSwitchChain()
 	const chainId = useChainId()
 
@@ -54,7 +54,7 @@ const StakeForm = () => {
 
 	useEffect(() => {
 		setBalance(rewards)
-	}, [rewards])
+	}, [rewards, chainId])
 
 	// Will prompt to switch chains when wallet is not connected to sepolia
 	// Probably not in the right place
@@ -71,6 +71,7 @@ const StakeForm = () => {
 		if (!isSuccess) return
 
 		refetch()
+		rewardsRefetch()
 
 		toast.success(
 			<Notification
@@ -100,9 +101,9 @@ const StakeForm = () => {
 				address: process.env.NEXT_PUBLIC_VAULT_CONTRACT as Hex,
 				abi: vaultAbi,
 				functionName: 'depositToForwardAddr',
-				value: parseEther(form.amount.toString())
+				value: parseEther(form.amount.toString()),
+				args: []
 			})
-
 			formikHelpers.resetForm({
 				values: { amount: 0, maxAmount: rewards }
 			})
@@ -141,8 +142,6 @@ const StakeForm = () => {
 						placeholder="0"
 						required
 						iconAlign="left"
-						maxValue={rewards}
-						isConnected={isConnected}
 						icon={
 							<IconWrapper>
 								<span>ETH</span>

@@ -12,7 +12,7 @@ const MaxAmountHiddenInput = () => {
 		getAllocationListState
 	)
 	const address = useAppSelector<Hex | undefined>(getAddressState)
-	const rewards = useDerbyTokenBalance(address)
+	const { rewards } = useDerbyTokenBalance(address)
 	const { handleChange, values, setFieldValue, isValid } =
 		useFormikContext<AllocationRequestModel>()
 
