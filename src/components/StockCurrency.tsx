@@ -11,6 +11,7 @@ interface Props {
 	$isStock?: boolean
 	$isAbbr?: boolean
 	$color?: ColorType
+	$fixedSize?: boolean
 }
 
 const StockCurrency = ({
@@ -19,14 +20,15 @@ const StockCurrency = ({
 	$isStock = false,
 	$isAbbr = false,
 	$decimals = 2,
-	$color
+	$color,
+	$fixedSize = true
 }: Props) => {
 	return (
 		<Container $isStock={$isStock} $amount={$amount}>
 			{$isStock && $amount > 0 ? '+' : null}
 			{$coin !== undefined
-				? ToCoinCurrency($amount, $decimals, $isAbbr)
-				: ToCurrency($amount, $decimals, $isAbbr)}
+				? ToCoinCurrency($amount, $decimals, $isAbbr, $fixedSize)
+				: ToCurrency($amount, $decimals, $isAbbr, $fixedSize)}
 			{$coin !== undefined ? (
 				<CoinCurrency $color={$color}>{$coin}</CoinCurrency>
 			) : null}

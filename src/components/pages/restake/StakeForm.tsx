@@ -133,7 +133,13 @@ const StakeForm = () => {
 						label={
 							<>
 								<span>Available balance:</span>&nbsp;
-								<StockCurrency $amount={balance} $coin="ETH" $color="inherit" />
+								<StockCurrency
+									$amount={balance}
+									$coin="ETH"
+									$color="inherit"
+									$decimals={18}
+									$fixedSize={false}
+								/>
 							</>
 						}
 						labelAlign="right"
@@ -142,6 +148,8 @@ const StakeForm = () => {
 						placeholder="0"
 						required
 						iconAlign="left"
+						maxValue={balance}
+						isConnected={isConnected}
 						icon={
 							<IconWrapper>
 								<span>ETH</span>

@@ -99,7 +99,7 @@ describe('CurrencyFunction', () => {
 		const response = [...positiveResponse, ...negaviveResponse]
 
 		totalList.forEach((x, index) =>
-			expect(ToCurrency(x, 2, false, 'EUR')).toEqual(response[index])
+			expect(ToCurrency(x, 2, false, true, 'EUR')).toEqual(response[index])
 		)
 	})
 
@@ -121,7 +121,7 @@ describe('CurrencyFunction', () => {
 		const response = [...positiveResponse, ...negaviveResponse]
 
 		totalList.forEach((x, index) =>
-			expect(ToCurrency(x, 2, true, 'EUR')).toEqual(response[index])
+			expect(ToCurrency(x, 2, true, true, 'EUR')).toEqual(response[index])
 		)
 	})
 
