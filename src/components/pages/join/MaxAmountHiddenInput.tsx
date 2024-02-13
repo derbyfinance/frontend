@@ -24,7 +24,7 @@ const MaxAmountHiddenInput = () => {
 				return prev + allocate?.amount
 			}, 0) ?? 0
 
-		setFieldValue(inputName, Math.round((rewards - allocated) * 100) / 100)
+		setFieldValue(inputName, ((rewards - allocated) * 100) / 100)
 	}, [allocationList, isValid, rewards])
 
 	return (

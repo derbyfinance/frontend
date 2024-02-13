@@ -1,5 +1,3 @@
-import { Hex } from "viem"
-
 export const Colorpicker = (name: string) => {
 	let hash = [...name].reduce(
 		(acc, char) => char.charCodeAt(0) + ((acc << 5) - acc),
@@ -11,4 +9,9 @@ export const Colorpicker = (name: string) => {
 	return `hsl(${finalHash}, 75%, 50%)`
 }
 
-export const LazyColorPicker: `#${string}`[] = ["#fe5e76", "#f13abc", "#5f08ee", "#39079b"]
+export const LazyColorPicker: `#${string}`[] = [
+	'#fe5e76',
+	'#f13abc',
+	'#5f08ee',
+	'#39079b'
+]

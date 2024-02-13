@@ -2,10 +2,11 @@ export const ToCurrency = (
 	amount: number,
 	decimals: number | undefined = 2,
 	abbr: boolean = false,
+	fixedSize: boolean = true,
 	currency: 'USD' | 'EUR' = 'USD'
 ): string => {
 	const isNegative: boolean = amount < 0
-	let minDecimals: number = decimals
+	let minDecimals: number = fixedSize ? decimals : 0
 	let newAmount = amount
 	let newAbbr = ''
 
@@ -36,9 +37,10 @@ export const ToCurrency = (
 export const ToCoinCurrency = (
 	amount: number,
 	decimals: number | undefined = 2,
-	abbr: boolean = false
+	abbr: boolean = false,
+	fixedSize: boolean = true
 ): string => {
-	let minDecimals: number = decimals
+	let minDecimals: number = fixedSize ? decimals : 0
 	let newAmount = amount
 	let newAbbr = ''
 
