@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { styled } from 'styled-components'
 
 import ActionButton from '@components/buttons/ActionButton'
-import LogoIcon from '@components/icons/LogoIcon'
+import Logo from '@components/icons/Logo'
 import { device } from '@helpers/DeviceHelper'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
@@ -40,7 +40,7 @@ const Navigation = () => {
 			<Navbar>
 				<Link href="/">
 					<LogoWrapper>
-						<LogoIcon />
+						<Logo />
 					</LogoWrapper>
 				</Link>
 				<MenuBar>
@@ -74,10 +74,10 @@ const MenuBar = styled.div`
 	align-items: center;
 `
 const LogoWrapper = styled.div`
-	width: 4em;
+	width: 5em;
 	overflow: hidden;
 	@media ${device.laptop} {
-		width: 5.5em;
+		width: 8em;
 	}
 `
 const XNavMenu = styled(NavMenu)`
