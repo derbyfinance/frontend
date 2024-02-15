@@ -65,7 +65,7 @@ const ModalBox = styled.div`
 	right: 0;
 `
 const ModalCard = styled(Card)`
-	border-radius: ${({ theme }) => theme.style.radius * 3}px;
+	border-radius: ${({ theme }) => (theme.style.radius ?? 0) * 3}px;
 `
 const ModalCardHeader = styled(CardHeader)`
 	justify-content: flex-end;
