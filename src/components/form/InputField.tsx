@@ -153,9 +153,9 @@ const FloatIcon = styled.div<{ $align: AlignType }>`
 `
 const TextInput = styled.input<{ $align: AlignType }>`
 	font-family: ${({ theme }) => theme.fonts.slabMedium};
-	border: 1px solid ${({ theme }) => theme.style.colorBorder};
+	border: 1px solid ${({ theme }) => theme.style.formInputBorder};
 	border-radius: ${({ theme }) => theme.style.radius}px;
-	background-color: ${({ theme }) => theme.style.colorBg};
+	background-color: ${({ theme }) => theme.style.formInputBg};
 	padding: 0.5em;
 	${({ $align }) =>
 		$align === 'left' &&

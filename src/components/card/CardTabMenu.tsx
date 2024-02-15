@@ -27,7 +27,7 @@ const CardTabMenu = ({ menu, selected, onChange, ...props }: Props) => {
 const XCardHeader = styled(CardHeader)`
 	> div {
 		flex: 1 1 auto;
-		border-bottom: 1px solid ${({ theme }) => theme.style.colorText};
+		border-bottom: 1px solid ${({ theme }) => theme.style.cardTextColor};
 		height: 3em;
 		padding: 0 0.5em;
 	}
@@ -37,13 +37,13 @@ const MenuButton = styled(CardRowButton)<{ $isActive: boolean }>`
 	border-top-right-radius: ${({ theme }) => theme.style.radius}px;
 	border: 1px solid
 		${({ $isActive, theme }) =>
-			$isActive ? theme.style.colorText : 'transparent'};
+			$isActive ? theme.style.cardTextColor : 'transparent'};
 
 	border-bottom-width: ${({ $isActive }) => ($isActive ? '3px' : '1px')};
 	border-bottom-color: ${({ $isActive, theme }) =>
-		$isActive ? theme.style.formBg : theme.style.colorText};
+		$isActive ? theme.style.formBg : theme.style.cardTextColor};
 	color: ${({ $isActive, theme }) =>
-		$isActive ? theme.style.colorText : theme.style.colorDisabled};
+		$isActive ? theme.style.cardTextColor : theme.style.colorDisabled};
 
 	font-family: ${({ theme }) => theme.fonts.slabRegular};
 

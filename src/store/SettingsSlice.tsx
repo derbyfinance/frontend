@@ -2,12 +2,15 @@ import { createSlice } from '@reduxjs/toolkit'
 import { AppState } from '@store/Store'
 
 export interface SettingsState {
-	isDarkMode?: boolean
-	isLargeMode?: boolean
+	isDarkMode: boolean
+	isLargeMode: boolean
 	isConnectModalOpen?: boolean
 }
 
-const initialState: SettingsState = {}
+const initialState: SettingsState = {
+	isDarkMode: true,
+	isLargeMode: false
+}
 
 export const settingsSlice = createSlice({
 	name: 'settings',
@@ -30,10 +33,10 @@ export const settingsSlice = createSlice({
 	}
 })
 
-export const isDarkModeState = (state: AppState): boolean | undefined =>
+export const isDarkModeState = (state: AppState): boolean =>
 	state.settings?.isDarkMode
 
-export const isLargeModeState = (state: AppState): boolean | undefined =>
+export const isLargeModeState = (state: AppState): boolean =>
 	state.settings?.isLargeMode
 
 export const isConnectModalOpenState = (state: AppState): boolean | undefined =>
