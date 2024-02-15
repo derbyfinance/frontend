@@ -2,13 +2,15 @@ import { createSlice } from '@reduxjs/toolkit'
 import { AppState } from '@store/Store'
 
 export interface SettingsState {
-	isDarkMode?: boolean
-	isLargeMode?: boolean
+	isDarkMode: boolean
+	isLargeMode: boolean
 	isConnectModalOpen?: boolean
-	isCreateNftModalOpen?: boolean
 }
 
-const initialState: SettingsState = {}
+const initialState: SettingsState = {
+	isDarkMode: true,
+	isLargeMode: false
+}
 
 export const settingsSlice = createSlice({
 	name: 'settings',
@@ -27,36 +29,20 @@ export const settingsSlice = createSlice({
 			} else {
 				document.body.classList.remove('modal-open')
 			}
-		},
-		setCreateNftModalOpenState(state, { payload }) {
-			state.isCreateNftModalOpen = payload
-			if (payload === true) {
-				document.body.classList.add('modal-open')
-			} else {
-				document.body.classList.remove('modal-open')
-			}
 		}
 	}
 })
 
-export const isDarkModeState = (state: AppState): boolean | undefined =>
+export const isDarkModeState = (state: AppState): boolean =>
 	state.settings?.isDarkMode
 
-export const isLargeModeState = (state: AppState): boolean | undefined =>
+export const isLargeModeState = (state: AppState): boolean =>
 	state.settings?.isLargeMode
 
 export const isConnectModalOpenState = (state: AppState): boolean | undefined =>
 	state.settings?.isConnectModalOpen
 
-export const isCreateNftModalOpenState = (
-	state: AppState
-): boolean | undefined => state.settings?.isCreateNftModalOpen
-
-export const {
-	setDarkModeState,
-	setLargeModeState,
-	setConnectModalOpenState,
-	setCreateNftModalOpenState
-} = settingsSlice.actions
+export const { setDarkModeState, setLargeModeState, setConnectModalOpenState } =
+	settingsSlice.actions
 
 export default settingsSlice.reducer

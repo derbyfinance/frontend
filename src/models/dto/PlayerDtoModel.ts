@@ -16,10 +16,6 @@ export interface BasketDtoModel {
 	allocations?: string[]
 }
 
-export interface AllocationDtoModel {
-	id: string
-}
-
 export interface ProtocolDtoModel {
 	id: string
 	name: string

@@ -1,31 +1,22 @@
 import { useAppSelector } from '@hooks/ReduxStore'
 import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
-import AllocationRequestModel from '@models/requests/AllocationRequestModel'
-import { getAllocationListState } from '@store/RaceSlice'
+import StakeRequestModel from '@models/requests/StakeRequestModel'
 import { getAddressState } from '@store/UserSlice'
 import { useFormikContext } from 'formik'
 import { useEffect } from 'react'
 import { Hex } from 'viem'
 
 const MaxAmountHiddenInput = () => {
-	const allocationList = useAppSelector<AllocationRequestModel[] | undefined>(
-		getAllocationListState
-	)
 	const address = useAppSelector<Hex | undefined>(getAddressState)
 	const { rewards } = useDerbyTokenBalance(address)
 	const { handleChange, values, setFieldValue, isValid } =
-		useFormikContext<AllocationRequestModel>()
+		useFormikContext<StakeRequestModel>()
 
 	const inputName = 'maxAmount'
 
 	useEffect(() => {
-		const allocated =
-			allocationList?.reduce((prev, allocate) => {
-				return prev + allocate?.amount
-			}, 0) ?? 0
-
-		setFieldValue(inputName, ((rewards - allocated) * 100) / 100)
-	}, [allocationList, isValid, rewards])
+		setFieldValue(inputName, rewards)
+	}, [isValid, rewards, setFieldValue])
 
 	return (
 		<input

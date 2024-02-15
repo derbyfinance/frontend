@@ -12,7 +12,8 @@
 		"test": "jest --coverage --colors --silent --verbose --watchAll=false",
 		"test:debug": "jest --clearCache && NODE_OPTIONS=--experimental-vm-modules jest --watchAll --coverage --color --detectOpenHandles --silent=false --verbose=true --debug",
 		"test:focus": "jest --clearCache && NODE_OPTIONS=--experimental-vm-modules jest -i ./__tests__/components/pages/join/Content.test.tsx -t --watchAll --color --detectOpenHandles --silent=false --verbose=true --debug",
-		"coverage": "open -a \"Google Chrome\" ./coverage/index.html"
+		"coverage": "open -a \"Google Chrome\" ./coverage/index.html",
+		"find-deadcode": "ts-prune -i \\.next | (! grep -v 'used in module')"
 	},
 	"dependencies": {
 		"@reduxjs/toolkit": "^2.1.0",
@@ -37,8 +38,8 @@
 		"redux-mock-store": "^1.5.4",
 		"styled-components": "^6.1.8",
 		"typescript": "5.3.3",
-		"viem": "^2.7.8",
-		"wagmi": "^2.5.6",
+		"viem": "^2.7.9",
+		"wagmi": "^2.5.7",
 		"yup": "^1.3.3"
 	},
 	"devDependencies": {
@@ -55,15 +56,19 @@
 		"@types/react-dom": "18.2.18",
 		"@types/react-redux": "^7.1.33",
 		"@types/styled-components": "^5.1.34",
+		"@typescript-eslint/eslint-plugin": "^7.0.1",
 		"axios-mock-adapter": "^1.22.0",
 		"chartjs-plugin-gradient": "^0.6.1",
 		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-import": "^2.29.1",
 		"jest": "^29.7.0",
 		"jest-environment-jsdom": "^29.7.0",
 		"jest-environment-node": "^29.7.0",
 		"prettier": "2.8.8",
 		"prettier-plugin-organize-imports": "^3.2.4",
 		"ts-jest": "^29.1.2",
-		"ts-node": "^10.9.2"
+		"ts-node": "^10.9.2",
+		"ts-prune": "^0.10.3",
+		"webpack-deadcode-plugin": "^0.1.17"
 	}
 }

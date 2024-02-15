@@ -1,8 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from 'axios'
 
 const subgraphClient = axios.create({
-	baseURL: process.env.NEXT_PUBLIC_PROXY ? `${process.env.NEXT_PUBLIC_PROXY_URL}/subgraph`: process.env.NEXT_PUBLIC_SUBGRAPH_URL,
-	//timeout: 1500,
+	baseURL: process.env.NEXT_PUBLIC_PROXY
+		? `${process.env.NEXT_PUBLIC_PROXY_URL}/subgraph`
+		: process.env.NEXT_PUBLIC_SUBGRAPH_URL,
+	// timeout: 1500,
 	headers: {
 		'Content-Type': 'application/json',
 		Accept: 'application/json',

@@ -1,5 +1,5 @@
 import DoughnutChart from '@components/charts/DoughnutChart'
-import { Colorpicker, LazyColorPicker } from '@functions/ColorpickerFunction'
+import { LazyColorPicker } from '@functions/ColorpickerFunction'
 import { device } from '@helpers/DeviceHelper'
 import { useAppSelector } from '@hooks/ReduxStore'
 import useDidMountEffect from '@hooks/UseDidMountEffect'
@@ -35,12 +35,12 @@ const VaultGraph = () => {
 
 			setAllocationList(list.filter((item) => item.data > 0))
 		}
-	}, [basket])
+	}, [basket, basketCount])
 
 	useDidMountEffect(() => {
 		const total = allocationList.reduce((prev, { data }) => prev + data, 0)
 
-		const list = allocationList.map(({ label, data }, index) => {
+		const list = allocationList.map(({ label, data }) => {
 			return { label: label, data: (data / total) * 100 }
 		})
 

@@ -28,7 +28,7 @@ const ConnectWalletModal = () => {
 
 	const closeModal = useCallback((): void => {
 		dispatch(setConnectModalOpenState(false))
-	}, [])
+	}, [dispatch])
 
 	return (
 		<Modal closeModal={closeModal} isOpen={isOpenModal ?? false}>

@@ -24,8 +24,8 @@ import { styled } from 'styled-components'
 import { Hex, parseEther } from 'viem'
 import { sepolia } from 'viem/chains'
 import { useChainId, useSwitchChain } from 'wagmi'
-import MaxAmountHiddenInput from '../join/MaxAmountHiddenInput'
 import ExchangeRate from './ExchangeRate'
+import MaxAmountHiddenInput from './MaxAmountHiddenInput'
 
 const StakeForm = () => {
 	const address = useAppSelector<Hex | undefined>(getAddressState)
@@ -35,17 +35,10 @@ const StakeForm = () => {
 	const chainId = useChainId()
 
 	const [balance, setBalance] = useState<number>(0)
-	const [exhangeRate, setExhangeRate] = useState<number>(1)
+	const [exhangeRate] = useState<number>(1)
 
-	const {
-		tokenBalance,
-		refetch,
-		isLoading,
-		isPending,
-		isSuccess,
-		error,
-		writeContract
-	} = useStakeEth(address)
+	const { refetch, isLoading, isPending, isSuccess, error, writeContract } =
+		useStakeEth(address)
 
 	const initial: StakeRequestModel = {
 		amount: 0,
@@ -60,12 +53,12 @@ const StakeForm = () => {
 	// Probably not in the right place
 	useEffect(() => {
 		if (
-			!Boolean(JSON.parse(process.env.NEXT_PUBLIC_MAINNET ?? 'false')) &&
+			!JSON.parse(process.env.NEXT_PUBLIC_MAINNET ?? 'false') &&
 			chainId != sepolia.id
 		) {
 			switchChain({ chainId: sepolia.id })
 		}
-	}, [])
+	}, [chainId, switchChain])
 
 	useDidMountEffect(() => {
 		if (!isSuccess) return
@@ -108,7 +101,7 @@ const StakeForm = () => {
 				values: { amount: 0, maxAmount: rewards }
 			})
 		},
-		[]
+		[rewards, writeContract]
 	)
 
 	return (

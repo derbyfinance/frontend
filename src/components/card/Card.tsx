@@ -44,6 +44,7 @@ const CardComponent = styled.div<{ $type?: CardType }>`
 		$type === 'block' &&
 		`
 		background-color: ${theme.style.formBg};
+		color: ${theme.style.cardTextColor};
 		border: none;
 	`}
 

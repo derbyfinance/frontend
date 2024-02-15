@@ -30,18 +30,20 @@ const SelectInputField = ({
 	placeholder = '',
 	required = false,
 	smallOptionList = false,
-	readOnly = false,
-	...props
+	readOnly = false
 }: Props) => {
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
-	const openSelect = useCallback((isOpen: boolean): void => {
-		if (!readOnly) setIsOpen(!isOpen)
-	}, [])
+	const openSelect = useCallback(
+		(isOpen: boolean): void => {
+			if (!readOnly) setIsOpen(!isOpen)
+		},
+		[readOnly]
+	)
 
 	const closeOptionList = useCallback((): void => {
 		if (smallOptionList) setIsOpen(false)
-	}, [])
+	}, [smallOptionList])
 
 	return (
 		<Container>
@@ -59,7 +61,7 @@ const SelectInputField = ({
 					onBlur={formikProps.handleBlur}
 					value={formikProps.values[inputName]}
 					readOnly={readOnly}
-					//{...props}
+					// {...props}
 				>
 					{placeholder && (
 						<PlaceholderOption value="" disabled>

@@ -12,7 +12,7 @@ const NavMenu = ({ ...props }: Props) => {
 
 	const handleWalletConnect = useCallback((): void => {
 		dispatch(setConnectModalOpenState(true))
-	}, [])
+	}, [dispatch])
 
 	return (
 		<div {...props}>

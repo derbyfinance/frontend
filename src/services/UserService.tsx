@@ -45,5 +45,5 @@ export const GetPlayer = async (address: Hex): Promise<PlayerDtoModel> => {
 		variables: { address: address.toString() }
 	}
 
-	return SubgraphClient.post(``, data)
+	return SubgraphClient.post('', data)
 }

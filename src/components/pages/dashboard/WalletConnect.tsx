@@ -13,7 +13,7 @@ const WalletConnect = () => {
 
 	const handleWalletConnect = useCallback((): void => {
 		dispatch(setConnectModalOpenState(true))
-	}, [])
+	}, [dispatch])
 
 	return (
 		<Card type="block">

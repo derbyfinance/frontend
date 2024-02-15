@@ -1,3 +1,33 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals", 
+    "eslint:recommended", 
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "prettier"
+  ],
+  "plugins": [
+    "import"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "camelcase": "error",
+    "spaced-comment": "error",
+    "quotes": ["error", "single"],
+    "no-duplicate-imports": "error",
+    "react/prop-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "react/jsx-uses-vars": 1,
+    //"import/no-unused-modules": [1, {"unusedExports": true}],
+    "@typescript-eslint/no-unused-vars": [
+      "error", { 
+        "vars": "all", 
+        "args": "after-used", 
+        "ignoreRestSiblings": false,
+        "argsIgnorePattern": "^_|^as",
+        "varsIgnorePattern": "^_|^as",
+        "caughtErrorsIgnorePattern": "^_|^as"
+        }
+      ]
+    }
 }

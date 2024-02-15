@@ -1,5 +1,5 @@
 export const Colorpicker = (name: string) => {
-	let hash = [...name].reduce(
+	const hash = [...name].reduce(
 		(acc, char) => char.charCodeAt(0) + ((acc << 5) - acc),
 		0
 	)

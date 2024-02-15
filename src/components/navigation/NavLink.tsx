@@ -11,9 +11,9 @@ interface Props extends LinkProps {
 
 const NavLink = ({
 	children,
-	as,
 	disabled = false,
 	title,
+	as,
 	...props
 }: Props) => {
 	const pathname = usePathname()
@@ -29,7 +29,7 @@ const NavLink = ({
 			(urlPath?.startsWith(linkPath) && linkPath !== '') ||
 			(urlPath?.startsWith(linkPath) && urlPath === '')
 		)
-	}, [pathname])
+	}, [pathname, props.href])
 
 	return (
 		<div title={title}>

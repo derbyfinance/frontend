@@ -3,7 +3,7 @@ import Content from '@components/pages/dashboard/Content'
 
 const Page = () => {
 	return (
-		<Layout isFullPage isSmall>
+		<Layout isSmall>
 			<Content />
 		</Layout>
 	)
