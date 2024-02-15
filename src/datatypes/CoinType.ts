@@ -1,1 +1,1 @@
-export type CoinType = 'akETH' | 'ETH' | 'USDC' | ''
+export type CoinType = 'akkETH' | 'ETH' | 'USDC' | ''

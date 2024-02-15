@@ -125,6 +125,7 @@ const lightThemeStyle: DefaultStyle = {
 	formBg: '#F4F8FC',
 	formInputBg: '#fff',
 	formInputBorder: '#E2E2E2',
+	cardColorBg: '#ffffff75',
 	cardTextColor: '#160344'
 }
 
@@ -135,6 +136,7 @@ const darkThemeStyle: DefaultStyle = {
 		colorText: '#fff',
 		colorHover: '#ffffff75',
 		colorSecondary: '#fff',
+		cardColorBg: '#10042975',
 		cardTextColor: '#160344',
 		colorBorder: '#160344',
 		buttonActiveColor: 'rgba(232, 242, 253, .75)'

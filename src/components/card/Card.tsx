@@ -14,7 +14,7 @@ const Card = ({ type, children, ...props }: Props) => {
 }
 
 const CardComponent = styled.div<{ $type?: CardType }>`
-	background-color: ${({ theme }) => theme.style.colorBg};
+	background-color: ${({ theme }) => theme.style.cardColorBg};
 	border: 1px solid ${({ theme }) => theme.style.colorBorder};
 	border-radius: ${({ theme }) => theme.style.radius}px;
 	overflow: hidden;
