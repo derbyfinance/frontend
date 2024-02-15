@@ -27,42 +27,45 @@ const ConnectorButton = ({ connector, isConnected }: Props) => {
 
 	const closeModal = useCallback((): void => {
 		dispatch(setConnectModalOpenState(false))
-	}, [])
+	}, [dispatch])
 
-	const connectWallet = useCallback(async (connector: Connector) => {
-		if (isConnected) {
-			toast.info(
-				<Notification
-					title="Wallet connection"
-					notification="Already connected to a wallet"
-				/>
-			)
-			return
-		}
-
-		try {
-			const { accounts } = await connectAsync({ connector })
-
-			if (accounts) {
-				toast.success(
+	const connectWallet = useCallback(
+		async (connector: Connector) => {
+			if (isConnected) {
+				toast.info(
 					<Notification
 						title="Wallet connection"
-						notification="Your wallet is connected!"
+						notification="Already connected to a wallet"
 					/>
 				)
-
-				closeModal()
+				return
 			}
-		} catch (e) {
-			toast.error(
-				<Notification
-					title="Wallet connection"
-					notification="Something went wrong during wallet connection. Please try again or contact us."
-				/>
-			)
-			console.log(e)
-		}
-	}, [])
+
+			try {
+				const { accounts } = await connectAsync({ connector })
+
+				if (accounts) {
+					toast.success(
+						<Notification
+							title="Wallet connection"
+							notification="Your wallet is connected!"
+						/>
+					)
+
+					closeModal()
+				}
+			} catch (e) {
+				toast.error(
+					<Notification
+						title="Wallet connection"
+						notification="Something went wrong during wallet connection. Please try again or contact us."
+					/>
+				)
+				console.log(e)
+			}
+		},
+		[closeModal, connectAsync, isConnected]
+	)
 
 	return (
 		isReady && (

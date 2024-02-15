@@ -5,7 +5,7 @@ import CardRowButton from './CardRowButton'
 interface Props {
 	menu: string[]
 	selected: string
-	onChange: (id: string) => void
+	onChange: (_: string) => void
 }
 
 const CardTabMenu = ({ menu, selected, onChange, ...props }: Props) => {

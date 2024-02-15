@@ -5,7 +5,6 @@ export interface SettingsState {
 	isDarkMode?: boolean
 	isLargeMode?: boolean
 	isConnectModalOpen?: boolean
-	isCreateNftModalOpen?: boolean
 }
 
 const initialState: SettingsState = {}
@@ -27,14 +26,6 @@ export const settingsSlice = createSlice({
 			} else {
 				document.body.classList.remove('modal-open')
 			}
-		},
-		setCreateNftModalOpenState(state, { payload }) {
-			state.isCreateNftModalOpen = payload
-			if (payload === true) {
-				document.body.classList.add('modal-open')
-			} else {
-				document.body.classList.remove('modal-open')
-			}
 		}
 	}
 })
@@ -48,15 +39,7 @@ export const isLargeModeState = (state: AppState): boolean | undefined =>
 export const isConnectModalOpenState = (state: AppState): boolean | undefined =>
 	state.settings?.isConnectModalOpen
 
-export const isCreateNftModalOpenState = (
-	state: AppState
-): boolean | undefined => state.settings?.isCreateNftModalOpen
-
-export const {
-	setDarkModeState,
-	setLargeModeState,
-	setConnectModalOpenState,
-	setCreateNftModalOpenState
-} = settingsSlice.actions
+export const { setDarkModeState, setLargeModeState, setConnectModalOpenState } =
+	settingsSlice.actions
 
 export default settingsSlice.reducer

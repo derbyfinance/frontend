@@ -11,7 +11,7 @@ const ResetForm = ({ initial, trigger }: Props) => {
 
 	useEffect(() => {
 		resetForm({ values: initial })
-	}, [trigger])
+	}, [trigger, initial, resetForm])
 
 	return null
 }

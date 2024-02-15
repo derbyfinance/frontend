@@ -7,7 +7,7 @@ const useDerbyTokenBalance = (
 ): { rewards: number; refetch: VoidFunction } => {
 	const { data, refetch } = useBalance({
 		address: address
-		//token: process.env.NEXT_PUBLIC_TOKEN_CONTRACT as Hex
+		// token: process.env.NEXT_PUBLIC_TOKEN_CONTRACT as Hex
 	})
 
 	return {

@@ -11,23 +11,14 @@ import WalletConfig from '../WalletConfig'
 import PageSize from '../debugger/PageSize'
 import FooterBar from '../footer/FooterBar'
 import ConnectWalletModal from '../modal/ConnectWalletModal'
-import CreateNftModal from '../modal/CreateNftModal'
 import Navigation from '../navigation/Navigation'
-import Aside from './Aside'
 
 interface Props {
-	isFullPage?: boolean
 	isSmall?: boolean
-	aside?: JSX.Element | JSX.Element[] | React.ReactNode
 	children: JSX.Element | JSX.Element[] | React.ReactNode
 }
 
-const Layout = ({
-	isFullPage = false,
-	isSmall = false,
-	aside,
-	children
-}: Props) => {
+const Layout = ({ isSmall = false, children }: Props) => {
 	return (
 		<Provider store={store}>
 			<ThemeWrapper>
@@ -36,13 +27,11 @@ const Layout = ({
 					<MainContainer>
 						<NotificationConfig />
 						<ConnectWalletModal />
-						<CreateNftModal />
 						<Header>
 							<Navigation />
 						</Header>
 						<Content>
 							<Main $isSmall={isSmall}>{children}</Main>
-							<Aside isFullPage={isFullPage} aside={aside} />
 						</Content>
 						<Footer>
 							<FooterBar />

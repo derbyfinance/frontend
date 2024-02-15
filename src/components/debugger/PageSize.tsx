@@ -15,7 +15,7 @@ const PageSize = () => {
 		)
 	}, [])
 
-	return Boolean(JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false')) ? (
+	return JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false') ? (
 		<Size onClick={showFontSize} />
 	) : null
 }

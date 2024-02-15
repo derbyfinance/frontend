@@ -48,5 +48,5 @@ export const GetVaultList = async (
 		variables: { amount: amount ?? 5 }
 	}
 
-	return SubgraphClient.post(``, data)
+	return SubgraphClient.post('', data)
 }

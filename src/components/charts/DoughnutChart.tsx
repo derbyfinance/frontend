@@ -1,4 +1,4 @@
-import { Colorpicker, LazyColorPicker } from '@functions/ColorpickerFunction'
+import { LazyColorPicker } from '@functions/ColorpickerFunction'
 import ChartDataModel from '@models/internal/ChartDataModel'
 import {
 	ArcElement,
@@ -22,12 +22,11 @@ const DoughnutChart = ({ data }: Props) => {
 		datasets: [
 			{
 				data: data.length > 0 ? data.map(({ data }) => data) : [100],
-				backgroundColor:
-					LazyColorPicker,
-					//['Just', 'Some', 'Random', 'Words', 'To', 'Generate', 'Colors', 'In', 'The', 'Dougnut', 'Chart'].map((name) => Colorpicker(name)),
-					// data.length > 0
-					// 	? data.map(({ label }) => Colorpicker(label))
-					// 	: ['lightGray'],
+				backgroundColor: LazyColorPicker,
+				// ['Just', 'Some', 'Random', 'Words', 'To', 'Generate', 'Colors', 'In', 'The', 'Dougnut', 'Chart'].map((name) => Colorpicker(name)),
+				// data.length > 0
+				// 	? data.map(({ label }) => Colorpicker(label))
+				// 	: ['lightGray'],
 				hoverOffset: 4
 			}
 		]

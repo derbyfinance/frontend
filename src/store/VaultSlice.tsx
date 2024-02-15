@@ -28,8 +28,8 @@ export const vaultSlice = createSlice({
 			.addCase(getVaultListData.fulfilled, (state, { payload }) => {
 				state.vaultListPending = false
 				state.vaultListError = false
-				state.vaultList = payload.vaults //payload.results
-				state.vaultListCount = payload.vaults.length //payload.count
+				state.vaultList = payload.vaults
+				state.vaultListCount = payload.vaults.length
 			})
 			.addCase(getVaultListData.rejected, (state) => {
 				state.vaultListPending = false
@@ -50,6 +50,6 @@ export const getVaultListState = (
 export const getVaultListCountState = (state: AppState): number =>
 	state.vault?.vaultListCount ?? 0
 
-export const {} = vaultSlice.actions
+// export const {} = vaultSlice.actions
 
 export default vaultSlice.reducer

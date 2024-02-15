@@ -4,7 +4,6 @@ import {
 	combineReducers,
 	configureStore
 } from '@reduxjs/toolkit'
-import { raceSlice } from './RaceSlice'
 import { settingsSlice } from './SettingsSlice'
 import { userSlice } from './UserSlice'
 import { vaultSlice } from './VaultSlice'
@@ -12,8 +11,7 @@ import { vaultSlice } from './VaultSlice'
 export const reducers = combineReducers({
 	[settingsSlice.name]: settingsSlice.reducer,
 	[vaultSlice.name]: vaultSlice.reducer,
-	[userSlice.name]: userSlice.reducer,
-	[raceSlice.name]: raceSlice.reducer
+	[userSlice.name]: userSlice.reducer
 })
 
 export const rootStore = configureStore({
@@ -21,7 +19,7 @@ export const rootStore = configureStore({
 	middleware: (getDefaultMiddleware) =>
 		getDefaultMiddleware({
 			serializableCheck: {
-				//ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+				// ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
 			}
 		}),
 	devTools: process.env.NODE_ENV !== 'production'

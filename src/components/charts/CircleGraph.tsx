@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 
 interface Props {
 	initial?: number
@@ -22,14 +22,14 @@ const CircleGraph = ({
 
 	const circumference = Math.round(radius * 2 * 3.14)
 
-	const calculatePercent = () => {
+	const calculatePercent = useCallback(() => {
 		const result = -Math.round(((initial - current) / initial) * circumference)
 		setPercent(result)
-	}
+	}, [initial, current, circumference, setPercent])
 
 	useEffect(() => {
 		calculatePercent()
-	}, [current])
+	}, [current, calculatePercent])
 
 	return (
 		<svg width={size} height={size} viewBox="0 0 100 100">

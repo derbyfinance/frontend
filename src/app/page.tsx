@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const Page = () => {
 	return (
-		<Layout isFullPage isSmall>
+		<Layout isSmall>
 			<Content />
 		</Layout>
 	)

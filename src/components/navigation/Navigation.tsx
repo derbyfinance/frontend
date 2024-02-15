@@ -28,11 +28,11 @@ const Navigation = () => {
 		if (address !== undefined) {
 			dispatch(getPlayerData(address))
 		}
-	}, [isConnected, address])
+	}, [isConnected, address, dispatch])
 
 	const handleWalletConnect = useCallback((): void => {
 		dispatch(setConnectModalOpenState(true))
-	}, [])
+	}, [dispatch])
 
 	return (
 		<>

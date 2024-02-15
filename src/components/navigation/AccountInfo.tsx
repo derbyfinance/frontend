@@ -60,7 +60,7 @@ const AccountInfo = ({ $isOpen }: Props) => {
 					</ConnectorButton>
 				</ConnectorActions>
 			</CardRow>
-			{Boolean(JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false')) ? (
+			{JSON.parse(process.env.NEXT_PUBLIC_DEBUG ?? 'false') ? (
 				<CreateTestTokens />
 			) : null}
 			<CardRow>

@@ -47,7 +47,7 @@ const InputField = ({
 			formikProps.values[inputName] = maxValue
 			formikProps.handleBlur(e)
 		},
-		[maxValue, formikProps]
+		[maxValue, formikProps, inputName]
 	)
 
 	return (

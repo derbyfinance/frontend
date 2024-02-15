@@ -19,7 +19,7 @@ const Statistics = () => {
 
 	return (
 		<Container>
-			{headers.map(({ name, align }, key) => (
+			{headers.map(({ name }, key) => (
 				<Block key={key}>
 					<Title>{name}</Title>
 					<Data>{list.find((_, index) => index === key)}</Data>
