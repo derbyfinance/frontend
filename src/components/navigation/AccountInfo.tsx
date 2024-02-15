@@ -120,7 +120,7 @@ const AccountInfo = ({ $isOpen }: Props) => {
 }
 
 const AccountInfoBox = styled.div<{ $isOpen: boolean }>`
-	background-color: ${({ theme }) => theme.style.colorBg};
+	background-color: ${({ theme }) => theme.style.cardColorBg};
 	border-radius: ${({ theme }) => theme.style.radius}px;
 	border: 1px solid ${({ theme }) => theme.style.colorBorder};
 	margin-top: 0.5em;

@@ -158,7 +158,7 @@ const StakeForm = () => {
 
 					<FormRow>
 						<IconWrapper>
-							<span>akETH</span>
+							<span>akkETH</span>
 							<AkkoIcon width="1em" height="100%" />
 							<ExchangeRate exhangeRate={exhangeRate} />
 						</IconWrapper>
@@ -173,7 +173,7 @@ const StakeForm = () => {
 							<b> = </b>
 							<StockCurrency
 								$amount={exhangeRate}
-								$coin="akETH"
+								$coin="akkETH"
 								$color="inherit"
 							/>
 						</div>

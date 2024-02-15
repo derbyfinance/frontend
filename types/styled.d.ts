@@ -40,6 +40,7 @@ declare module 'styled-components' {
 		formBg?: string
 		formInputBg?: string
 		formInputBorder?: string
+		cardColorBg?: string
 		cardTextColor?: string
 	}
 
