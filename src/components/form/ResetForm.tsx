@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 interface Props {
 	initial: any
-	trigger: boolean
+	trigger: number
 }
 
 const ResetForm = ({ initial, trigger }: Props) => {
