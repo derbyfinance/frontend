@@ -3,10 +3,12 @@ import { Hex } from 'viem'
 import { useBalance } from 'wagmi'
 
 const useDerbyTokenBalance = (
+	chainId: number,
 	address?: Hex | undefined
 ): { rewards: number; refetch: VoidFunction } => {
 	const { data, refetch } = useBalance({
-		address: address
+		address: address,
+		chainId: chainId
 		// token: process.env.NEXT_PUBLIC_TOKEN_CONTRACT as Hex
 	})
 
