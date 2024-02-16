@@ -30,9 +30,13 @@ import MaxAmountHiddenInput from './MaxAmountHiddenInput'
 const StakeForm = () => {
 	const address = useAppSelector<Hex | undefined>(getAddressState)
 	const isConnected = useAppSelector<boolean>(isConnectedState)
-	const { rewards, refetch: rewardsRefetch } = useDerbyTokenBalance(address)
+
 	const { switchChain } = useSwitchChain()
 	const chainId = useChainId()
+	const { rewards, refetch: rewardsRefetch } = useDerbyTokenBalance(
+		chainId,
+		address
+	)
 
 	const [balance, setBalance] = useState<number>(0)
 	const [exhangeRate] = useState<number>(1)
@@ -58,6 +62,8 @@ const StakeForm = () => {
 		) {
 			switchChain({ chainId: sepolia.id })
 		}
+
+		rewardsRefetch()
 	}, [chainId, switchChain])
 
 	useDidMountEffect(() => {
