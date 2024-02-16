@@ -22,7 +22,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import { styled } from 'styled-components'
 import { Hex, parseEther } from 'viem'
-import { sepolia } from 'viem/chains'
+import { mainnet, sepolia } from 'viem/chains'
 import { useChainId, useSwitchChain } from 'wagmi'
 import ExchangeRate from './ExchangeRate'
 import MaxAmountHiddenInput from './MaxAmountHiddenInput'
@@ -39,6 +39,8 @@ const StakeForm = () => {
 	)
 
 	const [balance, setBalance] = useState<number>(0)
+	const [network, setNetwork] = useState<number>(1)
+	const [refresh, setRefresh] = useState<number>(0)
 	const [exhangeRate] = useState<number>(1)
 
 	const { refetch, isLoading, isPending, isSuccess, error, writeContract } =
@@ -49,22 +51,35 @@ const StakeForm = () => {
 		maxAmount: 0
 	}
 
+	const [isMainnet] = useState<boolean>(
+		JSON.parse(process.env.NEXT_PUBLIC_MAINNET ?? 'false')
+	)
+
 	useEffect(() => {
 		setBalance(rewards)
-	}, [rewards, chainId])
+	}, [rewards])
 
-	// Will prompt to switch chains when wallet is not connected to sepolia
-	// Probably not in the right place
 	useEffect(() => {
-		if (
-			!JSON.parse(process.env.NEXT_PUBLIC_MAINNET ?? 'false') &&
-			chainId != sepolia.id
-		) {
-			switchChain({ chainId: sepolia.id })
+		setNetwork(chainId)
+	}, [chainId])
+
+	useEffect(() => {
+		if (isMainnet && network !== mainnet.id) {
+			switchChain({
+				chainId: mainnet.id
+			})
+		} else if (!isMainnet && network !== sepolia.id) {
+			switchChain({
+				chainId: sepolia.id
+			})
 		}
 
 		rewardsRefetch()
-	}, [chainId, switchChain])
+	}, [switchChain, refresh, isMainnet, rewardsRefetch])
+
+	const handleChangeNetwork = useCallback(() => {
+		setRefresh(refresh + 1)
+	}, [refresh])
 
 	useDidMountEffect(() => {
 		if (!isSuccess) return
@@ -104,10 +119,10 @@ const StakeForm = () => {
 				args: []
 			})
 			formikHelpers.resetForm({
-				values: { amount: 0, maxAmount: rewards }
+				values: { amount: 0, maxAmount: balance }
 			})
 		},
-		[rewards, writeContract]
+		[writeContract, balance]
 	)
 
 	return (
@@ -134,7 +149,7 @@ const StakeForm = () => {
 								<span>Available balance:</span>&nbsp;
 								<StockCurrency
 									$amount={balance}
-									$coin="ETH"
+									$coin={network === sepolia.id ? 'sepoliaETH' : 'ETH'}
 									$color="inherit"
 									$decimals={18}
 									$fixedSize={false}
@@ -148,7 +163,11 @@ const StakeForm = () => {
 						required
 						iconAlign="left"
 						maxValue={balance}
-						isConnected={isConnected}
+						isConnected={
+							isConnected &&
+							((isMainnet && network === mainnet.id) ||
+								(!isMainnet && network === sepolia.id))
+						}
 						icon={
 							<IconWrapper>
 								<span>ETH</span>
@@ -186,16 +205,26 @@ const StakeForm = () => {
 					</FormRow>
 
 					<SubmitContainer>
-						<ActionButton
-							$isBlock
-							type="submit"
-							$isCta
-							$isLoading={isLoading || isPending}
-							disabled={
-								!formikProps.isValid || formikProps.values.maxAmount === 0
-							}>
-							Stake
-						</ActionButton>
+						{(isMainnet && network === mainnet.id) ||
+						(!isMainnet && network === sepolia.id) ? (
+							<ActionButton
+								$isBlock
+								type="submit"
+								$isCta
+								$isLoading={isLoading || isPending}
+								disabled={
+									!formikProps.isValid || formikProps.values.maxAmount === 0
+								}>
+								Stake
+							</ActionButton>
+						) : (
+							<ActionButton
+								$isBlock
+								type="button"
+								onClick={handleChangeNetwork}>
+								Change network
+							</ActionButton>
+						)}
 					</SubmitContainer>
 				</Form>
 			)}
