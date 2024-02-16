@@ -5,10 +5,12 @@ import { getAddressState } from '@store/UserSlice'
 import { useFormikContext } from 'formik'
 import { useEffect } from 'react'
 import { Hex } from 'viem'
+import { useChainId } from 'wagmi'
 
 const MaxAmountHiddenInput = () => {
 	const address = useAppSelector<Hex | undefined>(getAddressState)
-	const { rewards } = useDerbyTokenBalance(address)
+	const chainId = useChainId()
+	const { rewards } = useDerbyTokenBalance(chainId, address)
 	const { handleChange, values, setFieldValue, isValid } =
 		useFormikContext<StakeRequestModel>()
 
