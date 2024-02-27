@@ -7,7 +7,6 @@ import { device } from '@helpers/DeviceHelper'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
 import {
-	getPlayerData,
 	isConnectedState,
 	setAddressState,
 	setIsConnectedState
@@ -26,7 +25,7 @@ const Navigation = () => {
 		dispatch(setIsConnectedState(isConnected))
 		dispatch(setAddressState(address))
 		if (address !== undefined) {
-			dispatch(getPlayerData(address))
+			//(getPlayerData(address))
 		}
 	}, [isConnected, address, dispatch])
 
