@@ -5,7 +5,7 @@ import { Hex } from 'viem';
 
 const unixTime = Math.floor(new Date().getTime() / 1000);
 
-export const GetDeposits = async (address: Hex): Promise<DepositDtoModel> => {
+export const CalculatePoints = async (address: Hex): Promise<DepositDtoModel> => {
     const data = {
         query: `{deposits(where: {user: $address}) {
                         id
@@ -42,5 +42,5 @@ export const GetDeposits = async (address: Hex): Promise<DepositDtoModel> => {
     return aggregatedDeposit;
 };
 
-console.log(GetDeposits('0x1Ca7b496Ac4E609cf400793Db67916AC91773927'));
+console.log(CalculatePoints('0x1Ca7b496Ac4E609cf400793Db67916AC91773927'));
 console.log(unixTime);
