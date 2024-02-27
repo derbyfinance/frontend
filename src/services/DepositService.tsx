@@ -25,7 +25,7 @@ export const CalculatePoints = async (address: Hex): Promise<DepositDtoModel> =>
         totalAmount = returnData.data.deposits.reduce((total: BigInt, deposit: any) => {
             // Ensure that deposit.amount is a string
             if (typeof deposit.amount === 'string') {
-                return BigInt(total.toString()) + (BigInt(deposit.amount) * (BigInt(unixTime) - BigInt(deposit.blockTimestamp))) / BigInt(10**16);
+                return BigInt(total.toString()) + (BigInt(deposit.amount) * (BigInt(unixTime) - BigInt(deposit.blockTimestamp))/BigInt(3600) / BigInt(10**16);
             } else {
                 throw new Error('deposit.amount must be a string');
             }
