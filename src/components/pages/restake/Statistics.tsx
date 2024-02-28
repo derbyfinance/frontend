@@ -1,8 +1,12 @@
 import { device } from '@helpers/DeviceHelper'
+import { useAppSelector } from '@hooks/ReduxStore'
 import TableHeaderModel from '@models/internal/TableHeaderModel'
+import { getTvlState } from '@store/ExchangeSlice'
 import { styled } from 'styled-components'
 
 const Statistics = () => {
+	const tvl = useAppSelector<number | undefined>(getTvlState)
+
 	const headers: TableHeaderModel[] = [
 		{ name: 'Total Value Locked', align: 'left' },
 		{ name: 'APR', align: 'right' },
@@ -11,7 +15,7 @@ const Statistics = () => {
 	]
 
 	const list: string[] = [
-		'50,000 ETH / $ 12,001,200',
+		`${tvl} ETH / $ 12,001,200`,
 		'3.7%',
 		'10,123,456,789',
 		'5,123,456'

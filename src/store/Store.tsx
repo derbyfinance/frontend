@@ -4,12 +4,14 @@ import {
 	combineReducers,
 	configureStore
 } from '@reduxjs/toolkit'
+import { exchangeSlice } from './ExchangeSlice'
 import { settingsSlice } from './SettingsSlice'
 import { userSlice } from './UserSlice'
 
 export const reducers = combineReducers({
 	[settingsSlice.name]: settingsSlice.reducer,
-	[userSlice.name]: userSlice.reducer
+	[userSlice.name]: userSlice.reducer,
+	[exchangeSlice.name]: exchangeSlice.reducer
 })
 
 export const rootStore = configureStore({

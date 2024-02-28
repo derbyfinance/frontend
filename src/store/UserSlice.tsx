@@ -4,10 +4,12 @@ import { Hex } from 'viem'
 import { CalculatePoints } from '@services/DepositService'
 import { AppState } from './Store'
 
+const unixTime = Math.floor(new Date().getTime() / 1000)
+
 export interface UserState {
 	depositPending: boolean
 	depositError: boolean
-	points?: bigint
+	points?: number
 	isConnected: boolean
 	address?: Hex
 }
@@ -35,9 +37,17 @@ export const userSlice = createSlice({
 				state.depositPending = true
 			})
 			.addCase(getDepositData.fulfilled, (state, { payload }) => {
+				const points = payload.reduce(
+					(prev, { amount, blockTimestamp }) =>
+						prev +
+						(BigInt(amount) * (BigInt(unixTime) - BigInt(blockTimestamp))) /
+							BigInt(3600) /
+							BigInt(10 ** 16),
+					0n
+				)
 				state.depositPending = false
 				state.depositError = false
-				state.points = payload.points
+				state.points = Number(points)
 			})
 			.addCase(getDepositData.rejected, (state) => {
 				state.depositPending = false
@@ -48,10 +58,10 @@ export const userSlice = createSlice({
 
 export const getDepositData = createAsyncThunk(
 	'user/deposit',
-	async (address: Hex) => await CalculatePoints(address)
+	async (address: Hex) => (await CalculatePoints(address)).deposits
 )
 
-export const getPointsState = (state: AppState): bigint | undefined =>
+export const getPointsState = (state: AppState): number | undefined =>
 	state.user?.points
 
 export const isConnectedState = (state: AppState): boolean =>

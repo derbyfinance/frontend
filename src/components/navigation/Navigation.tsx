@@ -5,6 +5,7 @@ import ActionButton from '@components/buttons/ActionButton'
 import Logo from '@components/icons/Logo'
 import { device } from '@helpers/DeviceHelper'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
+import { getExchangeData } from '@store/ExchangeSlice'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
 import {
 	isConnectedState,
@@ -24,6 +25,7 @@ const Navigation = () => {
 	useEffect(() => {
 		dispatch(setIsConnectedState(isConnected))
 		dispatch(setAddressState(address))
+		dispatch(getExchangeData())
 	}, [isConnected, address, dispatch])
 
 	const handleWalletConnect = useCallback((): void => {

@@ -20,7 +20,7 @@ const Content = () => {
 	const dispatch = useAppDispatch()
 	const address = useAppSelector<Hex | undefined>(getAddressState)
 	const isConnected = useAppSelector<boolean>(isConnectedState)
-	const userPoints = useAppSelector<bigint | undefined>(getPointsState)
+	const userPoints = useAppSelector<number | undefined>(getPointsState)
 
 	useEffect(() => {
 		if (address !== undefined) dispatch(getDepositData(address))
@@ -39,7 +39,7 @@ const Content = () => {
 						<h3>Your balance</h3>
 						<p>Add a simple explanation of what this is about</p>
 					</XCardHeader>
-					<div>{userPoints?.toString()}</div>
+					<div>{userPoints}</div>
 					<CardContent>
 						<RestakingList />
 					</CardContent>

@@ -15,6 +15,7 @@ import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
 import useDidMountEffect from '@hooks/UseDidMountEffect'
 import useStakeEth from '@hooks/UseStakeEth'
 import StakeRequestModel from '@models/requests/StakeRequestModel'
+import { getExchangeRateState } from '@store/ExchangeSlice'
 import { getAddressState, isConnectedState } from '@store/UserSlice'
 import StakeValidation from '@validations/StakeValidation'
 import { Form, Formik, FormikHelpers, FormikProps } from 'formik'
@@ -30,6 +31,7 @@ import MaxAmountHiddenInput from './MaxAmountHiddenInput'
 const StakeForm = () => {
 	const address = useAppSelector<Hex | undefined>(getAddressState)
 	const isConnected = useAppSelector<boolean>(isConnectedState)
+	const exchangeRate = useAppSelector<number | undefined>(getExchangeRateState)
 
 	const { switchChain } = useSwitchChain()
 	const chainId = useChainId()
@@ -41,7 +43,6 @@ const StakeForm = () => {
 	const [balance, setBalance] = useState<number>(0)
 	const [network, setNetwork] = useState<number>(1)
 	const [refresh, setRefresh] = useState<number>(0)
-	const [exhangeRate] = useState<number>(1)
 
 	const { refetch, isLoading, isPending, isSuccess, error, writeContract } =
 		useStakeEth(address)
@@ -186,7 +187,7 @@ const StakeForm = () => {
 						<IconWrapper>
 							<span>akkETH</span>
 							<AkkoIcon width="1em" height="100%" />
-							<ExchangeRate exhangeRate={exhangeRate} />
+							<ExchangeRate exhangeRate={exchangeRate ?? 0} />
 						</IconWrapper>
 						<div>
 							<span>Exchange rate:</span>&nbsp;
@@ -198,7 +199,7 @@ const StakeForm = () => {
 							/>
 							<b> = </b>
 							<StockCurrency
-								$amount={exhangeRate}
+								$amount={exchangeRate ?? 0}
 								$coin="akkETH"
 								$color="inherit"
 							/>
