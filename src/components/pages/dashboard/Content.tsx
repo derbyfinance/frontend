@@ -3,33 +3,28 @@
 import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
 import CardHeader from '@components/card/CardHeader'
-import { useAppSelector } from '@hooks/ReduxStore'
-import { CalculatePoints } from '@services/DepositService'
-import { getAddressState, isConnectedState } from '@store/UserSlice'
-import { useEffect, useState } from 'react'
+import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
+import {
+	getAddressState,
+	getDepositData,
+	getPointsState,
+	isConnectedState
+} from '@store/UserSlice'
+import { useEffect } from 'react'
 import { styled } from 'styled-components'
 import { Hex } from 'viem'
 import RestakingList from './RestakingList'
 import WalletConnect from './WalletConnect'
 
 const Content = () => {
+	const dispatch = useAppDispatch()
 	const address = useAppSelector<Hex | undefined>(getAddressState)
 	const isConnected = useAppSelector<boolean>(isConnectedState)
-	const [userPoints, setUserPoints] = useState<BigInt>()
+	const userPoints = useAppSelector<bigint | undefined>(getPointsState)
 
 	useEffect(() => {
-		if (address !== undefined) getInfo(address)
+		if (address !== undefined) dispatch(getDepositData(address))
 	}, [address])
-
-	const getInfo = async (address: Hex) => {
-		try {
-			const { points } = await CalculatePoints(address)
-
-			setUserPoints(points)
-		} catch (e) {
-			console.log(e)
-		}
-	}
 
 	return (
 		<Container>

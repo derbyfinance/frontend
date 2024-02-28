@@ -24,9 +24,6 @@ const Navigation = () => {
 	useEffect(() => {
 		dispatch(setIsConnectedState(isConnected))
 		dispatch(setAddressState(address))
-		if (address !== undefined) {
-			//(getPlayerData(address))
-		}
 	}, [isConnected, address, dispatch])
 
 	const handleWalletConnect = useCallback((): void => {

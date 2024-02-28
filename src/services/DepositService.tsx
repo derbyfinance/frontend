@@ -26,9 +26,10 @@ export const CalculatePoints = async (
 
 	// Aggregate the amounts
 	let totalAmount = BigInt(0) // Use the BigInt function
+
 	if (returnData.data && returnData.data.deposits) {
 		totalAmount = returnData.data.deposits.reduce(
-			(total: BigInt, deposit: any) => {
+			(total: bigint, deposit: any) => {
 				// Ensure that deposit.amount is a string
 				if (typeof deposit.amount === 'string') {
 					return (
@@ -48,13 +49,10 @@ export const CalculatePoints = async (
 
 	// Create a new DepositDtoModel object with the aggregated amount
 	const aggregatedDeposit: DepositDtoModel = {
-		user: address.toString(),
+		user: address,
 		points: totalAmount
 	}
 
-	//final return
+	// final return
 	return aggregatedDeposit
 }
-
-//console.log(CalculatePoints('0x1Ca7b496Ac4E609cf400793Db67916AC91773927'))
-//console.log(unixTime)

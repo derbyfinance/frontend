@@ -6,11 +6,9 @@ import {
 } from '@reduxjs/toolkit'
 import { settingsSlice } from './SettingsSlice'
 import { userSlice } from './UserSlice'
-import { vaultSlice } from './VaultSlice'
 
 export const reducers = combineReducers({
 	[settingsSlice.name]: settingsSlice.reducer,
-	[vaultSlice.name]: vaultSlice.reducer,
 	[userSlice.name]: userSlice.reducer
 })
 

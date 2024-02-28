@@ -1,4 +1,6 @@
+import { Hex } from 'viem'
+
 export interface DepositDtoModel {
-    user: string
-    points: BigInt  
-};
+	user: Hex
+	points: bigint
+}

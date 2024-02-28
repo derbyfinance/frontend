@@ -104,6 +104,7 @@ const StakeForm = () => {
 				notification="Something went wrong during staking. Please try again or contact us."
 			/>
 		)
+		console.log(error)
 	}, [error])
 
 	const onSubmit = useCallback(

@@ -1,19 +1,17 @@
 import DoughnutChart from '@components/charts/DoughnutChart'
 import { LazyColorPicker } from '@functions/ColorpickerFunction'
 import { device } from '@helpers/DeviceHelper'
-import { useAppSelector } from '@hooks/ReduxStore'
 import useDidMountEffect from '@hooks/UseDidMountEffect'
 import { BasketDtoModel } from '@models/dto/PlayerDtoModel'
 import ChartDataModel from '@models/internal/ChartDataModel'
-import { getBasketCountState, getCurrentBasketState } from '@store/UserSlice'
 import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 
 const VaultGraph = () => {
-	const basket = useAppSelector<BasketDtoModel | undefined>(
-		getCurrentBasketState
-	)
-	const basketCount = useAppSelector<number>(getBasketCountState)
+	const basket: BasketDtoModel | undefined =
+		undefined as unknown as BasketDtoModel
+	const basketCount = 0
+
 	const [allocationList, setAllocationList] = useState<ChartDataModel[]>([])
 	const [legenda, setLegenda] = useState<ChartDataModel[]>([])
 

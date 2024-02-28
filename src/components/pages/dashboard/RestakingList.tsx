@@ -1,17 +1,14 @@
 import StockCurrency from '@components/StockCurrency'
 import { LazyColorPicker } from '@functions/ColorpickerFunction'
-import { useAppSelector } from '@hooks/ReduxStore'
 import { BasketDtoModel } from '@models/dto/PlayerDtoModel'
 import ChartDataModel from '@models/internal/ChartDataModel'
-import { getBasketCountState, getCurrentBasketState } from '@store/UserSlice'
 import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 
 const RestakingList = () => {
-	const basket = useAppSelector<BasketDtoModel | undefined>(
-		getCurrentBasketState
-	)
-	const basketCount = useAppSelector<number>(getBasketCountState)
+	const basket: BasketDtoModel | undefined =
+		undefined as unknown as BasketDtoModel
+	const basketCount: number = 0
 	const [allocationList, setAllocationList] = useState<ChartDataModel[]>([])
 
 	useEffect(() => {

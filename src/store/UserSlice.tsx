@@ -1,22 +1,20 @@
-import { BasketDtoModel, PlayerDtoModel } from '@models/dto/PlayerDtoModel'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { GetPlayer } from '@services/UserService'
 import { Hex } from 'viem'
 
+import { CalculatePoints } from '@services/DepositService'
 import { AppState } from './Store'
+
 export interface UserState {
-	player?: PlayerDtoModel
-	currentBasket?: BasketDtoModel
-	basketCount?: number
-	playerPending: boolean
-	playerError: boolean
+	depositPending: boolean
+	depositError: boolean
+	points?: bigint
 	isConnected: boolean
 	address?: Hex
 }
 
 const initialState: UserState = {
-	playerPending: false,
-	playerError: false,
+	depositPending: false,
+	depositError: false,
 	isConnected: false
 }
 
@@ -33,46 +31,34 @@ export const userSlice = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
-			// LeaderboardList
-			.addCase(getPlayerData.pending, (state) => {
-				state.playerPending = true
+			.addCase(getDepositData.pending, (state) => {
+				state.depositPending = true
 			})
-			.addCase(getPlayerData.fulfilled, (state, { payload }) => {
-				state.playerPending = false
-				state.playerError = false
-				state.player = payload
-				state.currentBasket = [...payload.player.baskets].reverse()[0]
-				state.basketCount = payload.player.baskets
-					? payload.player.baskets.length
-					: 0
+			.addCase(getDepositData.fulfilled, (state, { payload }) => {
+				state.depositPending = false
+				state.depositError = false
+				state.points = payload.points
 			})
-			.addCase(getPlayerData.rejected, (state) => {
-				state.playerPending = false
-				state.playerError = true
+			.addCase(getDepositData.rejected, (state) => {
+				state.depositPending = false
+				state.depositError = true
 			})
 	}
 })
 
-export const getPlayerData = createAsyncThunk(
-	'user/player',
-	async (address: Hex) => await GetPlayer(address)
+export const getDepositData = createAsyncThunk(
+	'user/deposit',
+	async (address: Hex) => await CalculatePoints(address)
 )
 
-export const getPlayerState = (state: AppState): PlayerDtoModel | undefined =>
-	state.user?.player
+export const getPointsState = (state: AppState): bigint | undefined =>
+	state.user?.points
 
 export const isConnectedState = (state: AppState): boolean =>
 	state.user?.isConnected
 
 export const getAddressState = (state: AppState): Hex | undefined =>
 	state.user?.address
-
-export const getCurrentBasketState = (
-	state: AppState
-): BasketDtoModel | undefined => state.user?.currentBasket
-
-export const getBasketCountState = (state: AppState): number =>
-	state.user?.basketCount ?? 0
 
 export const { setIsConnectedState, setAddressState } = userSlice.actions
 
