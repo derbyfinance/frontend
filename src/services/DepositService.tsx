@@ -6,8 +6,6 @@ import { Hex } from 'viem'
 export const CalculatePoints = async (
 	address: Hex
 ): Promise<DepositListDtoModel> => {
-	address = '0x1Ca7b496Ac4E609cf400793Db67916AC91773927'
-
 	const data = {
 		query: `query ($address: ID!) {
 					deposits(where: {user: $address}) {
