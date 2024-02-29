@@ -2,7 +2,7 @@ import ActionButton from '@components/buttons/ActionButton'
 import Card from '@components/card/Card'
 import CardContent from '@components/card/CardContent'
 import { FormInfoRow } from '@components/form/FormElements'
-import LogoIcon from '@components/icons/LogoIcon'
+import AkkorokamuiIcon from '@components/icons/AkkorokamuiIcon'
 import { useAppDispatch } from '@hooks/ReduxStore'
 import { setConnectModalOpenState } from '@store/SettingsSlice'
 import { useCallback } from 'react'
@@ -19,14 +19,11 @@ const WalletConnect = () => {
 		<Card type="block">
 			<CardContent>
 				<LogoBox>
-					<LogoIcon />
+					<AkkorokamuiIcon />
 				</LogoBox>
 				<FormInfoRow $align="center">
 					<h3>Connect Wallet</h3>
-					<p>
-						Please connect your wallet to restake, curate and see your
-						dashboard.
-					</p>
+					<p>Please connect your wallet to restake and see your dashboard.</p>
 				</FormInfoRow>
 				<ActionButton onClick={handleWalletConnect} $isGhost $align="center">
 					Connect your wallet
@@ -37,11 +34,12 @@ const WalletConnect = () => {
 }
 
 const LogoBox = styled.div`
-	width: 6em;
-	height: 6em;
+	width: 8em;
+	height: 8em;
 	margin: 1em auto;
+	padding: 1em;
 	border-radius: 50%;
-	border: 1px solid ${({ theme }) => theme.style.colorText};
+	background-color: ${({ theme }) => theme.style.colorText};
 `
 
 export default WalletConnect

@@ -1,12 +1,12 @@
 import { FormInfoRow } from '@components/form/FormElements'
-import LogoIcon from '@components/icons/LogoIcon'
+import AkkorokamuiIcon from '@components/icons/AkkorokamuiIcon'
 import { styled } from 'styled-components'
 
 const UnstakeForm = () => {
 	return (
 		<>
 			<LogoBox>
-				<LogoIcon />
+				<AkkorokamuiIcon />
 			</LogoBox>
 			<FormInfoRow $align="center">
 				<h3>Unstaking NFT is coming soon</h3>
@@ -29,10 +29,11 @@ const UnstakeForm = () => {
 }
 
 const LogoBox = styled.div`
-	width: 6em;
-	height: 6em;
+	width: 8em;
+	height: 8em;
 	margin: 1em auto;
+	padding: 1em;
 	border-radius: 50%;
-	border: 1px solid ${({ theme }) => theme.style.colorText};
+	background-color: ${({ theme }) => theme.style.colorText};
 `
 export default UnstakeForm
