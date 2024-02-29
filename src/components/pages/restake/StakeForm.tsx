@@ -8,7 +8,6 @@ import {
 	SubmitContainer
 } from '@components/form/FormElements'
 import InputField from '@components/form/InputField'
-import AkkoIcon from '@components/icons/chainIcons/AkkoIcon'
 import EthIcon from '@components/icons/chainIcons/EthIcon'
 import { useAppSelector } from '@hooks/ReduxStore'
 import useDerbyTokenBalance from '@hooks/UseDerbyTokenBalance'
@@ -186,7 +185,6 @@ const StakeForm = () => {
 					<FormRow>
 						<IconWrapper>
 							<span>akkETH</span>
-							<AkkoIcon width="1em" height="100%" />
 							<ExchangeRate exhangeRate={exchangeRate ?? 0} />
 						</IconWrapper>
 						<div>
