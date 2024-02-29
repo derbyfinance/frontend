@@ -1,4 +1,4 @@
-import LogoIcon from '@components/icons/LogoIcon'
+import AkkorokamuiIcon from '@components/icons/AkkorokamuiIcon'
 import { useAppDispatch, useAppSelector } from '@hooks/ReduxStore'
 import {
 	isConnectModalOpenState,
@@ -35,7 +35,7 @@ const ConnectWalletModal = () => {
 			<>
 				<Header>
 					<LogoBox>
-						<LogoIcon />
+						<AkkorokamuiIcon />
 					</LogoBox>
 					<h4>Connect Wallet</h4>
 					<p>to start using Akko</p>
@@ -71,10 +71,11 @@ const Content = styled.div`
 	}
 `
 const LogoBox = styled.div`
-	width: 6em;
-	height: 6em;
+	width: 8em;
+	height: 8em;
 	margin: 1em auto;
+	padding: 1em;
 	border-radius: 50%;
-	border: 1px solid ${({ theme }) => theme.style.colorText};
+	background-color: ${({ theme }) => theme.style.colorText};
 `
 export default ConnectWalletModal
