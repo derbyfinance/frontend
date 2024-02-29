@@ -23,10 +23,7 @@ const WalletConnect = () => {
 				</LogoBox>
 				<FormInfoRow $align="center">
 					<h3>Connect Wallet</h3>
-					<p>
-						Please connect your wallet to restake, curate and see your
-						dashboard.
-					</p>
+					<p>Please connect your wallet to restake and see your dashboard.</p>
 				</FormInfoRow>
 				<ActionButton onClick={handleWalletConnect} $isGhost $align="center">
 					Connect your wallet
