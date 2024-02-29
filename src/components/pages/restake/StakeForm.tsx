@@ -118,7 +118,7 @@ const StakeForm = () => {
 				abi: vaultAbi,
 				functionName: 'depositToForwardAddr',
 				value: parseEther(form.amount.toString()),
-				args: []
+				args: [0]
 			})
 			formikHelpers.resetForm({
 				values: { amount: 0, maxAmount: balance }
